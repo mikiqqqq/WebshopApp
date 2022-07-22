@@ -10,7 +10,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@SuperBuilder
+@Builder
 @Entity
 @Table(name = "PROIZVOD")
 public class Item {

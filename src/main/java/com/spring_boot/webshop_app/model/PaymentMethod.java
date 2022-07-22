@@ -1,16 +1,24 @@
 package com.spring_boot.webshop_app.model;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
+import javax.persistence.*;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@Builder
+@Entity
+@Table(name = "NACIN_PLACANJA")
 public class PaymentMethod {
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "NACIN_PLACANJA")
+    @Column(name = "NAZIV")
     private String name;
 }

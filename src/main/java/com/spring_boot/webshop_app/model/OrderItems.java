@@ -1,10 +1,18 @@
 package com.spring_boot.webshop_app.model;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
+import javax.persistence.*;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
+@Builder
+@Entity
+@Table(name = "NARUDZBA_PROIZVODI")
 public class OrderItems {
     @Id
     @Column
