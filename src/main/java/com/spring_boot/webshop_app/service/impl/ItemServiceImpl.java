@@ -2,8 +2,7 @@ package com.spring_boot.webshop_app.service.impl;
 
 import com.spring_boot.webshop_app.dto.ItemDto;
 import com.spring_boot.webshop_app.mapper.ItemDtoMapper;
-import com.spring_boot.webshop_app.model.Item;
-import com.spring_boot.webshop_app.repository.ItemRepository;
+import com.spring_boot.webshop_app.repository.ItemRepo;
 import com.spring_boot.webshop_app.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +14,7 @@ import java.util.stream.Collectors;
 public class ItemServiceImpl implements ItemService {
 
     @Autowired
-    private ItemRepository itemRepository;
+    private ItemRepo itemRepo;
 
     @Autowired
     private ItemDtoMapper itemDtoMapper;
@@ -23,7 +22,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public List<ItemDto> findAllByNameContainsIgnoreCase(String target){
-        return itemRepository.findAllByNameContainsIgnoreCase(target)
+        return itemRepo.findAllByNameContainsIgnoreCase(target)
                 .stream()
                 .map(item -> itemDtoMapper.map(item))
                 .collect(Collectors.toList());
@@ -32,7 +31,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public List<ItemDto> findByName(String name) {
-        return itemRepository.findByName(name)
+        return itemRepo.findByName(name)
                 .stream()
                 .map(item -> itemDtoMapper.map(item))
                 .collect(Collectors.toList());

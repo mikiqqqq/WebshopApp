@@ -4,35 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1349cac5-d4b8-46b3-bbd4-a4a994beec91" name="Changes" comment="Implementirana narudžba skupa s response exceptionima za frontend">
-      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/0/d/0d6d2545105341c0e352e85992d5f043e9ee861d" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/1/4/14439c7173ce16d1ee2f6cfbe41baea72d3f8584" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/1/6/16f9476f6b90087deafba3373a70a72d2a22b9b1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/2/6/26248b79fcec51df2e6eaf8ee3b855b1a93297f5" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/3/3/3343350da570c287861e53a6db3f3c2ae9f5f249" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/4/4/442292b8a7efeabbe4cc176709b833b1792140ec" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/6/2/6236a9c94eeedfef172511302bf4a7270beb2574" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/6/f/6f3c775ea20f67908b0a03af79aff5f198f3f820" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/7/b/7b377864dca78767a9892b24c80977f4071524b8" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/9/f/9f95214bbf516ef10d2e0a1d0e046f071ee55333" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/a/c/aca2c4405237721887032e3a29ce8c8423b0784b" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/b/e/bea10270d530348c3b11e4718ab7b53a33067697" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/c/a/caf88a641c4b4c4265bdbf23da5d2d4c3f08edbf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/d/6/d6b67c06d92889d40f94d254784b3ef1ae67ad04" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/d/6/d6d615a284c39f653e54da23f3c06c6a32673418" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/e/c/ec57b675e0671663650505320d174322ebfecbd3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/f/7/f70edb13b941c4b63130deef47f8b5dbe24171eb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/f/9/f9541e0b58baa105e64b457de0cab54a0f086832" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/advice/CustomValidationExceptionHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/advice/ErrorResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/exception/RecordNotFoundException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
+    <list default="true" id="1349cac5-d4b8-46b3-bbd4-a4a994beec91" name="Changes" comment="Implementirana proizvodi od narudžbe">
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_7_23_2022_10_31_PM_[Changes]/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_7_23_2022_10_31_PM_[Changes]1/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_7_23_2022_10_31_PM__Changes_.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/controller/OrderItemController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/form/OrderItemForm.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/mapper/OrderItemFormMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/repository/OrderItemRepo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/service/OrderItemService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/service/impl/OrderItemServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/9/f/9f95214bbf516ef10d2e0a1d0e046f071ee55333" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/controller/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/controller/OrderController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/form/OrderForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/form/OrderForm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/model/OrderItems.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/model/OrderItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/repository/ItemCustomRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/repository/ItemCustomRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/repository/ItemRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/repository/ItemRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/repository/impl/ItemCustomRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/repository/impl/ItemCustomRepoImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/service/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/service/OrderService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/service/impl/OrderServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/service/impl/OrderServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webshop-app/src/services/OrderService.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/webshop-app/src/services/OrderService.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/service/impl/ItemServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/service/impl/ItemServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/data.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,6 +111,8 @@
       <list>
         <item itemvalue="Spring Boot.WebShopApplication (1)" />
         <item itemvalue="Spring Boot.WebShopApplication" />
+        <item itemvalue="Spring Boot.WebShopApplication (1)" />
+        <item itemvalue="Spring Boot.WebShopApplication" />
       </list>
     </recent_temporary>
   </component>
@@ -196,7 +188,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/Order-Implementation" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
@@ -210,16 +214,12 @@
     <MESSAGE value="Implementirani načini plaćanja" />
     <MESSAGE value="Implementirani kodovi za popust" />
     <MESSAGE value="Implementirana narudžba skupa s response exceptionima za frontend" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implementirana narudžba skupa s response exceptionima za frontend" />
+    <MESSAGE value="Implementirana proizvodi od narudžbe" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implementirana proizvodi od narudžbe" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/advice/CustomValidationExceptionHandler.java</url>
-          <line>22</line>
-          <option name="timeStamp" value="28" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/repository/impl/DiscountCodeCustomRepoImpl.java</url>
           <line>19</line>

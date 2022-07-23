@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface ItemRepository extends JpaRepository<Item, Integer>, ItemCustomRepository {
+public interface ItemRepo extends JpaRepository<Item, Integer>, ItemCustomRepo {
 
     List<Item> findAllByNameContainsIgnoreCase(String target);
 }
