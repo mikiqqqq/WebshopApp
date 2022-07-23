@@ -1,7 +1,6 @@
 package com.spring_boot.webshop_app.model;
 
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 
@@ -26,5 +25,5 @@ public class DiscountCode {
     private String discountAmount;
 
     @Column(name = "ISKORISTEN")
-    private Long isActive;
+    private boolean isActive;
 }
