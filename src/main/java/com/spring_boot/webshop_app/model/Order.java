@@ -1,7 +1,6 @@
 package com.spring_boot.webshop_app.model;
 
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -22,7 +21,7 @@ public class Order {
     private Integer id;
 
     @Column(name = "DATUM")
-    private LocalDateTime datum;
+    private LocalDateTime date;
 
     @Column(name = "UKUPNA_CIJENA_BEZ_P")
     private Long priceWithNoPdvIncluded;
@@ -45,7 +44,7 @@ public class Order {
     @Column(name = "BROJ_MOBITELA")
     private Integer phoneNumber;
 
-    @Column(name = "OADRESA_DOSTAVEPIS")
+    @Column(name = "ADRESA_DOSTAVE")
     private String deliveryAddress;
 
     @Column(name = "NAPOMENA")

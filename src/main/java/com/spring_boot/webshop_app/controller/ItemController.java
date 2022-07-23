@@ -1,7 +1,6 @@
 package com.spring_boot.webshop_app.controller;
 
 import com.spring_boot.webshop_app.dto.ItemDto;
-import com.spring_boot.webshop_app.mapper.ItemDtoMapper;
 import com.spring_boot.webshop_app.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,9 +17,6 @@ public class ItemController {
 
     @Autowired
     private ItemService itemService;
-
-    @Autowired
-    private ItemDtoMapper itemDtoMapper;
 
     @GetMapping(value = "/{id}")
     ResponseEntity<ItemDto> findById(@PathVariable Integer id) {

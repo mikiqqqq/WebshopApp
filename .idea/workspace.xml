@@ -4,17 +4,35 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1349cac5-d4b8-46b3-bbd4-a4a994beec91" name="Changes" comment="Implementiran proizvod skupa s repozitorijem, servisem i kontrolerom za njega">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/controller/ItemController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/dto/ItemDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/mapper/ItemDtoMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/repository/ItemCustomRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/repository/ItemRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/repository/impl/ItemCustomRepositoryImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/service/ItemService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/service/impl/ItemServiceImpl.java" afterDir="false" />
+    <list default="true" id="1349cac5-d4b8-46b3-bbd4-a4a994beec91" name="Changes" comment="Povezani frontend i backend skupa s bazom, testna faza">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/controller/OrderController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/form/OrderForm.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/mapper/OrderFormMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/repository/OrderRepo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/service/OrderService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/service/impl/OrderServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webshop-app/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webshop-app/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webshop-app/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webshop-app/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webshop-app/public/favicon.ico" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webshop-app/public/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webshop-app/public/logo192.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webshop-app/public/logo512.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webshop-app/public/manifest.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webshop-app/public/robots.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webshop-app/src/App.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webshop-app/src/App.test.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webshop-app/src/App.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webshop-app/src/index.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webshop-app/src/index.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webshop-app/src/react-app-env.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webshop-app/src/services/OrderService.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webshop-app/tsconfig.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/controller/ItemController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/controller/ItemController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/model/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/model/Order.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/data.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/data.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -25,12 +43,17 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -55,7 +78,9 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "SONARLINT_PRECOMMIT_ANALYSIS": "true",
     "WebServerToolWindowFactoryState": "false",
-    "settings.editor.selected.configurable": "preferences.sourceCode.H2"
+    "settings.editor.selected.configurable": "preferences.sourceCode.H2",
+    "spring.configuration.checksum": "6b3fa8dd8c3f835cb37ad00652e505cf",
+    "ts.external.directory.path": "C:\\Users\\Filip\\Desktop\\Prog\\WebshopApp\\webshop-app\\node_modules\\typescript\\lib"
   }
 }]]></component>
   <component name="RunManager" selected="Spring Boot.WebShopApplication (1)">
@@ -101,6 +126,7 @@
       <option name="presentableId" value="Default" />
       <updated>1658517526094</updated>
       <workItem from="1658517529224" duration="3454000" />
+      <workItem from="1658567416698" duration="6576000" />
     </task>
     <task id="LOCAL-00001" summary="Definirani entity-ji">
       <created>1658522361033</created>
@@ -109,7 +135,14 @@
       <option name="project" value="LOCAL" />
       <updated>1658522361034</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Implementiran proizvod skupa s repozitorijem, servisem i kontrolerom za njega">
+      <created>1658525790568</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1658525790568</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -129,6 +162,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Definirani entity-ji" />
     <MESSAGE value="Implementiran proizvod skupa s repozitorijem, servisem i kontrolerom za njega" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implementiran proizvod skupa s repozitorijem, servisem i kontrolerom za njega" />
+    <MESSAGE value="Povezani frontend i backend skupa s bazom, testna faza" />
+    <option name="LAST_COMMIT_MESSAGE" value="Povezani frontend i backend skupa s bazom, testna faza" />
   </component>
 </project>
