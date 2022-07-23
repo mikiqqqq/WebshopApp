@@ -30,7 +30,7 @@ public class OrderForm {
     @NotNull(message = "Payment method is required.")
     private Integer paymentMethod;
 
-    @Size(min = 16, max = 19)
+    @Size(min = 16, max = 19, message = "Invalid Credit Card Number")
     private String creditCardNumber;
 
     @NotNull(message = "E-mail is required.")

@@ -8,7 +8,9 @@ interface Props{
 }
 
 const OrderService:React.FunctionComponent<Props> = props => {
-    const [orderId, setOrderId] = useState(null);
+    const [orderId, setOrderId] = useState({
+        id: ''
+    });
 
     const handleSubmit = () => {
             // POST request using axios inside useEffect React hook
@@ -23,9 +25,9 @@ const OrderService:React.FunctionComponent<Props> = props => {
                 deliveryAddress : "Maple Avenue 31"
              };
             axios.post(ORDER_REST_API_URL, order)
-                .then(response => setOrderId(response.data.id));
+                .then(response => setOrderId(response.data));
         
-        console.log("set");
+        console.log("set" + orderId);
         // empty dependency array means this effect will only run once (like componentDidMount in classes)
     }
 
@@ -33,7 +35,7 @@ const OrderService:React.FunctionComponent<Props> = props => {
         <div className="card text-center m-3">
             <h5 className="card-header">POST Request with React Hooks</h5>
             <div className="card-body">
-                Returned Id: {orderId}
+                Returned Id: {orderId.id}
             </div>
             <button onClick={handleSubmit}>Send data</button>
         </div>
