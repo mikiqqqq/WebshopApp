@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ItemService {
 
-    ItemDto findById(Integer id);
+    List<ItemDto> findAllByNameContainsIgnoreCase(String target);
 
     List<ItemDto> findByName(String name);
 }

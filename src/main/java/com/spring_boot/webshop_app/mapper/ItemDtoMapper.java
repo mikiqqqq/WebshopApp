@@ -17,6 +17,8 @@ public class ItemDtoMapper {
                 .name(item.getName())
                 .description(item.getDescription())
                 .price(item.getPrice())
+                .amount(item.getAmount())
+                .brandId(item.getBrandId())
                 .build();
     }
 }
