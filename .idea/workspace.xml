@@ -4,36 +4,35 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1349cac5-d4b8-46b3-bbd4-a4a994beec91" name="Changes" comment="Povezani frontend i backend skupa s bazom, testna faza">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/controller/OrderController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/form/OrderForm.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/mapper/OrderFormMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/repository/OrderRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/service/OrderService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/service/impl/OrderServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/webshop-app/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/webshop-app/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/webshop-app/package-lock.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/webshop-app/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/webshop-app/public/favicon.ico" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/webshop-app/public/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/webshop-app/public/logo192.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/webshop-app/public/logo512.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/webshop-app/public/manifest.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/webshop-app/public/robots.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/webshop-app/src/App.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/webshop-app/src/App.test.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/webshop-app/src/App.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/webshop-app/src/index.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/webshop-app/src/index.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/webshop-app/src/react-app-env.d.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/webshop-app/src/services/OrderService.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/webshop-app/tsconfig.json" afterDir="false" />
+    <list default="true" id="1349cac5-d4b8-46b3-bbd4-a4a994beec91" name="Changes" comment="Implementirana narudžba skupa s response exceptionima za frontend">
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/0/d/0d6d2545105341c0e352e85992d5f043e9ee861d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/1/4/14439c7173ce16d1ee2f6cfbe41baea72d3f8584" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/1/6/16f9476f6b90087deafba3373a70a72d2a22b9b1" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/2/6/26248b79fcec51df2e6eaf8ee3b855b1a93297f5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/3/3/3343350da570c287861e53a6db3f3c2ae9f5f249" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/4/4/442292b8a7efeabbe4cc176709b833b1792140ec" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/6/2/6236a9c94eeedfef172511302bf4a7270beb2574" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/6/f/6f3c775ea20f67908b0a03af79aff5f198f3f820" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/7/b/7b377864dca78767a9892b24c80977f4071524b8" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/9/f/9f95214bbf516ef10d2e0a1d0e046f071ee55333" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/a/c/aca2c4405237721887032e3a29ce8c8423b0784b" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/b/e/bea10270d530348c3b11e4718ab7b53a33067697" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/c/a/caf88a641c4b4c4265bdbf23da5d2d4c3f08edbf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/d/6/d6b67c06d92889d40f94d254784b3ef1ae67ad04" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/d/6/d6d615a284c39f653e54da23f3c06c6a32673418" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/e/c/ec57b675e0671663650505320d174322ebfecbd3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/f/7/f70edb13b941c4b63130deef47f8b5dbe24171eb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/f/9/f9541e0b58baa105e64b457de0cab54a0f086832" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/advice/CustomValidationExceptionHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/advice/ErrorResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/exception/RecordNotFoundException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/controller/ItemController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/controller/ItemController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/model/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/model/Order.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/data.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/data.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/controller/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/controller/OrderController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/form/OrderForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/form/OrderForm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/service/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/service/OrderService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/service/impl/OrderServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/service/impl/OrderServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webshop-app/src/services/OrderService.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/webshop-app/src/services/OrderService.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,6 +58,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectId" id="2CJP4TkBKbUT1pGl0zWHYEun1Xa" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
@@ -67,22 +69,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "settings.editor.selected.configurable": "preferences.sourceCode.H2",
-    "spring.configuration.checksum": "6b3fa8dd8c3f835cb37ad00652e505cf",
-    "ts.external.directory.path": "C:\\Users\\Filip\\Desktop\\Prog\\WebshopApp\\webshop-app\\node_modules\\typescript\\lib"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.sourceCode.H2&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;6b3fa8dd8c3f835cb37ad00652e505cf&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\Filip\\Desktop\\Prog\\WebshopApp\\webshop-app\\node_modules\\typescript\\lib&quot;
   }
-}]]></component>
+}</component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.spring_boot.webshop_app.service" />
+    </key>
+  </component>
   <component name="RunManager" selected="Spring Boot.WebShopApplication (1)">
     <configuration name="WebShopApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="WebshopApp" />
@@ -126,7 +133,8 @@
       <option name="presentableId" value="Default" />
       <updated>1658517526094</updated>
       <workItem from="1658517529224" duration="3454000" />
-      <workItem from="1658567416698" duration="6576000" />
+      <workItem from="1658567416698" duration="9381000" />
+      <workItem from="1658584228459" duration="21358000" />
     </task>
     <task id="LOCAL-00001" summary="Definirani entity-ji">
       <created>1658522361033</created>
@@ -142,7 +150,42 @@
       <option name="project" value="LOCAL" />
       <updated>1658525790568</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Povezani frontend i backend skupa s bazom, testna faza">
+      <created>1658576822260</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1658576822260</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Implementiran brand, usavršen proizvod, poboljšana baza podataka">
+      <created>1658601183483</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1658601183484</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Implementiran brand, usavršen proizvod, poboljšana baza podataka">
+      <created>1658601207517</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1658601207517</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Implementirani načini plaćanja">
+      <created>1658602367392</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1658602367392</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Implementirani kodovi za popust">
+      <created>1658603934235</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1658603934235</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -163,6 +206,32 @@
     <MESSAGE value="Definirani entity-ji" />
     <MESSAGE value="Implementiran proizvod skupa s repozitorijem, servisem i kontrolerom za njega" />
     <MESSAGE value="Povezani frontend i backend skupa s bazom, testna faza" />
-    <option name="LAST_COMMIT_MESSAGE" value="Povezani frontend i backend skupa s bazom, testna faza" />
+    <MESSAGE value="Implementiran brand, usavršen proizvod, poboljšana baza podataka" />
+    <MESSAGE value="Implementirani načini plaćanja" />
+    <MESSAGE value="Implementirani kodovi za popust" />
+    <MESSAGE value="Implementirana narudžba skupa s response exceptionima za frontend" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implementirana narudžba skupa s response exceptionima za frontend" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/advice/CustomValidationExceptionHandler.java</url>
+          <line>22</line>
+          <option name="timeStamp" value="28" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/repository/impl/DiscountCodeCustomRepoImpl.java</url>
+          <line>19</line>
+          <option name="timeStamp" value="37" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="SpringBootApplicationConfigurationType">
+        <watch expression="updatedOrder.getCreditCardNumber()" />
+        <watch expression="orderRepo.findById(orderId)" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>
