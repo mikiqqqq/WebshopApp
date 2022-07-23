@@ -22,12 +22,13 @@ public class ItemServiceImpl implements ItemService {
 
 
     @Override
-    public ItemDto findById(Integer id) {
-        Item item = itemRepository
-                .findById(id).orElse(null);
-
-        return itemDtoMapper.map(item);
+    public List<ItemDto> findAllByNameContainsIgnoreCase(String target){
+        return itemRepository.findAllByNameContainsIgnoreCase(target)
+                .stream()
+                .map(item -> itemDtoMapper.map(item))
+                .collect(Collectors.toList());
     }
+
 
     @Override
     public List<ItemDto> findByName(String name) {
