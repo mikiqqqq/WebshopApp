@@ -13,7 +13,21 @@ public class OrderServiceImpl implements OrderService {
     OrderRepo orderRepo;
 
     @Override
-    public void save(Order order){
+    public Order save(Order order){
         orderRepo.save(order);
+        return order;
+    }
+
+    @Override
+    public Order update(Integer orderId, Order updatedOrder) {
+        updatedOrder.setId(orderId);
+        orderRepo.save(updatedOrder);
+
+        return updatedOrder;
+    }
+
+    @Override
+    public void delete(Integer id) {
+        orderRepo.deleteById(id);
     }
 }
