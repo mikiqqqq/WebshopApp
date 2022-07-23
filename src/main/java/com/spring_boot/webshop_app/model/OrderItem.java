@@ -1,7 +1,6 @@
 package com.spring_boot.webshop_app.model;
 
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 
@@ -13,7 +12,7 @@ import javax.persistence.*;
 @Builder
 @Entity
 @Table(name = "NARUDZBA_PROIZVODI")
-public class OrderItems {
+public class OrderItem {
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
