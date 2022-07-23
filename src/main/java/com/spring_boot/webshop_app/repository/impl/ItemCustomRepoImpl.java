@@ -1,7 +1,7 @@
 package com.spring_boot.webshop_app.repository.impl;
 
 import com.spring_boot.webshop_app.model.Item;
-import com.spring_boot.webshop_app.repository.ItemCustomRepository;
+import com.spring_boot.webshop_app.repository.ItemCustomRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -9,7 +9,7 @@ import javax.persistence.EntityManager;
 import java.util.List;
 
 @Repository
-public class ItemCustomRepositoryImpl implements ItemCustomRepository {
+public class ItemCustomRepoImpl implements ItemCustomRepo {
     @Autowired
     private EntityManager entityManager;
 
