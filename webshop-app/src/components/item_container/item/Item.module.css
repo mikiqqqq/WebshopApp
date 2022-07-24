@@ -1,0 +1,16 @@
+.items_container{
+    display: flex;
+}
+
+.item_box{
+    color: black;
+    width: 380px;
+    height: 550px;
+    border: 2px solid blue;
+    padding: 15px;
+    background-color: aliceblue;
+}
+
+.item_box > img{
+    max-width: 100%;
+}

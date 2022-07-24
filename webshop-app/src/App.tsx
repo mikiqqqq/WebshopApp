@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
-import { OrderService } from './services/OrderService';
+import Item from './components/item_container/item/Item';
 
 function App() {
   return (
-    <div className="App">
-      <OrderService />
+    <div>
+      <Item />
     </div>
   );
 }
