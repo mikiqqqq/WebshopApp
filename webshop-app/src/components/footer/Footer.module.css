@@ -1,0 +1,48 @@
+.gray {
+    font-family: Verdana;
+    color: gray;
+    font-size: 12px;
+}
+
+.copyright{
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: Verdana;
+    color: gray;
+    font-size: 12px;
+  }
+
+  .footer_line{
+    position: absolute;
+    bottom: 30px;
+    width: 40%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 1px solid gray;
+  }
+
+  footer {
+    width: 100%;
+    position: relative;
+    height: 185px;
+    box-shadow: 0 3px 20px 0px #0000003b;
+    background-color: #d2d2ff;
+  }
+
+  .footer_table {
+    table-layout: fixed;
+    max-width: 100%;
+    position: absolute;
+    top: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: Verdana;
+    border-spacing: 10px;
+    white-space: nowrap;
+}
+
+.footer_table td{
+    padding: 0px 4vw;
+}

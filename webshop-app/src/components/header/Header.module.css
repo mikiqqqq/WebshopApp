@@ -1,0 +1,127 @@
+header{
+    width: 100%;
+    min-height: 45px;
+    background: rgb(230,230,250);
+    background: radial-gradient(circle, rgba(230,230,250,1) 0%, rgba(210,210,255,1) 100%);
+    box-shadow: 0 3px 20px 0 #0000003b;
+    position: relative;
+    z-index: 1;
+}
+
+.discount_banner{
+    width: 100%;
+    height: 45px;
+    background-image: url('../../images/mesh-gradient.png');
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.discount_code{
+    font-size: 1.8em;
+    margin: 2px;
+    color: white;
+}
+
+.bar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.item_class{
+    width: 185px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+}
+
+.class_styling{
+    margin: 0;
+}
+
+.title{
+    color: black;
+    margin: 5px;
+    font-family: 'Verdana';
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+nav{
+    width: 185px;
+}
+.cart_button {
+    background-color: transparent;
+    border: none;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.icon{
+    width: 25px;
+    height: 25px;
+    
+}
+
+.cart_button:hover{
+    background-color: rgba(160, 160, 160, 0.2);
+}
+
+.search_button{
+    width: 45px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search_bar {
+    position: absolute;
+    right: 200px;
+    height: 45px;
+    width: 45px;
+    background-color: transparent;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  
+  .search_bar > .search_button {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    border-radius: 50%;
+    color: black;
+  }
+  
+  .search_bar:hover > .search_button {
+    background-color: rgba(160, 160, 160, 0.2);
+  }
+  
+  .search_txt {
+    position: absolute;
+    top: 5px;
+    right: 38px;
+    border: none;
+    outline: none;
+    padding: 0;
+    height: 35px;
+    width: 0;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    background-color: transparent;
+    color: black;
+    font-size: 16px;
+    transition: 0.4s width, 0.4s padding;
+  }
+  
+  .search_bar:hover > .search_txt{
+    width: 240px;
+    padding: 0 0.75rem;
+    border-bottom: 1px solid black;
+    border-right: 0;
+  }

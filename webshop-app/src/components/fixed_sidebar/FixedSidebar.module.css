@@ -1,0 +1,18 @@
+.sidebar{
+  box-sizing: border-box;
+  width: 17%;
+  background-color: lavender;
+  padding-bottom: 35px;
+  box-shadow: 0 9px 0 0 lavender, 0 -9px 0 0 lavender, 12px 0 15px -4px rgba(0,0,0,0.2), 0 9px 0 0 lavender;
+  font-family: Gotham,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Droid Sans,Helvetica Neue,sans-serif;
+  z-index: 0;
+}
+
+.fixed{
+    position: sticky;
+    width: 100%;
+}
+
+.accordion{
+    margin-top: 150px;
+}

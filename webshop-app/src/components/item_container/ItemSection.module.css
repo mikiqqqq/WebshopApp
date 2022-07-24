@@ -1,0 +1,6 @@
+.section{
+  box-sizing: border-box;
+  width: 83%;
+  padding: 35px 150px 70px 120px;
+  background-color: white;
+}
