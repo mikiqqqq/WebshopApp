@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface BrandService {
     List<Brand> findByName(String name);
+
+    List<Brand> fetchAll();
 }

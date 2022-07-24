@@ -21,17 +21,24 @@ public class ItemServiceImpl implements ItemService {
 
 
     @Override
-    public List<ItemDto> findAllByNameContainsIgnoreCase(String target){
-        return itemRepo.findAllByNameContainsIgnoreCase(target)
+    public List<ItemDto> fetchAll(){
+        return itemRepo.findAll()
                 .stream()
                 .map(item -> itemDtoMapper.map(item))
                 .collect(Collectors.toList());
     }
 
-
     @Override
     public List<ItemDto> findByName(String name) {
         return itemRepo.findByName(name)
+                .stream()
+                .map(item -> itemDtoMapper.map(item))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ItemDto> findAllByNameContainsIgnoreCase(String target){
+        return itemRepo.findAllByNameContainsIgnoreCase(target)
                 .stream()
                 .map(item -> itemDtoMapper.map(item))
                 .collect(Collectors.toList());

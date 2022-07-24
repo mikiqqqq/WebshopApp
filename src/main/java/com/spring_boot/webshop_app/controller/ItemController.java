@@ -18,6 +18,15 @@ public class ItemController {
     @Autowired
     private ItemService itemService;
 
+
+    @GetMapping(value = "/fetch-all")
+    ResponseEntity<List<ItemDto>> fetchAll() {
+
+        return ResponseEntity
+                .ok()
+                .body(itemService.fetchAll());
+    }
+
     @GetMapping(value = "/by-name/{name}")
     ResponseEntity<List<ItemDto>> findByName(@PathVariable String name) {
 
@@ -25,5 +34,13 @@ public class ItemController {
                 .ok()
                 .body(itemService.findByName(name));
 
+    }
+
+    @GetMapping(value = "contain/{target}")
+    ResponseEntity<List<ItemDto>> findAllByNameContainsIgnoreCase(@PathVariable String target) {
+
+        return ResponseEntity
+                .ok()
+                .body(itemService.findAllByNameContainsIgnoreCase(target));
     }
 }

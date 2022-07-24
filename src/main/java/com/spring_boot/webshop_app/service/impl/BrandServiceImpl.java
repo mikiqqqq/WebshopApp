@@ -16,6 +16,12 @@ public class BrandServiceImpl implements BrandService {
     BrandRepo brandRepo;
 
     @Override
+    public List<Brand> fetchAll(){
+        return new ArrayList<>(brandRepo.findAll());
+    }
+
+
+    @Override
     public List<Brand> findByName(String name) {
         return new ArrayList<>(brandRepo.findByName(name));
     }

@@ -9,4 +9,6 @@ public interface ItemService {
     List<ItemDto> findAllByNameContainsIgnoreCase(String target);
 
     List<ItemDto> findByName(String name);
+
+    List<ItemDto> fetchAll();
 }

@@ -18,6 +18,13 @@ public class BrandController {
     @Autowired
     private BrandService brandService;
 
+    @GetMapping(value = "/fetch-all")
+    ResponseEntity<List<Brand>> fetchAll() {
+        return ResponseEntity
+                .ok()
+                .body(brandService.fetchAll());
+    }
+
     @GetMapping(value = "/by-name/{name}")
     ResponseEntity<List<Brand>> findByName(@PathVariable String name) {
 
