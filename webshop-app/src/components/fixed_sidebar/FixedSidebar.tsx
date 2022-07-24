@@ -5,10 +5,11 @@ export default function FixedSidebar() {
     return (
         <div className={style.sidebar}>
             <div className={style.fixed}>
+            <h2 className={style.filter_title}>Filtriraj proizvode: </h2>
             <Accordion className={style.accordion} flush>
-                <Accordion.Item eventKey="0">
-                    <Accordion.Header>Brand</Accordion.Header>
-                    <Accordion.Body>
+                <Accordion.Item className={style.accordion_item} eventKey="0">
+                    <Accordion.Header className={style.accordion_header}>Brand</Accordion.Header>
+                    <Accordion.Body className={style.accordion_body}>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                         eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
                         minim veniam, quis nostrud exercitation ullamco laboris nisi ut
@@ -18,9 +19,9 @@ export default function FixedSidebar() {
                         culpa qui officia deserunt mollit anim id est laborum.
                     </Accordion.Body>
                 </Accordion.Item>
-                <Accordion.Item eventKey="1">
-                    <Accordion.Header>Cijena</Accordion.Header>
-                    <Accordion.Body>
+                <Accordion.Item className={style.accordion_item} eventKey="1">
+                    <Accordion.Header className={style.accordion_header}>Cijena</Accordion.Header>
+                    <Accordion.Body className={style.accordion_body}>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                         eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
                         minim veniam, quis nostrud exercitation ullamco laboris nisi ut

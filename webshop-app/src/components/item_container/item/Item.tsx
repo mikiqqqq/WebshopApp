@@ -30,7 +30,7 @@ const Item:React.FunctionComponent<Props> = () => {
     }
 
     return(
-        <div className={style.items_container}>
+        <>
         {items.map(
             item => { return(
             <div className={style.item_box} key={item.id}>
@@ -40,7 +40,7 @@ const Item:React.FunctionComponent<Props> = () => {
                 <p>Cijena: {item.price}</p>
             </div>
         );})}
-        </div>
+        </>
     );
 }
 

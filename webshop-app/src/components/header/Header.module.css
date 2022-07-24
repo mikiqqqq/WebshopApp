@@ -1,9 +1,9 @@
 header{
     width: 100%;
     min-height: 45px;
-    background: rgb(230,230,250);
-    background: radial-gradient(circle, rgba(230,230,250,1) 0%, rgba(210,210,255,1) 100%);
-    box-shadow: 0 3px 20px 0 #0000003b;
+    background: rgb(62,67,80);
+    background: radial-gradient(circle, rgba(62,67,80,1) 0%, rgba(32,35,42,1) 100%);
+    box-shadow: 0 0 20px 0 black;
     position: relative;
     z-index: 1;
 }
@@ -35,7 +35,9 @@ header{
     display: flex;
     justify-content: center;
     align-items: center;
-    color: black;
+    color: #7CFC00
+
+    ;
 }
 
 .class_styling{
@@ -43,7 +45,9 @@ header{
 }
 
 .title{
-    color: black;
+    color: #7CFC00
+
+    ;
     margin: 5px;
     font-family: 'Verdana';
     font-weight: bold;
@@ -65,7 +69,7 @@ nav{
 .icon{
     width: 25px;
     height: 25px;
-    
+    color: #7CFC00;
 }
 
 .cart_button:hover{
@@ -114,7 +118,7 @@ nav{
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
     background-color: transparent;
-    color: black;
+    color: white;
     font-size: 16px;
     transition: 0.4s width, 0.4s padding;
   }
@@ -122,6 +126,6 @@ nav{
   .search_bar:hover > .search_txt{
     width: 240px;
     padding: 0 0.75rem;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #7CFC00;
     border-right: 0;
   }

@@ -9,7 +9,7 @@ class ItemService {
     }
 
     findItemByName(itemName:string){
-        return axios.get(ITEMS_API_BASE_URL + '/find-by/' + itemName)
+        return axios.get(ITEMS_API_BASE_URL + '/by-name/' + itemName)
     }
 
     findAllThatContainTarget(target:string){

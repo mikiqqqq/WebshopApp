@@ -5,28 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1349cac5-d4b8-46b3-bbd4-a4a994beec91" name="Changes" comment="Dodani header, footer i glavni section za main stranicu, napravljen display proizvoda iz baze">
-      <change afterPath="$PROJECT_DIR$/webshop-app/src/components/fixed_sidebar/FixedSidebar.module.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/webshop-app/src/components/fixed_sidebar/FixedSidebar.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/webshop-app/src/components/footer/Footer.module.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/webshop-app/src/components/footer/Footer.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/webshop-app/src/components/header/Header.module.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/webshop-app/src/components/header/Header.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/webshop-app/src/components/item_container/ItemSection.module.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/webshop-app/src/components/item_container/ItemSection.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/webshop-app/src/components/main/Main.module.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/webshop-app/src/components/main/Main.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/webshop-app/src/images/mesh-gradient.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/3/3/3343350da570c287861e53a6db3f3c2ae9f5f249" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/6/f/6f3c775ea20f67908b0a03af79aff5f198f3f820" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/b/e/bea10270d530348c3b11e4718ab7b53a33067697" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/d/6/d6b67c06d92889d40f94d254784b3ef1ae67ad04" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/d/6/d6d615a284c39f653e54da23f3c06c6a32673418" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webshop-app/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/webshop-app/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webshop-app/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/webshop-app/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webshop-app/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/webshop-app/src/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webshop-app/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/webshop-app/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webshop-app/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/webshop-app/src/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webshop-app/src/components/fixed_sidebar/FixedSidebar.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/webshop-app/src/components/fixed_sidebar/FixedSidebar.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webshop-app/src/components/fixed_sidebar/FixedSidebar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/webshop-app/src/components/fixed_sidebar/FixedSidebar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webshop-app/src/components/footer/Footer.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/webshop-app/src/components/footer/Footer.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webshop-app/src/components/footer/Footer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/webshop-app/src/components/footer/Footer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webshop-app/src/components/header/Header.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/webshop-app/src/components/header/Header.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webshop-app/src/components/item_container/ItemSection.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/webshop-app/src/components/item_container/ItemSection.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webshop-app/src/components/item_container/item/Item.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/webshop-app/src/components/item_container/item/Item.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webshop-app/src/components/item_container/item/Item.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/webshop-app/src/components/item_container/item/Item.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -254,7 +244,14 @@
       <option name="project" value="LOCAL" />
       <updated>1658671218349</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Dodani header, footer i glavni section za main stranicu, napravljen display proizvoda iz baze">
+      <created>1658687197870</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1658687197870</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

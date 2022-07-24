@@ -6,7 +6,7 @@
 
 .copyright{
     position: absolute;
-    bottom: 12px;
+    bottom: 0;
     left: 50%;
     transform: translateX(-50%);
     font-family: Verdana;
@@ -16,19 +16,19 @@
 
   .footer_line{
     position: absolute;
-    bottom: 30px;
-    width: 40%;
+    bottom: 50px;
+    width: 45%;
     left: 50%;
     transform: translateX(-50%);
-    border: 1px solid gray;
+    border: 1px solid #7CFC00;
   }
 
   footer {
     width: 100%;
     position: relative;
     height: 185px;
-    box-shadow: 0 3px 20px 0px #0000003b;
-    background-color: #d2d2ff;
+    box-shadow: 0 10px 20px 5px black;
+    background-color: #20232a;
   }
 
   .footer_table {
@@ -41,6 +41,7 @@
     font-family: Verdana;
     border-spacing: 10px;
     white-space: nowrap;
+    color: white;
 }
 
 .footer_table td{

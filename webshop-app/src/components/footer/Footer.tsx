@@ -20,7 +20,7 @@ export default function Footer() {
                     <td>Java Spring Boot</td>
                 </tr>
             </table>
-            <hr className={style.footer_line}/>
+            <div className={style.footer_line}></div>
                 <p className={style.copyright}>Copyright &#169; 2022 All Rights Reserved Tech King</p>
         </footer>
     );

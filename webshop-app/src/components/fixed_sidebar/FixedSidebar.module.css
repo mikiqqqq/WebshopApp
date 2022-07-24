@@ -1,9 +1,9 @@
 .sidebar{
   box-sizing: border-box;
   width: 17%;
-  background-color: lavender;
+  background-color: #2b2f38;
   padding-bottom: 35px;
-  box-shadow: 0 9px 0 0 lavender, 0 -9px 0 0 lavender, 12px 0 15px -4px rgba(0,0,0,0.2), 0 9px 0 0 lavender;
+  box-shadow: 0 9px 0 0 lavender, 0 -9px 0 0 lavender, 20px 0 15px -4px rgba(0,0,0,0.2), 0 9px 0 0 lavender;
   font-family: Gotham,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Droid Sans,Helvetica Neue,sans-serif;
   z-index: 0;
 }
@@ -13,6 +13,31 @@
     width: 100%;
 }
 
-.accordion{
-    margin-top: 150px;
+.filter_title{
+    margin-top: 150px !important;
+    color: #7CFC00;
+    font-size: 1.6em;
+    margin-left: 5px;
 }
+
+.accordion_header{
+    border-bottom: 1px solid #7CFC00;
+    background-color: #656a75 !important;
+    margin-top: -1px;
+}
+
+
+.accordion_header > button {
+  background-color: #656a75 !important;
+  color: #7CFC00 !important;
+}
+
+.accordion_body{
+    background-color: #20232a;
+    border-bottom: 1px solid #7CFC00;
+    color: #7CFC00;
+}
+
+button:active {
+    background-color: red;
+  }

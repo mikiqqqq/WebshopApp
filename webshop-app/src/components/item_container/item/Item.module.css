@@ -1,14 +1,13 @@
-.items_container{
-    display: flex;
-}
-
 .item_box{
-    color: black;
-    width: 380px;
-    height: 550px;
-    border: 2px solid blue;
+    color: white;
+    height: 350px;
+    border: 2px solid #7CFC00;
+    border-radius: 25px;
     padding: 15px;
-    background-color: aliceblue;
+    background-color: #20232a;
+    flex-basis: 250px;
+    margin-top: 50px;
+    box-shadow: 0 10px 20px 5px gray;
 }
 
 .item_box > img{
