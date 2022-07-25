@@ -37,6 +37,22 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
+    public List<ItemDto> findByBrandId(Integer id){
+        return itemRepo.findByBrandId(id)
+                .stream()
+                .map(item -> itemDtoMapper.map(item))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ItemDto> findAllInPriceRange(Long uprLmt, Long lwrLimit){
+        return itemRepo.findAllInPriceRange(uprLmt, lwrLimit)
+                .stream()
+                .map(item -> itemDtoMapper.map(item))
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public List<ItemDto> findAllByNameContainsIgnoreCase(String target){
         return itemRepo.findAllByNameContainsIgnoreCase(target)
                 .stream()

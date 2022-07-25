@@ -11,6 +11,7 @@
 .fixed{
     position: sticky;
     width: 100%;
+    margin-top: 150px;
 }
 
 .filter_title{
@@ -30,14 +31,14 @@
 .accordion_header > button {
   background-color: #656a75 !important;
   color: #7CFC00 !important;
+  height: 50px;
 }
 
 .accordion_body{
     background-color: #20232a;
     border-bottom: 1px solid #7CFC00;
     color: #7CFC00;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
 }
-
-button:active {
-    background-color: red;
-  }

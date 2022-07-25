@@ -22,4 +22,23 @@ public class ItemCustomRepoImpl implements ItemCustomRepo {
                 .getResultList();
 
     }
+
+    @Override
+    public List<Item> findAllInPriceRange(Long uprLmt, Long lwrLmt) {
+
+        return entityManager
+                .createQuery("select i from Item i where i.price < :uprLmt and i.price > :lwrLmt", Item.class)
+                .setParameter("uprLmt", uprLmt)
+                .setParameter("lwrLmt", lwrLmt)
+                .getResultList();
+    }
+
+    @Override
+    public List<Item> findByBrandId(Integer id) {
+
+        return entityManager
+                .createQuery("select i from Item i where i.brandId = :brandId", Item.class)
+                .setParameter("brandId", id)
+                .getResultList();
+    }
 }

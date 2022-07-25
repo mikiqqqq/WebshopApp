@@ -12,6 +12,14 @@ class ItemService {
         return axios.get(ITEMS_API_BASE_URL + '/by-name/' + itemName)
     }
 
+    findItemByBrandId(brandId:number){
+        return axios.get(ITEMS_API_BASE_URL + '/by-brandId/' + brandId)
+    }
+
+    findAllInPriceRange(uprLmt: number, lwrLmt: number){
+        return axios.get(ITEMS_API_BASE_URL + '/in-price-range/' + uprLmt + '-' + lwrLmt)
+    }
+
     findAllThatContainTarget(target:string){
         return axios.get(ITEMS_API_BASE_URL + '/contain/' + target)
     }

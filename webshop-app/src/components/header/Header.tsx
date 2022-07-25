@@ -1,8 +1,14 @@
 import style from './Header.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMagnifyingGlass, faCartShopping } from '@fortawesome/free-solid-svg-icons';
+import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
+import SearchForm from './search_form/SearchForm';
+import { SearchOptions } from '../MainContainerData';
 
-export default function Header() {
+interface Props{
+    onSubmit(searchOptions: SearchOptions): void;
+}
+
+const Header:React.FunctionComponent<Props> = props => {
 
     return (
         <header>
@@ -15,13 +21,8 @@ export default function Header() {
                 </div>
                 <h1 className={style.title}>TECH KING</h1>
                 <nav>
-                    <div className={style.search_bar}>
-                        <div className={style.search_button}>
-                             <FontAwesomeIcon className={style.icon} icon={faMagnifyingGlass} />
-                        </div>
-                        <input className={style.search_txt} type="text" placeholder="Pretraži proizvode" />
-                    </div>
-                    
+                    <SearchForm onSubmit={props.onSubmit}/>
+
                     <button className={style.cart_button}>
                         <FontAwesomeIcon className={style.icon} icon={faCartShopping} />
                     </button>
@@ -30,3 +31,5 @@ export default function Header() {
         </header>
     );
   }
+
+  export default Header;

@@ -57,14 +57,30 @@ CREATE TABLE NARUDZBA_PROIZVODI
     FOREIGN KEY (PROIZVOD_ID) REFERENCES PROIZVOD(ID)
 );
 
+INSERT INTO BRAND (NAZIV) VALUES ('Asus'), ('Razer'), ('Samsung'), ('Apple'),
+                                 ('Xiaomi'), ('LG'), ('Speedlink'), ('Logitech'),
+                                 ('Noa'), ('SharkForce'), ('Huawei'), ('Vivax');
+
+INSERT INTO PROIZVOD (NAZIV, OPIS, BRAND_ID, CIJENA) VALUES ('mis', 'mis za igranje', 1, 250);
+INSERT INTO PROIZVOD (NAZIV, OPIS, BRAND_ID, CIJENA) VALUES ('laptop', 'laptop za igranje', 1, 1100);
+INSERT INTO PROIZVOD (NAZIV, OPIS, BRAND_ID, CIJENA) VALUES ('komp', 'komp za igranje', 1, 5800);
+INSERT INTO PROIZVOD (NAZIV, OPIS, BRAND_ID, CIJENA) VALUES ('komp', 'komp za igranje', 2, 8300);
+INSERT INTO PROIZVOD (NAZIV, OPIS, BRAND_ID, CIJENA) VALUES ('komp', 'komp za igranje', 2, 12000);
 INSERT INTO PROIZVOD (NAZIV, OPIS) VALUES ('mis', 'mis za igranje');
 INSERT INTO PROIZVOD (NAZIV, OPIS) VALUES ('laptop', 'laptop za igranje');
 INSERT INTO PROIZVOD (NAZIV, OPIS) VALUES ('komp', 'komp za igranje');
 INSERT INTO PROIZVOD (NAZIV, OPIS) VALUES ('komp', 'komp za igranje');
 INSERT INTO PROIZVOD (NAZIV, OPIS) VALUES ('komp', 'komp za igranje');
-
-
-INSERT INTO BRAND (NAZIV) VALUES ('Asus');
+INSERT INTO PROIZVOD (NAZIV, OPIS) VALUES ('mis', 'mis za igranje');
+INSERT INTO PROIZVOD (NAZIV, OPIS) VALUES ('laptop', 'laptop za igranje');
+INSERT INTO PROIZVOD (NAZIV, OPIS) VALUES ('komp', 'komp za igranje');
+INSERT INTO PROIZVOD (NAZIV, OPIS) VALUES ('komp', 'komp za igranje');
+INSERT INTO PROIZVOD (NAZIV, OPIS) VALUES ('komp', 'komp za igranje');
+INSERT INTO PROIZVOD (NAZIV, OPIS) VALUES ('mis', 'mis za igranje');
+INSERT INTO PROIZVOD (NAZIV, OPIS) VALUES ('laptop', 'laptop za igranje');
+INSERT INTO PROIZVOD (NAZIV, OPIS) VALUES ('komp', 'komp za igranje');
+INSERT INTO PROIZVOD (NAZIV, OPIS) VALUES ('komp', 'komp za igranje');
+INSERT INTO PROIZVOD (NAZIV, OPIS) VALUES ('komp', 'komp za igranje');
 
 INSERT INTO NACIN_PLACANJA (NAZIV) VALUES ('KARTIČNO'), ('GOTOVINSKO');
 

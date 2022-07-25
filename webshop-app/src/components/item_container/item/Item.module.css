@@ -8,8 +8,48 @@
     flex-basis: 250px;
     margin-top: 50px;
     box-shadow: 0 10px 20px 5px gray;
+    position: relative;
 }
 
 .item_box > img{
     max-width: 100%;
+}
+
+.item_name{
+    text-align: center;
+    margin-top: 5px;
+    color: #7CFC00;
+    font-size: 1.5em;
+}
+
+.item_price{
+    position: absolute;
+    bottom: 5px;
+    color: #cf1020;    ;
+}
+
+.icon{
+    color: mintcream;
+    width: 25px;
+    height: 25px;
+    margin-right: 2px;
+    margin-top: 2px;
+}
+
+.cart_button{
+    position: absolute;
+    width: 45px;
+    height: 45px;
+    bottom: 15px;
+    right: 20px;
+    background-color: #7CFC00;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cart_button:hover > .icon{
+    color: #cf1020; 
 }

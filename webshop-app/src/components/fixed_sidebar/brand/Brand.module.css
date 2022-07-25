@@ -1,0 +1,19 @@
+.brand_button{
+    padding: 2px 10px;
+    color: #20232a;
+    border-radius: 35px;
+    background-color: #7CFC00;
+    font-size: 0.8em;
+    margin: 7.5px 5px 7.5px 5px;
+    border: none;
+}
+
+.brand_button_selected{
+    padding: 2px 10px;
+    color: #7CFC00;
+    border-radius: 35px;
+    background-color: #656a75;
+    font-size: 0.8em;
+    margin: 10px 5px 10px 5px;
+    border: none;
+}

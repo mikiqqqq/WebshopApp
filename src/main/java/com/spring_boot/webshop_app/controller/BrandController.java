@@ -23,7 +23,7 @@ public class BrandController {
                 .body(brandService.fetchAll());
     }
 
-    @GetMapping(value = "/by-name/{name}")
+    @GetMapping(value = "/by-id/{name}")
     ResponseEntity<List<Brand>> findByName(@PathVariable String name) {
 
         return ResponseEntity

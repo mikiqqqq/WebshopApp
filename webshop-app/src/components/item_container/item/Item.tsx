@@ -1,46 +1,26 @@
-import React, { useEffect, useState } from "react";
-import ItemService from "../../../services/ItemService";
-import style from './Item.module.css'
+import React from "react";
+import style from './Item.module.css';
 import itemImg from '../../../images/item.jpg'
+import { Hit } from "../../ResponseItemsData";
+import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-interface Props{
-
+interface Props {
+    item: Hit;
 }
 
-interface ItemType {
-    id: number;
-    name: string;
-    description: string;
-    price: number;
-  }
+const Item: React.FunctionComponent<Props> = props => {
 
-const Item:React.FunctionComponent<Props> = () => {
-
-    const [items, setItems] = useState<Array<ItemType>>([]);
-
-    useEffect(() => {
-        fetchItems();
-    }, [])
-
-    const fetchItems = () => {
-        ItemService.fetchAllItems().then((response) => {
-            setItems(response.data);
-            console.log(response.data);
-        });
-    }
-
-    return(
-        <>
-        {items.map(
-            item => { return(
-            <div className={style.item_box} key={item.id}>
-                <img className={style.image} src={itemImg} alt='Slika proizvoda'></img>
-                <h3>{item.name}</h3>
-                <p>Opis: {item.description}</p>
-                <p>Cijena: {item.price}</p>
-            </div>
-        );})}
-        </>
+    return (
+        <div className={style.item_box}>
+            <img className={style.image} src={itemImg} alt='Slika proizvoda'></img>
+            <h3 className={style.item_name}>{props.item.name}</h3>
+            <p className={style.item_description}>Opis: {props.item.description}</p>
+            <p className={style.item_price}>{props.item.price}kn</p>
+            <button className={style.cart_button}>
+                <FontAwesomeIcon className={style.icon} icon={faCartPlus} />
+            </button>
+        </div>
     );
 }
 

@@ -10,5 +10,9 @@ public interface ItemService {
 
     List<ItemDto> findByName(String name);
 
+    List<ItemDto> findByBrandId(Integer id);
+
+    List<ItemDto> findAllInPriceRange(Long uprLmt, Long lwrLimit);
+
     List<ItemDto> fetchAll();
 }

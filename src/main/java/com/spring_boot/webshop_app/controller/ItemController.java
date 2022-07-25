@@ -34,6 +34,23 @@ public class ItemController {
 
     }
 
+    @GetMapping(value = "/by-brandId/{id}")
+    ResponseEntity<List<ItemDto>> findByBrandId(@PathVariable Integer id) {
+
+        return ResponseEntity
+                .ok()
+                .body(itemService.findByBrandId(id));
+    }
+
+    @GetMapping(value = "/in-price-range/{uprLmt}-{lwrLmt}")
+    ResponseEntity<List<ItemDto>> findAllInPriceRange(@PathVariable Long uprLmt, @PathVariable Long lwrLmt){
+
+        return ResponseEntity
+                .ok()
+                .body(itemService.findAllInPriceRange(uprLmt, lwrLmt));
+    }
+
+
     @GetMapping(value = "contain/{target}")
     ResponseEntity<List<ItemDto>> findAllByNameContainsIgnoreCase(@PathVariable String target) {
 

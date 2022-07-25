@@ -4,12 +4,8 @@ const BRAND_API_BASE_URL = "http://localhost:8080/api/brand";
 
 class BrandService {
 
-    fetchAllItems(){
+    fetchAllBrands(){
         return axios.get(BRAND_API_BASE_URL + '/fetch-all');
-    }
-
-    findItemByName(brandName:string){
-        return axios.get(BRAND_API_BASE_URL + '/by-name/' + brandName)
     }
 }
 
