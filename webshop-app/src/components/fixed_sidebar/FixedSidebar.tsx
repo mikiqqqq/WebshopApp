@@ -22,7 +22,7 @@ const FixedSidebar:React.FunctionComponent<Props> = props => {
         <div className={style.sidebar}>
             <div className={style.fixed}>
             <h2 className={style.filter_title}>Filtriraj proizvode: </h2>
-            <Accordion className={style.accordion} flush>
+            <Accordion className={style.accordion} defaultActiveKey="0" flush>
                 <Accordion.Item className={style.accordion_item} eventKey="0">
                     <Accordion.Header className={style.accordion_header}>Brand</Accordion.Header>
                     <Accordion.Body className={style.accordion_body}>
@@ -60,7 +60,7 @@ const FixedSidebar:React.FunctionComponent<Props> = props => {
                                             label="10 000kn >"
                                             name="group1"
                                             type="radio"
-                                            onClick={() => handleRadioClick(15000, 25000)}
+                                            onClick={() => handleRadioClick(25000, 10000)}
                                             id={`reverse-${type}-3`}
                                         />
                                     </div>

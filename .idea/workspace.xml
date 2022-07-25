@@ -4,43 +4,42 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1349cac5-d4b8-46b3-bbd4-a4a994beec91" name="Changes" comment="Dodani filteri i pretraga za proizvode">
-      <change afterPath="$PROJECT_DIR$/webshop-app/.env" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/webshop-app/src/components/MainContainer.module.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/webshop-app/src/components/MainContainer.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/webshop-app/src/components/MainContainerData.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/webshop-app/src/components/ResponseItemsData.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/webshop-app/src/components/fixed_sidebar/brand/Brand.module.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/webshop-app/src/components/fixed_sidebar/brand/Brand.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/webshop-app/src/components/header/search_form/SearchForm.module.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/webshop-app/src/components/header/search_form/SearchForm.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/webshop-app/src/components/item_container/Items.module.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/webshop-app/src/components/item_container/Items.tsx" afterDir="false" />
+    <list default="true" id="1349cac5-d4b8-46b3-bbd4-a4a994beec91" name="Changes" comment="Dovršena glavna stranica">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/mapper/BrandDtoMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webshop-app/src/components/ShoppingCart.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webshop-app/src/services/DiscountCodeService.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webshop-app/src/services/OrderItemService.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/webshop-app/src/services/OrderService.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/0/d/0d6d2545105341c0e352e85992d5f043e9ee861d" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/controller/BrandController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/controller/BrandController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/controller/ItemController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/controller/ItemController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/mapper/ItemDtoMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/mapper/ItemDtoMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/repository/ItemCustomRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/repository/ItemCustomRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/repository/impl/ItemCustomRepoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/repository/impl/ItemCustomRepoImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/service/ItemService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/service/ItemService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/service/impl/ItemServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/service/impl/ItemServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/controller/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/controller/OrderController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/form/OrderForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/form/OrderForm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/mapper/OrderFormMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/mapper/OrderFormMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/model/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/model/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/repository/BrandRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/repository/BrandRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/service/BrandService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/service/BrandService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/service/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/service/OrderService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/service/impl/BrandServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/service/impl/BrandServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/service/impl/OrderServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/service/impl/OrderServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/data.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/data.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webshop-app/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/webshop-app/src/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webshop-app/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/webshop-app/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webshop-app/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/webshop-app/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webshop-app/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/webshop-app/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webshop-app/src/components/MainContainer.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/webshop-app/src/components/MainContainer.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webshop-app/src/components/MainContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/webshop-app/src/components/MainContainer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webshop-app/src/components/MainContainerData.ts" beforeDir="false" afterPath="$PROJECT_DIR$/webshop-app/src/components/MainContainerData.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webshop-app/src/components/ResponseItemsData.ts" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/webshop-app/src/components/fixed_sidebar/FixedSidebar.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/webshop-app/src/components/fixed_sidebar/FixedSidebar.module.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webshop-app/src/components/fixed_sidebar/FixedSidebar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/webshop-app/src/components/fixed_sidebar/FixedSidebar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webshop-app/src/components/footer/Footer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/webshop-app/src/components/footer/Footer.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webshop-app/src/components/header/Header.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/webshop-app/src/components/header/Header.module.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webshop-app/src/components/header/Header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/webshop-app/src/components/header/Header.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webshop-app/src/components/item_container/ItemSection.module.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/webshop-app/src/components/item_container/ItemSection.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webshop-app/src/components/item_container/Items.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/webshop-app/src/components/item_container/Items.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webshop-app/src/components/item_container/item/Item.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/webshop-app/src/components/item_container/item/Item.module.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webshop-app/src/components/item_container/item/Item.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/webshop-app/src/components/item_container/item/Item.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webshop-app/src/components/main/Main.module.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/webshop-app/src/components/main/Main.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/webshop-app/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/webshop-app/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webshop-app/src/images/item.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/webshop-app/src/images/item.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/webshop-app/src/services/BrandService.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/webshop-app/src/services/BrandService.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webshop-app/src/services/ItemService.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/webshop-app/src/services/ItemService.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,23 +76,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;SONARLINT_PRECOMMIT_ANALYSIS&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Filip/Desktop/WebshopApp-Order-Item-Implementation&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.sourceCode.H2&quot;,
-    &quot;spring.configuration.checksum&quot;: &quot;6b3fa8dd8c3f835cb37ad00652e505cf&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\Filip\\Desktop\\Prog\\WebshopApp\\webshop-app\\node_modules\\typescript\\lib&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/Filip/Desktop/WebshopApp-Order-Item-Implementation",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.sourceCode.H2",
+    "spring.configuration.checksum": "6b3fa8dd8c3f835cb37ad00652e505cf",
+    "ts.external.directory.path": "C:\\Users\\Filip\\Desktop\\Prog\\WebshopApp\\webshop-app\\node_modules\\typescript\\lib"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="com.spring_boot.webshop_app.service" />
@@ -282,7 +282,14 @@
       <option name="project" value="LOCAL" />
       <updated>1658693987176</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Dodani filteri i pretraga za proizvode">
+      <created>1658725281094</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1658725281094</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -348,38 +355,10 @@
     <MESSAGE value="Dodani header, footer i glavni section za main stranicu, napravljen display proizvoda iz baze" />
     <MESSAGE value="Dodan servis za brand uz poboljšanja css-a" />
     <MESSAGE value="Dodani filteri i pretraga za proizvode" />
-    <option name="LAST_COMMIT_MESSAGE" value="Dodani filteri i pretraga za proizvode" />
+    <MESSAGE value="Dovršena glavna stranica" />
+    <option name="LAST_COMMIT_MESSAGE" value="Dovršena glavna stranica" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/repository/impl/DiscountCodeCustomRepoImpl.java</url>
-          <line>19</line>
-          <option name="timeStamp" value="37" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/advice/CustomValidationExceptionHandler.java</url>
-          <line>27</line>
-          <option name="timeStamp" value="39" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/advice/CustomValidationExceptionHandler.java</url>
-          <line>35</line>
-          <option name="timeStamp" value="40" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/advice/CustomValidationExceptionHandler.java</url>
-          <line>47</line>
-          <option name="timeStamp" value="41" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/spring_boot/webshop_app/controller/ItemController.java</url>
-          <line>47</line>
-          <option name="timeStamp" value="43" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <watches-manager>
       <configuration name="SpringBootApplicationConfigurationType">
         <watch expression="updatedOrder.getCreditCardNumber()" />

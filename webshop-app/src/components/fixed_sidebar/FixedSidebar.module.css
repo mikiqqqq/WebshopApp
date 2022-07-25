@@ -11,7 +11,7 @@
 .fixed{
     position: sticky;
     width: 100%;
-    margin-top: 150px;
+    top: 150px;
 }
 
 .filter_title{

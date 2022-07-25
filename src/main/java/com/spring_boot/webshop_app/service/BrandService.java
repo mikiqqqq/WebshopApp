@@ -1,11 +1,11 @@
 package com.spring_boot.webshop_app.service;
 
-import com.spring_boot.webshop_app.model.Brand;
+import com.spring_boot.webshop_app.dto.BrandDto;
 
 import java.util.List;
 
 public interface BrandService {
-    List<Brand> findByName(String name);
+    BrandDto findById(Integer id);
 
-    List<Brand> fetchAll();
+    List<BrandDto> fetchAll();
 }

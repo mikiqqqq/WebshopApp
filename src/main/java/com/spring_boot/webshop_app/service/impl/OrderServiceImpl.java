@@ -13,6 +13,11 @@ public class OrderServiceImpl implements OrderService {
     OrderRepo orderRepo;
 
     @Override
+    public Order fetchOrderById (Integer id){
+        return orderRepo.findById(id).orElse(null);
+    }
+
+    @Override
     public Order save(Order order){
         orderRepo.save(order);
         return order;

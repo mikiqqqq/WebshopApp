@@ -1,14 +1,19 @@
-import { ResponseItems } from "./ResponseItemsData";
-
-export interface DataReducer {
-    data: ResponseItems | undefined;
-    isLoading: boolean;
-    isError: boolean;
+export interface Hit {
+    id: number;
+    name: string;
+    description: string;
+    price: number;
+    brandId: number;
 }
 
-export interface Actions {
-    type: string;
-    payload: any;
+export interface AddItem {
+    itemId: number;
+    firstAdded: boolean;
+}
+
+export interface OrderCreate{
+    id: number;
+    date: Date;
 }
 
 export interface SearchOptions {

@@ -22,6 +22,14 @@ public class OrderController {
     @Autowired
     OrderFormMapper orderFormMapper;
 
+    @GetMapping(value = "/fetch-order/{id}")
+    ResponseEntity<Order> fetchOrderById(@PathVariable Integer id) {
+
+        return ResponseEntity
+                .ok()
+                .body(orderService.fetchOrderById(id));
+    }
+
     @PostMapping(value="/create")
     ResponseEntity<Order> create(@Valid @RequestBody OrderForm orderForm) {
 

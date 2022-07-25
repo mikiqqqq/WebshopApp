@@ -1,11 +1,11 @@
 .item_box{
     color: white;
-    height: 350px;
+    height: 450px;
     border: 2px solid #7CFC00;
     border-radius: 25px;
     padding: 15px;
     background-color: #20232a;
-    flex-basis: 250px;
+    flex-basis: 300px;
     margin-top: 50px;
     box-shadow: 0 10px 20px 5px gray;
     position: relative;
@@ -13,6 +13,8 @@
 
 .item_box > img{
     max-width: 100%;
+    border: 2px solid #7CFC00;
+    border-radius: 25px;
 }
 
 .item_name{
@@ -25,7 +27,7 @@
 .item_price{
     position: absolute;
     bottom: 5px;
-    color: #cf1020;    ;
+    color: #cf1020;
 }
 
 .icon{

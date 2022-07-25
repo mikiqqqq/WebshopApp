@@ -3,7 +3,7 @@ package com.spring_boot.webshop_app.model;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -21,7 +21,7 @@ public class Order {
     private Integer id;
 
     @Column(name = "DATUM")
-    private LocalDateTime date;
+    private LocalDate date;
 
     @Column(name = "UKUPNA_CIJENA_BEZ_P")
     private Long priceWithNoPdvIncluded;

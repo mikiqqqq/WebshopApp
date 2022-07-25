@@ -19,7 +19,7 @@ header{
 }
 
 .discount_code{
-    font-size: 1.8em;
+    font-size: 1.5em;
     margin: 2px;
     color: white;
 }
@@ -47,9 +47,8 @@ header{
 .title{
     color: #7CFC00;
     margin: 5px;
-    font-family: 'Verdana', serif;
-    font-weight: bold;
-    letter-spacing: 1px;
+    font-family: 'Copperplate', fantasy;
+    letter-spacing: 7px;
 }
 
 nav{

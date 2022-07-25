@@ -13,7 +13,6 @@ public class OrderFormMapper {
         }
 
         return Order.builder()
-                .id(orderForm.getId())
                 .date(orderForm.getDate())
                 .priceWithNoPdvIncluded(orderForm.getPriceWithNoPdvIncluded())
                 .total(orderForm.getTotal())

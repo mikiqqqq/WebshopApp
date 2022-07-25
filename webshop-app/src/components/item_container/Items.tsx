@@ -1,3 +1,4 @@
+import { AddItem } from '../MainContainerData';
 import Item from './item/Item';
 import style from './Items.module.css';
 
@@ -6,10 +7,12 @@ interface ItemType {
     name: string;
     description: string;
     price: number;
+    brandId: number;
   }
 
 interface Props {
     data: ItemType[];
+    addItemToCart: (item: AddItem) => void;
 }
 
 const Items:React.FunctionComponent<Props> = props => {
@@ -17,7 +20,7 @@ const Items:React.FunctionComponent<Props> = props => {
         <div className={style.items_container}>
             {
                 props.data.map(item => {
-                    return <Item key={item.id} item={item} />
+                    return <Item key={item.id} item={item} addItemToCart={props.addItemToCart} />
                 })
             }
         </div>

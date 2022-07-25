@@ -21,7 +21,7 @@ export default function Footer() {
                 </tr>
             </table>
             <div className={style.footer_line}></div>
-                <p className={style.copyright}>Copyright &#169; 2022 All Rights Reserved Tech King</p>
+                <p className={style.copyright}>Copyright &#169; 2022 All Rights Reserved Tech Talk</p>
         </footer>
     );
 }
