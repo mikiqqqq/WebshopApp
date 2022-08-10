@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ItemCustomRepo {
 
-    List<Item> findByName(String name);
+    List<Item> findByItemId(Integer id);
 
     List<Item> findByBrandId(Integer id);
 

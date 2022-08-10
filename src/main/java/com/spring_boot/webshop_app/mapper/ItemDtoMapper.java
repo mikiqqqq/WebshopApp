@@ -20,6 +20,8 @@ public class ItemDtoMapper {
                 .price(item.getPrice())
                 .amount(item.getAmount())
                 .brandId(item.getBrandId())
+                .productTypeId(item.getProductTypeId())
+                .productionYear(item.getProductionYear())
                 .build();
     }
 }

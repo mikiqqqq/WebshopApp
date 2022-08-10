@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Footer from "./footer/Footer";
 import Header from "./header/Header";
-import { PriceFilterOptions, SearchOptions, AddItem } from "./MainContainerData";
+import { SearchOptions, AddItem, Hit } from "./MainContainerData";
 import style from "./MainContainer.module.css"
 import FixedSidebar from "./fixed_sidebar/FixedSidebar";
 import Items from "./item_container/Items";
@@ -9,23 +9,35 @@ import ItemService from "../services/ItemService";
 import DiscounCodeService from "../services/DiscountCodeService";
 import OrderService from "../services/OrderService";
 import OrderItemService from "../services/OrderItemService";
+import { FilterOptions } from "./fixed_sidebar/filter/brand/Brand";
 
 interface Props{
 
 }
 
-interface ItemType {
+interface OrderItemAndAmount{
     id: number;
-    name: string;
-    description: string;
-    price: number;
-    brandId: number;
-  }
+    quantity: number;
+}
+var orderItemAndAmount = new Array<OrderItemAndAmount>();
 
+var orderId: number = 0;
 const MainContainer:React.FunctionComponent<Props> = () => {
 
-    const [items, setItems] = useState<Array<ItemType>>([]);
+    const [items, setItems] = useState<Array<Hit>>([]);
     const [discountCode, setDiscountCode] = useState<string>('');
+    const [filterOptions, setFilterOptions] = useState<FilterOptions>({
+        brandIds: [] as number[],
+        uprLmt: 5000,
+        lwrLmt: 0,
+        productTypeId: 0,
+        productionYear: 0,
+        sortBy: "NAME",
+        sortOrder: "ASC"
+    })
+    const [activeOrder, setActiveOrder] = useState<number>(0);
+    const[color, changeColor] = useState<string>('');
+    const [orderItems, setOrderItems] = useState<Array<Hit>>([]);
  
     const fetchItems = () => {
         ItemService.fetchAllItems().then((response) => {
@@ -36,18 +48,20 @@ const MainContainer:React.FunctionComponent<Props> = () => {
 
     useEffect(() => {
         fetchItems();
+        fetchActiveDiscountCode();
     }, []);
+
+    useEffect(() => {
+        ItemService.filterItems(filterOptions).then((response) => {
+            setItems(response.data);
+        });
+    }, [filterOptions]);
 
     const fetchActiveDiscountCode = () => {
         DiscounCodeService.fetchActiveDiscountCode().then((response) => {
             setDiscountCode(response.data.code);
-            console.log(response.data);
         });
     }
-
-    useEffect(() => {
-        fetchActiveDiscountCode();
-    }, []);
 
     const fetchItemsContainingTarget = (searchOptions: SearchOptions) => {
         ItemService.findAllThatContainTarget(searchOptions.search).then((response) => {
@@ -56,62 +70,49 @@ const MainContainer:React.FunctionComponent<Props> = () => {
         });
     }
 
-    const findBrandById = (brandFilterOptions: number) => {
-        ItemService.findItemByBrandId(brandFilterOptions).then((response) => {
-            setItems(response.data);
-            console.log(response.data);
-        });
-    }
-
-    const findAllInRange = (priceFilterOptions: PriceFilterOptions) => {
-        ItemService.findAllInPriceRange(priceFilterOptions.upperLimit, priceFilterOptions.lowerLimit).then((response) => {
-            setItems(response.data);
-            console.log(response.data);
-        });
-    }
-
-    const resetItems = (reset: number) =>{
-        if(reset){
-            fetchItems();
-        }
-    }
-
     const handleSubmit = async (searchOptions: SearchOptions) => {
         fetchItemsContainingTarget(searchOptions);
         console.log(items);
     };
 
-    const handleBrandFilterOptions = async (brandFilterOptions: number) => {
-        findBrandById(brandFilterOptions);
+
+    const handlePriceFilterOptions = async (filterOptions: FilterOptions) => {
+        setFilterOptions(filterOptions);
     };
 
-    const handlePriceFilterOptions = async (priceFilterOptions: PriceFilterOptions) => {
-        findAllInRange(priceFilterOptions);
-    };
-     
 
-    const[color, changeColor] = useState<string>('');
-
-    let orderId: number = 0;
     const addItemToTheCart = async (item: AddItem) => {
-        console.log(item.firstAdded);
         if(item.firstAdded){
             OrderService.createOrder(new Date().toLocaleDateString('hr-HR'));
             orderId++;
+            setActiveOrder(orderId);
             changeColor('red');
         }
-        OrderItemService.createOrderItem(orderId, item.itemId);
-
+        for(let i = 0; i < item.amount; i++){
+            OrderItemService.createOrderItem(orderId, item.itemId);
+        }
+        if(orderId !== 0){     
+              OrderItemService.getOrderItemAmount(orderId).then((response) => {
+                orderItemAndAmount = response.data;
+              });
+              if(orderItemAndAmount.length !== 0){
+                ItemService.findItemByItemId(orderItemAndAmount.map(item => item.id)).then((response) => {
+                  setOrderItems(response.data);
+                });
+              }
+              setOrderItems(orderItems.map(item => 
+                ({ ...item, ...orderItemAndAmount.find(orderItem => orderItem.id === item.id) }))
+              );
+              console.log('done');
+          }
+        console.log(orderItems);
     }
 
     return(
-        <div className="page">
-            <Header onSubmit={handleSubmit} discount={discountCode} red={color}/>
+        <div className={style.page}>
+            <Header onSubmit={handleSubmit} discount={discountCode} red={color} activeOrder={activeOrder} orderItems={orderItems}/>
                 <main className={style.main}>
-                <FixedSidebar 
-                reset={resetItems} 
-                onPriceFilterOptions={handlePriceFilterOptions}
-                onBrandFilterOptions={handleBrandFilterOptions}/>
+                <FixedSidebar filterOptions={filterOptions} onFilterOptions={handlePriceFilterOptions}/>
                 <Items addItemToCart={addItemToTheCart} data={items}/>
                 </main>
             <Footer/>

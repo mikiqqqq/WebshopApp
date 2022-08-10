@@ -14,13 +14,12 @@ public class ItemCustomRepoImpl implements ItemCustomRepo {
     private EntityManager entityManager;
 
     @Override
-    public List<Item> findByName(String name) {
+    public List<Item> findByItemId(Integer id) {
 
         return entityManager
-                .createQuery("select i from Item i where i.name = :name", Item.class)
-                .setParameter("name", name)
+                .createQuery("select i from Item i where i.id = :id", Item.class)
+                .setParameter("id", id)
                 .getResultList();
-
     }
 
     @Override

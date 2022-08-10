@@ -11,8 +11,16 @@ class OrderItemService {
         });
     }
 
+    fetchAllByOrderId(orderId: number){
+        return axios.get(ORDER_ITEM_API_BASE_URL + '/find-all-by-orderId/' + orderId);
+    }
+
+    getOrderItemAmount(orderId: number){
+        return axios.get(ORDER_ITEM_API_BASE_URL + '/get-orderItemAmount/' + orderId);
+    }
+
     deleteOrderItem(orderItemId: number){
-        return axios.post(ORDER_ITEM_API_BASE_URL + '/delete/id=' + orderItemId);
+        return axios.delete(ORDER_ITEM_API_BASE_URL + '/delete/id=' + orderItemId);
     }
 }
 

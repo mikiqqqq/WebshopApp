@@ -28,7 +28,6 @@ public class BrandServiceImpl implements BrandService {
                 .collect(Collectors.toList());
     }
 
-
     @Override
     public BrandDto findById(Integer id) {
         return brandRepo.findById(id)

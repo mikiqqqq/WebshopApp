@@ -1,74 +1,93 @@
 import style from './FixedSidebar.module.css'
 import Accordion from 'react-bootstrap/Accordion';
-import Brand from './brand/Brand';
-import { PriceFilterOptions } from '../MainContainerData';
-import Form from 'react-bootstrap/Form';
+import Brand, { FilterOptions } from './filter/brand/Brand';
+import Type from './filter/type/Type';
+import ProductionYear from './filter/production_year/ProductionYear';
+import Price from './filter/price/Price';
+import SortPrice from './sort/SortPrice';
+import SortName from './sort/SortName';
+import { useEffect, useState } from 'react';
+import image from '../../images/tech.png'
 
 interface Props {
-    onBrandFilterOptions: (brandFilterOptions: number) => void;
-    onPriceFilterOptions: (priceFiletOptions: PriceFilterOptions) => void;
-    reset: (reset: number) => void;
+    onFilterOptions: (filterOptions: FilterOptions) => void;
+
+    filterOptions: FilterOptions;
 }
 
 const FixedSidebar:React.FunctionComponent<Props> = props => {
-    const handleRadioClick = (uprLmt: number, lwrLmt: number) => {
-            props.onPriceFilterOptions({
-                upperLimit: uprLmt,
-                lowerLimit: lwrLmt
-            });   
+    const [filterOptions, setFilterOptions] = useState<FilterOptions>(props.filterOptions);
+
+    const handleClick = (sortBy: string) => {
+        setFilterOptions(() => {
+            return {
+                ...props.filterOptions,
+                sortBy: sortBy,
+                sortOrder: "ASC"
+            };
+        })
     }
+
+    useEffect(() => {
+        props.onFilterOptions(filterOptions); 
+    }, [filterOptions])
 
     return (
         <div className={style.sidebar}>
             <div className={style.fixed}>
-            <h2 className={style.filter_title}>Filtriraj proizvode: </h2>
-            <Accordion className={style.accordion} defaultActiveKey="0" flush>
-                <Accordion.Item className={style.accordion_item} eventKey="0">
-                    <Accordion.Header className={style.accordion_header}>Brand</Accordion.Header>
-                    <Accordion.Body className={style.accordion_body}>
-                        <Brand reset={props.reset} onBrandFilterOptions={props.onBrandFilterOptions}/>
-                    </Accordion.Body>
-                </Accordion.Item>
-                <Accordion.Item className={style.accordion_item} eventKey="1">
-                    <Accordion.Header className={style.accordion_header}>Cijena</Accordion.Header>
-                    <Accordion.Body className={style.accordion_body}>
-                            <Form>
-                                {['radio'].map((type) => (
-                                    <div key={`reverse-${type}`} className="mb-3">
-                                        <Form.Check
-                                            label="< 1000kn"
-                                            name="group1"
-                                            type="radio"
-                                            onClick={() => handleRadioClick(1000, 0)}
-                                            id={`reverse-${type}-1`}
-                                        />
-                                        <Form.Check
-                                            label="1000kn - 5000kn"
-                                            name="group1"
-                                            type="radio"
-                                            onClick={() => handleRadioClick(5000, 1000)}
-                                            id={`reverse-${type}-2`}
-                                        />
-                                        <Form.Check
-                                            label="5000kn - 10 000kn"
-                                            name="group1"
-                                            type="radio"
-                                            onClick={() => handleRadioClick(10000, 5000)}
-                                            id={`reverse-${type}-3`}
-                                        />
-                                        <Form.Check
-                                            label="10 000kn >"
-                                            name="group1"
-                                            type="radio"
-                                            onClick={() => handleRadioClick(25000, 10000)}
-                                            id={`reverse-${type}-3`}
-                                        />
-                                    </div>
-                                ))}
-                            </Form>
-                    </Accordion.Body>
-                </Accordion.Item>
-            </Accordion>
+                <h2 className={style.filter_title}>Sort products</h2>
+                <Accordion className={style.accordion} flush>
+                    
+                    <Accordion.Item className={style.accordion_item} eventKey="0">
+                        <Accordion.Header onClick={() => handleClick("PRICE")} className={style.accordion_header}>Price</Accordion.Header>
+                        <Accordion.Body className={style.accordion_body_sort}>
+                            <SortPrice onFilterOptions={props.onFilterOptions} filterOptions={filterOptions}/>
+                        </Accordion.Body>
+                    </Accordion.Item>
+
+                    <Accordion.Item className={style.accordion_item} eventKey="1">
+                        <Accordion.Header onClick={() => handleClick("NAME")} className={style.accordion_header}>Alphabetically</Accordion.Header>
+                        <Accordion.Body className={style.accordion_body_sort}>
+                            <SortName onFilterOptions={props.onFilterOptions} filterOptions={filterOptions}/>
+                        </Accordion.Body>
+                    </Accordion.Item>
+                </Accordion>
+
+                <h2 className={style.filter_title}>Filter products</h2>
+                <Accordion className={style.accordion} flush>
+                    
+                    <Accordion.Item className={style.accordion_item} eventKey="0">
+                        <Accordion.Header className={style.accordion_header}>Type</Accordion.Header>
+                        <Accordion.Body className={style.accordion_body_radio}>
+                            <Type onFilterOptions={props.onFilterOptions} filterOptions={props.filterOptions}/>
+                        </Accordion.Body>
+                    </Accordion.Item>
+
+                    <Accordion.Item className={style.accordion_item} eventKey="1">
+                        <Accordion.Header className={style.accordion_header}>Brand</Accordion.Header>
+                        <Accordion.Body className={style.accordion_body}>
+                            <Brand onFilterOptions={props.onFilterOptions} filterOptions={props.filterOptions}/>
+                        </Accordion.Body>
+                    </Accordion.Item>
+
+                    <Accordion.Item className={style.accordion_item} eventKey="2">
+                        <Accordion.Header className={style.accordion_header}>Price</Accordion.Header>
+                        <Accordion.Body className={style.accordion_body_radio}>
+                            <Price onFilterOptions={props.onFilterOptions} filterOptions={props.filterOptions}/>
+                        </Accordion.Body>
+                    </Accordion.Item>
+
+                    <Accordion.Item className={style.accordion_item} eventKey="4">
+                        <Accordion.Header className={style.accordion_header}>Year</Accordion.Header>
+                        <Accordion.Body className={style.accordion_body_radio}>
+                            <ProductionYear onFilterOptions={props.onFilterOptions} filterOptions={props.filterOptions}/>
+                        </Accordion.Body>
+                    </Accordion.Item>
+                </Accordion>
+
+                <div className={style.image_container}>
+                    <img src={image} className={style.image} alt="Tech"></img>
+                </div>
             </div>
         </div>
     );

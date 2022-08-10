@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin("http://localhost:3000/")
@@ -25,21 +26,35 @@ public class ItemController {
                 .body(itemService.fetchAll());
     }
 
-    @GetMapping(value = "/by-name/{name}")
-    ResponseEntity<List<ItemDto>> findByName(@PathVariable String name) {
+    @GetMapping(value = "/by-itemIds/{ids}")
+    ResponseEntity<List<ItemDto>> findByItemIds(@PathVariable Integer[] ids) {
 
         return ResponseEntity
                 .ok()
-                .body(itemService.findByName(name));
-
+                .body(itemService.findByItemIds(ids));
     }
 
-    @GetMapping(value = "/by-brandId/{id}")
-    ResponseEntity<List<ItemDto>> findByBrandId(@PathVariable Integer id) {
+    @GetMapping(value = "/by-brandIds/{ids}")
+    ResponseEntity<List<ItemDto>> findByBrandIds(@PathVariable Integer[] ids) {
 
         return ResponseEntity
                 .ok()
-                .body(itemService.findByBrandId(id));
+                .body(itemService.findByBrandIds(ids));
+    }
+
+    @GetMapping(value = "/filter-items-by")
+    @ResponseBody
+    ResponseEntity<List<ItemDto>> filterItemsBy(
+            @RequestParam(value = "brandIds") Optional<Integer[]> brandIds,
+            @RequestParam(value = "uprLmt") Optional<Long> uprLmt,
+            @RequestParam(value = "lwrLmt") Optional<Long> lwrLmt,
+            @RequestParam(value = "productTypeId") Optional<Integer> productTypeId,
+            @RequestParam(value = "productionYear") Optional<Integer> productionYear,
+            @RequestParam(value = "sortBy") Optional<String> sortBy,
+            @RequestParam(value = "sortOrder") Optional<String> sortOrder) {
+
+        return ResponseEntity.ok().body(itemService.
+                filter(brandIds, uprLmt, lwrLmt, productTypeId, productionYear, sortBy, sortOrder));
     }
 
     @GetMapping(value = "/in-price-range/{uprLmt}-{lwrLmt}")
@@ -49,7 +64,6 @@ public class ItemController {
                 .ok()
                 .body(itemService.findAllInPriceRange(uprLmt, lwrLmt));
     }
-
 
     @GetMapping(value = "contain/{target}")
     ResponseEntity<List<ItemDto>> findAllByNameContainsIgnoreCase(@PathVariable String target) {

@@ -1,7 +1,6 @@
 package com.spring_boot.webshop_app.model;
 
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 
@@ -34,4 +33,10 @@ public class Item {
 
     @Column(name = "BRAND_ID")
     private Integer brandId;
+
+    @Column(name = "TIP_ID")
+    private Integer productTypeId;
+
+    @Column(name = "GODINA")
+    private Integer productionYear;
 }

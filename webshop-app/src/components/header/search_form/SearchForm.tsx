@@ -38,7 +38,7 @@ const SearchForm:React.FunctionComponent<Props> = props => {
             onKeyDown={keyPressHandler}
             onChange={handleInputChange} 
             type="text" 
-            placeholder="Pretraži proizvode" />
+            placeholder="Search products" />
         </div>
     );
   }

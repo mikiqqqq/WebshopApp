@@ -1,17 +1,9 @@
-import { AddItem } from '../MainContainerData';
+import { AddItem, Hit } from '../MainContainerData';
 import Item from './item/Item';
 import style from './Items.module.css';
 
-interface ItemType {
-    id: number;
-    name: string;
-    description: string;
-    price: number;
-    brandId: number;
-  }
-
 interface Props {
-    data: ItemType[];
+    data: Hit[];
     addItemToCart: (item: AddItem) => void;
 }
 

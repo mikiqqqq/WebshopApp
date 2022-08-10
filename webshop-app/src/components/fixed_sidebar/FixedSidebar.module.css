@@ -9,29 +9,48 @@
 }
 
 .fixed{
-    position: sticky;
-    width: 100%;
-    top: 150px;
+  position: sticky;
+  width: 100%;
+  top: 60px;
 }
 
 .filter_title{
-    margin-top: 150px !important;
-    color: #7CFC00;
-    font-size: 1.6em;
-    margin-left: 5px;
+  margin-top: 60px;
+  color: #7CFC00;
+  font-size: 1.6em;
+  margin-left: 5px;
+}
+
+.accordion_header > button:focus{
+  outline: none;
+  box-shadow: none;
+}
+
+.accordion{
+  border-top: 2px solid #7CFC00;
 }
 
 .accordion_header{
-    border-bottom: 1px solid #7CFC00;
-    background-color: #656a75 !important;
-    margin-top: -1px;
+  border-bottom: 1px solid #7CFC00;
+  background-color: #656a75 !important;
+  margin-top: -1px;
 }
-
 
 .accordion_header > button {
   background-color: #656a75 !important;
   color: #7CFC00 !important;
   height: 50px;
+  font-size: 0.6em;
+  font-weight: 500;
+}
+
+.accordion_header > button:after{
+  background-image: url('../../images/angle-up-solid.svg');
+  background-size: 22px 22px;
+}
+
+.accordion_header > button:not(.collapsed)::after{
+  background-image: url('../../images/angle-down-solid.svg');
 }
 
 .accordion_body{
@@ -41,4 +60,48 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
+}
+
+.accordion_body_radio{
+  background-color: #20232a;
+  display: flex;
+  flex-direction: column;
+  padding: 0 !important;
+}
+
+.accordion_body_sort{
+  background-color: #20232a;
+  display: flex;
+  padding: 0 !important;
+}
+
+.accordion_item > div{
+  border-radius: 0 !important;
+}
+
+.radio_button > input{
+  cursor: pointer;
+}
+
+.radio_button > input:focus{
+  background-color: #7CFC00;
+  outline: none;
+  box-shadow: none;
+  border-color: forestgreen;
+}
+
+.radio_button > input:checked{
+  background-color: #7CFC00;
+}
+
+.image_container{
+  margin-top: 25%;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.image{
+  width: 50%;
+  margin-right: 5px;
 }

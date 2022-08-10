@@ -1,9 +1,9 @@
 .items_container{
     box-sizing: border-box;
     max-width: 83%;
-    padding: 0 70px 70px 70px;
-    background-color: grey;
+    background-color: gray;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    padding-bottom: 0.7%;
+    overflow-x: hidden;
   }

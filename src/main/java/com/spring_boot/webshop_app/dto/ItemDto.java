@@ -16,4 +16,6 @@ public class ItemDto {
     private Long price;
     private Integer amount;
     private Integer brandId;
+    private Integer productTypeId;
+    private Integer productionYear;
 }

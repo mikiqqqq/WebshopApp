@@ -3,11 +3,14 @@ export interface Hit {
     name: string;
     description: string;
     price: number;
+    amount: number;
     brandId: number;
+    quantity: number;
 }
 
 export interface AddItem {
     itemId: number;
+    amount: number;
     firstAdded: boolean;
 }
 
