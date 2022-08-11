@@ -5,8 +5,6 @@ import ShoppingCart from './shopping_cart/ShoppingCart';
 import logo from '../../images/tt_logo.png'
 
 interface Props{
-    onSubmit(searchOptions: SearchOptions): void; 
-
     orderItems: Hit[];
     activeOrder: number;
     discount: string;
@@ -26,7 +24,7 @@ const Header:React.FunctionComponent<Props> = props => {
                 </div>
                 <img src={logo}></img>
                 <nav>
-                    <SearchForm onSubmit={props.onSubmit}/>
+                    <SearchForm/>
 
                     <ShoppingCart red={props.red} activeOrder={props.activeOrder} orderItems={props.orderItems}/>
                 </nav>

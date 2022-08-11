@@ -64,7 +64,7 @@
 
 .cart_button:hover{
     transition: 0.3s;
-    background-color: #410056; 
+    background-color: #581eb1; 
 }
 
 .cart_button:active{
@@ -88,7 +88,7 @@
 .item_box:hover{
     transition: all 0.3s;
     background-color: #474d5c;
-    box-shadow: 0 0 5px 5px rgba(124, 252, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    box-shadow: 0 0 5px 5px rgba(124, 252, 0, 0.3);
 }
 
 .item_box:hover > .hover_buttons{
@@ -110,7 +110,7 @@
 .quantity_button{
     position: absolute;
     background-color: #7CFC00;
-    color: #410056;
+    color: #581eb1;
     font-size: 1.3em;
     font-weight: bolder;
     width: 42px;
@@ -131,7 +131,7 @@
 }
 
 .quantity_button:active{
-    background-color: #6ad601;
+    background-color: #58b300;
     transform: scale(0.9);
 }
 
@@ -145,9 +145,9 @@
 }
 
 .quantity_button_decrement{
-    left: 0;
+    left: -2px;
 }
 
 .quantity_button_increment{
-    right: 0;
+    right: -2px;
 }

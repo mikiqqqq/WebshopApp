@@ -3,14 +3,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 import { SearchOptions } from '../../MainContainerData';
+import { useSearchParams } from 'react-router-dom';
 
-interface Props{
-    onSubmit: (searchOptions: SearchOptions) => void;
-}
-
-const SearchForm:React.FunctionComponent<Props> = props => {
+const SearchForm:React.FunctionComponent = () => {
 
     const [inputValue, setInputValue] = useState<string>('');
+    let [searchParams, setSearchParams] = useSearchParams();
 
     const handleInputChange = (e: React.FormEvent<HTMLInputElement>) => {
         setInputValue((e.target as HTMLInputElement).value);
@@ -18,11 +16,7 @@ const SearchForm:React.FunctionComponent<Props> = props => {
 
     const keyPressHandler = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.code === "Enter") {
-            props.onSubmit({
-                search: inputValue,
-                page: 0
-            });    
-    
+            setSearchParams({search: inputValue});
             event.preventDefault();
         }
       };

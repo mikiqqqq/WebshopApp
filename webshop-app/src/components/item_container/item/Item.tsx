@@ -53,7 +53,7 @@ const Item: React.FunctionComponent<Props> = props => {
 
     return (
         <div className={style.item_box}>
-            <img className={style.image} src={itemImg} alt='Slika proizvoda'></img>
+            <img className={style.image} src={itemImg} alt={props.item.name}></img>
             <h3 className={style.item_name}>{props.item.name}</h3>
             <p className={style.item_description}>{props.item.description}</p>
             <p className={style.item_brand}>{brandName}</p>

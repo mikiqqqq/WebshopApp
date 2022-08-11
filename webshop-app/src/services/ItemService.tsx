@@ -42,6 +42,7 @@ class ItemService {
     }
 
     findAllThatContainTarget(target:string){
+        console.log(ITEMS_API_BASE_URL + '/contain/' + target);
         return axios.get(ITEMS_API_BASE_URL + '/contain/' + target);
     }
 }

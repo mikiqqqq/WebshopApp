@@ -36,7 +36,7 @@ const FixedSidebar:React.FunctionComponent<Props> = props => {
         <div className={style.sidebar}>
             <div className={style.fixed}>
                 <h2 className={style.filter_title}>Sort products</h2>
-                <Accordion className={style.accordion} flush>
+                <Accordion className={style.accordion} defaultActiveKey="1" flush>
                     
                     <Accordion.Item className={style.accordion_item} eventKey="0">
                         <Accordion.Header onClick={() => handleClick("PRICE")} className={style.accordion_header}>Price</Accordion.Header>

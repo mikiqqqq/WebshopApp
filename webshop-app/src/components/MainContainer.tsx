@@ -10,6 +10,10 @@ import DiscounCodeService from "../services/DiscountCodeService";
 import OrderService from "../services/OrderService";
 import OrderItemService from "../services/OrderItemService";
 import { FilterOptions } from "./fixed_sidebar/filter/brand/Brand";
+import Support from "./support/Support";
+import { BrowserRouter, Route, Router, Routes, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { stringify } from "querystring";
 
 interface Props{
 
@@ -23,7 +27,7 @@ var orderItemAndAmount = new Array<OrderItemAndAmount>();
 
 var orderId: number = 0;
 const MainContainer:React.FunctionComponent<Props> = () => {
-
+    let [searchParams] = useSearchParams();
     const [items, setItems] = useState<Array<Hit>>([]);
     const [discountCode, setDiscountCode] = useState<string>('');
     const [filterOptions, setFilterOptions] = useState<FilterOptions>({
@@ -38,24 +42,22 @@ const MainContainer:React.FunctionComponent<Props> = () => {
     const [activeOrder, setActiveOrder] = useState<number>(0);
     const[color, changeColor] = useState<string>('');
     const [orderItems, setOrderItems] = useState<Array<Hit>>([]);
- 
-    const fetchItems = () => {
-        ItemService.fetchAllItems().then((response) => {
-            setItems(response.data);
-            console.log(response.data);
-        });
-    }
+    let orderItemsArray = new Array<Hit>();
 
     useEffect(() => {
-        fetchItems();
         fetchActiveDiscountCode();
     }, []);
 
     useEffect(() => {
-        ItemService.filterItems(filterOptions).then((response) => {
-            setItems(response.data);
-        });
-    }, [filterOptions]);
+        if(searchParams.get('search') === null){
+            ItemService.filterItems(filterOptions).then((response) => {
+                setItems(response.data);
+            });
+        }else{
+            let target: string = (searchParams.get('search') || " ");
+            fetchItemsContainingTarget(target);
+        }
+    }, [searchParams, filterOptions]);
 
     const fetchActiveDiscountCode = () => {
         DiscounCodeService.fetchActiveDiscountCode().then((response) => {
@@ -63,23 +65,15 @@ const MainContainer:React.FunctionComponent<Props> = () => {
         });
     }
 
-    const fetchItemsContainingTarget = (searchOptions: SearchOptions) => {
-        ItemService.findAllThatContainTarget(searchOptions.search).then((response) => {
+    const fetchItemsContainingTarget = (searchOptions: string) => {
+        ItemService.findAllThatContainTarget(searchOptions).then((response) => {
             setItems(response.data);
-            console.log(response.data);
         });
     }
 
-    const handleSubmit = async (searchOptions: SearchOptions) => {
-        fetchItemsContainingTarget(searchOptions);
-        console.log(items);
-    };
-
-
-    const handlePriceFilterOptions = async (filterOptions: FilterOptions) => {
+    const handlePriceFilterOptions = (filterOptions: FilterOptions) => {
         setFilterOptions(filterOptions);
     };
-
 
     const addItemToTheCart = async (item: AddItem) => {
         if(item.firstAdded){
@@ -88,35 +82,25 @@ const MainContainer:React.FunctionComponent<Props> = () => {
             setActiveOrder(orderId);
             changeColor('red');
         }
-        for(let i = 0; i < item.amount; i++){
-            OrderItemService.createOrderItem(orderId, item.itemId);
-        }
-        if(orderId !== 0){     
-              OrderItemService.getOrderItemAmount(orderId).then((response) => {
-                orderItemAndAmount = response.data;
-              });
-              if(orderItemAndAmount.length !== 0){
-                ItemService.findItemByItemId(orderItemAndAmount.map(item => item.id)).then((response) => {
-                  setOrderItems(response.data);
-                });
-              }
-              setOrderItems(orderItems.map(item => 
+            await OrderItemService.createOrderItem(orderId, item.itemId);
+            orderItemAndAmount = (await OrderItemService.getOrderItemAmount(orderId)).data;
+            orderItemsArray = (await ItemService.findItemByItemId(orderItemAndAmount.map(item => item.id))).data;
+
+            setOrderItems(orderItemsArray.map(item => 
                 ({ ...item, ...orderItemAndAmount.find(orderItem => orderItem.id === item.id) }))
-              );
-              console.log('done');
-          }
-        console.log(orderItems);
+            );
     }
 
     return(
-        <div className={style.page}>
-            <Header onSubmit={handleSubmit} discount={discountCode} red={color} activeOrder={activeOrder} orderItems={orderItems}/>
+            <div className={style.page}>
+                <Header discount={discountCode} red={color} activeOrder={activeOrder} orderItems={orderItems} />
                 <main className={style.main}>
-                <FixedSidebar filterOptions={filterOptions} onFilterOptions={handlePriceFilterOptions}/>
-                <Items addItemToCart={addItemToTheCart} data={items}/>
+                <FixedSidebar filterOptions={filterOptions} onFilterOptions={handlePriceFilterOptions} />
+                            <Items addItemToCart={addItemToTheCart} data={items} />
+                    <Support />
                 </main>
-            <Footer/>
-        </div>
+                <Footer />
+            </div>
     );
 }
 
