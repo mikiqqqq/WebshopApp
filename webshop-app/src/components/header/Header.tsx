@@ -1,7 +1,7 @@
 import style from './Header.module.css'
 import SearchForm from './search_form/SearchForm';
-import { Hit, SearchOptions } from '../MainContainerData';
-import ShoppingCart from './shopping_cart/ShoppingCart';
+import { Hit } from '../MainContainerData';
+import ShoppingCartButton from './shopping_cart_button/ShoppingCartButton';
 import logo from '../../images/tt_logo.png'
 
 interface Props{
@@ -26,7 +26,7 @@ const Header:React.FunctionComponent<Props> = props => {
                 <nav>
                     <SearchForm/>
 
-                    <ShoppingCart red={props.red} activeOrder={props.activeOrder} orderItems={props.orderItems}/>
+                    <ShoppingCartButton red={props.red} activeOrder={props.activeOrder} orderItems={props.orderItems}/>
                 </nav>
             </div>
         </header>

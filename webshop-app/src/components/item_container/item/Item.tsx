@@ -11,13 +11,13 @@ interface Props {
     item: Hit;
 }
 
-var maxed: string = '';
 let firstAdd: boolean = true;
 const Item: React.FunctionComponent<Props> = props => {
 
     const[brandName, setBrandName] = useState<string>('');
     const[quantity, setQuantity] = useState<number>(1);
     const[disableButton, setDisableButton] = useState<boolean>(false);
+    const[message, setMessage] = useState<string>('');
 
     const addToCart = () =>{
         props.addItemToCart({
@@ -25,9 +25,6 @@ const Item: React.FunctionComponent<Props> = props => {
             amount: quantity,
             firstAdded: firstAdd
         });
-        if(quantity == props.item.amount){
-            setDisableButton(true);
-        }
         firstAdd = false;
     }
 
@@ -42,13 +39,14 @@ const Item: React.FunctionComponent<Props> = props => {
             setQuantity(quantity + 1);
         }else if(quantity + 1 == props.item.amount){
             setQuantity(quantity + 1);
-            maxed = ' - Maxed out';
+            setDisableButton(true);
+            setMessage(' - Maxed out');
         }
     };
 
     const decrement = () => {
         if(quantity - 1 > 0) setQuantity(quantity - 1);
-        maxed = '';
+        setMessage('');
     }
 
     return (
@@ -63,7 +61,7 @@ const Item: React.FunctionComponent<Props> = props => {
                     onClick={decrement}>
                         <p>-</p>
                     </button>
-                    <p className={style.quantity_display}>{quantity}{maxed}</p>
+                    <p className={style.quantity_display}>{quantity}{message}</p>
                     <button className={`${style.quantity_button} ${style.quantity_button_increment}`} onClick={increment}>
                         <p>+</p>
                     </button>

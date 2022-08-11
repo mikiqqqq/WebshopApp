@@ -12,7 +12,7 @@ const Items:React.FunctionComponent<Props> = props => {
         <div className={style.items_container}>
             {
                 props.data.map(item => {
-                    return <Item key={item.id} item={item} addItemToCart={props.addItemToCart} />
+                    return <Item key={item.id} item={item} addItemToCart={props.addItemToCart} />;
                 })
             }
         </div>

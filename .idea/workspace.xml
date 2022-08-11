@@ -4,22 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1349cac5-d4b8-46b3-bbd4-a4a994beec91" name="Changes" comment="Added item filtering, improved css">
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/1/4/14439c7173ce16d1ee2f6cfbe41baea72d3f8584" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/data.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/data.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webshop-app/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/webshop-app/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webshop-app/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/webshop-app/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webshop-app/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/webshop-app/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webshop-app/src/components/MainContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/webshop-app/src/components/MainContainer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webshop-app/src/components/fixed_sidebar/FixedSidebar.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/webshop-app/src/components/fixed_sidebar/FixedSidebar.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webshop-app/src/components/fixed_sidebar/FixedSidebar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/webshop-app/src/components/fixed_sidebar/FixedSidebar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webshop-app/src/components/header/Header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/webshop-app/src/components/header/Header.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webshop-app/src/components/header/search_form/SearchForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/webshop-app/src/components/header/search_form/SearchForm.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webshop-app/src/components/item_container/item/Item.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/webshop-app/src/components/item_container/item/Item.module.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webshop-app/src/services/ItemService.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/webshop-app/src/services/ItemService.tsx" afterDir="false" />
-    </list>
+    <list default="true" id="1349cac5-d4b8-46b3-bbd4-a4a994beec91" name="Changes" comment="Improved item filtering, added shopping cart popup" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -138,7 +123,7 @@
       <workItem from="1660037193319" duration="12816000" />
       <workItem from="1660069336075" duration="8949000" />
       <workItem from="1660128496462" duration="15327000" />
-      <workItem from="1660215369796" duration="1646000" />
+      <workItem from="1660215369796" duration="4111000" />
     </task>
     <task id="LOCAL-00001" summary="Definirani entity-ji">
       <created>1658522361033</created>
@@ -294,7 +279,14 @@
       <option name="project" value="LOCAL" />
       <updated>1660150957369</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="Improved item filtering, added shopping cart popup">
+      <created>1660244994217</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1660244994217</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -362,7 +354,8 @@
     <MESSAGE value="Dodani filteri i pretraga za proizvode" />
     <MESSAGE value="Dovršena glavna stranica" />
     <MESSAGE value="Added item filtering, improved css" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added item filtering, improved css" />
+    <MESSAGE value="Improved item filtering, added shopping cart popup" />
+    <option name="LAST_COMMIT_MESSAGE" value="Improved item filtering, added shopping cart popup" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>

@@ -123,23 +123,33 @@
     text-align: center;
 }
 
-.button_container > button{
+.button_container a{
     padding: 5px 20px;
     border: none;
     width: 80%;
     border-radius: 5px;
     margin-bottom: 10px;
     font-weight: bold;
+    text-decoration: none;
+    display: block;
+    text-align: center;
 }
 
 .go_to_cart{
     margin-top: 5px;
     background-color: #7CFC00;
+}
+
+.go_to_cart{
     color: #2b2f38;
 }
 
 .go_to_cart:hover{
     background-color: #58b300;
+}
+
+.go_to_cart:hover{
+    color: #2b2f38;
 }
 
 .checkout{
@@ -149,6 +159,10 @@
 
 .checkout:hover{
     background-color: #581eb1;
+}
+
+.checkout:hover{
+    color: lavender;
 }
 
 /* Track */

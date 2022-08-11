@@ -1,12 +1,11 @@
-import style from './ShoppingCart.module.css'
+import style from './ShoppingCartButton.module.css'
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import { OverlayTrigger, Popover } from 'react-bootstrap';
-import OrderItemService from '../../../services/OrderItemService';
 import { Hit } from '../../MainContainerData';
-import ItemService from '../../../services/ItemService';
 import itemImg from '../../../images/item.jpg'
+import { Link } from 'react-router-dom';
 
 
 interface Props{
@@ -15,8 +14,8 @@ interface Props{
     red: string;
 }
 
-const ShoppingCart:React.FunctionComponent<Props> = props => {
-    const [show, setShow] = useState<boolean>(false);
+const ShoppingCartButton:React.FunctionComponent<Props> = props => {
+    const [show, setShow] = useState<boolean>(true);
     const [scale, setScale] = useState<string>("24px");
 
     const handleOnMouseEnter = () => {
@@ -86,14 +85,14 @@ const ShoppingCart:React.FunctionComponent<Props> = props => {
 
                 <div className={props.activeOrder ? style.button_container : style.display_none}>
                   <h4>Total price: ${totalPrice}</h4>
-
-                  <button className={style.go_to_cart}>
+                  
+                  <Link className={style.go_to_cart} to="/shopping_cart">
                     Go To Cart
-                  </button>
+                  </Link>
 
-                  <button className={style.checkout}>
+                  <Link className={style.checkout} to="/checkout">
                     Checkout
-                  </button>
+                  </Link>
                 </div>
               </Popover.Body>
             </Popover>
@@ -111,4 +110,4 @@ const ShoppingCart:React.FunctionComponent<Props> = props => {
     </>
   );}
 
-  export default ShoppingCart;
+  export default ShoppingCartButton;

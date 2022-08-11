@@ -41,7 +41,7 @@
 }
 
 .support_button:hover::before{
-    color: #58b300;
+    color: white;
 }
 
 .button_not_visible {
