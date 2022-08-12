@@ -4,7 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1349cac5-d4b8-46b3-bbd4-a4a994beec91" name="Changes" comment="Improved item filtering, added shopping cart popup" />
+    <list default="true" id="1349cac5-d4b8-46b3-bbd4-a4a994beec91" name="Changes" comment="Improved item filtering, added shopping cart popup">
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/d/6/d6b67c06d92889d40f94d254784b3ef1ae67ad04" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webshop-app/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/webshop-app/src/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webshop-app/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/webshop-app/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webshop-app/src/components/header/Header.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/webshop-app/src/components/header/Header.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webshop-app/src/components/shopping_cart/ShoppingCart.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/webshop-app/src/components/shopping_cart/ShoppingCart.module.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webshop-app/src/components/shopping_cart/ShoppingCart.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/webshop-app/src/components/shopping_cart/ShoppingCart.tsx" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -124,6 +133,8 @@
       <workItem from="1660069336075" duration="8949000" />
       <workItem from="1660128496462" duration="15327000" />
       <workItem from="1660215369796" duration="4111000" />
+      <workItem from="1660302115047" duration="650000" />
+      <workItem from="1660306609841" duration="3954000" />
     </task>
     <task id="LOCAL-00001" summary="Definirani entity-ji">
       <created>1658522361033</created>

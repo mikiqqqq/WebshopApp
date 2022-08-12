@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
+import Checkout from './components/checkout/Checkout';
 import Footer from './components/footer/Footer';
 import Header from './components/header/Header';
 import MainContainer from './components/MainContainer';
@@ -59,9 +60,9 @@ const fetchActiveDiscountCode = () => {
       <div className="page">
         <Header discount={discountCode} red={color} activeOrder={activeOrder} orderItems={orderItems} />
           <Routes>
-            <Route path="/tech" element={<MainContainer addItemToCart={addItemToTheCart}/>} />
-            <Route path="/shopping_cart" element={<ShoppingCart  activeOrder={activeOrder} orderItems={orderItems}/>} />
-            <Route path="/checkout" element={<></>} />
+            <Route path="/tech" element={<MainContainer addItemToCart={addItemToTheCart}/>}/>
+            <Route path="/shopping_cart" element={<ShoppingCart activeOrder={activeOrder} orderItems={orderItems}/>} />
+            <Route path="/checkout" element={<Checkout activeOrder={activeOrder} orderItems={orderItems}/>} />
             <Route path="*" element={<></>} />
           </Routes>
           <Support />

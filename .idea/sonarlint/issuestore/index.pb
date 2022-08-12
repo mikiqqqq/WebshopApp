@@ -27,8 +27,6 @@ s
 Cwebshop-app/src/components/header/search_form/SearchForm.module.css,2\1\2177cfab636bc48008c2687c231e358af3949591
 @
 webshop-app/.env,f\f\ff639f839012abd0db9345ea00a9365ba440a644
-G
-webshop-app/src/App.css,d\6\d6b67c06d92889d40f94d254784b3ef1ae67ad04
 ‰
 Ysrc/main/java/com/spring_boot/webshop_app/repository/impl/DiscountCodeCustomRepoImpl.java,b\1\b10cd58bb2bc65ba399e7844de72c82a30efd5bc
 †
