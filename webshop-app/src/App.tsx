@@ -14,62 +14,81 @@ import OrderItemService from './services/OrderItemService';
 import OrderService from './services/OrderService';
 
 
-interface OrderItemAndAmount{
+interface OrderItemAndAmount {
   id: number;
   quantity: number;
 }
 
-var orderId: number = 0;
-
+let activeOrderId: number;
 function App() {
   const [discountCode, setDiscountCode] = useState<string>('');
   const [activeOrder, setActiveOrder] = useState<number>(0);
-  const[color, changeColor] = useState<string>('');
+  const [color, changeColor] = useState<string>('');
   const [orderItems, setOrderItems] = useState<Array<Hit>>([]);
+  const [updateOrderItems, setUpdateOrderItems] = useState<boolean>(false);
   let orderItemsArray = new Array<Hit>();
   let orderItemAndAmount = new Array<OrderItemAndAmount>();
 
   useEffect(() => {
     fetchActiveDiscountCode();
-}, []);
+    if(activeOrder) getOrderItems();
+  }, [updateOrderItems]);
 
-const fetchActiveDiscountCode = () => {
-  DiscountCodeService.fetchActiveDiscountCode().then((response) => {
+  const fetchActiveDiscountCode = () => {
+    DiscountCodeService.fetchActiveDiscountCode().then((response) => {
       setDiscountCode(response.data.code);
-  });
-}
+    });
+  }
+
+  const getOrderItems = async () => {
+    orderItemAndAmount = (await OrderItemService.getOrderItemAmount(activeOrder)).data;
+    orderItemsArray = (await ItemService.findItemByItemId(orderItemAndAmount.map(item => item.id))).data;
+
+    setOrderItems(orderItemsArray.map(item =>
+      ({ ...item, ...orderItemAndAmount.find(orderItem => orderItem.id === item.id) }))
+    );
+  }
 
   const addItemToTheCart = async (item: AddItem) => {
-    if(item.firstAdded){
-        OrderService.createOrder(new Date().toLocaleDateString('hr-HR'));
-        orderId++;
-        setActiveOrder(orderId);
-        changeColor('red');
+    if (item.firstAdded) {
+      activeOrderId = (await OrderService.createOrder(new Date().toLocaleDateString('hr-HR'))).data
+      setActiveOrder(activeOrderId);
+      changeColor('red');
+      await OrderItemService.createOrderItem(activeOrderId, item.itemId);
+    }else{
+      await OrderItemService.createOrderItem(activeOrder, item.itemId);
     }
-        await OrderItemService.createOrderItem(orderId, item.itemId);
-        orderItemAndAmount = (await OrderItemService.getOrderItemAmount(orderId)).data;
-        orderItemsArray = (await ItemService.findItemByItemId(orderItemAndAmount.map(item => item.id))).data;
+    setUpdateOrderItems(!updateOrderItems);
+  }
 
-        setOrderItems(orderItemsArray.map(item => 
-            ({ ...item, ...orderItemAndAmount.find(orderItem => orderItem.id === item.id) }))
-        );
-}
+  const addOrRemoveOrderItem = async (itemId: number, decider: number) => {
+    if(decider) await OrderItemService.createOrderItem(activeOrder, itemId);
+    else await OrderItemService.deleteOrderItem(activeOrder, itemId);
+    setUpdateOrderItems(!updateOrderItems);
+  }
+
+  const removeOrderItemAll = async (itemId: number) => {
+    await OrderItemService.deleteOrderItemsAll(itemId, activeOrder);
+    setUpdateOrderItems(!updateOrderItems);
+  }
 
   return (
     <BrowserRouter>
       <div className="page">
         <Header discount={discountCode} red={color} activeOrder={activeOrder} orderItems={orderItems} />
-          <Routes>
-            <Route path="/tech" element={<MainContainer addItemToCart={addItemToTheCart}/>}/>
-            <Route path="/shopping_cart" element={<ShoppingCart activeOrder={activeOrder} orderItems={orderItems}/>} />
-            <Route path="/checkout" element={<Checkout activeOrder={activeOrder} orderItems={orderItems}/>} />
-            <Route path="*" element={<></>} />
-          </Routes>
-          <Support />
-        <Footer/>
+        <Routes>
+          <Route path="/tech" element={<MainContainer addItemToCart={addItemToTheCart} />} />
+          <Route path="/shopping_cart" element={<ShoppingCart activeOrder={activeOrder} orderItems={orderItems} 
+          removeOrderItemAll={removeOrderItemAll} addOrRemoveOrderItem={addOrRemoveOrderItem}/>} />
+          <Route path="/checkout" element={<Checkout activeOrder={activeOrder} orderItems={orderItems} 
+          removeOrderItemAll={removeOrderItemAll} addOrRemoveOrderItem={addOrRemoveOrderItem}/>} />
+          <Route path="*" element={<></>} />
+        </Routes>
+        <Support />
+        <Footer />
       </div>
     </BrowserRouter>
-      );
+  );
 }
 
 export default App;

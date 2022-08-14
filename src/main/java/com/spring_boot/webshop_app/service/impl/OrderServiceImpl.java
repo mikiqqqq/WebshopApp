@@ -5,6 +5,7 @@ import com.spring_boot.webshop_app.repository.OrderRepo;
 import com.spring_boot.webshop_app.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -18,12 +19,14 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order save(Order order){
+    @Transactional
+    public Integer save(Order order){
         orderRepo.save(order);
-        return order;
+        return order.getId();
     }
 
     @Override
+    @Transactional
     public Order update(Integer orderId, Order updatedOrder) {
         updatedOrder.setId(orderId);
         orderRepo.save(updatedOrder);
@@ -32,6 +35,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @Transactional
     public void delete(Integer id) {
         orderRepo.deleteById(id);
     }

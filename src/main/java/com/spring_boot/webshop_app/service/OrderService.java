@@ -5,7 +5,7 @@ import com.spring_boot.webshop_app.model.Order;
 public interface OrderService {
 
     Order fetchOrderById (Integer id);
-    Order save (Order order);
+    Integer save (Order order);
     Order update(Integer id, Order updatedOrder);
     void delete(Integer id);
 }

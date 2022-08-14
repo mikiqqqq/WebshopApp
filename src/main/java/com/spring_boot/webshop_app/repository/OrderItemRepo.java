@@ -8,6 +8,7 @@ import java.util.List;
 public interface OrderItemRepo extends JpaRepository<OrderItem, Integer> {
 
     List<OrderItem> findAllByOrderId(Integer orderId);
-
     List<OrderItem> findAllByItemId(Integer itemId);
+    OrderItem findTopByOrderIdAndItemId(Integer orderId, Integer itemId);
+    void deleteAllByItemIdAndOrderId(Integer itemId, Integer orderId);
 }

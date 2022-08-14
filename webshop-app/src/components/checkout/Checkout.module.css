@@ -28,86 +28,25 @@
     margin-bottom: 10px;
 }
 
+.step_three h3{
+    color:#7CFC00;
+}
+
 .step_p{
     color: gray;
     font-style: italic;
     margin: 0;
 }
 
-.step_one, .step_two, .step_three{
-    padding: 10px 20px 20px 20px;
+.step_three{
     width: 100%;
     background-color: #20232a;
     box-shadow: 0 0 16px 0 #222;
 }
 
-.checkout_info h3{
-    color:#7CFC00;
-}
-
-.contact h5{
-    margin-top: 25px;
-    color: lavender;
-    font-weight: 500;
-}
-
-#form > div, #form_two > div{
-    color: #777;
-    transform: scaleY(.8);
-    font-family: Arial, Helvetica, sans-serif;
-    letter-spacing: -.6px;
-    font-size: 1.1em;
-}
-
-#form input:focus, #form_two input:focus{
-    border-color: #7CFC00;
-    box-shadow: 0 0 0 .15rem rgba(124,252,0,.25);
-}
-
-#submit_button{
-    background-color: #7F38EC;
-    color: lavender;
-    margin-top: 20px;
-    padding: 5px 25px;
-    font-weight: bold;
-    border: none;
-    outline: none;
-    box-shadow: none;
-    transition: background-color .5s;
-}
-
-#submit_button:hover{
-    background-color: #58b300;
-    transition: background-color .5s;
-}
-
-#submit_button:active{
-    transform: scale(0.95);
-}
-
-.step_two{
-    margin-top: 25px;
-}
-
-#form_two{
-    margin-top: 15px;
-}
-
 .button_container{
     display: flex;
     align-items: center;
-}
-
-.step_two button{
-    background-color: transparent;
-    border: none;
-}
-
-.selected_card{
-    margin-left: 25px;
-    font-size: 2em;
-    font-family: 'Arial';
-    letter-spacing: .8px;
 }
 
 .steph_three_header{
@@ -121,10 +60,6 @@
 
 .step_three > div:last-child{
     border-bottom: none;
-}
-
-.step_two img{
-    width: 96px;
 }
 
 .order_info{

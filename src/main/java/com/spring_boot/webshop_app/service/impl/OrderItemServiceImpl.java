@@ -8,6 +8,7 @@ import com.spring_boot.webshop_app.repository.OrderItemRepo;
 import com.spring_boot.webshop_app.service.OrderItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -22,6 +23,7 @@ public class OrderItemServiceImpl implements OrderItemService {
     private OrderItemAndAmountDtoMapper orderItemAndAmountDtoMapper;
 
     @Override
+    @Transactional
     public OrderItem save(OrderItem orderItem){
         orderItemRepo.save(orderItem);
         return orderItem;
@@ -54,7 +56,16 @@ public class OrderItemServiceImpl implements OrderItemService {
     }
 
     @Override
-    public void delete(Integer id) {
-        orderItemRepo.deleteById(id);
+    @Transactional
+    public void deleteAllByItemIdAndOrderId(Integer orderItemId, Integer orderId){
+        orderItemRepo.deleteAllByItemIdAndOrderId(orderItemId, orderId);
+    }
+
+    @Override
+    @Transactional
+    public void delete(Integer orderId, Integer itemId) {
+        orderItemRepo.delete(
+                orderItemRepo.findTopByOrderIdAndItemId(
+                        orderId, itemId));
     }
 }

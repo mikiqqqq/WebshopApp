@@ -1,0 +1,79 @@
+
+.step_p{
+    color: gray;
+    font-style: italic;
+    margin: 0;
+}
+
+.step_two{
+    padding: 10px 20px 20px 20px;
+    width: 100%;
+    background-color: #20232a;
+    box-shadow: 0 0 16px 0 #222;
+}
+
+.step_two{
+    margin-top: 25px;
+}
+
+.step_two h3{
+    color:#7CFC00;
+}
+
+#form_two{
+    margin-top: 15px;
+}
+
+#form_two > div{
+    color: #777;
+    transform: scaleY(.8);
+    font-family: Arial, Helvetica, sans-serif;
+    letter-spacing: -.6px;
+    font-size: 1.1em;
+}
+
+.feedback{
+    display: block;
+}
+
+.button_container{
+    display: flex;
+    align-items: center;
+}
+
+.step_two button{
+    background-color: transparent;
+    border: none;
+}
+
+.selected_card{
+    margin-left: 25px;
+    font-size: 2em;
+    font-family: 'Arial';
+    letter-spacing: .8px;
+}
+
+.step_two img{
+    width: 96px;
+}
+
+#submit_button{
+    background-color: #7F38EC;
+    color: lavender;
+    margin-top: 20px;
+    padding: 5px 25px;
+    font-weight: bold;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    transition: background-color .5s;
+}
+
+#submit_button:hover{
+    background-color: #58b300;
+    transition: background-color .5s;
+}
+
+#submit_button:active{
+    transform: scale(0.95);
+}

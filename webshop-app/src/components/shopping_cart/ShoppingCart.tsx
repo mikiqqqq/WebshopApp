@@ -5,11 +5,15 @@ import OrderItem from "./order_item/OrderItem";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
+import OrderItemService from "../../services/OrderItemService";
 
 
 interface Props{
     orderItems: Hit[];
     activeOrder: number;
+
+    addOrRemoveOrderItem(orderItemId: number, decider: number): void;
+    removeOrderItemAll(orderItemId: number): void;
 }
 
 const ShoppingCart:React.FunctionComponent<Props> = props => {
@@ -26,7 +30,8 @@ const ShoppingCart:React.FunctionComponent<Props> = props => {
                     <div className={style.order_items_container}>
                         {props.orderItems?.map(item => {
                             totalPrice += item.quantity * item.price;
-                            return <OrderItem orderItem={item}/>;
+                            return <OrderItem key={item.id} orderItem={item} 
+                            removeOrderItemAll={props.removeOrderItemAll} addOrRemoveOrderItem={props.addOrRemoveOrderItem}/>;
                         })}
                     </div>
                 </div>

@@ -5,10 +5,15 @@ import itemImg from '../../../images/item.jpg';
 import BrandService from "../../../services/BrandService";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
+import OrderItemService from "../../../services/OrderItemService";
 
 
 interface Props{
     orderItem: Hit;
+
+
+    addOrRemoveOrderItem(orderItemId: number, decider: number): void;
+    removeOrderItemAll(orderItemId: number): void;
 }
 
 const OrderItem:React.FunctionComponent<Props> = props => {
@@ -22,17 +27,26 @@ const OrderItem:React.FunctionComponent<Props> = props => {
         });
     }, [props.orderItem.brandId])
 
+    const removeOrderItemAll = (itemId: number) => {
+        props.removeOrderItemAll(itemId);
+    }
+
     const increment = () => {
         if(quantity + 1 < props.orderItem.amount){
             setQuantity(quantity + 1);
+            props.addOrRemoveOrderItem(props.orderItem.id, 1);
         }else if(quantity + 1 == props.orderItem.amount){
             setQuantity(quantity + 1);
             setMessage(' - Maxed out');
+            props.addOrRemoveOrderItem(props.orderItem.id, 1);
         }
-    };
+    }
 
     const decrement = () => {
-        if(quantity - 1 > 0) setQuantity(quantity - 1);
+        if(quantity - 1 > 0) {
+            setQuantity(quantity - 1);
+            props.addOrRemoveOrderItem(props.orderItem.id, 0);
+        }
         setMessage('');
     }
 
@@ -52,7 +66,7 @@ const OrderItem:React.FunctionComponent<Props> = props => {
                         <p>+</p>
                     </button>
                 </div>
-                <button className={style.remove_button}>
+                <button className={style.remove_button} onClick={() => removeOrderItemAll(props.orderItem.id)}>
                     <FontAwesomeIcon icon={faClose} className={style.icon}/>&nbsp;&nbsp;&nbsp;Remove
                 </button>
                 <strong id={style.item_price}>${props.orderItem.quantity * props.orderItem.price}</strong>

@@ -31,7 +31,7 @@ public class OrderController {
     }
 
     @PostMapping(value="/create")
-    ResponseEntity<Order> create(@Valid @RequestBody OrderForm orderForm) {
+    ResponseEntity<Integer> create(@Valid @RequestBody OrderForm orderForm) {
 
         return new ResponseEntity<>(
                 orderService.save(orderFormMapper.map(orderForm)),
@@ -57,5 +57,5 @@ public class OrderController {
         return ResponseEntity
                 .ok()
                 .body("deleted");
-    }
+    }   
 }

@@ -77,26 +77,32 @@ public class ItemServiceImpl implements ItemService {
                     .collect(Collectors.toList());
         }
 
+        //Sorting
+        if(sortBy.isPresent() && sortOrder.isPresent()){
+            filteredItems = sort(filteredItems, sortBy.get(), sortOrder.get());
+        }
+
+        return filteredItems;
+    }
+
+    public List<ItemDto> sort(List<ItemDto> filteredItems, String sortBy, String sortOrder){
         String price = "PRICE";
         String name = "NAME";
 
-        //Sorting
-        if(sortBy.isPresent() && sortOrder.isPresent()){
-            if(sortBy.get().equalsIgnoreCase(price)){
-                if(sortOrder.get().equalsIgnoreCase("ASC")){
-                    filteredItems.sort(new ItemDtoSorter(price, "ASC"));
-                }
-                if(sortOrder.get().equalsIgnoreCase("DESC")){
-                    filteredItems.sort(new ItemDtoSorter(price, "DESC"));
-                }
+        if (sortBy.equalsIgnoreCase(price)) {
+            if (sortOrder.equalsIgnoreCase("ASC")) {
+                filteredItems.sort(new ItemDtoSorter(price, "ASC"));
             }
-            if(sortBy.get().equalsIgnoreCase(name)) {
-                if (sortOrder.get().equalsIgnoreCase("ASC")) {
-                    filteredItems.sort(new ItemDtoSorter(name, "ASC"));
-                }
-                if (sortOrder.get().equalsIgnoreCase("DESC")) {
-                    filteredItems.sort(new ItemDtoSorter(name, "DESC"));
-                }
+            if (sortOrder.equalsIgnoreCase("DESC")) {
+                filteredItems.sort(new ItemDtoSorter(price, "DESC"));
+            }
+        }
+        if (sortBy.equalsIgnoreCase(name)) {
+            if (sortOrder.equalsIgnoreCase("ASC")) {
+                filteredItems.sort(new ItemDtoSorter(name, "ASC"));
+            }
+            if (sortOrder.equalsIgnoreCase("DESC")) {
+                filteredItems.sort(new ItemDtoSorter(name, "DESC"));
             }
         }
 
