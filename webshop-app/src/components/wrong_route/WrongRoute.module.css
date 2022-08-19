@@ -1,0 +1,40 @@
+.main{
+    width: 100%;
+    min-height: 75vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.main > div{
+    margin: 0 auto;
+    background-color: var(--background);
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: lavender;
+    padding: 15px 20px 10px 20px;
+    border-radius: 15px;
+}
+
+.main > a{
+    margin-top: 35px;
+    background-color: var(--background);
+    padding: 5px 15px;
+    text-decoration: none;
+    color: var(--base-color);
+    border-radius: 7.5px;
+}
+
+.main > a:hover{
+    color: var(--base-color);
+}
+
+.icon{
+    margin-top: 50px;
+    font-size: 200px;
+    transition: transform .5s;
+}

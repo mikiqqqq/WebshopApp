@@ -8,10 +8,12 @@ import MainContainer from './components/MainContainer';
 import { Hit, AddItem } from './components/MainContainerData';
 import ShoppingCart from './components/shopping_cart/ShoppingCart';
 import Support from './components/support/Support';
+import WrongRoute from './components/wrong_route/WrongRoute';
 import DiscountCodeService from './services/DiscountCodeService';
 import ItemService from './services/ItemService';
 import OrderItemService from './services/OrderItemService';
 import OrderService from './services/OrderService';
+import useLocalStorage from './useLocalStorage';
 
 
 interface OrderItemAndAmount {
@@ -19,70 +21,109 @@ interface OrderItemAndAmount {
   quantity: number;
 }
 
-let activeOrderId: number;
 function App() {
-  const [discountCode, setDiscountCode] = useState<string>('');
-  const [activeOrder, setActiveOrder] = useState<number>(0);
-  const [color, changeColor] = useState<string>('');
+  const [discountCode, setDiscountCode] = useState('');
   const [orderItems, setOrderItems] = useState<Array<Hit>>([]);
-  const [updateOrderItems, setUpdateOrderItems] = useState<boolean>(false);
+  const [updateOrderItems, setUpdateOrderItems] = useState(false);
+  const [localStateActiveOrder, setLocalStateActiveOrder] = useLocalStorage('activeOrder');
+  const [firstAdded, setFirstAdded] = useState(true);
+  const [error, setError] = useState(false);
+  const [orderCompleted, setOrderCompleted] = useState(false);
+
+  let activeOrderId: number;
   let orderItemsArray = new Array<Hit>();
   let orderItemAndAmount = new Array<OrderItemAndAmount>();
 
   useEffect(() => {
     fetchActiveDiscountCode();
-    if(activeOrder) getOrderItems();
+    if(localStateActiveOrder) {
+      setFirstAdded(false);
+      getOrderItems();
+    }
   }, [updateOrderItems]);
+
+  useEffect(() => {
+    if(orderCompleted){
+      setOrderItems([]);
+      setLocalStateActiveOrder(0);
+      setFirstAdded(true);
+    }
+  }, [orderCompleted])
 
   const fetchActiveDiscountCode = () => {
     DiscountCodeService.fetchActiveDiscountCode().then((response) => {
       setDiscountCode(response.data.code);
-    });
+      setError(false);
+    }).catch(() => {
+      setError(true);
+  });
   }
-
+  
   const getOrderItems = async () => {
-    orderItemAndAmount = (await OrderItemService.getOrderItemAmount(activeOrder)).data;
+    try{
+    orderItemAndAmount = (await OrderItemService.getOrderItemAmount(localStateActiveOrder)).data;
+    // If every orderItem is deleted
+    if(orderItemAndAmount.length == 0) {
+      OrderService.deleteOrder(localStateActiveOrder);
+      setOrderItems([]);
+      setLocalStateActiveOrder(0);
+      setFirstAdded(true);
+      return;
+    }
     orderItemsArray = (await ItemService.findItemByItemId(orderItemAndAmount.map(item => item.id))).data;
 
     setOrderItems(orderItemsArray.map(item =>
       ({ ...item, ...orderItemAndAmount.find(orderItem => orderItem.id === item.id) }))
     );
+    }catch (err: unknown) {
+      console.log(err);
+    }
   }
 
   const addItemToTheCart = async (item: AddItem) => {
-    if (item.firstAdded) {
-      activeOrderId = (await OrderService.createOrder(new Date().toLocaleDateString('hr-HR'))).data
-      setActiveOrder(activeOrderId);
-      changeColor('red');
-      await OrderItemService.createOrderItem(activeOrderId, item.itemId);
+    if (firstAdded) {
+      activeOrderId = (await OrderService.createOrder()).data
+      setLocalStateActiveOrder(activeOrderId);
+      if(item.amount > 1) await OrderItemService.createMultipleOrderItems(activeOrderId, item.itemId, item.amount);
+      else await OrderItemService.createOrderItem(activeOrderId, item.itemId);
+      console.log(firstAdded);
+      setFirstAdded(false);
     }else{
-      await OrderItemService.createOrderItem(activeOrder, item.itemId);
+      if(item.amount > 1) await OrderItemService.createMultipleOrderItems(localStateActiveOrder, item.itemId, item.amount);
+      else await OrderItemService.createOrderItem(localStateActiveOrder, item.itemId);
     }
     setUpdateOrderItems(!updateOrderItems);
   }
 
   const addOrRemoveOrderItem = async (itemId: number, decider: number) => {
-    if(decider) await OrderItemService.createOrderItem(activeOrder, itemId);
-    else await OrderItemService.deleteOrderItem(activeOrder, itemId);
+    if(decider) await OrderItemService.createOrderItem(localStateActiveOrder, itemId);
+    else await OrderItemService.deleteOrderItem(localStateActiveOrder, itemId);
     setUpdateOrderItems(!updateOrderItems);
   }
 
+  const emptyShoppingCart = async (empty: boolean) => {
+    if(empty){
+      await OrderItemService.deleteAllOrderItemsByOrderId(localStateActiveOrder);
+      setUpdateOrderItems(!updateOrderItems);
+    }
+  }
+
   const removeOrderItemAll = async (itemId: number) => {
-    await OrderItemService.deleteOrderItemsAll(itemId, activeOrder);
+    await OrderItemService.deleteOrderItemAll(itemId, localStateActiveOrder);
     setUpdateOrderItems(!updateOrderItems);
   }
 
   return (
     <BrowserRouter>
       <div className="page">
-        <Header discount={discountCode} red={color} activeOrder={activeOrder} orderItems={orderItems} />
+        <Header discount={discountCode} activeOrder={localStateActiveOrder} orderItems={orderItems} error={error}/>
         <Routes>
           <Route path="/tech" element={<MainContainer addItemToCart={addItemToTheCart} />} />
-          <Route path="/shopping_cart" element={<ShoppingCart activeOrder={activeOrder} orderItems={orderItems} 
-          removeOrderItemAll={removeOrderItemAll} addOrRemoveOrderItem={addOrRemoveOrderItem}/>} />
-          <Route path="/checkout" element={<Checkout activeOrder={activeOrder} orderItems={orderItems} 
-          removeOrderItemAll={removeOrderItemAll} addOrRemoveOrderItem={addOrRemoveOrderItem}/>} />
-          <Route path="*" element={<></>} />
+          <Route path="/shopping_cart" element={<ShoppingCart activeOrder={localStateActiveOrder} orderItems={orderItems} 
+          removeOrderItemAll={removeOrderItemAll} addOrRemoveOrderItem={addOrRemoveOrderItem} emptyShoppingCart={emptyShoppingCart}/>} />
+          <Route path="/checkout" element={<Checkout activeOrder={localStateActiveOrder} orderItems={orderItems} 
+          removeOrderItemAll={removeOrderItemAll} addOrRemoveOrderItem={addOrRemoveOrderItem} orderCompleted={setOrderCompleted}/>} />
+          <Route path="*" element={<WrongRoute/>} />
         </Routes>
         <Support />
         <Footer />

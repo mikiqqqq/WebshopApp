@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import BrandService from "../../../../services/BrandService";
-import style from './Brand.module.css'
+import style from '../FilterButtons.module.css'
 
 interface Props{
     onFilterOptions: (filterOptions: FilterOptions) => void;
 
     filterOptions: FilterOptions;
+    baseColor: string;
+    backgroundColor: string;
 }
 
 interface BrandType {
@@ -23,7 +25,7 @@ export interface FilterOptions {
     sortOrder: string;
 }
 
-var myMap = new Map();
+let myMap = new Map();
 
 const Brand:React.FunctionComponent<Props> = props => {
 
@@ -33,20 +35,22 @@ const Brand:React.FunctionComponent<Props> = props => {
     const fetchBrands = () => {
         BrandService.fetchAllBrands().then((response) => {
             setBrands(response.data);
+        }).catch(() => {
+            console.log("ERR_CONNECTION_REFUSED");
         });
     }
 
     const handleClick = (brandId: number) => {
         myMap.set(brandId, !myMap.get(brandId));
         if(myMap.get(brandId)){
-            setFilterOptions((filterOptions: FilterOptions) => {
+            setFilterOptions((filterOptions) => {
                 return {
                     ...props.filterOptions,
                     brandIds: [...filterOptions.brandIds, brandId]
                 };
             })
         }else{
-            setFilterOptions((filterOptions: FilterOptions) => {
+            setFilterOptions((filterOptions) => {
                 return {
                     ...props.filterOptions,
                     brandIds: filterOptions.brandIds.filter(id => id !== brandId)
@@ -72,8 +76,8 @@ const Brand:React.FunctionComponent<Props> = props => {
             brand => { return(
             <button 
             style={{
-                backgroundColor: myMap.get(brand.id) ? '#656a75' : '#7CFC00',
-                color: myMap.get(brand.id) ? '#7CFC00' : '#20232a',
+                backgroundColor: myMap.get(brand.id) ? props.baseColor : '#414554',
+                color: myMap.get(brand.id) ? props.backgroundColor : props.baseColor,
             }}
             onClick={() => handleClick(brand.id)} 
             className={style.brand_button} 

@@ -3,6 +3,7 @@ package com.spring_boot.webshop_app.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Getter
 @Setter
@@ -26,7 +27,7 @@ public class Item {
     private String description;
 
     @Column(name = "CIJENA")
-    private Long price;
+    private BigDecimal price;
 
     @Column(name = "KOLICINA")
     private Integer amount;

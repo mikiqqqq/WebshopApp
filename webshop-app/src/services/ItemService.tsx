@@ -10,14 +10,6 @@ class ItemService {
     }
 
     filterItems(filterOptions: FilterOptions){
-        console.log(ITEMS_API_BASE_URL + '/filter-items-by?' 
-        + 'brandIds=' + filterOptions.brandIds 
-        + '&uprLmt=' + filterOptions.uprLmt
-        + '&lwrLmt=' + filterOptions.lwrLmt
-        + '&productTypeId=' + filterOptions.productTypeId
-        + '&productionYear=' + filterOptions.productionYear
-        + '&sortBy=' + filterOptions.sortBy
-        + '&sortOrder=' + filterOptions.sortOrder);
         return axios.get(ITEMS_API_BASE_URL + '/filter-items-by?' 
         + 'brandIds=' + filterOptions.brandIds 
         + '&uprLmt=' + filterOptions.uprLmt
@@ -33,7 +25,6 @@ class ItemService {
     }
 
     findItemByBrandId(brandIds: number[]){
-        console.log(ITEMS_API_BASE_URL + '/by-brandIds/' + brandIds);
         return axios.get(ITEMS_API_BASE_URL + '/by-brandIds/' + brandIds);
     }
 
@@ -42,7 +33,6 @@ class ItemService {
     }
 
     findAllThatContainTarget(target:string){
-        console.log(ITEMS_API_BASE_URL + '/contain/' + target);
         return axios.get(ITEMS_API_BASE_URL + '/contain/' + target);
     }
 }

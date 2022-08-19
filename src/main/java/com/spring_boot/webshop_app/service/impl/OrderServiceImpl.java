@@ -27,11 +27,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional
-    public Order update(Integer orderId, Order updatedOrder) {
+    public void update(Integer orderId, Order updatedOrder) {
         updatedOrder.setId(orderId);
         orderRepo.save(updatedOrder);
-
-        return updatedOrder;
     }
 
     @Override

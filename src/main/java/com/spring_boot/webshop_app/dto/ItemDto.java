@@ -2,6 +2,8 @@ package com.spring_boot.webshop_app.dto;
 
 import lombok.*;
 
+import java.math.BigDecimal;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -13,7 +15,7 @@ public class ItemDto {
     private Integer id;
     private String name;
     private String description;
-    private Long price;
+    private BigDecimal price;
     private Integer amount;
     private Integer brandId;
     private Integer productTypeId;

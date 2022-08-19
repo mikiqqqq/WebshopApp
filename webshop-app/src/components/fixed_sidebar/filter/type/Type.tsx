@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import ProductTypeService from "../../../../services/ProductTypeService";
 import { FilterOptions } from "../brand/Brand";
-import style from './Type.module.css'
+import style from '../FilterButtons.module.css'
 
 interface Props{
     onFilterOptions: (filterOptions: FilterOptions) => void;
 
     filterOptions: FilterOptions;
+    baseColor: string;
+    backgroundColor: string;
 }
 
 interface ProductType{
@@ -23,6 +25,8 @@ const Type:React.FunctionComponent<Props> = props => {
     const fetchProductTypes = () => {
         ProductTypeService.fetchAllProductTypes().then((response) => {
             setProductType(response.data);
+        }).catch(() => {
+            console.log("ERR_CONNECTION_REFUSED");
         });
     }
 
@@ -51,8 +55,8 @@ const Type:React.FunctionComponent<Props> = props => {
             type => { return(
             <button 
             style={{
-                backgroundColor: isActive === type.id ? '#7CFC00' : '#20232a',
-                color: isActive === type.id ? '#20232a' : '#7CFC00',
+                backgroundColor: isActive === type.id ? props.baseColor : props.backgroundColor,
+                color: isActive === type.id ? props.backgroundColor : props.baseColor,
             }}
             onClick={() => handleClick(type.id)} 
             className={style.choose_button} 
@@ -62,8 +66,8 @@ const Type:React.FunctionComponent<Props> = props => {
         
         <button 
             style={{
-                backgroundColor: isActive === 0 ? '#7CFC00' : '#20232a',
-                color: isActive === 0 ? '#20232a' : '#7CFC00',
+                backgroundColor: isActive === 0 ? props.baseColor : props.backgroundColor,
+                color: isActive === 0 ? props.backgroundColor : props.baseColor,
             }}
             onClick={() => handleClick(0)} 
             className={style.choose_button} >No Filter

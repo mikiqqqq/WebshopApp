@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { FilterOptions } from "../brand/Brand";
-import style from '../production_year/ProductionYear.module.css'
+import style from '../FilterButtons.module.css'
 
 interface Props{
     onFilterOptions: (filterOptions: FilterOptions) => void;
 
     filterOptions: FilterOptions;
+    baseColor: string;
+    backgroundColor: string;
 }
 
 const priceArray = new Array(
@@ -42,8 +44,8 @@ const Price:React.FunctionComponent<Props> = props => {
             priceOption => { return(
             <button 
             style={{
-                backgroundColor: isActive[0] === priceOption[0] && isActive[1] === priceOption[1] ? '#7CFC00' : '#20232a',
-                color: isActive[0] === priceOption[0] && isActive[1] === priceOption[1] ? '#20232a' : '#7CFC00',
+                backgroundColor: isActive[0] === priceOption[0] && isActive[1] === priceOption[1] ? props.baseColor : props.backgroundColor,
+                color: isActive[0] === priceOption[0] && isActive[1] === priceOption[1] ? props.backgroundColor : props.baseColor,
             }}
             onClick={() => handleClick([priceOption[0], priceOption[1]])} 
             className={style.choose_button} 
@@ -53,8 +55,8 @@ const Price:React.FunctionComponent<Props> = props => {
 
         <button 
             style={{
-                backgroundColor: isActive[0] === 0 && isActive[1] === 5000 ? '#7CFC00' : '#20232a',
-                color: isActive[0] === 0 && isActive[1] === 5000  ? '#20232a' : '#7CFC00',
+                backgroundColor: isActive[0] === 0 && isActive[1] === 5000 ? props.baseColor : props.backgroundColor,
+                color: isActive[0] === 0 && isActive[1] === 5000  ? props.backgroundColor : props.baseColor,
             }}
             onClick={() => handleClick([0, 5000])} 
             className={style.choose_button} >No Filter

@@ -3,15 +3,15 @@
     width: 100%;
     padding: 20px;
     padding-right: 50px;
-    border-bottom: 1px solid gray;
+    border-bottom: 1px solid #4e8f90;
 }
 
 .cart_item:hover{
-    background-color: #30343e;
+    background-color: var(--background-hover);
 }
 
 .cart_item:hover .quantity_display{
-    background-color: #20232a;
+    background-color: var(--background);
 }
 
 .cart_item_body{
@@ -26,8 +26,8 @@
 
 .cart_item h5{
     font-size: 1.2em;
-    color: #7CFC00;
-    max-width: 70%;
+    color: var(--base-color);
+    max-width: 60%;
 }
 
 .cart_item h3{
@@ -54,22 +54,24 @@
     color: lavender;
     letter-spacing: .8px;
     position: absolute;
-    bottom: 7px;
+    bottom: 0;
     right: 0;
+    transform: translateY(-10%);
 }
 
 .quantity_counter{
-    width: 210px;
+    width: 165px;
     position: absolute;
     bottom: 5px;
     display: flex;
     justify-content: center;
     align-items: center;
+    font-weight: 500;
 }
 
 .quantity_button{
     position: absolute;
-    background-color: #7CFC00;
+    background-color: var(--base-color);
     color: #222;
     font-size: 1.3em;
     font-weight: bolder;
@@ -87,18 +89,18 @@
 }
 
 .quantity_button:hover{
-    background-color: #58b300;
+    background-color: var(--base-hover);
 }
 
 .quantity_button:active{
-    background-color: #58b300;
+    background-color: var(--base-hover);
     transform: scale(0.9);
 }
 
 .quantity_display{
     text-align: center;
     margin: 0%;
-    width: 205px;
+    width: 165px;
     height: 25px;
     background-color: #383d49;
     border-radius: 25px;
@@ -117,20 +119,57 @@
     position: absolute;
     top: 0;
     right: 0;
-    width: 30%;
+    width: 114px;
     padding: 5px 20px;
     border-radius: 3px;
-    border: none;
-    color: lavender;
-    background-color: #DE0D22;
+    border: 2px solid var(--complementary-color);
+    color: var(--complementary-color);
+    font-weight: 500;
+    background-color: transparent;
+    transition: .5s;
 }
 
 .remove_button:hover{
-    background-color: #be0e1f;
+    transition: .5s;
+    background-color: var(--complementary-color);
+    color: lavender;
 }
 
 .remove_button:active{
     transform: scale(0.9);
+}
+
+#alert{
+    position: absolute;
+    right: 0;
+    top: 50px;
+    z-index: 50;
+    background-color: #ba8dff;
+    border-color: #ba8dff;
+    color: var(--complementary-hover);
+}
+
+#alert button{
+    border-color: var(--complementary-hover);
+    color: var(--complementary-hover);
+    padding: 3px 10px;
+}
+
+#alert button:focus{
+  box-shadow: 0 0 0 0.25rem rgba(127, 56, 236, .5);
+}
+
+#alert button:hover{
+    background-color: var(--complementary-hover);
+    color: lavender;
+}
+
+#alert button:active{
+    background-color: var(--complementary-hover);
+}
+
+#cancel_button{
+    margin-left: 10px;
 }
 
 .icon{

@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { FilterOptions } from "../brand/Brand";
-import style from './ProductionYear.module.css'
+import style from '../FilterButtons.module.css'
 
 interface Props{
     onFilterOptions: (filterOptions: FilterOptions) => void;
 
     filterOptions: FilterOptions;
+    baseColor: string;
+    backgroundColor: string;
 }
 
 const productionYears = [2022, 2021, 2020, 2019, 2018];
@@ -35,8 +37,8 @@ const ProductionYear:React.FunctionComponent<Props> = props => {
             year => { return(
             <button 
             style={{
-                backgroundColor: isActive === year ? '#7CFC00' : '#20232a',
-                color: isActive === year ? '#20232a' : '#7CFC00',
+                backgroundColor: isActive === year ? props.baseColor : props.backgroundColor,
+                color: isActive === year ? props.backgroundColor : props.baseColor,
             }}
             onClick={() => handleClick(year)} 
             className={style.choose_button} 
@@ -46,8 +48,8 @@ const ProductionYear:React.FunctionComponent<Props> = props => {
 
         <button 
             style={{
-                backgroundColor: isActive === 0 ? '#7CFC00' : '#20232a',
-                color: isActive === 0 ? '#20232a' : '#7CFC00',
+                backgroundColor: isActive === 0 ? props.baseColor : props.backgroundColor,
+                color: isActive === 0 ? props.backgroundColor : props.baseColor,
             }}
             onClick={() => handleClick(0)} 
             className={style.choose_button} >No Filter

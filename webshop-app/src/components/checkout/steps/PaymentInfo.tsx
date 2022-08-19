@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Row, Col, FloatingLabel, InputGroup, Button } from "react-bootstrap";
 import style from './PaymentInfo.module.css';
 import visa from '../../../images/visa.png'
@@ -9,27 +9,24 @@ import { Formik } from "formik";
 import * as Yup from 'yup';
 
 interface Props {
-
+    validatedPaymentInfo(validated: boolean): void;
+    paymentInfo(paymentInfo: any): void;
 }
 
 const PaymentInfo: React.FunctionComponent<Props> = props => {
     const [validated, setValidated] = useState(false);
     const [card, setCard] = useState<string>("");
 
-
-    const handleSubmit = (event: { currentTarget: any; preventDefault: () => void; stopPropagation: () => void; }) => {
-        const form = event.currentTarget;
-        if (form.checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
-        }
-
-        setValidated(true);
-    };
-
     const handleSetPayment = (card: string) => {
         setCard(card);
     }
+
+    useEffect(() => {
+        const timeoutID = setTimeout(() => {
+            setValidated(false);
+        }, 2000);
+        return () => clearTimeout(timeoutID);
+    }, [validated])
 
     const re = /^[0-9\b]+$/;
 
@@ -44,11 +41,11 @@ const PaymentInfo: React.FunctionComponent<Props> = props => {
             .max(16, "*Card Number must have 16 digits")
             .required("*Card Number is required"),
         expDay: Yup.string()
-        .matches(re, "*Exp. day must be a number")
+            .matches(re, "*Exp. day must be a number")
             .min(2, "*Exp. day must 2 digits")
             .required("*Expiration day is required"),
         expMonth: Yup.string()
-        .matches(re, "*Exp. month must be a number")
+            .matches(re, "*Exp. month must be a number")
             .min(2, "*Exp. month must 2 digits")
             .required("*Expiration month is required"),
         cvc: Yup.string()
@@ -58,8 +55,8 @@ const PaymentInfo: React.FunctionComponent<Props> = props => {
     });
 
     return (
-        <div className={style.step_two}>
-            <p className={style.step_p}>Step 2 of 3</p>
+        <div className={style.payment_info_container}>
+            <p className={style.step_label}>Step 2 of 3</p>
             <h3>Payment Methods</h3>
             <div className={style.button_container}>
                 <button onClick={() => handleSetPayment("Visa")}
@@ -86,13 +83,16 @@ const PaymentInfo: React.FunctionComponent<Props> = props => {
                 onSubmit={(values, {setSubmitting}) => {
                     // When button submits form and form is in the process of submitting, submit button is disabled
                     setSubmitting(true);
-        
+
                     // Simulate submitting to database, shows us values submitted, resets form
                   setTimeout(() => {    
-                    alert(JSON.stringify(values, null, 2));
+                    props.validatedPaymentInfo(true);
+                    props.paymentInfo(values);
                     setSubmitting(false);
-                  }, 500);
+                    setValidated(true);
+                  }, 1000);
                 }}
+                
                 initialValues={{
                     cardholderName: '',
                     cardNumber: '',
@@ -104,17 +104,16 @@ const PaymentInfo: React.FunctionComponent<Props> = props => {
                 {({
                     handleSubmit,
                     handleChange,
-                    handleBlur,
                     values,
                     touched,
                     errors,
                     isValid,
                     isSubmitting
                 }) => (
-                    <Form noValidate onSubmit={handleSubmit} id={style.form_two}>
+                    <Form noValidate onSubmit={(e) => { e.preventDefault(); handleSubmit(e)}} id={style.form}>
 
-                        <Row className="mb-2">
-                            <Form.Group as={Col} md="9" controlId="validationCustom01">
+                        <Row className="mb-3">
+                            <Form.Group as={Col} sm="9" controlId="validationCustom01">
                                 <FloatingLabel label="Cardholder Name">
                                     <Form.Control
                                         type="text"
@@ -126,14 +125,14 @@ const PaymentInfo: React.FunctionComponent<Props> = props => {
                                         isValid={touched.cardholderName && !errors.cardholderName}
                                     />
                                 </FloatingLabel>
-                                <Form.Control.Feedback type="invalid" style={{display: !isValid && touched.cardholderName ? "block" : "none"}}>
+                                <Form.Control.Feedback type="invalid" style={{display: !!errors.cardholderName && touched.cardholderName ? "block" : "none"}}>
                                     {errors.cardholderName}
                                 </Form.Control.Feedback>
                             </Form.Group>
                         </Row>
 
-                        <Row className="mb-2">
-                            <Form.Group as={Col} md="9" controlId="validationCustom02">
+                        <Row className="mb-3">
+                            <Form.Group as={Col} sm="9" controlId="validationCustom02">
                                 <FloatingLabel label="Card Number">
                                     <Form.Control
                                         type="text"
@@ -146,14 +145,14 @@ const PaymentInfo: React.FunctionComponent<Props> = props => {
                                         isValid={touched.cardNumber && !errors.cardNumber}
                                     />
                                 </FloatingLabel>
-                                <Form.Control.Feedback type="invalid" style={{display: !isValid && touched.cardNumber ? "block" : "none"}}>
+                                <Form.Control.Feedback type="invalid" style={{display: !!errors.cardNumber && touched.cardNumber ? "block" : "none"}}>
                                     {errors.cardNumber}
                                 </Form.Control.Feedback>
                             </Form.Group>
                         </Row>
 
                         <Row className="mb-3">
-                            <Form.Group as={Col} md="3" controlId="validationCustom03">
+                            <Form.Group as={Col} sm="3" controlId="validationCustom03">
                                 <FloatingLabel label="Exp. day">
                                     <Form.Control
                                         type="text"
@@ -166,12 +165,12 @@ const PaymentInfo: React.FunctionComponent<Props> = props => {
                                         isValid={touched.expDay && !errors.expDay}
                                     />
                                 </FloatingLabel>
-                                <Form.Control.Feedback type="invalid" style={{display: !isValid && touched.expDay ? "block" : "none"}}>
+                                <Form.Control.Feedback type="invalid" style={{display: !!errors.expDay && touched.expDay ? "block" : "none"}}>
                                     {errors.expDay}
                                 </Form.Control.Feedback>
                             </Form.Group>
 
-                            <Form.Group as={Col} md="3" controlId="validationCustom04">
+                            <Form.Group as={Col} sm="3" controlId="validationCustom04">
                                 <FloatingLabel label="Exp. month">
                                     <Form.Control
                                         type="text"
@@ -184,12 +183,12 @@ const PaymentInfo: React.FunctionComponent<Props> = props => {
                                         isValid={touched.expMonth && !errors.expMonth}
                                     />
                                 </FloatingLabel>
-                                <Form.Control.Feedback type="invalid" style={{display: !isValid && touched.expMonth ? "block" : "none"}}>
+                                <Form.Control.Feedback type="invalid" style={{display: !!errors.expMonth && touched.expMonth ? "block" : "none"}}>
                                     {errors.expMonth}
                                 </Form.Control.Feedback>
                             </Form.Group>
 
-                            <Form.Group as={Col} md="3" controlId="validationCustom05">
+                            <Form.Group as={Col} sm="3" controlId="validationCustom05">
                                 <InputGroup hasValidation>
                                     <FloatingLabel label="CVC">
                                         <Form.Control
@@ -205,12 +204,16 @@ const PaymentInfo: React.FunctionComponent<Props> = props => {
                                         />
                                     </FloatingLabel>
                                     <InputGroup.Text id="inputGroupPrepend"><FontAwesomeIcon icon={faCreditCard} /></InputGroup.Text>
-                                    <Form.Control.Feedback type="invalid" style={{display: !isValid && touched.cvc ? "block" : "none"}}>
+                                    <Form.Control.Feedback type="invalid" style={{display: !!errors.cvc && touched.cvc ? "block" : "none"}}>
                                     {errors.cvc}
                                 </Form.Control.Feedback>
                                 </InputGroup>
                             </Form.Group>
                         </Row>
+
+                        <Form.Control.Feedback type="valid" style={{ display: validated && isValid  ? "block" : "none" }}>
+                                Payment method set successfully.
+                        </Form.Control.Feedback>
                         <Button type="submit" id={style.submit_button} disabled={isSubmitting}>Confirm</Button>
                     </Form>
                 )}

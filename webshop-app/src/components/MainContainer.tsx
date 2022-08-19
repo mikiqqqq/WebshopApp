@@ -1,26 +1,21 @@
 import React, { useEffect, useState } from "react";
-import Footer from "./footer/Footer";
-import Header from "./header/Header";
-import { SearchOptions, AddItem, Hit } from "./MainContainerData";
+import { AddItem, Hit } from "./MainContainerData";
 import style from "./MainContainer.module.css"
 import FixedSidebar from "./fixed_sidebar/FixedSidebar";
 import Items from "./item_container/Items";
 import ItemService from "../services/ItemService";
-import DiscounCodeService from "../services/DiscountCodeService";
-import OrderService from "../services/OrderService";
-import OrderItemService from "../services/OrderItemService";
 import { FilterOptions } from "./fixed_sidebar/filter/brand/Brand";
-import Support from "./support/Support";
-import { BrowserRouter, Route, Router, Routes, useSearchParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import { stringify } from "querystring";
+import { useSearchParams } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFaceSadTear, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+
 
 interface Props{
     addItemToCart: (item: AddItem) => void;
 }
 
 const MainContainer:React.FunctionComponent<Props> = props => {
-    let [searchParams] = useSearchParams();
+    let [searchParams, setSearchParams] = useSearchParams();
     const [items, setItems] = useState<Array<Hit>>([]);
     const [filterOptions, setFilterOptions] = useState<FilterOptions>({
         brandIds: [] as number[],
@@ -31,14 +26,44 @@ const MainContainer:React.FunctionComponent<Props> = props => {
         sortBy: "NAME",
         sortOrder: "ASC"
     })
+    const [rotate, setRotate] = useState(false);
+    const [inputValue, setInputValue] = useState('');
+    const [error, setError] = useState(true);
 
+    const handleInputChange = (e: React.FormEvent<HTMLInputElement>) => {
+        setInputValue((e.target as HTMLInputElement).value);
+    }
+
+    const keyPressHandler = (event: React.KeyboardEvent<HTMLInputElement>) => {
+        if (event.code === "Enter") {
+            setSearchParams({search: inputValue});
+            event.preventDefault();
+        }
+    };
+
+    const blink = () => {
+        setRotate(true);
+        const timeoutID = setTimeout(() => {
+            setRotate(false);
+        }, 2500);
+        return () => clearTimeout(timeoutID);
+    }
+
+    useEffect(() => {
+        setInterval(blink, 10000);
+    }, [])
 
     useEffect(() => {
         if(searchParams.get('search') === null){
-            ItemService.filterItems(filterOptions).then((response) => {
-                setItems(response.data);
-            });
+                ItemService.filterItems(filterOptions).then((response) => {
+                    setItems(response.data);
+                    console.log(response.data);
+                    setError(false);
+                }).catch(() => {
+                    setError(true);
+                });
         }else{
+            setError(false);
             let target: string = (searchParams.get('search') || " ");
             fetchItemsContainingTarget(target);
         }
@@ -55,10 +80,42 @@ const MainContainer:React.FunctionComponent<Props> = props => {
     };
 
     return(
-                <main className={style.main}>
-                    <FixedSidebar filterOptions={filterOptions} onFilterOptions={handlePriceFilterOptions} />
-                    <Items addItemToCart={props.addItemToCart} data={items} />
-                </main>
+        <main className={style.main}>
+            <FixedSidebar filterOptions={filterOptions} onFilterOptions={handlePriceFilterOptions} />
+            
+            {
+            error &&
+            <div className={style.no_items}>
+                <h2 id={style.network_error}>NETWORK ERROR</h2>
+                <h2>Something went wrong... Please try again later.</h2>
+                <FontAwesomeIcon icon={faFaceSadTear} style={{transform: rotate ? 'scaleX(-1)' : 'scaleX(1)'}} className={style.frown_face}/>
+            </div>
+            }
+
+            {
+            items.length == 0 && !error ?
+            <div className={style.no_items}>
+                <h2>Unfortunately, your search for "{searchParams.get('search')}" returned no results...</h2>
+                <h2>Try again using a different term</h2>
+                <div className={style.search_container}>
+                    <input
+                    type="text" 
+                    placeholder="Search products" 
+                    className={style.search_bar}
+                    value={inputValue}
+                    onKeyDown={keyPressHandler}
+                    onChange={handleInputChange}/>
+                    <button className={style.search_button}>
+                        <FontAwesomeIcon className={style.icon} icon={faMagnifyingGlass} />
+                    </button>
+                </div>
+                <FontAwesomeIcon icon={faFaceSadTear} style={{transform: rotate ? 'scaleX(-1)' : 'scaleX(1)'}} className={style.frown_face}/>
+            </div>
+            :
+            <Items addItemToCart={props.addItemToCart} data={items} />
+            }
+            
+        </main>
     );
 }
 

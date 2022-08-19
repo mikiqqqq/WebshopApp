@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -30,11 +31,16 @@ public class OrderItemServiceImpl implements OrderItemService {
     }
 
     @Override
-    public Long findAllByItemIdInOrder(Integer itemId, Integer orderId){
-        return orderItemRepo.findAllByItemId(itemId)
-                .stream()
-                .filter(orderItem -> orderItem.getOrderId().equals(orderId))
-                .count();
+    @Transactional
+    public void saveMultiple(OrderItem orderItem, Integer quantity) {
+        List<OrderItem> orderItemList = new ArrayList<>();
+        for(int i = 0; i < quantity; i++) {
+            orderItemList.add(OrderItem.builder()
+                    .itemId(orderItem.getItemId())
+                    .orderId(orderItem.getOrderId())
+                    .build());
+        }
+        orderItemRepo.saveAll(orderItemList);
     }
 
     @Override
@@ -67,5 +73,11 @@ public class OrderItemServiceImpl implements OrderItemService {
         orderItemRepo.delete(
                 orderItemRepo.findTopByOrderIdAndItemId(
                         orderId, itemId));
+    }
+
+    @Override
+    @Transactional
+    public void deleteAllByOrderId(Integer orderId){
+        orderItemRepo.deleteAllByOrderId(orderId);
     }
 }

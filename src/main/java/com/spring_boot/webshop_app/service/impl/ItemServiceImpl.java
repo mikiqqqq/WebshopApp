@@ -8,6 +8,7 @@ import com.spring_boot.webshop_app.sort.ItemDtoSorter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -49,7 +50,7 @@ public class ItemServiceImpl implements ItemService {
     List<ItemDto> filteredItems;
 
     @Override
-    public List<ItemDto> filter(Optional<Integer[]> brandIds, Optional<Long> uprLmt, Optional<Long> lwrLmt,
+    public List<ItemDto> filter(Optional<Integer[]> brandIds, Optional<BigDecimal> uprLmt, Optional<BigDecimal> lwrLmt,
                                 Optional<Integer> productTypeId, Optional<Integer> productionYear,
                                 Optional<String> sortBy, Optional<String> sortOrder)
     {
@@ -63,7 +64,7 @@ public class ItemServiceImpl implements ItemService {
                 .collect(Collectors.toList()));
         if(uprLmt.isPresent() && lwrLmt.isPresent()) {
             filteredItems = filteredItems.stream()
-                    .filter(itemDto -> itemDto.getPrice() < uprLmt.get() && itemDto.getPrice() > lwrLmt.get())
+                    .filter(itemDto -> itemDto.getPrice().compareTo(uprLmt.get()) < 0  && itemDto.getPrice().compareTo(lwrLmt.get()) > 0)
                     .collect(Collectors.toList());
         }
         if(productTypeId.isPresent() && productTypeId.get().compareTo(0) > 0){

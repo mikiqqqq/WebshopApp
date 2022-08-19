@@ -1,0 +1,10 @@
+.choose_button{
+    width: 50%;
+    text-align: center;
+    color: var(--base-color);
+    background-color: var(--background);
+    font-size: 1em;
+    border: none;
+    border-bottom: 1px solid var(--base-color);
+    height: 35px;
+}

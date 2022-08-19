@@ -5,7 +5,8 @@ import com.spring_boot.webshop_app.dto.ItemDto;
 import java.util.Comparator;
 
 public class ItemDtoSorter implements Comparator<ItemDto> {
-    private String sortBy, sortOrder;
+    private String sortBy;
+    private String sortOrder;
 
     public ItemDtoSorter(String sortBy, String sortOrder){
         this.sortBy = sortBy;
@@ -15,9 +16,9 @@ public class ItemDtoSorter implements Comparator<ItemDto> {
     public int compare(ItemDto a, ItemDto b){
         if(sortBy.equalsIgnoreCase("PRICE")){
             if(sortOrder.equalsIgnoreCase("ASC"))
-                return (int) (a.getPrice() - b.getPrice());
+                return a.getPrice().compareTo(b.getPrice());
             if(sortOrder.equalsIgnoreCase("DESC"))
-                return (int) (b.getPrice() - a.getPrice());
+                return b.getPrice().compareTo(a.getPrice());
         }
         if (sortBy.equalsIgnoreCase("NAME")){
             if(sortOrder.equalsIgnoreCase("ASC"))

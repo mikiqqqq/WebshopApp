@@ -11,12 +11,13 @@ import { Link } from 'react-router-dom';
 interface Props {
   orderItems: Hit[];
   activeOrder: number;
-  red: string;
 }
 
 const ShoppingCartButton: React.FunctionComponent<Props> = props => {
   const [show, setShow] = useState<boolean>(false);
   const [scale, setScale] = useState<string>("24px");
+  const baseColor = window.getComputedStyle(document.documentElement).getPropertyValue('--base-color');
+  const complColor = window.getComputedStyle(document.documentElement).getPropertyValue('--complementary-color');
 
   const handleOnMouseEnter = () => {
     setShow(true);
@@ -32,6 +33,7 @@ const ShoppingCartButton: React.FunctionComponent<Props> = props => {
 
   useEffect(() => {
     if (props.activeOrder) {
+      document.documentElement.style.setProperty('--color', complColor);
       setScale("30px");
       delay(1000).then(() => {
         setScale("24px");
@@ -40,6 +42,8 @@ const ShoppingCartButton: React.FunctionComponent<Props> = props => {
           handleOnMouseLeave();
         })
       })
+    }else{
+      document.documentElement.style.setProperty('--color', baseColor);
     }
   }, [props.activeOrder])
 
@@ -55,8 +59,10 @@ const ShoppingCartButton: React.FunctionComponent<Props> = props => {
         overlay={
           <Popover id={style.popover} onMouseEnter={handleOnMouseEnter} onMouseLeave={handleOnMouseLeave}>
 
-            <Popover.Header as="h3" id={style.popover_header}>Your Shopping Cart
-              <span style={{ display: props.activeOrder ? 'none' : 'block' }}>is Empty!</span>
+            <Popover.Header as="h3" id={style.popover_header}
+            style={{color: props.activeOrder ? 'lavender' : '#333'}}>
+              Your Shopping Cart
+              <span style={{ display: props.activeOrder ? 'none' : 'block'}}>is Empty!</span>
             </Popover.Header>
 
             <Popover.Body id={style.popover_body}>
@@ -72,12 +78,12 @@ const ShoppingCartButton: React.FunctionComponent<Props> = props => {
                   totalPrice += item.quantity * item.price;
                   return (
                     <div className={style.cart_item} key={item.id}>
-                      <h5>{item.name}</h5>
+                      <h5>{item.name.length > 23 ? item.name.slice(0, 22).concat('...') : item.name}</h5>
                       <div className={style.cart_item_body}>
                         <img src={itemImg} alt={item.name} />
                         <div>
-                          <strong id={style.item_price}>${item.quantity * item.price}</strong>
                           <p id={style.item_quantity}>{item.quantity}</p>
+                          <strong id={style.item_price}>${(item.quantity * item.price).toFixed(2)}</strong>
                         </div>
                       </div>
                     </div>
@@ -86,10 +92,10 @@ const ShoppingCartButton: React.FunctionComponent<Props> = props => {
               </div>
 
               <div className={props.activeOrder ? style.button_container : style.display_none}>
-                <h4>Total price: ${totalPrice}</h4>
+                <h4>Total price: ${totalPrice.toFixed(2)}</h4>
 
                 <Link className={style.go_to_cart} to="/shopping_cart">
-                  Go To Cart
+                  Go to Cart
                 </Link>
 
                 <Link className={style.checkout} to="/checkout">
@@ -105,7 +111,7 @@ const ShoppingCartButton: React.FunctionComponent<Props> = props => {
             className={style.icon}
             id="cart_button"
             style={{
-              color: props.red === "red" ? '#7F38EC' : '#7CFC00',
+              color: props.activeOrder ? complColor : baseColor,
               fontSize: scale
             }}
             icon={faCartShopping} />

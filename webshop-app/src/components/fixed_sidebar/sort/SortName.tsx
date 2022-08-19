@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { FilterOptions } from "../filter/brand/Brand";
-import style from './SortButton.module.css'
+import style from './SortButtons.module.css'
 
 interface Props{
     onFilterOptions: (filterOptions: FilterOptions) => void;
 
     filterOptions: FilterOptions;
+    baseColor: string;
+    backgroundColor: string;
 }
 
 const SortName:React.FunctionComponent<Props> = props => {
@@ -33,8 +35,8 @@ const SortName:React.FunctionComponent<Props> = props => {
         <>
         <button 
             style={{
-                backgroundColor: isActive === "ASC" ? '#7CFC00' : '#20232a',
-                color: isActive === "ASC" ? '#20232a' : '#7CFC00',
+                backgroundColor: isActive === "ASC" ? props.baseColor : props.backgroundColor,
+                color: isActive === "ASC" ? props.backgroundColor : props.baseColor,
             }}
             onClick={() => handleClick("ASC")} 
             className={style.choose_button} >A - Z
@@ -42,8 +44,8 @@ const SortName:React.FunctionComponent<Props> = props => {
 
         <button 
             style={{
-                backgroundColor: isActive === "DESC" ? '#7CFC00' : '#20232a',
-                color: isActive === "DESC" ? '#20232a' : '#7CFC00',
+                backgroundColor: isActive === "DESC" ? props.baseColor : props.backgroundColor,
+                color: isActive === "DESC" ? props.backgroundColor : props.baseColor,
             }}
             onClick={() => handleClick("DESC")} 
             className={style.choose_button} >Z - A

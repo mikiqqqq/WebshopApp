@@ -8,7 +8,9 @@ interface Props {
 }
 
 const Items:React.FunctionComponent<Props> = props => {
+
     return (
+
         <div className={style.items_container}>
             {
                 props.data.map(item => {

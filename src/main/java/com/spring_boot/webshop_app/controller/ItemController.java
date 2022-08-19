@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,8 +47,8 @@ public class ItemController {
     @ResponseBody
     ResponseEntity<List<ItemDto>> filterItemsBy(
             @RequestParam(value = "brandIds") Optional<Integer[]> brandIds,
-            @RequestParam(value = "uprLmt") Optional<Long> uprLmt,
-            @RequestParam(value = "lwrLmt") Optional<Long> lwrLmt,
+            @RequestParam(value = "uprLmt") Optional<BigDecimal> uprLmt,
+            @RequestParam(value = "lwrLmt") Optional<BigDecimal> lwrLmt,
             @RequestParam(value = "productTypeId") Optional<Integer> productTypeId,
             @RequestParam(value = "productionYear") Optional<Integer> productionYear,
             @RequestParam(value = "sortBy") Optional<String> sortBy,

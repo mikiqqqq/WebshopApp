@@ -1,6 +1,7 @@
 .sidebar{
   box-sizing: border-box;
   width: 17%;
+  min-width: 260px;
   background: linear-gradient(180deg, rgba(43,47,56,1) 0%, rgba(32,34,40,1) 100%);
   padding-bottom: 35px;
   box-shadow: 0 9px 20px 0 #222;
@@ -16,7 +17,7 @@
 
 .filter_title{
   margin-top: 60px;
-  color: #7CFC00;
+  color: var(--base-color);
   font-size: 1.6em;
   margin-left: 5px;
 }
@@ -27,22 +28,23 @@
 }
 
 .accordion{
-  border-top: 2px solid #7CFC00;
+  border-top: 2px solid var(--base-color);
 }
 
 .accordion_header{
-  border-bottom: 1px solid #7CFC00;
+  border-bottom: 1px solid var(--base-color);
   background-color: #656a75 !important;
   margin-top: -1px;
+  font-size: 1.7em;
 }
 
 .accordion_header > button {
   background: radial-gradient(circle, rgba(101,106,117,1) 0%, rgba(80,84,94,1) 100%);
-  color: #7CFC00 !important;
-  height: 50px;
-  font-size: 0.6em;
-  font-weight: 500;
+  color: var(--base-color) !important;
   box-shadow: none !important;
+  height: 50px;
+  font-size: .65em;
+  font-weight: 500;
 }
 
 .accordion_header > button:after{
@@ -56,8 +58,8 @@
 
 .accordion_body{
     background-color: #20232a;
-    border-bottom: 1px solid #7CFC00;
-    color: #7CFC00;
+    border-bottom: 1px solid var(--base-color);
+    color: var(--base-color);
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
@@ -85,14 +87,14 @@
 }
 
 .radio_button > input:focus{
-  background-color: #7CFC00;
+  background-color: var(--base-color);
   outline: none;
   box-shadow: none;
   border-color: forestgreen;
 }
 
 .radio_button > input:checked{
-  background-color: #7CFC00;
+  background-color: var(--base-color);
 }
 
 .image_container{
@@ -103,6 +105,6 @@
 }
 
 .image{
-  width: 50%;
+  width: 55%;
   margin-right: 5px;
 }

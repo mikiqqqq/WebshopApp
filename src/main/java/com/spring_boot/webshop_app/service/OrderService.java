@@ -6,6 +6,6 @@ public interface OrderService {
 
     Order fetchOrderById (Integer id);
     Integer save (Order order);
-    Order update(Integer id, Order updatedOrder);
+    void update(Integer id, Order updatedOrder);
     void delete(Integer id);
 }

@@ -1,14 +1,16 @@
+.col{
+    max-height: 415px;
+}
+
 .item_box{
     box-sizing: border-box;
     color: white;
-    min-width: 19%;
-    height: 450px;
+    height: 400px;
     padding: 15px;
     background-color: #2b2f38;
-    flex-basis: 300px;
     position: relative;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    margin: 0.7% 0 0 0.85%;
+    box-shadow: 0 0px 10px 0 rgba(0, 0, 0, .7);
+    margin: 15px 0 0 15px;
 }
 
 .item_box > img{
@@ -18,8 +20,8 @@
 .item_name{
     text-align: center;
     margin-top: 5px;
-    color: #7CFC00;
-    font-size: 1.5em;
+    color: var(--base-color);
+    font-size: 1.3em;
 }
 
 .item_description{
@@ -36,12 +38,12 @@
 .item_price{
     position: absolute;
     bottom: 25px;
-    color: plum;
+    color: palevioletred;
     letter-spacing: 1px;
 }
 
 .icon{
-    color: mintcream;
+    color: white;
     width: 25px;
     height: 25px;
     margin-right: 2px;
@@ -53,18 +55,18 @@
     right: 30px;
     width: 45px;
     height: 45px;
-    background-color: #7CFC00;
+    background-color: var(--base-color);
     border: none;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: 0.3s;
+    transition: 0.4s;
 }
 
 .cart_button:hover{
-    transition: 0.3s;
-    background-color: #581eb1; 
+    transition: 0.4s;
+    background-color: var(--complementary-hover); 
 }
 
 .cart_button:active{
@@ -88,7 +90,7 @@
 .item_box:hover{
     transition: all 0.3s;
     background-color: #474d5c;
-    box-shadow: 0 0 5px 5px rgba(124, 252, 0, 0.3);
+    box-shadow: 0 0 5px 5px rgba(0, 206, 209, 0.3);
 }
 
 .item_box:hover > .hover_buttons{
@@ -109,8 +111,8 @@
 
 .quantity_button{
     position: absolute;
-    background-color: #7CFC00;
-    color: #581eb1;
+    background-color: var(--base-color);
+    color: var(--background);
     font-size: 1.3em;
     font-weight: bolder;
     width: 42px;
@@ -127,18 +129,18 @@
 }
 
 .quantity_button:hover{
-    background-color: #58b300;
+    background-color: var(--base-hover);
 }
 
 .quantity_button:active{
-    background-color: #58b300;
+    background-color: var(--base-hover);
     transform: scale(0.9);
 }
 
 .quantity_display{
     text-align: center;
     margin: 0%;
-    width: 205px;
+    min-width: 155px;
     height: 25px;
     background-color: #2b2f38;
     border-radius: 25px;
@@ -150,4 +152,24 @@
 
 .quantity_button_increment{
     right: -2px;
+}
+
+.tooltip > div:first-child{
+    display: none;
+}
+
+.tooltip > div:last-child{
+    background-color: var(--complementary-hover);
+}
+
+@media screen and (min-width: 1530px) and (max-width: 1830px){
+    .col{
+        width: 20% !important;
+    }
+}
+
+@media screen and (min-width: 1280px) and (max-width: 1530px){
+    .col{
+        width: 25% !important;
+    }
 }
