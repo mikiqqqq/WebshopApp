@@ -25,3 +25,10 @@ User Interface is intuitive and very simple, the user is met with all the necess
 ## POSSIBLE IMPROVEMENTS:
 * Securing REST API with Mutual Certificates (or plain Login form)
 * Responsivity for mobile devices
+
+![home](https://github.com/mikiqqqq/WebshopApp/assets/107814991/06b9ccb1-2a79-477d-ac2c-fedff5a659df)
+![filters](https://github.com/mikiqqqq/WebshopApp/assets/107814991/b206966b-01f9-41da-b407-bcd821d46f11)
+![wrong-search](https://github.com/mikiqqqq/WebshopApp/assets/107814991/9ef7d251-80c3-4815-a96a-50c9db2f9aa8)
+![cart](https://github.com/mikiqqqq/WebshopApp/assets/107814991/ed15fd9b-cf82-4caf-ad86-de8ef1507e1a)
+![checkout](https://github.com/mikiqqqq/WebshopApp/assets/107814991/b81bdc4b-9c4b-4f2d-ab13-22b51c2dd233)
+![ordered](https://github.com/mikiqqqq/WebshopApp/assets/107814991/8f45beaa-175c-4b28-9ae9-87a34133cff8)
