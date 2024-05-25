@@ -6,7 +6,6 @@ header{
     box-shadow: 0 0 15px 0 #111;
     position: relative;
     z-index: 1;
-    min-width: 1020px;
 }
 
 .discount_banner{
