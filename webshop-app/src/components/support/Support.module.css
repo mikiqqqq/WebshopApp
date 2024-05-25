@@ -1,0 +1,50 @@
+.support_button {
+    position: fixed;
+    bottom: 53px;
+    right: 53px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 45px;
+    height: 45px;
+    background-color: var(--base-color);
+    border-radius: 50%;
+    border: none;
+    visibility: visible;
+    opacity: 1;
+    transition: all .2s linear;
+}
+
+.support_button:before {
+    content: 'Customer Support';
+    position: absolute;
+    transform: translateX(-50%);
+    font-size: 15px;
+    transition: 200ms;
+    color: transparent;
+    font-weight: bold;
+    width: 100px;
+    left: 50%;
+    top: 105%;
+    text-align: center;
+}
+
+.button_icon {
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+}
+
+.support_button:hover{
+    transform: scale(.9);
+    background-color: var(--base-hover);
+}
+
+.support_button:hover::before{
+    color: white;
+}
+
+.button_not_visible {
+    visibility: hidden;
+    opacity: 0;
+}

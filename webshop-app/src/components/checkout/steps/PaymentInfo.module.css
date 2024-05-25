@@ -1,0 +1,86 @@
+
+.step_label{
+    color: gray;
+    font-style: italic;
+    margin: 0;
+}
+
+.payment_info_container{
+    padding: 10px 20px 20px 20px;
+    width: 100%;
+    background-color: var(--background);
+    box-shadow: 0 0 16px 0 #222;
+    margin-top: 25px;
+}
+
+.payment_info_container h3{
+    color: var( --base-color);
+}
+
+#form{
+    margin-top: 15px;
+}
+
+#form div{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#form input{ 
+    padding-bottom: 8px;
+    height: 48px;
+    font-size: 1.05rem;
+}
+
+#form label{
+    font-size: 1.05rem;
+    top: 3px;
+    height: 45px;
+    padding: .5rem .75rem;
+    color: #777;
+}
+
+.feedback{
+    display: block;
+}
+
+.button_container{
+    display: flex;
+    align-items: center;
+}
+
+.payment_info_container button{
+    background-color: transparent;
+    border: none;
+}
+
+.selected_card{
+    margin-left: 25px;
+    font-size: 2em;
+    font-family: 'Arial';
+    letter-spacing: .8px;
+}
+
+.payment_info_container img{
+    width: 96px;
+}
+
+#submit_button{
+    background-color: var(--complementary-color);
+    color: lavender;
+    margin-top: 20px;
+    padding: 5px 25px;
+    font-weight: bold;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    transition: background-color .5s;
+}
+
+#submit_button:hover{
+    background-color: var(--base-hover);
+    transition: background-color .5s;
+}
+
+#submit_button:active{
+    transform: scale(0.95);
+}

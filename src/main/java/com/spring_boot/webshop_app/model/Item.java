@@ -1,9 +1,9 @@
 package com.spring_boot.webshop_app.model;
 
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Getter
 @Setter
@@ -27,11 +27,17 @@ public class Item {
     private String description;
 
     @Column(name = "CIJENA")
-    private Long price;
+    private BigDecimal price;
 
     @Column(name = "KOLICINA")
     private Integer amount;
 
     @Column(name = "BRAND_ID")
     private Integer brandId;
+
+    @Column(name = "TIP_ID")
+    private Integer productTypeId;
+
+    @Column(name = "GODINA")
+    private Integer productionYear;
 }

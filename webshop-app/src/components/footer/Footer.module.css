@@ -20,7 +20,7 @@
     width: 45%;
     left: 50%;
     transform: translateX(-50%);
-    border: 1px solid #7CFC00;
+    border: 1px solid var(--base-color);
   }
 
   footer {
@@ -28,7 +28,7 @@
     position: relative;
     height: 185px;
     box-shadow: 0 10px 20px 5px black;
-    background-color: #20232a;
+    background-color: var(--background);
   }
 
   .footer_table {

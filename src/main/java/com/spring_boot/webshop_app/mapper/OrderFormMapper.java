@@ -13,10 +13,11 @@ public class OrderFormMapper {
         }
 
         return Order.builder()
+                .id(orderForm.getId())
                 .date(orderForm.getDate())
                 .priceWithNoPdvIncluded(orderForm.getPriceWithNoPdvIncluded())
                 .total(orderForm.getTotal())
-                .discountCode(orderForm.getDiscountCode())
+                .discountCodeId(orderForm.getDiscountCodeId())
                 .paymentMethod(orderForm.getPaymentMethod())
                 .creditCardNumber(orderForm.getCreditCardNumber())
                 .email(orderForm.getEmail())

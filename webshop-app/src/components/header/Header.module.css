@@ -3,15 +3,15 @@ header{
     min-height: 45px;
     background: rgb(62,67,80);
     background: radial-gradient(circle, rgba(62,67,80,1) 0%, rgba(32,35,42,1) 100%);
-    box-shadow: 0 0 20px 0 black;
+    box-shadow: 0 0 15px 0 #111;
     position: relative;
     z-index: 1;
+    min-width: 1020px;
 }
 
 .discount_banner{
     width: 100%;
     height: 45px;
-    background-image: url('../../images/mesh-gradient.png');
     background-position: center;
     display: flex;
     align-items: center;
@@ -21,7 +21,9 @@ header{
 .discount_code{
     font-size: 1.5em;
     margin: 2px;
-    color: white;
+    color: var(--background);
+    font-family: 'Verdana';
+    font-weight: 600;
 }
 
 .bar{
@@ -31,46 +33,40 @@ header{
 }
 
 .item_class{
-    width: 185px;
+    width: 284px;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #7CFC00
-
-    ;
+    color: var(--base-color);
 }
 
 .class_styling{
     margin: 0;
+    font-size: 1.3em;
 }
 
 .title{
-    color: #7CFC00;
+    color: var(--base-color);
     margin: 5px;
     font-family: 'Copperplate', fantasy;
     letter-spacing: 7px;
 }
 
 nav{
-    width: 185px;
-}
-.cart_button {
-    background-color: transparent;
-    border: none;
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    margin-right: 15px;
+    width: 284px;
 }
 
-.icon{
-    width: 25px;
-    height: 25px;
-    color: #7CFC00;
-    margin-right: 2px;
-    margin-top: 5px;
+.bar > img{
+    margin: 10px;
+    height: 38px;
 }
 
-.cart_button:hover{
-    background-color: rgba(160, 160, 160, 0.2);
+@media screen and (max-width: 900px){
+    .item_class{
+        display: none;
+    }
+
+    .bar > img{
+        margin-left: 80px;
+    }
 }

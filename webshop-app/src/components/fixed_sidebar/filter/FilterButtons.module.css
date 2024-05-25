@@ -1,0 +1,20 @@
+.choose_button{
+    width: 100%;
+    text-align: center;
+    color: var(--base-color);
+    background-color: #20232a;
+    font-size: 1em;
+    border: none;
+    border-bottom: 1px solid var(--base-color);
+    height: 35px;
+}
+
+.brand_button{
+    padding: 2px 10px;
+    color: #20232a;
+    border-radius: 35px;
+    background-color: var(--base-color);
+    font-size: 0.8em;
+    margin: 7.5px 5px 7.5px 5px;
+    border: none;
+}

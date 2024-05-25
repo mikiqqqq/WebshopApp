@@ -1,7 +1,7 @@
 .icon{
     width: 25px;
     height: 25px;
-    color: #7CFC00;
+    color: var(--base-color);
 }
 
 .search_button{
@@ -54,6 +54,6 @@
   .search_bar:hover > .search_txt{
     width: 240px;
     padding: 0 0.75rem;
-    border-bottom: 1px solid #7CFC00;
+    border-bottom: 1px solid var(--base-color);
     border-right: 0;
   }

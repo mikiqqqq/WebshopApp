@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Getter
@@ -16,13 +18,13 @@ public class OrderForm {
     @JsonFormat(pattern = "dd. MM. yyyy.")
     private LocalDate date;
 
-    private Long priceWithNoPdvIncluded;
-    private Long total;
-    private Integer discountCode;
+    private BigDecimal priceWithNoPdvIncluded;
+    private BigDecimal total;
+    private Integer discountCodeId;
     private Integer paymentMethod;
     private String creditCardNumber;
     private String email;
-    private Integer phoneNumber;
+    private String phoneNumber;
     private String deliveryAddress;
     private String note;
 }

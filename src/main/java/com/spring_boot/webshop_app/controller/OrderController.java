@@ -31,7 +31,7 @@ public class OrderController {
     }
 
     @PostMapping(value="/create")
-    ResponseEntity<Order> create(@Valid @RequestBody OrderForm orderForm) {
+    ResponseEntity<Integer> create(@Valid @RequestBody OrderForm orderForm) {
 
         return new ResponseEntity<>(
                 orderService.save(orderFormMapper.map(orderForm)),
@@ -40,14 +40,14 @@ public class OrderController {
     }
 
     @PutMapping(value="/update")
-    ResponseEntity<Order> update(@Valid @RequestBody OrderForm orderForm) {
+    ResponseEntity<String> update(@Valid @RequestBody OrderForm orderForm) {
 
         Order updatedOrder = orderFormMapper.map(orderForm);
+        orderService.update(updatedOrder.getId(), updatedOrder);
 
-        return new ResponseEntity<>(
-                orderService.update(updatedOrder.getId(), updatedOrder),
-                HttpStatus.OK
-        );
+        return ResponseEntity
+                .ok()
+                .body("updated");
     }
 
     @DeleteMapping(value="delete/id={id}")
@@ -57,5 +57,5 @@ public class OrderController {
         return ResponseEntity
                 .ok()
                 .body("deleted");
-    }
+    }   
 }

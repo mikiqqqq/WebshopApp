@@ -1,3 +1,39 @@
+:root {
+  --base-color: #00ced1;
+  --base-hover: #25b6b8;
+  --complementary-color: #7F38EC;
+  --complementary-hover: #581eb1;
+  --background: #20232a;
+  --background-hover: #30343e;
+}
+
 .App {
   text-align: center;
+}
+
+.page{
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+  background-color: #4e8f90;
+  min-width: 1020px;
+}
+
+body::-webkit-scrollbar {
+  width: 15px;
+}
+
+/* Track */
+body::-webkit-scrollbar-track {
+  background: #2b2f38;
+}
+
+/* Handle */
+body::-webkit-scrollbar-thumb {
+  background: #00bdbf;
+}
+
+/* Handle on hover */
+body::-webkit-scrollbar-thumb:hover {
+  background: #009a9c;
 }

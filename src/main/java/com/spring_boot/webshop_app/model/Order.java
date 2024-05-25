@@ -3,6 +3,7 @@ package com.spring_boot.webshop_app.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Getter
@@ -24,13 +25,13 @@ public class Order {
     private LocalDate date;
 
     @Column(name = "UKUPNA_CIJENA_BEZ_P")
-    private Long priceWithNoPdvIncluded;
+    private BigDecimal priceWithNoPdvIncluded;
 
     @Column(name = "UKUPNA_CIJENA_S_P")
-    private Long total;
+    private BigDecimal total;
 
     @Column(name = "KOD_ZA_POPUST_ID")
-    private Integer discountCode;
+    private Integer discountCodeId;
 
     @Column(name = "NACIN_PLACANJA_ID")
     private Integer paymentMethod;
@@ -42,7 +43,7 @@ public class Order {
     private String email;
 
     @Column(name = "BROJ_MOBITELA")
-    private Integer phoneNumber;
+    private String phoneNumber;
 
     @Column(name = "ADRESA_DOSTAVE")
     private String deliveryAddress;

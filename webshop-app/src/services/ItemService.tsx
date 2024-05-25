@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { FilterOptions } from '../components/fixed_sidebar/filter/brand/Brand';
 
 const ITEMS_API_BASE_URL = "http://localhost:8080/api/items";
 
@@ -8,20 +9,31 @@ class ItemService {
         return axios.get(ITEMS_API_BASE_URL + '/fetch-all');
     }
 
-    findItemByName(itemName:string){
-        return axios.get(ITEMS_API_BASE_URL + '/by-name/' + itemName)
+    filterItems(filterOptions: FilterOptions){
+        return axios.get(ITEMS_API_BASE_URL + '/filter-items-by?' 
+        + 'brandIds=' + filterOptions.brandIds 
+        + '&uprLmt=' + filterOptions.uprLmt
+        + '&lwrLmt=' + filterOptions.lwrLmt
+        + '&productTypeId=' + filterOptions.productTypeId
+        + '&productionYear=' + filterOptions.productionYear
+        + '&sortBy=' + filterOptions.sortBy
+        + '&sortOrder=' + filterOptions.sortOrder);
     }
 
-    findItemByBrandId(brandId:number){
-        return axios.get(ITEMS_API_BASE_URL + '/by-brandId/' + brandId)
+    findItemByItemId(ids: number[]){
+        return axios.get(ITEMS_API_BASE_URL + '/by-itemIds/' + ids);
+    }
+
+    findItemByBrandId(brandIds: number[]){
+        return axios.get(ITEMS_API_BASE_URL + '/by-brandIds/' + brandIds);
     }
 
     findAllInPriceRange(uprLmt: number, lwrLmt: number){
-        return axios.get(ITEMS_API_BASE_URL + '/in-price-range/' + uprLmt + '-' + lwrLmt)
+        return axios.get(ITEMS_API_BASE_URL + '/in-price-range/' + uprLmt + '-' + lwrLmt);
     }
 
     findAllThatContainTarget(target:string){
-        return axios.get(ITEMS_API_BASE_URL + '/contain/' + target)
+        return axios.get(ITEMS_API_BASE_URL + '/contain/' + target);
     }
 }
 
