@@ -43,17 +43,18 @@ const Header:React.FunctionComponent<Props> = props => {
             !props.error && props.discount !== undefined &&
             
             <div className={style.discount_banner} style={{backgroundColor: headerColor}}>
-                <h2 className={style.discount_code}>SUMMER SALE: {props.discount} for 25% OFF</h2>
+                <h2 className={`${style.discount_code} u-h2 not_mobile`}>SUMMER SALE: {props.discount} for 25% OFF</h2>
+                <h2 className={`${style.discount_code} u-h2 not_pocket not_desktop`}>{props.discount} for 25% OFF</h2>
             </div>
             }
 
             <div className={style.bar}>
-                <div className={style.item_class}>
-                    <h3 className={style.class_styling}>House of Computers</h3>
+                <div className={`${style.label} u-s1 not_mobile not_pocket`}>
+                    House of Computers
                 </div>
-                <img src={logo}></img>
+                <img className={style.logo} src={logo} alt=""></img>
                 
-                <nav>
+                <nav className={`${style.navigation}`}>
                     {
                     location.pathname === '/tech' &&
                     <>

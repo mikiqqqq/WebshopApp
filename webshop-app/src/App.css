@@ -1,14 +1,53 @@
 :root {
   --base-color: #00ced1;
   --base-hover: #25b6b8;
-  --complementary-color: #7F38EC;
-  --complementary-hover: #581eb1;
+  --complementary-color: #FFA836;
+  --complementary-hover: #de922e;
   --background: #20232a;
   --background-hover: #30343e;
+  --page-background: #4e8f90;
+  --brand-color: skyblue;
 }
 
 .App {
   text-align: center;
+}
+
+.u-s1,
+.u-p1 {
+  font-size: 1.25rem;
+}
+
+.u-s2,
+.u-p2 {
+  font-size: 1rem;
+}
+
+.u-s3,
+.u-p3 {
+  font-size: 0.875rem;
+}
+
+.u-h1 {
+  font-size: 1.5rem;
+}
+
+.u-h2 {
+  font-size: 1.25rem;
+}
+
+.u-h3 {
+  font-size: 1.1rem;
+}
+
+.u-s1,
+.u-s2,
+.u-s3,
+.u-h1,
+.u-h2,
+.u-h3 {
+  font-weight: 600;
+  margin: 0;
 }
 
 .page{
@@ -17,7 +56,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  background-color: #4e8f90;
+  background-color: var(--page-background);
 }
 
 body::-webkit-scrollbar {
@@ -37,4 +76,34 @@ body::-webkit-scrollbar-thumb {
 /* Handle on hover */
 body::-webkit-scrollbar-thumb:hover {
   background: #009a9c;
+}
+
+@media screen and (max-width: 767px) {
+  .not_mobile {
+    display: none !important;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1025px) {
+  .not_pocket {
+    display: none !important;
+  }
+}
+
+@media screen and (min-width: 1025px) {
+  .not_desktop {
+    display: none !important;
+  }
+  
+  .u-h1 {
+    font-size: 2rem;
+  }
+
+  .u-h2 {
+    font-size: 1.5rem;
+  }
+
+  .u-h3 {
+    font-size: 1.35rem;
+  }
 }
