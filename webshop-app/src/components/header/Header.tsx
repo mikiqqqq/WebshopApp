@@ -52,7 +52,9 @@ const Header:React.FunctionComponent<Props> = props => {
                 <div className={`${style.label} u-s1 not_mobile not_pocket`}>
                     House of Computers
                 </div>
-                <img className={style.logo} src={logo} alt=""></img>
+                <a href={`${window.location.origin}/tech`} className={style.logo}>
+                    <img className={style.logo_image}  src={logo} alt=""></img>
+                </a>
                 
                 <nav className={`${style.navigation}`}>
                     {

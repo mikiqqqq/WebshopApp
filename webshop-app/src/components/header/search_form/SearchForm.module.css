@@ -13,13 +13,12 @@
 }
 
 .search_bar {
-    position: absolute;
-    right: 200px;
     height: 45px;
     width: 45px;
     background-color: transparent;
     border-radius: 50%;
     cursor: pointer;
+    position: relative;
   }
   
   .search_bar > .search_button {
@@ -37,7 +36,7 @@
   .search_txt {
     position: absolute;
     top: 5px;
-    right: 38px;
+    right: calc(100% - 8px);
     border: none;
     outline: none;
     padding: 0;

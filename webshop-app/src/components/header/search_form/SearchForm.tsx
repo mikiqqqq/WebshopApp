@@ -24,16 +24,16 @@ const SearchForm:React.FunctionComponent = () => {
       };
 
     return (
-        <div className={style.search_bar}>
+        <div className={`${style.search_bar} not_mobile not_pocket`}>
             <div className={style.search_button} ref={searchButtonRef}>
                 <FontAwesomeIcon className={style.icon} icon={faMagnifyingGlass} />
             </div>
             <input 
-            className={style.search_txt} 
             value={inputValue}
             onKeyDown={keyPressHandler}
             onChange={handleInputChange} 
             type="text" 
+            className={`${style.search_txt} u-p1`}
             placeholder="Search products" 
             ref={inputRef}/>
         </div>
