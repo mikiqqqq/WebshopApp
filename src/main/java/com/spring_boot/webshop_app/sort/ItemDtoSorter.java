@@ -5,8 +5,8 @@ import com.spring_boot.webshop_app.dto.ItemDto;
 import java.util.Comparator;
 
 public class ItemDtoSorter implements Comparator<ItemDto> {
-    private String sortBy;
-    private String sortOrder;
+    private final String sortBy;
+    private final String sortOrder;
 
     public ItemDtoSorter(String sortBy, String sortOrder){
         this.sortBy = sortBy;
