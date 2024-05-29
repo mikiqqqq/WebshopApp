@@ -40,6 +40,7 @@ function App() {
       setFirstAdded(false);
       getOrderItems();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [updateOrderItems]);
 
   useEffect(() => {
@@ -48,6 +49,7 @@ function App() {
       setLocalStateActiveOrder(0);
       setFirstAdded(true);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [orderCompleted])
 
   const fetchActiveDiscountCode = () => {
@@ -63,7 +65,7 @@ function App() {
     try{
     orderItemAndAmount = (await OrderItemService.getOrderItemAmount(localStateActiveOrder)).data;
     // If every orderItem is deleted
-    if(orderItemAndAmount.length == 0) {
+    if(orderItemAndAmount.length === 0) {
       OrderService.deleteOrder(localStateActiveOrder);
       setOrderItems([]);
       setLocalStateActiveOrder(0);
@@ -86,7 +88,6 @@ function App() {
       setLocalStateActiveOrder(activeOrderId);
       if(item.amount > 1) await OrderItemService.createMultipleOrderItems(activeOrderId, item.itemId, item.amount);
       else await OrderItemService.createOrderItem(activeOrderId, item.itemId);
-      console.log(firstAdded);
       setFirstAdded(false);
     }else{
       if(item.amount > 1) await OrderItemService.createMultipleOrderItems(localStateActiveOrder, item.itemId, item.amount);
