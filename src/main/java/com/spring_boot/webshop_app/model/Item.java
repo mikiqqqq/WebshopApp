@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 @ToString
 @Builder
 @Entity
-@Table(name = "PROIZVOD")
+@Table(name = "PRODUCT")
 public class Item {
 
     @Id
@@ -20,24 +20,24 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "NAZIV")
+    @Column(name = "TITLE")
     private String name;
 
-    @Column(name = "OPIS")
+    @Column(name = "DESCRIPTION")
     private String description;
 
-    @Column(name = "CIJENA")
+    @Column(name = "PRICE")
     private BigDecimal price;
 
-    @Column(name = "KOLICINA")
-    private Integer amount;
+    @Column(name = "QUANTITY")
+    private Integer quantity;
 
     @Column(name = "BRAND_ID")
     private Integer brandId;
 
-    @Column(name = "TIP_ID")
+    @Column(name = "TYPE_ID")
     private Integer productTypeId;
 
-    @Column(name = "GODINA")
+    @Column(name = "PRODUCTION_YEAR")
     private Integer productionYear;
 }

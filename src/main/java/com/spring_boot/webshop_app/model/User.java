@@ -1,7 +1,6 @@
 package com.spring_boot.webshop_app.model;
 
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 
@@ -12,13 +11,23 @@ import javax.persistence.*;
 @ToString
 @Builder
 @Entity
-@Table(name = "PAYMENT_METHOD")
-public class PaymentMethod {
+@Table(name = "USERS")
+public class User {
+
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "TITLE")
+    @Column(name = "NAME")
     private String name;
+
+    @Column(name = "EMAIL")
+    private String email;
+
+    @Column(name = "HASHED_PASSWORD")
+    private String hashedPassword;
+
+    @Column(name = "AUTH_LEVEL_ID")
+    private Integer authLevelId;
 }

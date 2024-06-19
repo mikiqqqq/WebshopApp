@@ -1,118 +1,109 @@
 CREATE TABLE BRAND
 (
-    ID    NUMBER PRIMARY KEY AUTO_INCREMENT,
-    NAZIV VARCHAR(255)
+    ID     NUMBER PRIMARY KEY AUTO_INCREMENT,
+    TITLE  VARCHAR(255)
 );
 
-CREATE TABLE TIP_PROIZVODA(
-    ID NUMBER(11) PRIMARY KEY AUTO_INCREMENT,
-    NAZIV VARCHAR(41)
-);
-
-CREATE TABLE PROIZVOD
+CREATE TABLE PRODUCT_TYPE
 (
-    ID       NUMBER(11) PRIMARY KEY AUTO_INCREMENT,
-    NAZIV    VARCHAR(41),
-    OPIS     VARCHAR(255),
-    CIJENA   DECIMAL(11, 2),
-    KOLICINA NUMBER,
-    BRAND_ID NUMBER,
-    TIP_ID   NUMBER,
-    GODINA   NUMBER,
+    ID     NUMBER(11) PRIMARY KEY AUTO_INCREMENT,
+    TITLE  VARCHAR(41)
+);
+
+CREATE TABLE PRODUCT
+(
+    ID              NUMBER(11) PRIMARY KEY AUTO_INCREMENT,
+    TITLE           VARCHAR(41),
+    DESCRIPTION     VARCHAR(255),
+    PRICE           DECIMAL(11, 2),
+    QUANTITY        NUMBER,
+    BRAND_ID        NUMBER,
+    TYPE_ID         NUMBER,
+    PRODUCTION_YEAR NUMBER,
     FOREIGN KEY (BRAND_ID) REFERENCES BRAND(ID),
-    FOREIGN KEY (TIP_ID) REFERENCES TIP_PROIZVODA(ID)
+    FOREIGN KEY (TYPE_ID) REFERENCES PRODUCT_TYPE(ID)
 );
 
-CREATE TABLE NACIN_PLACANJA
+CREATE TABLE AUTH_LEVEL
 (
-    ID    NUMBER PRIMARY KEY AUTO_INCREMENT,
-    NAZIV VARCHAR
+    ID     NUMBER PRIMARY KEY AUTO_INCREMENT,
+    TITLE  VARCHAR(255)
 );
 
-CREATE TABLE POPUST_KODOVI
-(
-    ID         NUMBER PRIMARY KEY AUTO_INCREMENT,
-    KOD        VARCHAR,
-    POPUST     DECIMAL(3, 2),
-    ISKORISTEN BOOLEAN
-);
-
-CREATE TABLE NARUDZBA
+CREATE TABLE USERS
 (
     ID                  NUMBER(11) PRIMARY KEY AUTO_INCREMENT,
-    DATUM               DATETIME,
-    UKUPNA_CIJENA_BEZ_P DECIMAL(11,2),
-    UKUPNA_CIJENA_S_P   DECIMAL(11,2),
-    KOD_ZA_POPUST_ID    NUMBER,
-    NACIN_PLACANJA_ID   NUMBER,
-    BROJ_KARTICE        VARCHAR(19),
+    NAME                VARCHAR(255),
     EMAIL               VARCHAR(255),
-    BROJ_MOBITELA       VARCHAR(20),
-    ADRESA_DOSTAVE      VARCHAR(255),
-    NAPOMENA            VARCHAR(255),
-    FOREIGN KEY (KOD_ZA_POPUST_ID) REFERENCES POPUST_KODOVI(ID),
-    FOREIGN KEY (NACIN_PLACANJA_ID) REFERENCES NACIN_PLACANJA(ID)
+    HASHED_PASSWORD            VARCHAR(512),
+    AUTH_LEVEL_ID       NUMBER(11),
+    FOREIGN KEY (AUTH_LEVEL_ID) REFERENCES AUTH_LEVEL(ID)
 );
 
+CREATE TABLE PAYMENT_METHOD
+(
+    ID     NUMBER PRIMARY KEY AUTO_INCREMENT,
+    TITLE  VARCHAR(255)
+);
 
-CREATE TABLE NARUDZBA_PROIZVODI
+CREATE TABLE DISCOUNT_CODE
+(
+    ID        NUMBER PRIMARY KEY AUTO_INCREMENT,
+    CODE      VARCHAR(255),
+    AMOUNT    DECIMAL(3, 2),
+    USED      BOOLEAN
+);
+
+CREATE TABLE ORDERS
+(
+    ID                    NUMBER(11) PRIMARY KEY AUTO_INCREMENT,
+    DATE                  DATETIME,
+    TOTAL_PRICE_EXCL_VAT  DECIMAL(11, 2),
+    TOTAL_PRICE           DECIMAL(11, 2),
+    DISCOUNT_CODE_ID      NUMBER,
+    PAYMENT_METHOD_ID     NUMBER,
+    CARD_NUMBER           VARCHAR(19),
+    EMAIL                 VARCHAR(255),
+    PHONE_NUMBER          VARCHAR(20),
+    DELIVERY_ADDRESS      VARCHAR(255),
+    NOTE                  VARCHAR(255),
+    FOREIGN KEY (DISCOUNT_CODE_ID) REFERENCES DISCOUNT_CODE(ID),
+    FOREIGN KEY (PAYMENT_METHOD_ID) REFERENCES PAYMENT_METHOD(ID)
+);
+
+CREATE TABLE ORDER_ITEMS
 (
     ID          NUMBER PRIMARY KEY AUTO_INCREMENT,
-    NARUDZBA_ID NUMBER,
-    PROIZVOD_ID NUMBER,
-    FOREIGN KEY (NARUDZBA_ID) REFERENCES NARUDZBA(ID),
-    FOREIGN KEY (PROIZVOD_ID) REFERENCES PROIZVOD(ID)
+    ORDER_ID    NUMBER,
+    ITEM_ID     NUMBER,
+    FOREIGN KEY (ORDER_ID) REFERENCES ORDERS(ID),
+    FOREIGN KEY (ITEM_ID) REFERENCES PRODUCT(ID)
 );
 
-INSERT INTO BRAND (NAZIV) VALUES ('Asus'), ('Razer'), ('Samsung'), ('Apple'),
-                                 ('Xiaomi'), ('LG'), ('Speedlink'), ('Noa'),
-                                 ('Logitech'), ('Fenix'), ('Lenovo'), ('Vivax');
+INSERT INTO BRAND (TITLE) VALUES ('Asus'), ('Razer'), ('Samsung'), ('Apple'), ('Xiaomi'), ('LG'), ('Speedlink'), ('Noa'), ('Logitech'), ('Fenix'), ('Lenovo'), ('Vivax');
 
-INSERT INTO TIP_PROIZVODA (NAZIV) VALUES ('Desktop'), ('Laptop'), ('Perihperals');
+INSERT INTO PRODUCT_TYPE (TITLE) VALUES ('Desktop'), ('Laptop'), ('Peripherals');
 
-INSERT INTO PROIZVOD (NAZIV, OPIS, BRAND_ID, CIJENA, KOLICINA)
-VALUES ('Speedlink Miš S50', 'Specifikacije za Speedlink Miš S50', 7, 250.00, 10),
-        ('Razer Miš T350', 'Specifikacije za Razer Miš T350', 2, 360.00, 10),
-        ('PC Fenix Ultima R9-5950X', 'Specifikacije za Stolno računalo PC Fenix Ultima R9-5950X, 64GB, 2TB M.2, RTX2060 8GB, PWS 1000W', 10, 23560.99, 10),
-        ('Lenovo ThinkStation Xeon W-2133', 'Specifikacije za Stolno računalo Lenovo ThinkStation Xeon W-2133/64GB/512GB/Quadro P4000/W10P', 11, 2350.96, 10),
-        ('Lenovo V50t Gen2','Specifikacije za Lenovo V50t Gen2 i3/8GB/256GB/IntHD/W10P/5god', 11, 5665.29, 10),
-        ('Lenovo M70s SFF G6400','Specifikacije za za Lenovo M70s SFF G6400/4GB/256GB/IntHD/W10P', 11, 4758.84, 10),
-        ('Iphone SE', 'Specifikacije za Iphone SE', 4, 8459.29, 10),
-        ('MacBook Air', 'Specifikacije za MacBook Air', 4, 11239.59, 10),
-        ('iPad Pro','Specifikacije za iPad Pro', 4, 3480, 10),
-        ('Vivax LED TV-49S60T2S2SM', 'Novi Smart TV s Android sustavom 7.1 omogućava povezanost putem interneta ili društvenih mreža, a sve to na velikom ekranu.', 12, 2359.29, 10),
-        ('Vivax IMAGO LED TV-32LE95T2', 'Posebno ergonomski dizajniran televizor koji umjesto klasičnog postolja ima nogice koje doprinose ukupnoj eleganciji televizora.', 12, 3380.79, 10),
-        ('Xiaomi 11 Lite 5G NE', 'Specifikacije za Xiaomi 11 Lite 5G NE', 5, 6679.59, 10),
-        ('Noa Element Mobitel', 'Specifikacije za Noa Element Mobitel', 8, 899.49, 10),
-        ('LOGITECH H820E HEADSET', 'Bežične slušalice za poslovne razgovore', 9, 349.89, 10),
-        ('Galaxy Z Fold3 5G', 'Specifkacije za Galaxy Z Fold3 5G', 3, 8129., 10),
-        ('LG 75" (189 cm) 4K HDR Smart Nano Cell TV', 'Čiste boje (Pure Colors) u razlučivosti Real 4K, Tehnologija NanoCell, 4K procesor LG α5 Gen5 AI', 6, 5579.29, 10),
-        ('16" ProArt Studiobook Pro 16 OLED', 'Windows 11 Pro, Intel® Core™ i9-12900H processor, NVIDIA RTX™ A3000 12GB graphics', 1, 8888.88, 10);
+INSERT INTO PRODUCT (TITLE, DESCRIPTION, BRAND_ID, PRICE, QUANTITY)
+VALUES
+    ('Speedlink Mouse S50', 'Specifications for Speedlink Mouse S50', 7, 250.00, 10),
+    ('Razer Mouse T350', 'Specifications for Razer Mouse T350', 2, 360.00, 10),
+    ('PC Fenix Ultima R9-5950X', 'Specifications for PC Fenix Ultima R9-5950X, 64GB, 2TB M.2, RTX2060 8GB, PWS 1000W', 10, 23560.99, 10),
+    ('Lenovo ThinkStation Xeon W-2133', 'Specifications for Lenovo ThinkStation Xeon W-2133/64GB/512GB/Quadro P4000/W10P', 11, 2350.96, 10),
+    ('Lenovo V50t Gen2','Specifications for Lenovo V50t Gen2 i3/8GB/256GB/IntHD/W10P/5 years', 11, 5665.29, 10),
+    ('Lenovo M70s SFF G6400','Specifications for Lenovo M70s SFF G6400/4GB/256GB/IntHD/W10P', 11, 4758.84, 10),
+    ('iPhone SE', 'Specifications for iPhone SE', 4, 8459.29, 10),
+    ('MacBook Air', 'Specifications for MacBook Air', 4, 11239.59, 10),
+    ('iPad Pro','Specifications for iPad Pro', 4, 3480, 10),
+    ('Vivax LED TV-49S60T2S2SM', 'New Smart TV with Android 7.1 allows internet connectivity or social media, all on a large screen.', 12, 2359.29, 10),
+    ('Vivax IMAGO LED TV-32LE95T2', 'Ergonomically designed TV with legs instead of a classic stand, adding to its overall elegance.', 12, 3380.79, 10),
+    ('Xiaomi 11 Lite 5G NE', 'Specifications for Xiaomi 11 Lite 5G NE', 5, 6679.59, 10),
+    ('Noa Element Mobile', 'Specifications for Noa Element Mobile', 8, 899.49, 10),
+    ('LOGITECH H820E HEADSET', 'Wireless headset for business calls', 9, 349.89, 10),
+    ('Galaxy Z Fold3 5G', 'Specifications for Galaxy Z Fold3 5G', 3, 8129.00, 10),
+    ('LG 75" (189 cm) 4K HDR Smart Nano Cell TV', 'Pure Colors in Real 4K resolution, NanoCell technology, 4K processor LG α5 Gen5 AI', 6, 5579.29, 10),
+    ('16" ProArt Studiobook Pro 16 OLED', 'Windows 11 Pro, Intel® Core™ i9-12900H processor, NVIDIA RTX™ A3000 12GB graphics', 1, 8888.88, 10);
 
-INSERT INTO PROIZVOD (NAZIV, OPIS, BRAND_ID, CIJENA, KOLICINA)
-VALUES ('Speedlink Miš S50', 'Specifikacije za Speedlink Miš S50', 7, 250.00, 10),
-       ('Razer Miš T350', 'Specifikacije za Razer Miš T350', 2, 360.00, 10),
-       ('PC Fenix Ultima R9-5950X', 'Specifikacije za Stolno računalo PC Fenix Ultima R9-5950X, 64GB, 2TB M.2, RTX2060 8GB, PWS 1000W', 10, 23560.99, 10),
-       ('Lenovo ThinkStation Xeon W-2133', 'Specifikacije za Stolno računalo Lenovo ThinkStation Xeon W-2133/64GB/512GB/Quadro P4000/W10P', 11, 2350.96, 10),
-       ('Lenovo V50t Gen2','Specifikacije za Lenovo V50t Gen2 i3/8GB/256GB/IntHD/W10P/5god', 11, 5665.29, 10),
-       ('Lenovo M70s SFF G6400','Specifikacije za za Lenovo M70s SFF G6400/4GB/256GB/IntHD/W10P', 11, 4758.84, 10),
-       ('Iphone SE', 'Specifikacije za Iphone SE', 4, 8459.29, 10),
-       ('MacBook Air', 'Specifikacije za MacBook Air', 4, 11239.59, 10),
-       ('iPad Pro','Specifikacije za iPad Pro', 4, 3480, 10),
-       ('Vivax LED TV-49S60T2S2SM', 'Novi Smart TV s Android sustavom 7.1 omogućava povezanost putem interneta ili društvenih mreža, a sve to na velikom ekranu.', 12, 2359.29, 10),
-       ('Vivax IMAGO LED TV-32LE95T2', 'Posebno ergonomski dizajniran televizor koji umjesto klasičnog postolja ima nogice koje doprinose ukupnoj eleganciji televizora.', 12, 3380.79, 10),
-       ('Xiaomi 11 Lite 5G NE', 'Specifikacije za Xiaomi 11 Lite 5G NE', 5, 6679.59, 10),
-       ('Noa Element Mobitel', 'Specifikacije za Noa Element Mobitel', 8, 899.49, 10),
-       ('LOGITECH H820E HEADSET', 'Bežične slušalice za poslovne razgovore', 9, 349.89, 10),
-       ('Galaxy Z Fold3 5G', 'Specifkacije za Galaxy Z Fold3 5G', 3, 8129., 10),
-       ('LG 75" (189 cm) 4K HDR Smart Nano Cell TV', 'Čiste boje (Pure Colors) u razlučivosti Real 4K, Tehnologija NanoCell, 4K procesor LG α5 Gen5 AI', 6, 5579.29, 10),
-       ('16" ProArt Studiobook Pro 16 OLED', 'Windows 11 Pro, Intel® Core™ i9-12900H processor, NVIDIA RTX™ A3000 12GB graphics', 1, 8888.88, 10);
+INSERT INTO PAYMENT_METHOD (TITLE) VALUES ('CARD'), ('CASH');
 
-
-
-
-
-
-INSERT INTO NACIN_PLACANJA (NAZIV) VALUES ('KARTIČNO'), ('GOTOVINSKO');
-
-INSERT INTO POPUST_KODOVI (KOD, POPUST, ISKORISTEN) VALUES ('12EY-18U3-FDO1-VR34', 0.25, true), ('1111-2222-3333-4444', 0.1, false);
+INSERT INTO DISCOUNT_CODE (CODE, AMOUNT, USED) VALUES ('12EY-18U3-FDO1-VR34', 0.25, true), ('1111-2222-3333-4444', 0.1, false);

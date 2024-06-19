@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @ToString
 @Builder
 @Entity
-@Table(name = "NARUDZBA")
+@Table(name = "ORDERS")
 public class Order {
 
     @Id
@@ -21,33 +21,33 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "DATUM")
+    @Column(name = "USERS")
     private LocalDate date;
 
-    @Column(name = "UKUPNA_CIJENA_BEZ_P")
+    @Column(name = "TOTAL_PRICE_EXCL_VAT")
     private BigDecimal priceWithNoPdvIncluded;
 
-    @Column(name = "UKUPNA_CIJENA_S_P")
+    @Column(name = "TOTAL_PRICE")
     private BigDecimal total;
 
-    @Column(name = "KOD_ZA_POPUST_ID")
+    @Column(name = "DISCOUNT_CODE_ID")
     private Integer discountCodeId;
 
-    @Column(name = "NACIN_PLACANJA_ID")
+    @Column(name = "PAYMENT_METHOD_ID")
     private Integer paymentMethod;
 
-    @Column(name = "BROJ_KARTICE")
+    @Column(name = "CARD_NUMBER")
     private String creditCardNumber;
 
     @Column(name = "EMAIL")
     private String email;
 
-    @Column(name = "BROJ_MOBITELA")
+    @Column(name = "PHONE_NUMBER")
     private String phoneNumber;
 
-    @Column(name = "ADRESA_DOSTAVE")
+    @Column(name = "DELIVERY_ADDRESS")
     private String deliveryAddress;
 
-    @Column(name = "NAPOMENA")
+    @Column(name = "NOTE")
     private String note;
 }
