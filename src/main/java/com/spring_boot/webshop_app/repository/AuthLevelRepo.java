@@ -7,5 +7,5 @@ import java.util.Optional;
 
 public interface AuthLevelRepo extends JpaRepository<AuthorizationLevel, Integer> {
     AuthorizationLevel findById(int id);
-    int findIdByTitle(String title);
+    AuthorizationLevel findByTitle(String title);
 }

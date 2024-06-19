@@ -35,21 +35,16 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<String> registerUser(@RequestBody User user) {
-        System.out.println("didn't get to save");
-
         if (userService.findByEmail(user.getEmail()) != null) {
-            System.out.println("Email is already taken.");
             return ResponseEntity.badRequest().body("Email is already taken.");
         }
 
         user.setName(user.getName());
         user.setEmail(user.getEmail());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setAuthLevelId(authLevelService.findIdByTitle("ROLE_USER"));
+        user.setAuthLevelId(authLevelService.findIdByTitle("USER"));
 
         userService.save(user);
-
-        System.out.println("saved");
 
         return ResponseEntity.ok("User registered successfully");
     }

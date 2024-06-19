@@ -18,6 +18,6 @@ public class AuthLevelServiceImpl implements AuthLevelService {
 
     @Override
     public int findIdByTitle(String title) {
-        return authLevelRepo.findIdByTitle(title);
+        return authLevelRepo.findByTitle(title).getId();
     }
 }
