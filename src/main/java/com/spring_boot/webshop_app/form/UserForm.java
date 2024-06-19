@@ -9,7 +9,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class UserForm {
 
-    private Integer id;
     private String email;
     private String password;
 }

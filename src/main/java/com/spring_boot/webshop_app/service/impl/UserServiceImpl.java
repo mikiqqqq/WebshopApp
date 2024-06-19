@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
         return new org.springframework.security.core.userdetails.User(
                 user.getEmail(),
-                user.getHashedPassword(),
+                user.getPassword(),
                 Collections.singletonList(new SimpleGrantedAuthority(roleName))
         );
     }

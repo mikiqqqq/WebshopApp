@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin("http://localhost:3000/")
-@RequestMapping(value = "/user")
+@RequestMapping(value = "/api/user")
 public class UserController {
 
     @Autowired
@@ -34,30 +34,34 @@ public class UserController {
     private JwtUtil jwtUtil;
 
     @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@RequestBody User user) {
+    public ResponseEntity<String> registerUser(@RequestBody User user) {
+        System.out.println("didn't get to save");
+
         if (userService.findByEmail(user.getEmail()) != null) {
+            System.out.println("Email is already taken.");
             return ResponseEntity.badRequest().body("Email is already taken.");
         }
 
         user.setName(user.getName());
         user.setEmail(user.getEmail());
-        user.setHashedPassword(passwordEncoder.encode(user.getHashedPassword()));
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setAuthLevelId(authLevelService.findIdByTitle("ROLE_USER"));
 
         userService.save(user);
+
+        System.out.println("saved");
 
         return ResponseEntity.ok("User registered successfully");
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> authenticateUser(@RequestBody UserForm userForm) {
+    public ResponseEntity<String> authenticateUser(@RequestBody UserForm userForm) {
         User user = userService.findByEmail(userForm.getEmail());
 
-        if (!passwordEncoder.matches(userForm.getPassword(), user.getHashedPassword())) {
+        if (!passwordEncoder.matches(userForm.getPassword(), user.getPassword())) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
         }
 
-        final UserDetails userDetails = userService.loadUserByUsername(userForm.getEmail());
         final String jwt = jwtUtil.generateToken(user);
         return ResponseEntity.ok(jwt); // Return the token directly
     }

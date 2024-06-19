@@ -26,7 +26,7 @@ public class User {
     private String email;
 
     @Column(name = "HASHED_PASSWORD")
-    private String hashedPassword;
+    private String password;
 
     @Column(name = "AUTH_LEVEL_ID")
     private Integer authLevelId;
