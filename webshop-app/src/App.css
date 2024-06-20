@@ -7,6 +7,9 @@
   --background-hover: #30343e;
   --page-background: #4e8f90;
   --brand-color: skyblue;
+  --header-height: 60px;
+  --ann-bar-height: 40px;
+  --footer-height: 309px;
 }
 
 .App {
@@ -56,7 +59,7 @@
   margin: 0;
 }
 
-.page{
+.page {
   min-height: 100vh;
   width: 100%;
   position: relative;
@@ -64,6 +67,13 @@
   flex-direction: column;
   background-color: var(--page-background);
   color: white;
+}
+
+.main {
+  min-height: calc(100vh - var(--ann-bar-height) - var(--header-height) - var(--footer-height));
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 body::-webkit-scrollbar {
@@ -97,7 +107,18 @@ body::-webkit-scrollbar-thumb:hover {
   }
 }
 
+@media screen and (min-width: 768px) {
+  :root {
+    --header-height: 75px;
+    --footer-height: 173px;
+  }
+}
+
 @media screen and (min-width: 1025px) {
+  :root {
+    --ann-bar-height: 44.8px;
+  }
+  
   .not_desktop {
     display: none !important;
   }

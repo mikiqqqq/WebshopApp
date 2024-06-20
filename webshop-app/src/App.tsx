@@ -14,6 +14,9 @@ import ItemService from './services/ItemService';
 import OrderItemService from './services/OrderItemService';
 import OrderService from './services/OrderService';
 import useLocalStorage from './useLocalStorage';
+import PrivateRoute from './components/private_route/PrivateRoute';
+import Login from './components/header/login/Login';
+import Register from './components/header/login/register/Register';
 
 
 interface OrderItemAndAmount {
@@ -124,6 +127,10 @@ function App() {
           removeOrderItemAll={removeOrderItemAll} addOrRemoveOrderItem={addOrRemoveOrderItem} emptyShoppingCart={emptyShoppingCart}/>} />
           <Route path="/checkout" element={<Checkout activeOrder={localStateActiveOrder} orderItems={orderItems} 
           removeOrderItemAll={removeOrderItemAll} addOrRemoveOrderItem={addOrRemoveOrderItem} orderCompleted={setOrderCompleted}/>} />
+          <Route path="/login" element={<Login />} />   
+          <Route path="/register" element={<Register />} />             
+          <Route path="/account" element={<PrivateRoute component={Login} roles={['USER', 'ADMIN']} authPath="/login" redirectPath="/" />} />    
+          <Route path="/admin" element={<PrivateRoute component={Login} roles={['ADMIN']} authPath="/" redirectPath="/" />} />
           <Route path="*" element={<WrongRoute/>} />
         </Routes>
         <Support />

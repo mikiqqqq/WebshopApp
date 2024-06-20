@@ -1,4 +1,5 @@
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
+import { jwtDecode } from 'jwt-decode';
 
 const USERS_API_BASE_URL = "http://localhost:8080/api/user";
 
@@ -12,21 +13,27 @@ export interface User {
     password: string;
 }
 
+export interface UserForm {
+    email: string;
+    password: string;
+}
+
+interface JwtPayload {
+    role: string;
+    [key: string]: any;
+}
+
 class UserService {
-    async login(username: string, password: string) {
+    async login(userForm: UserForm) {
         try {
-            const response = await axios.post(`${USERS_API_BASE_URL}/login`, {
-                username,
-                password
-            });
-
-            const data = response.data;
-
-            if (response.status === 200) {
-                localStorage.setItem('token', data.token);
+            const response = await axios.post(`${USERS_API_BASE_URL}/login`, userForm);
+            const token = response.data; // Directly use response.data as the token
+            
+            if (response.status === 200 && token) {
+                localStorage.setItem('token', token);
             }
 
-            return data;
+            return { token };
         } catch (error) {
             if (axios.isAxiosError(error)) {
                 // Error is an AxiosError
@@ -92,8 +99,8 @@ class UserService {
         const token = localStorage.getItem('token');
         if (!token) return null;
         try {
-            const payload = JSON.parse(atob(token.split('.')[1]));
-            return payload.role;
+            const decodedToken = jwtDecode<JwtPayload>(token);
+            return decodedToken.role;
         } catch (e) {
             console.error('Invalid token', e);
             return null;
