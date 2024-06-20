@@ -10,8 +10,13 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class OrderServiceImpl implements OrderService {
 
-    @Autowired
+    final
     OrderRepo orderRepo;
+
+    @Autowired
+    public OrderServiceImpl(OrderRepo orderRepo) {
+        this.orderRepo = orderRepo;
+    }
 
     @Override
     public Order fetchOrderById (Integer id){

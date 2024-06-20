@@ -1,11 +1,14 @@
 package com.spring_boot.webshop_app.controller;
 
 import com.spring_boot.webshop_app.dto.ItemDto;
+import com.spring_boot.webshop_app.model.Item;
 import com.spring_boot.webshop_app.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
@@ -15,9 +18,21 @@ import java.util.Optional;
 @RequestMapping(value = "/api/items")
 public class ItemController {
 
-    @Autowired
-    private ItemService itemService;
+    private final ItemService itemService;
 
+    @Autowired
+    public ItemController(ItemService itemService) {
+        this.itemService = itemService;
+    }
+
+    @PostMapping (value = "/add")
+    ResponseEntity<Item> save(@Valid @RequestBody Item item) {
+        itemService.save(item);
+
+        return new ResponseEntity<>(
+                HttpStatus.CREATED
+        );
+    }
 
     @GetMapping(value = "/fetch-all")
     ResponseEntity<List<ItemDto>> fetchAll() {

@@ -11,16 +11,13 @@ import javax.persistence.*;
 @ToString
 @Builder
 @Entity
-@Table(name = "ORDER_ITEMS")
-public class OrderItem {
+@Table(name = "AUTH_LEVEL")
+public class AuthorizationLevel {
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "ORDER_ID")
-    private Integer orderId;
-
-    @Column(name = "ITEM_ID")
-    private Integer itemId;
+    @Column(name = "TITLE")
+    private String title;
 }

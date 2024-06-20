@@ -6,7 +6,6 @@ import com.spring_boot.webshop_app.model.OrderItem;
 import java.util.List;
 
 public interface OrderItemService {
-
     OrderItem save (OrderItem orderItem);
     void saveMultiple (OrderItem orderItem, Integer quantity);
     List<OrderItem> findAllByOrderId(Integer orderId);

@@ -11,8 +11,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/api/discount-code")
 public class DiscountCodeController {
 
+    private final DiscountCodeService discountCodeService;
+
     @Autowired
-    private DiscountCodeService discountCodeService;
+    public DiscountCodeController(DiscountCodeService discountCodeService) {
+        this.discountCodeService = discountCodeService;
+    }
 
     @GetMapping(value = "/get-active")
     ResponseEntity<DiscountCode> getActive() {

@@ -11,19 +11,19 @@ import javax.persistence.*;
 @ToString
 @Builder
 @Entity
-@Table(name = "POPUST_KODOVI")
+@Table(name = "DISCOUNT_CODE")
 public class DiscountCode {
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "KOD")
+    @Column(name = "CODE")
     private String code;
 
-    @Column(name = "POPUST")
+    @Column(name = "AMOUNT")
     private String discountAmount;
 
-    @Column(name = "ISKORISTEN")
-    private boolean isActive;
+    @Column(name = "ACTIVE")
+    private boolean active;
 }

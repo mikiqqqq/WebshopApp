@@ -16,11 +16,17 @@ import javax.validation.Valid;
 @RequestMapping(value = "/api/order")
 public class OrderController {
 
-    @Autowired
+    final
     OrderService orderService;
 
-    @Autowired
+    final
     OrderFormMapper orderFormMapper;
+
+    @Autowired
+    public OrderController(OrderService orderService, OrderFormMapper orderFormMapper) {
+        this.orderService = orderService;
+        this.orderFormMapper = orderFormMapper;
+    }
 
     @GetMapping(value = "/fetch-order/{id}")
     ResponseEntity<Order> fetchOrderById(@PathVariable Integer id) {

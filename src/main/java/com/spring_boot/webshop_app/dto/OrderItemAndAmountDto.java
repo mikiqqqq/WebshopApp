@@ -9,7 +9,6 @@ import lombok.*;
 @ToString
 @Builder
 public class OrderItemAndAmountDto {
-
     private Integer id;
     private Long quantity;
 }

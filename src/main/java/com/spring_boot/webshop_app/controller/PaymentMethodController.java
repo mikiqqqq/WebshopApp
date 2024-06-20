@@ -16,8 +16,12 @@ import java.util.List;
 @RequestMapping(value = "/api/payment-method")
 public class PaymentMethodController {
 
+    private final PaymentMethodService paymentMethodService;
+
     @Autowired
-    private PaymentMethodService paymentMethodService;
+    public PaymentMethodController(PaymentMethodService paymentMethodService) {
+        this.paymentMethodService = paymentMethodService;
+    }
 
     @GetMapping(value = "/get-all")
     ResponseEntity<List<PaymentMethod>> getAll() {

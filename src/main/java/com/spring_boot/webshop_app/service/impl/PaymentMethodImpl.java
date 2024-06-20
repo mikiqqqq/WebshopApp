@@ -11,8 +11,13 @@ import java.util.List;
 @Service
 public class PaymentMethodImpl implements PaymentMethodService {
 
-    @Autowired
+    final
     PaymentMethodRepo paymentMethodRepo;
+
+    @Autowired
+    public PaymentMethodImpl(PaymentMethodRepo paymentMethodRepo) {
+        this.paymentMethodRepo = paymentMethodRepo;
+    }
 
     @Override
     public List<PaymentMethod> getAll() {

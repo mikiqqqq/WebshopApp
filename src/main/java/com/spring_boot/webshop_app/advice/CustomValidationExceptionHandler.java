@@ -21,7 +21,7 @@ import java.util.Map;
 public class CustomValidationExceptionHandler extends ResponseEntityExceptionHandler
 {
     @ExceptionHandler(Exception.class)
-    public final ResponseEntity<Object> handleAllExceptions(Exception ex, WebRequest request) {
+    public final ResponseEntity<Object> handleAllExceptions(Exception ex) {
         List<String> details = new ArrayList<>();
         details.add(ex.getLocalizedMessage());
         ErrorResponse error = new ErrorResponse("Server Error", details);
@@ -29,7 +29,7 @@ public class CustomValidationExceptionHandler extends ResponseEntityExceptionHan
     }
 
     @ExceptionHandler(RecordNotFoundException.class)
-    public final ResponseEntity<Object> handleUserNotFoundException(RecordNotFoundException ex, WebRequest request) {
+    public final ResponseEntity<Object> handleUserNotFoundException(RecordNotFoundException ex) {
         List<String> details = new ArrayList<>();
         details.add(ex.getLocalizedMessage());
         ErrorResponse error = new ErrorResponse("Record Not Found", details);

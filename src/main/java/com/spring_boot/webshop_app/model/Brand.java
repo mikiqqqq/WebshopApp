@@ -1,7 +1,6 @@
 package com.spring_boot.webshop_app.model;
 
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 
@@ -19,6 +18,6 @@ public class Brand {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "NAZIV")
-    private String name;
+    @Column(name = "TITLE")
+    private String title;
 }

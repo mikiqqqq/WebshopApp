@@ -2,6 +2,7 @@ package com.spring_boot.webshop_app.service.impl;
 
 import com.spring_boot.webshop_app.dto.ItemDto;
 import com.spring_boot.webshop_app.mapper.ItemDtoMapper;
+import com.spring_boot.webshop_app.model.Item;
 import com.spring_boot.webshop_app.repository.ItemRepo;
 import com.spring_boot.webshop_app.service.ItemService;
 import com.spring_boot.webshop_app.sort.ItemDtoSorter;
@@ -17,17 +18,26 @@ import java.util.stream.Collectors;
 @Service
 public class ItemServiceImpl implements ItemService {
 
-    @Autowired
-    private ItemRepo itemRepo;
+    private final ItemRepo itemRepo;
+
+    private final ItemDtoMapper itemDtoMapper;
 
     @Autowired
-    private ItemDtoMapper itemDtoMapper;
+    public ItemServiceImpl(ItemRepo itemRepo, ItemDtoMapper itemDtoMapper) {
+        this.itemRepo = itemRepo;
+        this.itemDtoMapper = itemDtoMapper;
+    }
+
+    @Override
+    public void save(Item item) {
+        itemRepo.save(item);
+    }
 
     @Override
     public List<ItemDto> fetchAll(){
         return itemRepo.findAll()
                 .stream()
-                .map(item -> itemDtoMapper.map(item))
+                .map(itemDtoMapper::map)
                 .collect(Collectors.toList());
     }
 
@@ -35,7 +45,7 @@ public class ItemServiceImpl implements ItemService {
     public List<ItemDto> findByItemIds(Integer[] ids) {
         return Arrays.stream(ids)
                 .flatMap(id -> itemRepo.findByItemId(id).stream())
-                .map(item -> itemDtoMapper.map(item))
+                .map(itemDtoMapper::map)
                 .collect(Collectors.toList());
     }
 
@@ -43,7 +53,7 @@ public class ItemServiceImpl implements ItemService {
     public List<ItemDto> findByBrandIds(Integer[] ids){
         return Arrays.stream(ids)
                 .flatMap(id -> itemRepo.findByBrandId(id).stream())
-                .map(item -> itemDtoMapper.map(item))
+                .map(itemDtoMapper::map)
                 .collect(Collectors.toList());
     }
 
@@ -114,7 +124,7 @@ public class ItemServiceImpl implements ItemService {
     public List<ItemDto> findAllInPriceRange(Long uprLmt, Long lwrLimit){
         return itemRepo.findAllInPriceRange(uprLmt, lwrLimit)
                 .stream()
-                .map(item -> itemDtoMapper.map(item))
+                .map(itemDtoMapper::map)
                 .collect(Collectors.toList());
     }
 
@@ -122,7 +132,7 @@ public class ItemServiceImpl implements ItemService {
     public List<ItemDto> findAllByNameContainsIgnoreCase(String target){
         return itemRepo.findAllByNameContainsIgnoreCase(target)
                 .stream()
-                .map(item -> itemDtoMapper.map(item))
+                .map(itemDtoMapper::map)
                 .collect(Collectors.toList());
     }
 }

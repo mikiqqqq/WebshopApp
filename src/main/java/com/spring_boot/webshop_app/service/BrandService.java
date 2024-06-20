@@ -6,6 +6,5 @@ import java.util.List;
 
 public interface BrandService {
     BrandDto findById(Integer id);
-
     List<BrandDto> fetchAll();
 }
