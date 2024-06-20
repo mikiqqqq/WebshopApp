@@ -18,11 +18,17 @@ import java.util.List;
 @RequestMapping(value = "/api/order-item")
 public class OrderItemController {
 
-    @Autowired
+    final
     OrderItemService orderItemService;
 
-    @Autowired
+    final
     OrderItemFormMapper orderItemFormMapper;
+
+    @Autowired
+    public OrderItemController(OrderItemService orderItemService, OrderItemFormMapper orderItemFormMapper) {
+        this.orderItemService = orderItemService;
+        this.orderItemFormMapper = orderItemFormMapper;
+    }
 
     @PostMapping(value="/add")
     ResponseEntity<OrderItem> create(@Valid @RequestBody OrderItemForm orderItemForm) {

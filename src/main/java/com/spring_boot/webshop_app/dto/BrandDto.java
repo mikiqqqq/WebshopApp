@@ -9,7 +9,6 @@ import lombok.*;
 @ToString
 @Builder
 public class BrandDto {
-
     private Integer id;
     private String name;
 }

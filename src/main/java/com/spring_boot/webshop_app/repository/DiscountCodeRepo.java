@@ -6,8 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface DiscountCodeRepo extends JpaRepository<DiscountCode, Integer> {
-
-    DiscountCode findTopByIsActiveIsTrue();
-
+    DiscountCode findTopByActiveIsTrue();
     DiscountCode findByCode(String discountCode);
 }

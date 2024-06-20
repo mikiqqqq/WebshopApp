@@ -1,7 +1,6 @@
 package com.spring_boot.webshop_app.model;
 
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 

@@ -8,8 +8,6 @@ import com.spring_boot.webshop_app.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,20 +16,21 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/api/user")
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    private final AuthLevelService authLevelService;
+
+    private final PasswordEncoder passwordEncoder;
+
+    private final JwtUtil jwtUtil;
 
     @Autowired
-    private AuthLevelService authLevelService;
-
-    @Autowired
-    private AuthenticationManager authenticationManager;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    @Autowired
-    private JwtUtil jwtUtil;
+    public UserController(UserService userService, AuthLevelService authLevelService, PasswordEncoder passwordEncoder, JwtUtil jwtUtil) {
+        this.userService = userService;
+        this.authLevelService = authLevelService;
+        this.passwordEncoder = passwordEncoder;
+        this.jwtUtil = jwtUtil;
+    }
 
     @PostMapping("/register")
     public ResponseEntity<String> registerUser(@RequestBody User user) {

@@ -10,8 +10,12 @@ import java.util.List;
 
 @Repository
 public class ItemCustomRepoImpl implements ItemCustomRepo {
+    private final EntityManager entityManager;
+
     @Autowired
-    private EntityManager entityManager;
+    public ItemCustomRepoImpl(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
 
     @Override
     public List<Item> findByItemId(Integer id) {

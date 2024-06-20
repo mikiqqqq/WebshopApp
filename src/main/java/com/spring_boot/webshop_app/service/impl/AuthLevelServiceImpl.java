@@ -8,8 +8,14 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AuthLevelServiceImpl implements AuthLevelService {
-    @Autowired
+
+    final
     AuthLevelRepo authLevelRepo;
+
+    @Autowired
+    public AuthLevelServiceImpl(AuthLevelRepo authLevelRepo) {
+        this.authLevelRepo = authLevelRepo;
+    }
 
     @Override
     public AuthorizationLevel findById(int id){

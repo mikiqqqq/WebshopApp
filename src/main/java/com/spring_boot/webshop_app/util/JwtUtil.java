@@ -16,10 +16,15 @@ import java.util.function.Function;
 
 @Component
 public class JwtUtil {
-    @Autowired
+    final
     AuthLevelService authLevelService;
 
-    private String secret = "your_secret_key";
+    private final String secret = "your_secret_key";
+
+    @Autowired
+    public JwtUtil(AuthLevelService authLevelService) {
+        this.authLevelService = authLevelService;
+    }
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);

@@ -11,7 +11,6 @@ import java.math.BigDecimal;
 @ToString
 @Builder
 public class ItemDto {
-
     private Integer id;
     private String name;
     private String description;

@@ -10,10 +10,14 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/api/auth-level")
 public class AuthLevelController {
 
-    @Autowired
-    private AuthLevelService authLevelService;
+    private final AuthLevelService authLevelService;
 
-    @GetMapping(value = "/id/{id}")
+    @Autowired
+    public AuthLevelController(AuthLevelService authLevelService) {
+        this.authLevelService = authLevelService;
+    }
+
+    @GetMapping(value = "/id/{title}")
     ResponseEntity<Integer> findIdByTitle(@PathVariable String title) {
 
         return ResponseEntity

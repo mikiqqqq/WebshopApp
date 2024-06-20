@@ -24,6 +24,6 @@ public class DiscountCode {
     @Column(name = "AMOUNT")
     private String discountAmount;
 
-    @Column(name = "USED")
-    private boolean isActive;
+    @Column(name = "ACTIVE")
+    private boolean active;
 }

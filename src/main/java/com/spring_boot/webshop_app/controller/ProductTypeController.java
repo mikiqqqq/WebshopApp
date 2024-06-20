@@ -13,8 +13,12 @@ import java.util.List;
 @RequestMapping(value = "/api/productType")
 public class ProductTypeController {
 
+    private final ProductTypeService productTypeService;
+
     @Autowired
-    private ProductTypeService productTypeService;
+    public ProductTypeController(ProductTypeService productTypeService) {
+        this.productTypeService = productTypeService;
+    }
 
     @GetMapping(value = "/fetch-all")
     ResponseEntity<List<ProductType>> fetchAll() {

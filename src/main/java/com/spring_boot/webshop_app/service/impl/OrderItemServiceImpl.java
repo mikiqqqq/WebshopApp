@@ -17,11 +17,15 @@ import java.util.stream.Collectors;
 
 @Service
 public class OrderItemServiceImpl implements OrderItemService {
-    @Autowired
-    private OrderItemRepo orderItemRepo;
+    private final OrderItemRepo orderItemRepo;
+
+    private final OrderItemAndAmountDtoMapper orderItemAndAmountDtoMapper;
 
     @Autowired
-    private OrderItemAndAmountDtoMapper orderItemAndAmountDtoMapper;
+    public OrderItemServiceImpl(OrderItemRepo orderItemRepo, OrderItemAndAmountDtoMapper orderItemAndAmountDtoMapper) {
+        this.orderItemRepo = orderItemRepo;
+        this.orderItemAndAmountDtoMapper = orderItemAndAmountDtoMapper;
+    }
 
     @Override
     @Transactional

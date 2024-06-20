@@ -14,11 +14,15 @@ import java.util.Collections;
 
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
-    @Autowired
-    private UserRepo userRepo;
+    private final UserRepo userRepo;
+
+    private final AuthLevelService authLevelService;
 
     @Autowired
-    private AuthLevelService authLevelService;
+    public UserServiceImpl(UserRepo userRepo, AuthLevelService authLevelService) {
+        this.userRepo = userRepo;
+        this.authLevelService = authLevelService;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {

@@ -9,12 +9,17 @@ import org.springframework.stereotype.Service;
 @Service
 public class DiscountCodeServiceImpl implements DiscountCodeService {
 
-    @Autowired
+    final
     DiscountCodeRepo discountCodeRepo;
+
+    @Autowired
+    public DiscountCodeServiceImpl(DiscountCodeRepo discountCodeRepo) {
+        this.discountCodeRepo = discountCodeRepo;
+    }
 
     @Override
     public DiscountCode findFirstActive(){
-        return discountCodeRepo.findTopByIsActiveIsTrue();
+        return discountCodeRepo.findTopByActiveIsTrue();
     }
 
     @Override
