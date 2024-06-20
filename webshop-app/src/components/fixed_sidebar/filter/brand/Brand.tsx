@@ -10,7 +10,7 @@ interface Props{
     backgroundColor: string;
 }
 
-interface BrandType {
+export interface BrandType {
     id: number;
     name: string;
 }

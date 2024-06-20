@@ -11,7 +11,7 @@ interface Props{
     backgroundColor: string;
 }
 
-interface ProductType{
+export interface ProductType{
     id: number;
     name: string;
 }
