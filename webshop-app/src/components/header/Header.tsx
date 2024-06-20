@@ -5,6 +5,8 @@ import ShoppingCartButton from './shopping_cart_button/ShoppingCartButton';
 import logo from '../../images/tt_logo.png'
 import { useLocation } from 'react-router';
 import { useEffect, useState } from 'react';
+import PrivateRoute from '../private_route/PrivateRoute';
+import Login from './login/Login';
 
 interface Props{
     orderItems: Hit[];
@@ -60,6 +62,7 @@ const Header:React.FunctionComponent<Props> = props => {
                     {
                     location.pathname === '/tech' &&
                     <>
+                        <PrivateRoute path="/account" component={Login} roles={['USER', 'ADMIN']} />
                         <SearchForm/>
                         <ShoppingCartButton activeOrder={props.activeOrder} orderItems={props.orderItems}/>
                     </>
