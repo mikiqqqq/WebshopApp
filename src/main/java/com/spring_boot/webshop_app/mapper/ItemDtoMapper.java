@@ -15,6 +15,7 @@ public class ItemDtoMapper {
 
         return ItemDto.builder()
                 .id(item.getId())
+                .image(item.getImage())
                 .name(item.getName())
                 .description(item.getDescription())
                 .price(item.getPrice())

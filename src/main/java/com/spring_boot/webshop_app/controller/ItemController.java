@@ -27,10 +27,27 @@ public class ItemController {
 
     @PostMapping (value = "/add")
     ResponseEntity<Item> save(@Valid @RequestBody Item item) {
-        itemService.save(item);
+        itemService.saveItem(item);
 
         return new ResponseEntity<>(
                 HttpStatus.CREATED
+        );
+    }
+
+    @PutMapping (value = "/update/{itemId}")
+    ResponseEntity<ItemDto> update(@PathVariable int itemId) {
+
+        return ResponseEntity
+                .ok()
+                .body(itemService.updateItem(itemId));
+    }
+
+    @DeleteMapping (value = "/remove/{itemId}")
+    ResponseEntity<Item> delete(@PathVariable int itemId) {
+        itemService.deleteItem(itemId);
+
+        return new ResponseEntity<>(
+                HttpStatus.OK
         );
     }
 

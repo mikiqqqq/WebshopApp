@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 @Builder
 public class ItemDto {
     private Integer id;
+    private byte[] image;
     private String name;
     private String description;
     private BigDecimal price;

@@ -17,5 +17,7 @@ public interface ItemService {
                          Optional<Integer> productTypeId, Optional<Integer> productionYear,
                          Optional<String> sortBy, Optional<String> sortOrder);
     List<ItemDto> fetchAll();
-    void save(Item item);
+    void saveItem(Item item);
+    void deleteItem(int itemId);
+    ItemDto updateItem(int itemId);
 }
