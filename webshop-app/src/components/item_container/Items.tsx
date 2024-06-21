@@ -1,10 +1,10 @@
-import { AddItem, Hit } from '../MainContainerData';
+import { AddProduct, Product } from '../MainContainerData';
 import Item from './item/Item';
 import style from './Items.module.css';
 
 interface Props {
-    data: Hit[];
-    addItemToCart: (item: AddItem) => void;
+    data: Product[];
+    addItemToCart: (item: AddProduct) => void;
 }
 
 const Items:React.FunctionComponent<Props> = props => {

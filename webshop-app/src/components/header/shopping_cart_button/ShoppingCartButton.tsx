@@ -3,13 +3,13 @@ import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import { OverlayTrigger, Popover } from 'react-bootstrap';
-import { Hit } from '../../MainContainerData';
+import { Product } from '../../MainContainerData';
 import itemImg from '../../../images/item.jpg'
 import { Link } from 'react-router-dom';
 
 
 interface Props {
-  orderItems: Hit[];
+  orderItems: Product[];
   activeOrder: number;
 }
 
@@ -78,9 +78,9 @@ const ShoppingCartButton: React.FunctionComponent<Props> = props => {
                   totalPrice += item.quantity * item.price;
                   return (
                     <div className={style.cart_item} key={item.id}>
-                      <h5>{item.name.length > 23 ? item.name.slice(0, 22).concat('...') : item.name}</h5>
+                      <h5>{item.title.length > 23 ? item.title.slice(0, 22).concat('...') : item.title}</h5>
                       <div className={style.cart_item_body}>
-                        <img src={itemImg} alt={item.name} />
+                        <img src={itemImg} alt={item.title} />
                         <div>
                           <p id={style.item_quantity}>{item.quantity}</p>
                           <strong id={style.item_price}>${(item.quantity * item.price).toFixed(2)}</strong>

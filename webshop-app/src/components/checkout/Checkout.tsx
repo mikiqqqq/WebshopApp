@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { DiscountCode, Hit, OrderUpdate } from "../MainContainerData";
+import { DiscountCode, Product, OrderUpdate } from "../MainContainerData";
 import style from "./Checkout.module.css"
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -12,7 +12,7 @@ import DiscountCodeService from "../../services/DiscountCodeService";
 import OrderService from "../../services/OrderService";
 
 interface Props {
-    orderItems: Hit[];
+    orderItems: Product[];
     activeOrder: number;
 
     addOrRemoveOrderItem(orderItemId: number, decider: number): void;

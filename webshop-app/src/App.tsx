@@ -5,7 +5,7 @@ import Checkout from './components/checkout/Checkout';
 import Footer from './components/footer/Footer';
 import Header from './components/header/Header';
 import MainContainer from './components/MainContainer';
-import { Hit, AddItem } from './components/MainContainerData';
+import { Product, AddProduct } from './components/MainContainerData';
 import ShoppingCart from './components/shopping_cart/ShoppingCart';
 import Support from './components/support/Support';
 import WrongRoute from './components/wrong_route/WrongRoute';
@@ -26,7 +26,7 @@ interface OrderItemAndAmount {
 
 function App() {
   const [discountCode, setDiscountCode] = useState('');
-  const [orderItems, setOrderItems] = useState<Array<Hit>>([]);
+  const [orderItems, setOrderItems] = useState<Array<Product>>([]);
   const [updateOrderItems, setUpdateOrderItems] = useState(false);
   const [localStateActiveOrder, setLocalStateActiveOrder] = useLocalStorage('activeOrder');
   const [firstAdded, setFirstAdded] = useState(true);
@@ -34,7 +34,7 @@ function App() {
   const [orderCompleted, setOrderCompleted] = useState(false);
 
   let activeOrderId: number;
-  let orderItemsArray = new Array<Hit>();
+  let orderItemsArray = new Array<Product>();
   let orderItemAndAmount = new Array<OrderItemAndAmount>();
 
   useEffect(() => {
@@ -85,16 +85,16 @@ function App() {
     }
   }
 
-  const addItemToTheCart = async (item: AddItem) => {
+  const addItemToTheCart = async (item: AddProduct) => {
     if (firstAdded) {
       activeOrderId = (await OrderService.createOrder()).data
       setLocalStateActiveOrder(activeOrderId);
-      if(item.amount > 1) await OrderItemService.createMultipleOrderItems(activeOrderId, item.itemId, item.amount);
-      else await OrderItemService.createOrderItem(activeOrderId, item.itemId);
+      if(item.amount > 1) await OrderItemService.createMultipleOrderItems(activeOrderId, item.productId, item.amount);
+      else await OrderItemService.createOrderItem(activeOrderId, item.productId);
       setFirstAdded(false);
     }else{
-      if(item.amount > 1) await OrderItemService.createMultipleOrderItems(localStateActiveOrder, item.itemId, item.amount);
-      else await OrderItemService.createOrderItem(localStateActiveOrder, item.itemId);
+      if(item.amount > 1) await OrderItemService.createMultipleOrderItems(localStateActiveOrder, item.productId, item.amount);
+      else await OrderItemService.createOrderItem(localStateActiveOrder, item.productId);
     }
     setUpdateOrderItems(!updateOrderItems);
   }
@@ -131,6 +131,7 @@ function App() {
           <Route path="/register" element={<Register />} />             
           <Route path="/account" element={<PrivateRoute component={Login} roles={['USER', 'ADMIN']} authPath="/login" redirectPath="/" />} />    
           <Route path="/admin" element={<PrivateRoute component={Login} roles={['ADMIN']} authPath="/" redirectPath="/" />} />
+          <Route path="/account/orders" element={<Register />} />             
           <Route path="*" element={<WrongRoute/>} />
         </Routes>
         <Support />

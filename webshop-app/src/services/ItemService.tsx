@@ -1,9 +1,21 @@
 import axios from 'axios';
-import { FilterOptions } from '../components/fixed_sidebar/filter/brand/Brand';
+import { FilterOptions, Product } from "../components/MainContainerData";
 
 const ITEMS_API_BASE_URL = "http://localhost:8080/api/items";
 
 class ItemService {
+
+    addItem(product: Product) {
+        return axios.get(ITEMS_API_BASE_URL + '/save' + product);
+    }
+
+    updateItem(id: number) {
+        return axios.get(ITEMS_API_BASE_URL + '/update/' + id);
+    }
+
+    removeItem(id: number) {
+        return axios.get(ITEMS_API_BASE_URL + '/remove/' + id);
+    }
 
     fetchAllItems(){
         return axios.get(ITEMS_API_BASE_URL + '/fetch-all');

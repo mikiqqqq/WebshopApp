@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Hit } from "../MainContainerData";
+import { Product } from "../MainContainerData";
 import style from "./ShoppingCart.module.css"
 import OrderItem from "./order_item/OrderItem";
 import { Link } from "react-router-dom";
@@ -9,7 +9,7 @@ import { Alert, Button } from "react-bootstrap";
 
 
 interface Props {
-    orderItems: Hit[];
+    orderItems: Product[];
     activeOrder: number;
 
     addOrRemoveOrderItem(orderItemId: number, decider: number): void;

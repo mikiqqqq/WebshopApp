@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FilterOptions } from "../brand/Brand";
+import { FilterOptions } from "../../../MainContainerData";
 import style from '../FilterButtons.module.css'
 
 interface Props{
@@ -10,13 +10,13 @@ interface Props{
     backgroundColor: string;
 }
 
-const priceArray = new Array(
+const priceArray = [
     [0, 100],
     [100, 500],
     [500, 1000],
     [1000, 2000],
     [2000, 5000],
-)
+]
 const Price:React.FunctionComponent<Props> = props => {
 
     const [filterOptions, setFilterOptions] = useState<FilterOptions>(props.filterOptions);

@@ -1,11 +1,6 @@
 import React, { useState } from 'react';
 import UserService from '../../../services/UserService';
 
-export interface UserForm {
-    email: string;
-    password: string;
-}
-
 const Login: React.FC = () => {
     const [email, setUsername] = useState('');
     const [password, setPassword] = useState('');

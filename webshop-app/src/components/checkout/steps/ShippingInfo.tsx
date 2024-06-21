@@ -10,13 +10,6 @@ interface Props {
     shippingInfo(shippingInfo: any): void;
 }
 
-export interface Countries {
-    code: string
-    code3: string
-    name: string
-    number: string
-}
-
 const ShippingInfo: React.FunctionComponent<Props> = props => {
     const [country, setCountry] = useState<number>(0);
     const countryRef = useRef<HTMLSelectElement | null | undefined>();

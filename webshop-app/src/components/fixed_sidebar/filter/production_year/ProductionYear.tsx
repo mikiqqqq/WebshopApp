@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FilterOptions } from "../brand/Brand";
+import { FilterOptions } from "../../../MainContainerData";
 import style from '../FilterButtons.module.css'
 
 interface Props{
