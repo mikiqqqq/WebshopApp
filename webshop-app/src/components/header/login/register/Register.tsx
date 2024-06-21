@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import UserService, { User } from '../../../../services/UserService';
+import UserService from '../../../../services/UserService';
+import { User } from '../../../MainContainerData';
 
 const Register: React.FC = () => {
     const [name, setName] = useState('');

@@ -12,6 +12,15 @@ class OrderService {
     createOrder(){
         return axios.post(ORDER_API_BASE_URL + '/create', {});
     }
+
+    fetchActiveOrders() {
+        return axios.post(ORDER_API_BASE_URL + '/active');
+    }
+
+    fetchCompletedOrders() {
+        return axios.post(ORDER_API_BASE_URL + '/completed');
+    }
+
     updateOrder(updatedOrder: OrderUpdate){
         return axios.put(ORDER_API_BASE_URL + '/update', {
             id: updatedOrder.id,

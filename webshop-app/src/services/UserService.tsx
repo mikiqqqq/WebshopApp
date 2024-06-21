@@ -1,27 +1,8 @@
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
+import { ErrorResponse, JwtPayload, User, UserForm } from '../components/MainContainerData';
 
 const USERS_API_BASE_URL = "http://localhost:8080/api/user";
-
-interface ErrorResponse {
-    message: string;
-}
-
-export interface User {
-    name: string;
-    email: string;
-    password: string;
-}
-
-export interface UserForm {
-    email: string;
-    password: string;
-}
-
-interface JwtPayload {
-    role: string;
-    [key: string]: any;
-}
 
 class UserService {
     async login(userForm: UserForm) {
@@ -101,6 +82,22 @@ class UserService {
         try {
             const decodedToken = jwtDecode<JwtPayload>(token);
             return decodedToken.role;
+        } catch (e) {
+            console.error('Invalid token', e);
+            return null;
+        }
+    }
+
+    getUserInfo() {
+        const token = localStorage.getItem('token');
+        if (!token) return null;
+        try {
+            const decodedToken = jwtDecode<JwtPayload>(token);
+            return {
+                name: decodedToken.name,
+                email: decodedToken.email,
+                role: decodedToken.role
+            };
         } catch (e) {
             console.error('Invalid token', e);
             return null;
