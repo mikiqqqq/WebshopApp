@@ -1,33 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import BrandService from '../../services/BrandService';
-import { BrandType } from '../fixed_sidebar/filter/brand/Brand';
+import { BrandType, ProductType, Product } from "../MainContainerData";
 import ItemService from '../../services/ItemService';
 import ProductTypeService from '../../services/ProductTypeService';
-import { Hit } from '../MainContainerData';
 
-interface Product {
-    id: number | null;
-    title: string;
-    description: string;
-    price: number;
-    quantity: number;
-    brand: string;
-    type: string;
-    productionYear: number;
-}
 
 const Admin: React.FC = () => {
-    const [products, setProducts] = useState<Array<Hit>>([]);
+    const [products, setProducts] = useState<Array<Product>>([]);
     const [brands, setBrands] = useState<Array<BrandType>>([]);
     const [productTypes, setProductTypes] = useState<Array<ProductType>>([]);
     const [form, setForm] = useState<Product>({
-        id: null,
+        id: 0,
         title: '',
         description: '',
         price: 0,
         quantity: 0,
-        brand: '',
-        type: '',
+        brandId: 0,
+        typeId: 0,
+        image: null,
         productionYear: 0
     });
 
@@ -63,18 +53,19 @@ const Admin: React.FC = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (form.id) {
-            await ProductService.updateProduct(form.id, form);
+            await ItemService.updateItem(form.id);
         } else {
-            await ProductService.addProduct(form);
+            await ItemService.addItem(form);
         }
         setForm({
-            id: null,
+            id: 0,
             title: '',
             description: '',
             price: 0,
             quantity: 0,
-            brand: '',
-            type: '',
+            brandId: 0,
+            typeId: 0,
+            image: null,
             productionYear: 0
         });
         fetchProducts();
@@ -85,19 +76,20 @@ const Admin: React.FC = () => {
     };
 
     const handleDelete = async (productId: number) => {
-        await ProductService.deleteProduct(productId);
+        await ItemService.removeItem(productId);
         fetchProducts();
     };
 
     const handleAddProduct = () => {
         setForm({
-            id: null,
+            id: 0,
             title: '',
             description: '',
             price: 0,
             quantity: 0,
-            brand: '',
-            type: '',
+            brandId: 0,
+            typeId: 0,
+            image: null,
             productionYear: 0
         });
     };
@@ -125,19 +117,19 @@ const Admin: React.FC = () => {
                 </div>
                 <div>
                     <label>Brand</label>
-                    <select name="brand" value={form.brand} onChange={handleInputChange} required>
+                    <select name="brand" value={form.brandId} onChange={handleInputChange} required>
                         <option value="">Select a brand</option>
                         {brands.map((brand) => (
-                            <option key={brand} value={brand}>{brand}</option>
+                            <option key={brand.id} value={brand.name}>{brand.name}</option>
                         ))}
                     </select>
                 </div>
                 <div>
                     <label>Type</label>
-                    <select name="type" value={form.type} onChange={handleInputChange} required>
+                    <select name="type" value={form.typeId} onChange={handleInputChange} required>
                         <option value="">Select a type</option>
                         {productTypes.map((type) => (
-                            <option key={type} value={type}>{type}</option>
+                            <option key={type.id} value={type.name}>{type.name}</option>
                         ))}
                     </select>
                 </div>
@@ -167,8 +159,8 @@ const Admin: React.FC = () => {
                             <td>{product.description}</td>
                             <td>{product.price}</td>
                             <td>{product.quantity}</td>
-                            <td>{product.brand}</td>
-                            <td>{product.type}</td>
+                            <td>{product.brandId}</td>
+                            <td>{product.typeId}</td>
                             <td>{product.productionYear}</td>
                             <td>
                                 <button onClick={() => handleEdit(product)}>Edit</button>

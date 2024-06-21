@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import BrandService from "../../../../services/BrandService";
 import style from '../FilterButtons.module.css'
+import { FilterOptions, BrandType } from "../../../MainContainerData";
 
 interface Props{
     onFilterOptions: (filterOptions: FilterOptions) => void;
@@ -8,21 +9,6 @@ interface Props{
     filterOptions: FilterOptions;
     baseColor: string;
     backgroundColor: string;
-}
-
-export interface BrandType {
-    id: number;
-    name: string;
-}
-
-export interface FilterOptions {
-    brandIds: number[];
-    uprLmt: number;
-    lwrLmt: number;
-    productTypeId: number;
-    productionYear: number;
-    sortBy: string;
-    sortOrder: string;
 }
 
 let myMap = new Map();

@@ -1,4 +1,4 @@
-import { Countries } from "./ShippingInfo";
+import { Countries } from "../../MainContainerData";
 
 export const countries: Countries [] = [
     { code: "AF", code3: "AFG", name: "Afghanistan", number: "004" },

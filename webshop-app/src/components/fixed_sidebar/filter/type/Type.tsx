@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import ProductTypeService from "../../../../services/ProductTypeService";
-import { FilterOptions } from "../brand/Brand";
+import { FilterOptions } from "../../../MainContainerData";
 import style from '../FilterButtons.module.css'
+import { ProductType } from "../../../MainContainerData";
 
 interface Props{
     onFilterOptions: (filterOptions: FilterOptions) => void;
@@ -9,11 +10,6 @@ interface Props{
     filterOptions: FilterOptions;
     baseColor: string;
     backgroundColor: string;
-}
-
-export interface ProductType{
-    id: number;
-    name: string;
 }
 
 const Type:React.FunctionComponent<Props> = props => {

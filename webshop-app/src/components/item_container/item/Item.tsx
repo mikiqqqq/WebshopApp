@@ -1,15 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
 import style from './Item.module.css';
 import itemImg from '../../../images/item.jpg'
-import { AddItem, Hit } from "../../MainContainerData";
+import { AddProduct, Product } from "../../MainContainerData";
 import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import BrandService from "../../../services/BrandService";
 import { Col, Overlay, Tooltip } from "react-bootstrap";
 
 interface Props {
-    addItemToCart: (item: AddItem) => void;
-    item: Hit;
+    addItemToCart: (item: AddProduct) => void;
+    item: Product;
 }
 
 const Item: React.FunctionComponent<Props> = props => {
@@ -32,7 +32,7 @@ const Item: React.FunctionComponent<Props> = props => {
  
     const addToCart = () => {
         props.addItemToCart({
-            itemId: props.item.id,
+            productId: props.item.id,
             amount: quantity,
         });
         setQuantity(1);
@@ -45,9 +45,9 @@ const Item: React.FunctionComponent<Props> = props => {
     }, [props.item.brandId])
 
     const increment = () => {
-        if (quantity + 1 < props.item.amount) {
+        if (quantity + 1 < props.item.quantity) {
             setQuantity(quantity + 1);
-        } else if (quantity + 1 == props.item.amount) {
+        } else if (quantity + 1 === props.item.quantity) {
             setQuantity(quantity + 1);
             setDisableButton(true);
             setMessage(' - Max');
@@ -62,8 +62,8 @@ const Item: React.FunctionComponent<Props> = props => {
     return (
         <Col xxl={2} xl={4} lg={4} md={4} sm={4} className={style.col}>
         <div className={style.item_box}>
-            <img className={style.image} src={itemImg} alt={props.item.name}></img>
-            <h3 className={style.item_name}>{props.item.name}</h3>
+            <img className={style.image} src={itemImg} alt={props.item.title}></img>
+            <h3 className={style.item_name}>{props.item.title}</h3>
             <p className={style.item_description}>{props.item.description}</p>
             <p className={style.item_brand}>{brandName}</p>
             <div className={style.hover_buttons}>

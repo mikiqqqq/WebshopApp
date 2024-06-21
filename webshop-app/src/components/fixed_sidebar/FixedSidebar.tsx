@@ -1,6 +1,7 @@
 import style from './FixedSidebar.module.css'
 import Accordion from 'react-bootstrap/Accordion';
-import Brand, { FilterOptions } from './filter/brand/Brand';
+import Brand from './filter/brand/Brand';
+import { FilterOptions } from "../MainContainerData";
 import Type from './filter/type/Type';
 import ProductionYear from './filter/production_year/ProductionYear';
 import Price from './filter/price/Price';

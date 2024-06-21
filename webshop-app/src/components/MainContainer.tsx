@@ -1,22 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { AddItem, Hit } from "./MainContainerData";
+import { AddProduct, Product } from "./MainContainerData";
 import style from "./MainContainer.module.css"
 import FixedSidebar from "./fixed_sidebar/FixedSidebar";
 import Items from "./item_container/Items";
 import ItemService from "../services/ItemService";
-import { FilterOptions } from "./fixed_sidebar/filter/brand/Brand";
+import { FilterOptions } from "./MainContainerData";
 import { useSearchParams } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFaceSadTear, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 
 
 interface Props{
-    addItemToCart: (item: AddItem) => void;
+    addItemToCart: (item: AddProduct) => void;
 }
 
 const MainContainer:React.FunctionComponent<Props> = props => {
     let [searchParams, setSearchParams] = useSearchParams();
-    const [items, setItems] = useState<Array<Hit>>([]);
+    const [items, setItems] = useState<Array<Product>>([]);
     const [filterOptions, setFilterOptions] = useState<FilterOptions>({
         brandIds: [] as number[],
         uprLmt: 5000,

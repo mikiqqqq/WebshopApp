@@ -1,6 +1,6 @@
 import style from './Header.module.css'
 import SearchForm from './search_form/SearchForm';
-import { Hit } from '../MainContainerData';
+import { Product } from '../MainContainerData';
 import ShoppingCartButton from './shopping_cart_button/ShoppingCartButton';
 import logo from '../../images/tt_logo.png'
 import { useLocation } from 'react-router';
@@ -11,7 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 interface Props{
-    orderItems: Hit[];
+    orderItems: Product[];
     activeOrder: number;
     discount: string;
     error: boolean;
