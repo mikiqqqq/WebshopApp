@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @CrossOrigin("http://localhost:3000/")
@@ -26,6 +27,22 @@ public class OrderController {
     public OrderController(OrderService orderService, OrderFormMapper orderFormMapper) {
         this.orderService = orderService;
         this.orderFormMapper = orderFormMapper;
+    }
+
+    @GetMapping(value = "/active")
+    ResponseEntity<List<Order>> fetchActiveOrders() {
+
+        return ResponseEntity
+                .ok()
+                .body(orderService.fetchActiveOrders());
+    }
+
+    @GetMapping(value = "/completed")
+    ResponseEntity<List<Order>> fetchCompletedOrders() {
+
+        return ResponseEntity
+                .ok()
+                .body(orderService.fetchCompletedOrders());
     }
 
     @GetMapping(value = "/fetch-order/{id}")

@@ -1,12 +1,13 @@
 package com.spring_boot.webshop_app.controller;
 
+import com.spring_boot.webshop_app.exception.EmailAlreadyTakenException;
+import com.spring_boot.webshop_app.exception.RecordNotFoundException;
 import com.spring_boot.webshop_app.form.UserForm;
 import com.spring_boot.webshop_app.model.User;
 import com.spring_boot.webshop_app.service.AuthLevelService;
 import com.spring_boot.webshop_app.service.UserService;
 import com.spring_boot.webshop_app.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -34,9 +35,10 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<String> registerUser(@RequestBody User user) {
-        if (userService.findByEmail(user.getEmail()) != null) {
-            return ResponseEntity.badRequest().body("Email is already taken.");
-        }
+        userService.findByEmail(user.getEmail())
+                .ifPresent(existingUser -> {
+                    throw new EmailAlreadyTakenException("Email is already taken.");
+                });
 
         user.setName(user.getName());
         user.setEmail(user.getEmail());
@@ -50,13 +52,14 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<String> authenticateUser(@RequestBody UserForm userForm) {
-        User user = userService.findByEmail(userForm.getEmail());
+        User user = userService.findByEmail(userForm.getEmail())
+                .orElseThrow(() -> new RecordNotFoundException("User email or password are incorrect"));
 
         if (!passwordEncoder.matches(userForm.getPassword(), user.getPassword())) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
+            throw new RecordNotFoundException("User email or password are incorrect");
         }
 
         final String jwt = jwtUtil.generateToken(user);
-        return ResponseEntity.ok(jwt); // Return the token directly
+        return ResponseEntity.ok(jwt);
     }
 }

@@ -1,11 +1,14 @@
 package com.spring_boot.webshop_app.service.impl;
 
+import com.spring_boot.webshop_app.enumeration.OrderStatus;
 import com.spring_boot.webshop_app.model.Order;
 import com.spring_boot.webshop_app.repository.OrderRepo;
 import com.spring_boot.webshop_app.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -21,6 +24,16 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order fetchOrderById (Integer id){
         return orderRepo.findById(id).orElse(null);
+    }
+
+    @Override
+    public List<Order> fetchActiveOrders (){
+        return orderRepo.findOrderByStatus(OrderStatus.IN_PROGRESS.toString());
+    }
+
+    @Override
+    public List<Order> fetchCompletedOrders (){
+        return orderRepo.findOrderByStatus(OrderStatus.COMPLETED.toString());
     }
 
     @Override
