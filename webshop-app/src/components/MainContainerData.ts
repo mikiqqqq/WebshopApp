@@ -96,6 +96,10 @@ export interface JwtPayload {
     [key: string]: any;
 }
 
-export interface ErrorResponse {
-    message: string;
-}
+export type ErrorResponse400 = {
+    [key: string]: string;
+};
+
+export type ErrorResponse = {
+    error: string;
+};

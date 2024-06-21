@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
-import { ErrorResponse, JwtPayload, User, UserForm } from '../components/MainContainerData';
+import { ErrorResponse, ErrorResponse400, JwtPayload, User, UserForm } from '../components/MainContainerData';
 
 const USERS_API_BASE_URL = "http://localhost:8080/api/user";
 
@@ -9,28 +9,24 @@ class UserService {
         try {
             const response = await axios.post(`${USERS_API_BASE_URL}/login`, userForm);
             const token = response.data; // Directly use response.data as the token
-            
+
             if (response.status === 200 && token) {
                 localStorage.setItem('token', token);
             }
 
-            return { token };
+            return response;
         } catch (error) {
-            if (axios.isAxiosError(error)) {
-                // Error is an AxiosError
-                if (error.response) {
+            if (axios.isAxiosError(error) && error.response) {
+                if (error.response.status === 400) {
+                    const errorData = error.response.data as ErrorResponse400;
+                    throw { status: error.response.status, errors: errorData }; // Adjusting to match the error structure
+                } else if (error.response.status === 404) {
                     const errorData = error.response.data as ErrorResponse;
-                    // Request made and server responded with a status code outside of the range of 2xx
-                    throw new Error(errorData.message || 'Login failed');
-                } else if (error.request) {
-                    // Request was made but no response was received
-                    throw new Error('No response received from server');
-                } else {
-                    // Something happened in setting up the request
-                    throw new Error('Error setting up login request');
+                    throw { status: error.response.status, message: errorData.error };
                 }
+            } else if (axios.isAxiosError(error)) {
+                throw new Error('Network or server error');
             } else {
-                // Error is not an AxiosError
                 throw new Error('An unknown error occurred');
             }
         }
@@ -53,7 +49,7 @@ class UserService {
                 if (error.response) {
                     const errorData = error.response.data as ErrorResponse;
                     // Request made and server responded with a status code outside of the range of 2xx
-                    throw new Error(errorData.message || 'Registration failed');
+                    throw new Error(errorData.error || 'Registration failed');
                 } else if (error.request) {
                     // Request was made but no response was received
                     throw new Error('No response received from server');

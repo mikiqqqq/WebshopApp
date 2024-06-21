@@ -1,42 +1,118 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Formik, Field, Form as FormikForm, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 import UserService from '../../../services/UserService';
+import style from './Login.module.css';
+import { Button, FloatingLabel, Form as BootstrapForm } from 'react-bootstrap';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { ErrorResponse, ErrorResponse400 } from '../../MainContainerData';
 
 const Login: React.FC = () => {
-    const [email, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+    const navigate = useNavigate();
 
-    const handleSubmit = async (e: React.FormEvent) => {        
-        e.preventDefault();
+    const initialValues = {
+        email: '',
+        password: '',
+    };
 
+    const validationSchema = Yup.object().shape({
+        email: Yup.string()
+            .email('*Invalid email address')
+            .required('*Email is required'),
+        password: Yup.string()
+            .min(5, '*Password must be at least 5 characters')
+            .required('*Password is required'),
+    });
+
+    const handleSubmit = async (values: { email: string; password: string }, { setErrors }: any) => {
         try {
-            const response = await UserService.login({ email, password });
-            console.log(response)
-            if (response) {
-                window.location.href = '/account';
-            } else {
-                alert('Login failed');
+            const response = await UserService.login(values);
+            if (response?.status === 200) {
+                navigate('/account');
             }
-        } catch (error) {
-            console.error('Login error', error);
+        } catch (error: any) {
+            if ('status' in error) {
+                const status = error.status;
+    
+                if (status === 404) {
+                    setErrors({
+                        email: ' ', // Setting an error on email
+                        password: error.message || 'Record not found' // Displaying the message under password
+                    });
+                } else if (status === 400) {
+                    const fieldErrors: Record<string, string> = { email: '', password: '' }; // Initialize with empty errors
+                    const errorData = error.errors as ErrorResponse400;
+                    
+                    Object.keys(errorData).forEach((key) => {
+                        fieldErrors[key] = errorData[key];
+                    });
+    
+                    setErrors(fieldErrors);
+                } else {
+                    console.error('Login error', error.message || 'An unknown error occurred');
+                }
+            } else if (error instanceof Error) {
+                console.error('Login error', error.message);
+            } else {
+                console.error('Login error', error);
+            }
         }
     };
 
     return (
         <div className="main">
-            <div>
-                <div>Login</div>
-                <form onSubmit={handleSubmit}>
-                    <div>
-                        <div>Email:</div>
-                        <input type="text" value={email} onChange={(e) => setUsername(e.target.value)} />
-                    </div>
-                    <div>
-                        <div>Password:</div>
-                        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-                    </div>
-                    <button type="submit">Login</button>
-                </form>
-                <label>Don't have an account?</label><button>Sign up</button>
+            <div className={style.login_container}>
+                <div className={`${style.login_heading} u-h1`}>Login</div>
+                <Formik
+                    initialValues={initialValues}
+                    validationSchema={validationSchema}
+                    onSubmit={handleSubmit}
+                >
+                    {({ handleChange, values, touched, errors, isSubmitting }) => (
+                        <FormikForm className={style.login_form} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+                            <div>
+                                <FloatingLabel label="E-mail">
+                                    <BootstrapForm.Control
+                                        type="text"
+                                        name="email"
+                                        placeholder="E-mail"
+                                        onChange={handleChange}
+                                        value={values.email}
+                                        isInvalid={touched.email && !!errors.email}
+                                        isValid={touched.email && !errors.email}
+                                    />
+                                    <BootstrapForm.Control.Feedback type="invalid" style={{ display: !!errors.email && touched.email ? "block" : "none" }}>
+                                        {errors.email}
+                                    </BootstrapForm.Control.Feedback>
+                                </FloatingLabel>
+                            </div>
+                            <div>
+                                <FloatingLabel label="Password">
+                                    <BootstrapForm.Control
+                                        type="password"
+                                        name="password"
+                                        placeholder="Password"
+                                        onChange={handleChange}
+                                        value={values.password}
+                                        isInvalid={touched.password && !!errors.password}
+                                        isValid={touched.password && !errors.password}
+                                    />
+                                    <BootstrapForm.Control.Feedback type="invalid" style={{ display: !!errors.password && touched.password ? "block" : "none" }}>
+                                        {errors.password}
+                                    </BootstrapForm.Control.Feedback>
+                                </FloatingLabel>
+                            </div>
+                            <Button type="submit" className={`${style.login_button} u-p2`} disabled={isSubmitting}>
+                                Log in
+                            </Button>
+                        </FormikForm>
+                    )}
+                </Formik>
+                <div className={style.register_upsell}>
+                    <label className={`${style.register_label} u-p2`}>Don't have an account?</label>
+                    <Link to="/register" className={`${style.register_button} u-p2`}>Sign up</Link>
+                </div>
             </div>
         </div>
     );

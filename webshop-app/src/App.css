@@ -1,7 +1,8 @@
 :root {
   --base-color: #00ced1;
   --base-hover: #25b6b8;
-  --complementary-color: #FFA836;
+  --base-font-color: #FFFFFF;
+  --complementary-color: #ce7807;
   --complementary-hover: #de922e;
   --background: #20232a;
   --background-hover: #30343e;
@@ -74,6 +75,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.form .invalid-feedback {
+  font-size: .75rem;
 }
 
 body::-webkit-scrollbar {

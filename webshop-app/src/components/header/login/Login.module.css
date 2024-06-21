@@ -1,0 +1,62 @@
+.login_container {
+    background-color: var(--background);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    width: 412px;
+    align-items: center;
+}
+
+.login_heading {
+    color: var(--base-color);
+}
+
+.register_button {
+    margin-left: .5rem;
+    background-color: transparent;
+    border: none;
+    color: var(--base-font-color);
+}
+
+.register_button:hover {
+    color: var(--base-font-color);
+}
+
+.login_form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.login_input {
+    min-width: 300px;
+    padding: .5rem 1rem;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid var(--base-font-color);
+    color: var(--base-font-color);
+    outline: none;
+}
+
+.register_upsell {
+    margin-top: 2rem;
+}
+
+.login_button:hover {
+    background-color: var(--complementary-hover);
+    transition: background-color .5s;
+}
+
+.login_button {
+    background-color: var(--complementary-color);
+    color: lavender;
+    padding: 5px 25px;
+    font-weight: bold;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    transition: background-color .5s;
+    min-height: 42px;
+    margin-top: 1rem;
+}
