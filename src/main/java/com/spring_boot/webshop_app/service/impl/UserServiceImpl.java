@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import java.util.Collections;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
@@ -39,8 +40,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public User findByEmail(String email) {
-        return userRepo.findByEmail(email);
+    public Optional<User> findByEmail(String email) {
+        return Optional.ofNullable(userRepo.findByEmail(email));
     }
 
     @Override
