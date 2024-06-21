@@ -12,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @CrossOrigin("http://localhost:3000/")
 @RequestMapping(value = "/api/user")
@@ -34,10 +36,10 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> registerUser(@RequestBody User user) {
+    public ResponseEntity<String> registerUser(@Valid @RequestBody User user) {
         userService.findByEmail(user.getEmail())
                 .ifPresent(existingUser -> {
-                    throw new EmailAlreadyTakenException("Email is already taken.");
+                    throw new EmailAlreadyTakenException("*Email is already taken.");
                 });
 
         user.setName(user.getName());
@@ -51,12 +53,12 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> authenticateUser(@RequestBody UserForm userForm) {
+    public ResponseEntity<String> authenticateUser(@Valid @RequestBody UserForm userForm) {
         User user = userService.findByEmail(userForm.getEmail())
-                .orElseThrow(() -> new RecordNotFoundException("User email or password are incorrect"));
+                .orElseThrow(() -> new RecordNotFoundException("*User email or password are incorrect"));
 
         if (!passwordEncoder.matches(userForm.getPassword(), user.getPassword())) {
-            throw new RecordNotFoundException("User email or password are incorrect");
+            throw new RecordNotFoundException("*User email or password are incorrect");
         }
 
         final String jwt = jwtUtil.generateToken(user);
