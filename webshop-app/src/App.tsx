@@ -17,6 +17,7 @@ import useLocalStorage from './useLocalStorage';
 import PrivateRoute from './components/private_route/PrivateRoute';
 import Login from './components/header/login/Login';
 import Register from './components/header/login/register/Register';
+import Account from './components/account/Account';
 
 
 interface OrderItemAndAmount {
@@ -121,7 +122,7 @@ function App() {
     <BrowserRouter>
       <div className="page">
         <Header discount={discountCode} activeOrder={localStateActiveOrder} orderItems={orderItems} error={error}/>
-        <Routes>
+        <Routes> 
           <Route path="/tech" element={<MainContainer addItemToCart={addItemToTheCart} />} />
           <Route path="/shopping_cart" element={<ShoppingCart activeOrder={localStateActiveOrder} orderItems={orderItems} 
           removeOrderItemAll={removeOrderItemAll} addOrRemoveOrderItem={addOrRemoveOrderItem} emptyShoppingCart={emptyShoppingCart}/>} />
@@ -129,7 +130,7 @@ function App() {
           removeOrderItemAll={removeOrderItemAll} addOrRemoveOrderItem={addOrRemoveOrderItem} orderCompleted={setOrderCompleted}/>} />
           <Route path="/login" element={<Login />} />   
           <Route path="/register" element={<Register />} />             
-          <Route path="/account" element={<PrivateRoute component={Login} roles={['USER', 'ADMIN']} authPath="/login" redirectPath="/" />} />    
+          <Route path="/account" element={<PrivateRoute component={Account} roles={['USER', 'ADMIN']} authPath="/login" redirectPath="/" />} />    
           <Route path="/admin" element={<PrivateRoute component={Login} roles={['ADMIN']} authPath="/" redirectPath="/" />} />
           <Route path="/account/orders" element={<Register />} />             
           <Route path="*" element={<WrongRoute/>} />

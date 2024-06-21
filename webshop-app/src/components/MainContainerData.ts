@@ -15,6 +15,17 @@ export interface AddProduct {
     amount: number;
 }
 
+export interface User {
+    name: string;
+    email: string;
+    password: string;
+}
+
+export interface UserForm {
+    email: string;
+    password: string;
+}
+
 export interface DiscountCode{
     id: number;
     code: string;
@@ -51,11 +62,6 @@ export interface PriceFilterOptions {
     lowerLimit: number;
 }
 
-export interface UserForm {
-    email: string;
-    password: string;
-}
-
 export interface ProductType {
     id: number;
     name: string;
@@ -81,4 +87,15 @@ export interface Countries {
     code3: string;
     name: string;
     number: string;
+}
+
+export interface JwtPayload {
+    name: string;
+    email: string;
+    role: string;
+    [key: string]: any;
+}
+
+export interface ErrorResponse {
+    message: string;
 }

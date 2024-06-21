@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { DiscountCode, Product, OrderUpdate } from "../MainContainerData";
-import style from "./Checkout.module.css"
+import style from "./Checkout.module.css";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCreditCard, faTruckFast } from '@fortawesome/free-solid-svg-icons';
@@ -50,8 +50,8 @@ const Checkout: React.FunctionComponent<Props> = props => {
 
     const [orderUpdated, setOrderUpdated] = useState(false);
 
-    const handleInputChange = (event: React.KeyboardEvent<HTMLInputElement>) => {
-        setDiscountInputValue((event.target as HTMLInputElement).value);
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setDiscountInputValue(event.target.value);
     }
 
     const checkDiscountCode = async () => {
