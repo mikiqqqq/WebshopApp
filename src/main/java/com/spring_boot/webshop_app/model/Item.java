@@ -20,6 +20,9 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(name = "IMAGE")
+    private byte[] image;
+
     @Column(name = "TITLE")
     private String name;
 

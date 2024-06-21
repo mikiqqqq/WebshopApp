@@ -29,8 +29,28 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public void save(Item item) {
+    public void saveItem(Item item) {
         itemRepo.save(item);
+    }
+
+    @Override
+    public void deleteItem(int itemId) {
+        Optional<Item> item = itemRepo.findById(itemId);
+        if (item.isPresent()) {
+            itemRepo.deleteById(itemId);
+        }
+    }
+
+    @Override
+    public ItemDto updateItem(int itemId) {
+        Optional<Item> optionalItem = itemRepo.findById(itemId);
+        if (optionalItem.isPresent()) {
+            Item item = optionalItem.get();
+            Item updatedItem = itemRepo.save(item);
+            return itemDtoMapper.map(updatedItem);
+        }
+
+        return null;
     }
 
     @Override
