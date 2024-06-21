@@ -31,18 +31,19 @@
 }
 
 #form input{
-    padding-bottom: 8px;
+    padding-bottom: .75rem;
     height: 48px;
     font-size: 1.05rem;
 }
 
 #form label{
-    font-size: 1.05rem;
+    font-size: 1rem;
     top: 3px;
     height: 45px;
     padding: .5rem .75rem;
     color: #777;
 }
+
 
 #select{
     padding-top: 10px;
@@ -78,4 +79,8 @@
 
 #submit_button:active{
     transform: scale(0.95);
+}
+
+.form_container .invalid-feedback {
+    font-size: .75rem;
 }
