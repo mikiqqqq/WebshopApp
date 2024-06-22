@@ -1,34 +1,43 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Route, Routes, useNavigate, Navigate } from 'react-router-dom';
 import UserService from '../../../services/UserService';
 import { User } from '../../MainContainerData';
+import Admin from '../../admin/Admin';
+import Orders from './orders/Orders';
+import SidebarMenu from './sidebar_menu/SidebarMenu';
+import UserInformation from './user_information/UserInformation';
+import style from './Account.module.css'
 
 const Account: React.FC = () => {
     const [user, setUser] = useState<User | null>(null);
+    const [role, setRole] = useState<string | null>(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const userInfo = UserService.getUserInfo();
+        const userRole = UserService.getUserRole();
+
         if (userInfo) {
             setUser(userInfo);
+            setRole(userRole);
+        } else {
+            navigate('/login');
         }
-    }, []);
+    }, [navigate]);
 
     if (!user) {
         return <div>Loading...</div>;
     }
 
     return (
-        <div style={{ padding: '20px', border: '1px solid #ddd', borderRadius: '5px', maxWidth: '400px', margin: '20px auto' }}>
-            <h2>User Information</h2>
-            <p><strong>Name:</strong> {user.name}</p>
-            <p><strong>Email:</strong> {user.email}</p>
-            <p><strong>Role:</strong> {user.role}</p>
-            <Link to="/orders" style={{ padding: '10px 20px', display: 'inline-block', background: '#007bff', color: '#fff', textDecoration: 'none', borderRadius: '4px' }}>
-                View Orders
-            </Link>
-            <Link to="/admin" style={{ padding: '10px 20px', display: 'inline-block', background: '#007bff', color: '#fff', textDecoration: 'none', borderRadius: '4px' }}>
-                View Admin
-            </Link>
+        <div className={style.account_main}>
+            <SidebarMenu user={user} />
+            <Routes>
+                <Route path="/" element={<Navigate to="information" />} />
+                <Route path="information" element={<UserInformation />} />
+                <Route path="orders" element={<Orders />} />
+                {role === 'admin' && <Route path="admin" element={<Admin />} />}
+            </Routes>
         </div>
     );
 };

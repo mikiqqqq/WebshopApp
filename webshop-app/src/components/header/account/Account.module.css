@@ -1,0 +1,15 @@
+.account_main {
+    min-height: calc(100vh - var(--ann-bar-height) - var(--header-height) - var(--footer-height));
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 1rem;
+    gap: 1rem;
+}
+
+@media screen and (min-width: 768px) {
+    .account_main {
+        flex-direction: row;
+        padding: 3rem;
+        gap: 2rem;
+    }
+}

@@ -1,3 +1,5 @@
+// src/App.tsx
+
 import { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
@@ -87,12 +89,13 @@ function App() {
 
   const addItemToTheCart = async (item: AddProduct) => {
     if (firstAdded) {
-      activeOrderId = (await OrderService.createOrder()).data
+      const response = await OrderService.createOrder();
+      activeOrderId = response.id;
       setLocalStateActiveOrder(activeOrderId);
       if(item.amount > 1) await OrderItemService.createMultipleOrderItems(activeOrderId, item.productId, item.amount);
       else await OrderItemService.createOrderItem(activeOrderId, item.productId);
       setFirstAdded(false);
-    }else{
+    } else {
       if(item.amount > 1) await OrderItemService.createMultipleOrderItems(localStateActiveOrder, item.productId, item.amount);
       else await OrderItemService.createOrderItem(localStateActiveOrder, item.productId);
     }
@@ -129,9 +132,8 @@ function App() {
           removeOrderItemAll={removeOrderItemAll} addOrRemoveOrderItem={addOrRemoveOrderItem} orderCompleted={setOrderCompleted}/>} />
           <Route path="/login" element={<Login />} />   
           <Route path="/register" element={<Register />} />             
-          <Route path="/account" element={<PrivateRoute component={Account} roles={['USER', 'ADMIN']} authPath="/login" redirectPath="/" />} />    
+          <Route path="/account/*" element={<PrivateRoute component={Account} roles={['USER', 'ADMIN']} authPath="/login" redirectPath="/" />} />    
           <Route path="/admin" element={<PrivateRoute component={Login} roles={['ADMIN']} authPath="/" redirectPath="/" />} />
-          <Route path="/account/orders" element={<Register />} />             
           <Route path="*" element={<WrongRoute/>} />
         </Routes>
         <Support />

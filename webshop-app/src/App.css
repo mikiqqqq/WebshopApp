@@ -37,6 +37,10 @@
   font-family: var(--paragraph-font);
 }
 
+:root p {
+  margin: 0;
+}
+
 .u-s1,
 .u-p1 {
   font-size: 1.25rem;
@@ -73,10 +77,12 @@
   font-size: 1.1rem;
 }
 
+.u-pb1 p,
 .u-pb1 {
   font-size: 1.1rem !important;
 }
 
+.u-pb1 p,
 .u-pb1,
 .u-l1,
 .u-s1,

@@ -1,28 +1,33 @@
+// src/services/OrderService.ts
+
 import axios from 'axios';
 import { OrderUpdate } from '../components/MainContainerData';
+import { Order } from '../components/MainContainerData';
 
 const ORDER_API_BASE_URL = "http://localhost:8080/api/order";
 
 class OrderService {
-
-    fetchOrderById(id: number){
-        return axios.get(ORDER_API_BASE_URL + '/fetch-order' + id);
+    async fetchOrderById(id: number): Promise<Order> {
+        const response = await axios.get(`${ORDER_API_BASE_URL}/fetch-order/${id}`);
+        return response.data;
     }
 
-    createOrder(){
-        return axios.post(ORDER_API_BASE_URL + '/create', {});
+    async createOrder(): Promise<void> {
+        await axios.post(`${ORDER_API_BASE_URL}/create`, {});
     }
 
-    fetchActiveOrders() {
-        return axios.post(ORDER_API_BASE_URL + '/active');
+    async fetchActiveOrders(): Promise<Order[]> {
+        const response = await axios.get(`${ORDER_API_BASE_URL}/active`);
+        return response.data;
     }
 
-    fetchCompletedOrders() {
-        return axios.post(ORDER_API_BASE_URL + '/completed');
+    async fetchCompletedOrders(): Promise<Order[]> {
+        const response = await axios.get(`${ORDER_API_BASE_URL}/completed`);
+        return response.data;
     }
 
-    updateOrder(updatedOrder: OrderUpdate){
-        return axios.put(ORDER_API_BASE_URL + '/update', {
+    async updateOrder(updatedOrder: OrderUpdate): Promise<void> {
+        await axios.put(`${ORDER_API_BASE_URL}/update`, {
             id: updatedOrder.id,
             date: updatedOrder.date,
             priceWithNoPdvIncluded: updatedOrder.priceWithNoPdvIncluded,
@@ -37,9 +42,9 @@ class OrderService {
         });
     }
 
-    deleteOrder(orderId: number){
-        return axios.delete(ORDER_API_BASE_URL + '/delete/id=' + orderId);
+    async deleteOrder(orderId: number): Promise<void> {
+        await axios.delete(`${ORDER_API_BASE_URL}/delete/id=${orderId}`);
     }
 }
 
-export default new OrderService()
+export default new OrderService();

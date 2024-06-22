@@ -58,6 +58,20 @@ export interface OrderUpdate{
     note: string;
 }
 
+export interface Order{
+    id: number,
+    date: string,
+    priceWithNoPdvIncluded: number;
+    total: number;
+    discountCodeId?: number;
+    paymentMethod: number;
+    creditCardNumber?: string;
+    email: string;
+    phoneNumber: number;
+    deliveryAddress: string;
+    note: string;
+}
+
 export interface SearchOptions {
     search: string;
     page: number;
