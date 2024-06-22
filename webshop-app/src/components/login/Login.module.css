@@ -1,0 +1,50 @@
+.login_container {
+    background-color: var(--background-hover);
+    padding: 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 100%;
+    max-width: 343px;
+    align-items: center;
+    margin: 2rem 1rem;
+    border-radius: 1rem;
+}
+
+.login_heading {
+    color: var(--base-color);
+    margin-bottom: .5rem;
+}
+
+.register_button {
+    margin-left: .5rem;
+}
+
+.login_form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: .5rem;
+}
+
+.login_input {
+    min-width: 300px;
+    padding: .5rem 1rem;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid var(--base-font-color);
+    color: var(--base-font-color);
+    outline: none;
+}
+
+.register_upsell {
+    margin-top: 1.5rem;
+}
+
+@media screen and (min-width: 768px) {
+    .login_container {
+        padding: 3rem;
+        margin: 3rem;
+        max-width: 412px;
+    }
+}

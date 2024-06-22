@@ -15,10 +15,9 @@ import OrderItemService from './services/OrderItemService';
 import OrderService from './services/OrderService';
 import useLocalStorage from './useLocalStorage';
 import PrivateRoute from './components/private_route/PrivateRoute';
-import Login from './components/header/login/Login';
-import Register from './components/header/login/register/Register';
-import Account from './components/account/Account';
-
+import Login from './components/login/Login';
+import Register from './components/register/Register';
+import Account from './components/header/account/Account';
 
 interface OrderItemAndAmount {
   id: number;

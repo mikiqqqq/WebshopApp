@@ -11,10 +11,30 @@
   --header-height: 60px;
   --ann-bar-height: 40px;
   --footer-height: 309px;
+  --bolded-font: 'BoldedFont';
+  --paragraph-font: 'ParagraphFont';
 }
 
-.App {
-  text-align: center;
+/* 
+======== FONTS ========
+*/
+
+@font-face {
+  font-family: 'BoldedFont';
+  src: url('./fonts/Gilroy-Bold.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'ParagraphFont';
+  src: url('./fonts/PlusJakartaSans-Light.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+:root * {
+  font-family: var(--paragraph-font);
 }
 
 .u-s1,
@@ -37,6 +57,10 @@
   font-size: 0.75rem;
 }
 
+.u-l1 {
+  font-size: 2.5rem;
+}
+
 .u-h1 {
   font-size: 1.5rem;
 }
@@ -49,6 +73,12 @@
   font-size: 1.1rem;
 }
 
+.u-pb1 {
+  font-size: 1.1rem !important;
+}
+
+.u-pb1,
+.u-l1,
 .u-s1,
 .u-s2,
 .u-s3,
@@ -56,8 +86,25 @@
 .u-h1,
 .u-h2,
 .u-h3 {
-  font-weight: 600;
+  font-family: var(--bolded-font) !important;
   margin: 0;
+}
+
+/* 
+======== GENERAL ========
+*/
+
+body {
+  scrollbar-width: thin;
+  scrollbar-color: #00bdbf #2b2f38;
+}
+
+body:hover {
+  scrollbar-color: #009a9c #2b2f38;
+}
+
+.App {
+  text-align: center;
 }
 
 .page {
@@ -77,9 +124,141 @@
   justify-content: center;
 }
 
+/* 
+======== FORMS AND INPUTS ========
+*/
+
 .form .invalid-feedback {
   font-size: .75rem;
+  display: block;
+  visibility: hidden;
+  min-height: 1.125rem;
 }
+
+.form .form-floating > input {
+  padding-bottom: .75rem;
+  height: 48px;
+  font-size: 1rem;
+  color: var(--base-font-color);
+  background-color: transparent;
+  box-shadow: none;
+  outline: none;
+  border-color: var(--base-color);
+}
+
+.form .invalid-feedback {
+  font-size: .75rem;
+  display: block;
+  visibility: hidden;
+  min-height: 1.125rem;
+}
+
+.form .form-floating > input {
+  padding-bottom: .75rem;
+  height: 48px;
+  font-size: 1rem;
+  color: var(--base-font-color);
+  background-color: transparent;
+  box-shadow: none;
+  outline: none;
+  border-color: var(--base-color);
+}
+
+.form .form-floating > label {
+  font-size: 1rem;
+  top: 3px;
+  height: 45px;
+  padding: .5rem .75rem;
+  color: var(--base-font-color);
+}
+
+.form .form-floating > .form-control-plaintext ~ label, 
+.form .form-floating > .form-control:focus ~ label, 
+.form .form-floating > .form-control:not(:placeholder-shown) ~ label, 
+.form .form-floating > .form-select ~ label {
+  transform: scale(.7) translateY(-.5rem) translateX(.15rem);
+}
+
+.form .form-control.is-valid, 
+.form .was-validated .form-control:valid {
+  border-color: var(--base-color) !important;
+  background-image: url("data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 8 8%27%3e%3cpath fill=%27%2300ced1%27 d=%27M2.3 6.73.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z%27/%3e%3c/svg%3e");
+}
+
+/* 
+======== USER ACCESSABILITY ========
+*/
+
+.form .form-floating > input:focus {
+  box-shadow: 0 0 0 0.25rem rgba(0, 206, 209, 0.25);
+}
+
+a.button_complementary.user-is-tabbing :focus,
+button.button_complementary.user-is-tabbing :focus {
+  box-shadow: 0 0 0 0.25rem rgba(206, 120, 7, 0.25);
+}
+
+button:focus,
+a:focus {
+  outline: 1px solid var(--base-color);
+  outline-offset: 5px;
+  border-radius: 5px;
+}
+
+body:not(:has(.user-is-tabbing)) :focus {
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+/* 
+======== BUTTONS ========
+*/
+
+a.btn-primary,
+button.btn-primary {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: var(--complementary-color);
+  --bs-btn-border-color: var(--complementary-color);
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: var(--complementary-hover);
+  --bs-btn-hover-border-color: var(--complementary-hover);
+  --bs-btn-focus-shadow-rgb: 222, 146, 46;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: var(--complementary-hover);
+  --bs-btn-active-border-color: var(--complementary-hover);
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #fff;
+  --bs-btn-disabled-bg: var(--complementary-hover);
+  --bs-btn-disabled-border-color: var(--complementary-hover);
+}
+
+a.button_complementary,
+button.button_complementary {
+  padding: .25rem 1.5rem;
+  min-height: 46px;
+  transition: background-color .5s;
+}
+
+a.button_transparent,
+button.button_transparent {
+  background-color: transparent;
+  border: none;
+  color: var(--base-font-color);
+  text-decoration: none;
+  outline: none;
+}
+
+a.button_transparent:focus,
+button.button_transparent:focus,
+a.button_transparent:hover,
+button.button_transparent:hover {
+  text-decoration: underline;
+  color: var(--base-font-color);
+}
+
+/* 
+======== SCROLLBAR ========
+*/
 
 body::-webkit-scrollbar {
   width: 15px;

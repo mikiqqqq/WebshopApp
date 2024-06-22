@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import UserService from '../../services/UserService';
-
-interface User {
-    name: string;
-    email: string;
-    role: string;
-}
+import UserService from '../../../services/UserService';
+import { User } from '../../MainContainerData';
 
 const Account: React.FC = () => {
     const [user, setUser] = useState<User | null>(null);

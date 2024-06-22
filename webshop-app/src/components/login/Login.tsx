@@ -1,12 +1,11 @@
 import React from 'react';
-import { Formik, Field, Form as FormikForm, ErrorMessage } from 'formik';
+import { Formik, Form as FormikForm } from 'formik';
 import * as Yup from 'yup';
-import UserService from '../../../services/UserService';
+import UserService from '../../services/UserService';
 import style from './Login.module.css';
 import { Button, FloatingLabel, Form as BootstrapForm } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { ErrorResponse, ErrorResponse400 } from '../../MainContainerData';
+import {  ErrorResponse400 } from '../MainContainerData';
 
 const Login: React.FC = () => {
     const navigate = useNavigate();
@@ -63,14 +62,14 @@ const Login: React.FC = () => {
     return (
         <div className="main">
             <div className={style.login_container}>
-                <div className={`${style.login_heading} u-h1`}>Login</div>
+                <div className={`${style.login_heading} u-l1`}>Login</div>
                 <Formik
                     initialValues={initialValues}
                     validationSchema={validationSchema}
                     onSubmit={handleSubmit}
                 >
                     {({ handleChange, values, touched, errors, isSubmitting }) => (
-                        <FormikForm className={style.login_form} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+                        <FormikForm className={`${style.login_form} form`} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
                             <div>
                                 <FloatingLabel label="E-mail">
                                     <BootstrapForm.Control
@@ -82,7 +81,7 @@ const Login: React.FC = () => {
                                         isInvalid={touched.email && !!errors.email}
                                         isValid={touched.email && !errors.email}
                                     />
-                                    <BootstrapForm.Control.Feedback type="invalid" style={{ display: !!errors.email && touched.email ? "block" : "none" }}>
+                                    <BootstrapForm.Control.Feedback type="invalid" style={{ visibility: !!errors.email && touched.email ? "visible" : "hidden" }}>
                                         {errors.email}
                                     </BootstrapForm.Control.Feedback>
                                 </FloatingLabel>
@@ -98,12 +97,12 @@ const Login: React.FC = () => {
                                         isInvalid={touched.password && !!errors.password}
                                         isValid={touched.password && !errors.password}
                                     />
-                                    <BootstrapForm.Control.Feedback type="invalid" style={{ display: !!errors.password && touched.password ? "block" : "none" }}>
+                                    <BootstrapForm.Control.Feedback type="invalid" style={{ visibility: !!errors.email && touched.email ? "visible" : "hidden" }}>
                                         {errors.password}
                                     </BootstrapForm.Control.Feedback>
                                 </FloatingLabel>
                             </div>
-                            <Button type="submit" className={`${style.login_button} u-p2`} disabled={isSubmitting}>
+                            <Button type="submit" className={`${style.login_button} button_complementary u-pb1`} disabled={isSubmitting}>
                                 Log in
                             </Button>
                         </FormikForm>
@@ -111,7 +110,7 @@ const Login: React.FC = () => {
                 </Formik>
                 <div className={style.register_upsell}>
                     <label className={`${style.register_label} u-p2`}>Don't have an account?</label>
-                    <Link to="/register" className={`${style.register_button} u-p2`}>Sign up</Link>
+                    <Link to="/register" className={`${style.register_button} button_transparent u-p2`}>Sign up</Link>
                 </div>
             </div>
         </div>
