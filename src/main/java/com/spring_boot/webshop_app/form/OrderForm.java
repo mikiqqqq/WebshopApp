@@ -27,4 +27,5 @@ public class OrderForm {
     private String phoneNumber;
     private String deliveryAddress;
     private String note;
+    private String status;
 }

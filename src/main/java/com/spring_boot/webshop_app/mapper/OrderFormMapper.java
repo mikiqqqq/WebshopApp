@@ -25,6 +25,7 @@ public class OrderFormMapper {
                 .phoneNumber(orderForm.getPhoneNumber())
                 .deliveryAddress(orderForm.getDeliveryAddress())
                 .note(orderForm.getNote())
+                .status(orderForm.getStatus())
                 .build();
     }
 }
