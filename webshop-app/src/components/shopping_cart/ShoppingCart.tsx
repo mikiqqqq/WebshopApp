@@ -6,14 +6,11 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import { Alert, Button } from "react-bootstrap";
+import OrderItemService from "../../services/OrderItemService";
 
 
 interface Props {
-    orderItems: Product[];
-    activeOrder: number;
-
     addOrRemoveOrderItem(orderItemId: number, decider: number): void;
-    removeOrderItemAll(orderItemId: number): void;
     emptyShoppingCart(empty: boolean): void;
 }
 
@@ -21,6 +18,8 @@ const ShoppingCart: React.FunctionComponent<Props> = props => {
     let totalPrice: number = 0;
     const [showAlert, setShowAlert] = useState(false);
     const [rotate, setRotate] = useState(false);
+    const [orderItems, setOrderItems] = useState<Product[]>([]);
+    const activeOrder = Number(localStorage.getItem('activeOrder'));
 
     function delay(time: number) {
         return new Promise(resolve => setTimeout(resolve, time));
@@ -32,6 +31,23 @@ const ShoppingCart: React.FunctionComponent<Props> = props => {
             props.emptyShoppingCart(true);
         });
     }
+
+    useEffect(() => {
+        const fetchOrderItems = async () => {
+          if (activeOrder) {
+            try {
+              const response = await OrderItemService.fetchAllByOrderId(activeOrder);
+              setOrderItems(response.data);
+            } catch (error) {
+              console.error("Error fetching order items:", error);
+            }
+          } else {
+            setOrderItems([]);
+          }
+        };
+    
+        fetchOrderItems();
+      }, [activeOrder]);
 
     const rotateIcon = () => {
         setRotate(true);
@@ -56,7 +72,7 @@ const ShoppingCart: React.FunctionComponent<Props> = props => {
                     </h2>
                     </div>
                     <button className={style.empty_cart_button}
-                        onClick={() => setShowAlert(true)} disabled={props.orderItems.length == 0}>
+                        onClick={() => setShowAlert(true)} disabled={orderItems.length === 0}>
                         Empty Cart
                     </button>
 
@@ -78,12 +94,12 @@ const ShoppingCart: React.FunctionComponent<Props> = props => {
                     </Alert>
 
                     <div className={style.order_items_container}>
-                        {props.orderItems.length == 0 &&
+                        {orderItems.length === 0 &&
                             <div className={style.empty_cart}>
                                 <h4>Shopping cart is empty.</h4>
                             </div>
                         }
-                        {props.orderItems?.map(item => {
+                        {orderItems?.map(item => {
                             totalPrice += item.quantity * item.price;
                             return <OrderItem key={item.id} orderItem={item}
                                 removeOrderItemAll={props.removeOrderItemAll} addOrRemoveOrderItem={props.addOrRemoveOrderItem} />;

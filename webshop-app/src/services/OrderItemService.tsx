@@ -4,15 +4,9 @@ const ORDER_ITEM_API_BASE_URL = "http://localhost:8080/api/order-item";
 
 class OrderItemService {
 
-    createOrderItem(ordId: number, itId: number){
+    addOrderItem(quantity: number, ordId: number, itId: number){
         return axios.post(ORDER_ITEM_API_BASE_URL + '/add', {
-            orderId: ordId,
-            itemId: itId
-        });
-    }
-
-    createMultipleOrderItems(ordId: number, itId: number, quantity: number){
-        return axios.post(ORDER_ITEM_API_BASE_URL + '/add-multiple/' + quantity, {
+            quantity: quantity,
             orderId: ordId,
             itemId: itId
         });

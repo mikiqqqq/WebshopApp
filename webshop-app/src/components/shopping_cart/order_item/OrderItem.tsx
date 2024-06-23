@@ -28,6 +28,11 @@ const OrderItem: React.FunctionComponent<Props> = props => {
         });
     }, [props.orderItem.brandId])
 
+    const addOrRemoveOrderItem = useCallback(async (itemId: number, decider: number) => {
+        if (decider) await OrderItemService.addOrderItem(1, localStateActiveOrder, itemId);
+        else await OrderItemService.deleteOrderItem(localStateActiveOrder, itemId);
+      }, [localStateActiveOrder]);
+
     const removeOrderItemAll = (itemId: number) => {
         setShowAlert(false);
         props.removeOrderItemAll(itemId);

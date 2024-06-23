@@ -5,12 +5,10 @@ import Checkout from './components/checkout/Checkout';
 import Footer from './components/footer/Footer';
 import Header from './components/header/Header';
 import MainContainer from './components/MainContainer';
-import { Product, AddProduct } from './components/MainContainerData';
+import { AddProduct } from './components/MainContainerData';
 import ShoppingCart from './components/shopping_cart/ShoppingCart';
 import Support from './components/support/Support';
 import WrongRoute from './components/wrong_route/WrongRoute';
-import DiscountCodeService from './services/DiscountCodeService';
-import ItemService from './services/ItemService';
 import OrderItemService from './services/OrderItemService';
 import OrderService from './services/OrderService';
 import useLocalStorage from './useLocalStorage';
@@ -27,56 +25,12 @@ interface OrderItemAndAmount {
 }
 
 function App() {
-  const [discountCode, setDiscountCode] = useState('');
-  const [orderItems, setOrderItems] = useState<Array<Product>>([]);
-  const [updateOrderItems, setUpdateOrderItems] = useState(false);
   const [localStateActiveOrder, setLocalStateActiveOrder] = useLocalStorage('activeOrder');
   const [firstAdded, setFirstAdded] = useState(true);
-  const [error, setError] = useState(false);
   const [orderCompleted, setOrderCompleted] = useState(false);
-
-  const fetchActiveDiscountCode = useCallback(() => {
-    DiscountCodeService.fetchActiveDiscountCode()
-      .then((response) => {
-        setDiscountCode(response.data.code);
-        setError(false);
-      })
-      .catch(() => {
-        setError(true);
-      });
-  }, []);
-
-  const getOrderItems = useCallback(async () => {
-    try {
-      const orderItemAndAmount: OrderItemAndAmount[] = (await OrderItemService.getOrderItemAmount(localStateActiveOrder)).data;
-      if (orderItemAndAmount.length === 0) {
-        await OrderService.deleteOrder(localStateActiveOrder);
-        setOrderItems([]);
-        setLocalStateActiveOrder(0);
-        setFirstAdded(true);
-        return;
-      }
-      const orderItemsArray: Product[] = (await ItemService.findItemByItemId(orderItemAndAmount.map(item => item.id))).data;
-      setOrderItems(orderItemsArray.map(item => ({
-        ...item,
-        ...orderItemAndAmount.find(orderItem => orderItem.id === item.id),
-      })));
-    } catch (err) {
-      console.log(err);
-    }
-  }, [localStateActiveOrder, setLocalStateActiveOrder]);
-
-  useEffect(() => {
-    fetchActiveDiscountCode();
-    if (localStateActiveOrder) {
-      setFirstAdded(false);
-      getOrderItems();
-    }
-  }, [fetchActiveDiscountCode, getOrderItems, localStateActiveOrder, updateOrderItems]);
 
   useEffect(() => {
     if (orderCompleted) {
-      setOrderItems([]);
       setLocalStateActiveOrder(0);
       setFirstAdded(true);
     }
@@ -85,54 +39,39 @@ function App() {
   const addItemToTheCart = useCallback(async (item: AddProduct) => {
     if (firstAdded) {
       const response = await OrderService.createOrder();
-      const activeOrderId = response.data.id;
+      const activeOrderId = response.data;
       setLocalStateActiveOrder(Number(activeOrderId));
-      if (item.amount > 1) await OrderItemService.createMultipleOrderItems(activeOrderId, item.productId, item.amount);
-      else await OrderItemService.createOrderItem(activeOrderId, item.productId);
+      await OrderItemService.addOrderItem(item.amount, activeOrderId, item.productId);
       setFirstAdded(false);
     } else {
-      if (item.amount > 1) await OrderItemService.createMultipleOrderItems(localStateActiveOrder, item.productId, item.amount);
-      else await OrderItemService.createOrderItem(localStateActiveOrder, item.productId);
+      await OrderItemService.addOrderItem(item.amount, localStateActiveOrder, item.productId);
     }
-    setUpdateOrderItems(prev => !prev);
   }, [firstAdded, localStateActiveOrder, setLocalStateActiveOrder]);
 
   const addOrRemoveOrderItem = useCallback(async (itemId: number, decider: number) => {
-    if (decider) await OrderItemService.createOrderItem(localStateActiveOrder, itemId);
+    if (decider) await OrderItemService.addOrderItem(1, localStateActiveOrder, itemId);
     else await OrderItemService.deleteOrderItem(localStateActiveOrder, itemId);
-    setUpdateOrderItems(prev => !prev);
   }, [localStateActiveOrder]);
 
   const emptyShoppingCart = useCallback(async (empty: boolean) => {
     if (empty) {
       await OrderItemService.deleteAllOrderItemsByOrderId(localStateActiveOrder);
-      setUpdateOrderItems(prev => !prev);
     }
   }, [localStateActiveOrder]);
 
-  const removeOrderItemAll = useCallback(async (itemId: number) => {
-    await OrderItemService.deleteOrderItemAll(itemId, localStateActiveOrder);
-    setUpdateOrderItems(prev => !prev);
-  }, [localStateActiveOrder]);
 
   return (
     <BrowserRouter>
       <div className="page">
-        <Header discount={discountCode} activeOrder={localStateActiveOrder} orderItems={orderItems} error={error} />
+        <Header />
         <Routes>
           <Route path="/" element={<MainContainer addItemToCart={addItemToTheCart} />} />
           <Route path="/products/*" element={<ProductDetail addItemToCart={addItemToTheCart} />} />
-          <Route path="/shopping_cart" element={<ShoppingCart
-            activeOrder={localStateActiveOrder}
-            orderItems={orderItems}
-            removeOrderItemAll={removeOrderItemAll}
+          <Route path="/cart" element={<ShoppingCart
             addOrRemoveOrderItem={addOrRemoveOrderItem}
             emptyShoppingCart={emptyShoppingCart}
           />} />
           <Route path="/checkout" element={<Checkout
-            activeOrder={localStateActiveOrder}
-            orderItems={orderItems}
-            removeOrderItemAll={removeOrderItemAll}
             addOrRemoveOrderItem={addOrRemoveOrderItem}
             orderCompleted={setOrderCompleted}
           />} />
