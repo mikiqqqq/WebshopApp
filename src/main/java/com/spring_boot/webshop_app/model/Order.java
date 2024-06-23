@@ -21,7 +21,7 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "USERS")
+    @Column(name = "DATE")
     private LocalDate date;
 
     @Column(name = "TOTAL_PRICE_EXCL_VAT")
