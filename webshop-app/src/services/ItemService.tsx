@@ -9,10 +9,6 @@ class ItemService {
         return axios.get(ITEMS_API_BASE_URL + '/save' + product);
     }
 
-    updateItem(id: number) {
-        return axios.get(ITEMS_API_BASE_URL + '/update/' + id);
-    }
-
     removeItem(id: number) {
         return axios.get(ITEMS_API_BASE_URL + '/remove/' + id);
     }
@@ -22,7 +18,7 @@ class ItemService {
     }
 
     filterItems(filterOptions: FilterOptions){
-        return axios.get(ITEMS_API_BASE_URL + '/filter?' 
+        return axios.get(ITEMS_API_BASE_URL + '/filter-items-by?' 
         + 'brandIds=' + filterOptions.brandIds 
         + '&uprLmt=' + filterOptions.uprLmt
         + '&lwrLmt=' + filterOptions.lwrLmt

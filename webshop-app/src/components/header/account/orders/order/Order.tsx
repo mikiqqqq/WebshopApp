@@ -8,7 +8,7 @@ interface OrderProps {
 
 const Order: React.FC<OrderProps> = ({ order }) => {
     const formatOrderId = (id: number): string => {
-        return (id + 1000000000).toString();
+        return (id + 1000).toString();
     };
 
     const calculateSubtotal = (): number => {

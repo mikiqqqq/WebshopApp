@@ -36,7 +36,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({ user }) => {
             </NavLink>
             {user.role === 'ADMIN' && (
                 <NavLink
-                    to="/account/admin"
+                    to="/admin"
                     className={({ isActive }) => `${style.menu_item} u-pb1 ${isActive ? style.menu_item_selected : ''}`}
                 >
                     <FontAwesomeIcon icon={faLock} />

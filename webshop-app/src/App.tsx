@@ -20,6 +20,7 @@ import PrivateRoute from './components/private_route/PrivateRoute';
 import Login from './components/login/Login';
 import Register from './components/register/Register';
 import Account from './components/header/account/Account';
+import Admin from './components/header/account/admin/Admin';
 
 interface OrderItemAndAmount {
   id: number;
@@ -133,7 +134,7 @@ function App() {
           <Route path="/login" element={<Login />} />   
           <Route path="/register" element={<Register />} />             
           <Route path="/account/*" element={<PrivateRoute component={Account} roles={['USER', 'ADMIN']} authPath="/login" redirectPath="/" />} />    
-          <Route path="/admin" element={<PrivateRoute component={Login} roles={['ADMIN']} authPath="/" redirectPath="/" />} />
+          <Route path="/admin" element={<PrivateRoute component={Admin} roles={['ADMIN']} authPath="/" redirectPath="/" />} />
           <Route path="*" element={<WrongRoute/>} />
         </Routes>
         <Support />

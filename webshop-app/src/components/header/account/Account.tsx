@@ -1,29 +1,68 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { Route, Routes, useNavigate, Navigate } from 'react-router-dom';
 import UserService from '../../../services/UserService';
-import { User } from '../../MainContainerData';
+import { User, OrderObject, Product } from '../../MainContainerData';
 import Admin from './admin/Admin';
 import Orders from './orders/Orders';
 import SidebarMenu from './sidebar_menu/SidebarMenu';
 import UserInformation from './user_information/UserInformation';
-import style from './Account.module.css'
+import style from './Account.module.css';
+import ItemService from '../../../services/ItemService';
+import OrderService from '../../../services/OrderService';
 
 const Account: React.FC = () => {
     const [user, setUser] = useState<User | null>(null);
-    const [role, setRole] = useState<string | null>(null);
+    const [activeOrders, setActiveOrders] = useState<OrderObject[]>([]);
+    const [completedOrders, setCompletedOrders] = useState<OrderObject[]>([]);
     const navigate = useNavigate();
+    
+    const fetchOrdersAndProducts = useCallback(async () => {
+        try {
+            const activeResponse = await OrderService.fetchActiveOrders();
+            const activeOrdersWithProducts = await Promise.all(
+                activeResponse.data.map(async (order: OrderObject) => {
+                    const productsResponse = await ItemService.fetchOrderProducts(order.id);
+                    const products = productsResponse.data.map((product: Product) => {
+                        const imageBlob = product.image ? new Blob([product.image]) : null;
+                        const imageUrl = imageBlob ? URL.createObjectURL(imageBlob) : 'placeholder-image-url';
+                        return { ...product, imageUrl };
+                    });
+                    return { ...order, products };
+                })
+            );
+            setActiveOrders(activeOrdersWithProducts);
+
+            const completedResponse = await OrderService.fetchCompletedOrders();
+            const completedOrdersWithProducts = await Promise.all(
+                completedResponse.data.map(async (order: OrderObject) => {
+                    const productsResponse = await ItemService.fetchOrderProducts(order.id);
+                    const products = productsResponse.data.map((product: Product) => {
+                        const imageBlob = product.image ? new Blob([product.image]) : null;
+                        const imageUrl = imageBlob ? URL.createObjectURL(imageBlob) : 'placeholder-image-url';
+                        return { ...product, imageUrl };
+                    });
+                    return { ...order, products };
+                })
+            );
+            setCompletedOrders(completedOrdersWithProducts);
+        } catch (error) {
+            console.error('Error fetching orders:', error);
+        }
+    }, []);
 
     useEffect(() => {
-        const userInfo = UserService.getUserInfo();
-        const userRole = UserService.getUserRole();
+        const fetchUserData = async () => {
+            const userInfo = await UserService.getUserInfo();
+            if (userInfo) {
+                setUser(userInfo);
+                await fetchOrdersAndProducts();
+            } else {
+                navigate('/login');
+            }
+        };
 
-        if (userInfo) {
-            setUser(userInfo);
-            setRole(userRole);
-        } else {
-            navigate('/login');
-        }
-    }, [navigate]);
+        fetchUserData();
+    }, [navigate, fetchOrdersAndProducts]);
 
     if (!user) {
         return <div>Loading...</div>;
@@ -35,8 +74,7 @@ const Account: React.FC = () => {
             <Routes>
                 <Route path="/" element={<Navigate to="information" />} />
                 <Route path="information" element={<UserInformation />} />
-                <Route path="orders" element={<Orders />} />
-                {role === 'ADMIN' && <Route path="admin" element={<Admin />} />}
+                <Route path="orders" element={<Orders activeOrders={activeOrders} completedOrders={completedOrders} />} />
             </Routes>
         </div>
     );
