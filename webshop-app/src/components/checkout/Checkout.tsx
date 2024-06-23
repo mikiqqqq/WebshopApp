@@ -135,7 +135,6 @@ const Checkout: React.FunctionComponent<Props> = props => {
                 ', ' + shippingInfo.region + ', ' + shippingInfo.city + ' ' + shippingInfo.postalCode,
                 note: 'fwefwefewf',
             }
-            console.log(updatedOrder);
             OrderService.updateOrder(updatedOrder).then(() => {
                setOrderUpdated(true); 
                props.orderCompleted(true);

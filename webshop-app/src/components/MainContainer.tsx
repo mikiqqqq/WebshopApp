@@ -57,7 +57,6 @@ const MainContainer:React.FunctionComponent<Props> = props => {
         if(searchParams.get('search') === null){
                 ItemService.filterItems(filterOptions).then((response) => {
                     setItems(response.data);
-                    console.log(response.data);
                     setError(false);
                 }).catch(() => {
                     setError(true);

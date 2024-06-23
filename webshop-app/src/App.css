@@ -211,6 +211,10 @@ a:focus {
   border-radius: 5px;
 }
 
+button:focus {
+  outline-offset: 0;
+}
+
 body:not(:has(.user-is-tabbing)) :focus {
   box-shadow: none !important;
   outline: none !important;

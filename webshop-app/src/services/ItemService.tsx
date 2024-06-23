@@ -18,11 +18,11 @@ class ItemService {
     }
 
     fetchAllItems(){
-        return axios.get(ITEMS_API_BASE_URL + '/fetch-all');
+        return axios.get(ITEMS_API_BASE_URL + '/all');
     }
 
     filterItems(filterOptions: FilterOptions){
-        return axios.get(ITEMS_API_BASE_URL + '/filter-items-by?' 
+        return axios.get(ITEMS_API_BASE_URL + '/filter?' 
         + 'brandIds=' + filterOptions.brandIds 
         + '&uprLmt=' + filterOptions.uprLmt
         + '&lwrLmt=' + filterOptions.lwrLmt
@@ -30,6 +30,10 @@ class ItemService {
         + '&productionYear=' + filterOptions.productionYear
         + '&sortBy=' + filterOptions.sortBy
         + '&sortOrder=' + filterOptions.sortOrder);
+    }
+
+    fetchOrderProducts(id: number){
+        return axios.get(ITEMS_API_BASE_URL + '/by-orderId/' + id);
     }
 
     findItemByItemId(ids: number[]){

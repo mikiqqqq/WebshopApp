@@ -1,4 +1,5 @@
 export interface Product {
+    imageUrl: string | undefined;
     id: number;
     title: string;
     description: string;
@@ -58,7 +59,7 @@ export interface OrderUpdate{
     note: string;
 }
 
-export interface Order{
+export interface OrderObject{
     id: number,
     date: string,
     priceWithNoPdvIncluded: number;
@@ -70,6 +71,7 @@ export interface Order{
     phoneNumber: number;
     deliveryAddress: string;
     note: string;
+    products: Product[];
 }
 
 export interface SearchOptions {

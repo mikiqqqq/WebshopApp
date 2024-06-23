@@ -18,7 +18,6 @@ const ShoppingCartButton: React.FunctionComponent<Props> = props => {
   const [scale, setScale] = useState<string>("24px");
   const baseColor = window.getComputedStyle(document.documentElement).getPropertyValue('--base-color');
   const complColor = window.getComputedStyle(document.documentElement).getPropertyValue('--complementary-color');
-
   const handleOnMouseEnter = () => {
     setShow(true);
   }

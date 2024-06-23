@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import BrandService from '../../services/BrandService';
-import { BrandType, ProductType, Product } from "../MainContainerData";
-import ItemService from '../../services/ItemService';
-import ProductTypeService from '../../services/ProductTypeService';
-
+import BrandService from '../../../../services/BrandService';
+import ItemService from '../../../../services/ItemService';
+import ProductTypeService from '../../../../services/ProductTypeService';
+import { Product, BrandType, ProductType } from '../../../MainContainerData';
 
 const Admin: React.FC = () => {
     const [products, setProducts] = useState<Array<Product>>([]);
@@ -18,7 +17,8 @@ const Admin: React.FC = () => {
         brandId: 0,
         typeId: 0,
         image: null,
-        productionYear: 0
+        productionYear: 0,
+        imageUrl: undefined
     });
 
     useEffect(() => {
@@ -66,7 +66,8 @@ const Admin: React.FC = () => {
             brandId: 0,
             typeId: 0,
             image: null,
-            productionYear: 0
+            productionYear: 0,
+            imageUrl: undefined
         });
         fetchProducts();
     };
@@ -90,7 +91,8 @@ const Admin: React.FC = () => {
             brandId: 0,
             typeId: 0,
             image: null,
-            productionYear: 0
+            productionYear: 0,
+            imageUrl: undefined
         });
     };
 

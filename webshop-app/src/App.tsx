@@ -90,7 +90,7 @@ function App() {
   const addItemToTheCart = async (item: AddProduct) => {
     if (firstAdded) {
       const response = await OrderService.createOrder();
-      activeOrderId = response.id;
+      activeOrderId = response.data.id;
       setLocalStateActiveOrder(activeOrderId);
       if(item.amount > 1) await OrderItemService.createMultipleOrderItems(activeOrderId, item.productId, item.amount);
       else await OrderItemService.createOrderItem(activeOrderId, item.productId);

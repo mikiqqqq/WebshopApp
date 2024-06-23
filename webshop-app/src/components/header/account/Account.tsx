@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Route, Routes, useNavigate, Navigate } from 'react-router-dom';
 import UserService from '../../../services/UserService';
 import { User } from '../../MainContainerData';
-import Admin from '../../admin/Admin';
+import Admin from './admin/Admin';
 import Orders from './orders/Orders';
 import SidebarMenu from './sidebar_menu/SidebarMenu';
 import UserInformation from './user_information/UserInformation';
@@ -36,7 +36,7 @@ const Account: React.FC = () => {
                 <Route path="/" element={<Navigate to="information" />} />
                 <Route path="information" element={<UserInformation />} />
                 <Route path="orders" element={<Orders />} />
-                {role === 'admin' && <Route path="admin" element={<Admin />} />}
+                {role === 'ADMIN' && <Route path="admin" element={<Admin />} />}
             </Routes>
         </div>
     );
