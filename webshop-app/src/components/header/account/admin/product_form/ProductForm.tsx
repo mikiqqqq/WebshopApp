@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Formik, Form as FormikForm } from 'formik';
 import * as Yup from 'yup';
 import { Product, BrandType, ProductType } from '../../../../MainContainerData';
 import ItemService from '../../../../../services/ItemService';
 import style from './ProductForm.module.css';
 import { Button, FloatingLabel, Form as BootstrapForm } from 'react-bootstrap';
+import image_placeholder from '../../../../../images/image_placeholder.gif'
 
 interface ProductFormProps {
     form: Product;
@@ -16,7 +17,7 @@ interface ProductFormProps {
 
 const ProductForm: React.FC<ProductFormProps> = ({ form, brands, productTypes, handleResetForm, fetchProducts }) => {
     const initialValues = form;
-    console.log("Rerendering form")
+    const [previewUrl, setPreviewUrl] = useState<string | null>(form.image ? URL.createObjectURL(form.image) : null);
 
     const validationSchema = Yup.object().shape({
         title: Yup.string().required('Title is required'),
@@ -25,13 +26,13 @@ const ProductForm: React.FC<ProductFormProps> = ({ form, brands, productTypes, h
         quantity: Yup.number().required('Quantity is required').min(0, 'Quantity must be a positive number'),
         brandId: Yup.number().required('Brand is required'),
         typeId: Yup.number().required('Type is required'),
-        productionYear: Yup.number().required('Production year is required').min(1900, 'Year must be after 1900').max(new Date().getFullYear(), `Year must be before ${new Date().getFullYear() + 1}`)
+        productionYear: Yup.number().required('Production year is required').min(1900, 'Year must be after 1900').max(new Date().getFullYear(), `Year must be before ${new Date().getFullYear() + 1}`),
+        image: Yup.mixed().required('Image is required')
     });
 
     const handleSubmit = async (values: Product, { setSubmitting, resetForm }: any) => {
         try {
-
-                await ItemService.addItem(values);
+            await ItemService.addItem(values);
             fetchProducts(); // Trigger re-fetching products in ProductTable
             resetForm(); // Reset Formik form
             handleResetForm(); // Reset local form state
@@ -52,10 +53,39 @@ const ProductForm: React.FC<ProductFormProps> = ({ form, brands, productTypes, h
         }
     };
 
+    const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>, setFieldValue: any) => {
+        const file = event.currentTarget.files?.[0];
+        if (file) {
+            setFieldValue("image", file);
+            setPreviewUrl(URL.createObjectURL(file));
+        }
+    };
+
     return (
         <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit} enableReinitialize>
-            {({ handleChange, values, touched, errors, isSubmitting }) => (
-                <FormikForm className={`${style.product_form} form`}>
+            {({ handleChange, setFieldValue, values, touched, errors, isSubmitting }) => (
+                <FormikForm className={`${style.product_form} form`} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+                    <div className="mb-3">
+                        <img
+                            src={previewUrl || image_placeholder}
+                            alt="Product"
+                            style={{ maxWidth: "100%", height: "auto" }}
+                        />
+                    </div>
+                    <div>
+                        <BootstrapForm.Group controlId="formFile" className="mb-3">
+                            <BootstrapForm.Label>Product Image</BootstrapForm.Label>
+                            <BootstrapForm.Control
+                                type="file"
+                                onChange={(event) => handleImageChange(event as React.ChangeEvent<HTMLInputElement>, setFieldValue)}
+                                isInvalid={touched.image && !!errors.image}
+                                isValid={touched.image && !errors.image}
+                            />
+                            <BootstrapForm.Control.Feedback type="invalid" style={{ visibility: !!errors.image && touched.image ? "visible" : "hidden" }}>
+                                {errors.image}
+                            </BootstrapForm.Control.Feedback>
+                        </BootstrapForm.Group>
+                    </div>
                     <div>
                         <FloatingLabel label="Title">
                             <BootstrapForm.Control

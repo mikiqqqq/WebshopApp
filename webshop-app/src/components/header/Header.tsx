@@ -62,8 +62,6 @@ const Header:React.FunctionComponent<Props> = props => {
                 </Link>
                 
                 <nav className={`${style.navigation}`}>
-                    {
-                    location.pathname === '/tech' &&
                     <>
                         <SearchForm/>
                         <ShoppingCartButton activeOrder={props.activeOrder} orderItems={props.orderItems}/>
@@ -71,7 +69,6 @@ const Header:React.FunctionComponent<Props> = props => {
                         <FontAwesomeIcon icon={faUser} />
                         </Link>
                     </>
-                    }
                 </nav>
             </div>
         </header>

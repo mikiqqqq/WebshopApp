@@ -72,7 +72,7 @@ const Account: React.FC = () => {
         <div className={style.account_main}>
             <SidebarMenu user={user} />
             <Routes>
-                <Route path="/" element={<Navigate to="information" />} />
+                <Route path="/" element={<Navigate to="information" replace/>} />
                 <Route path="information" element={<UserInformation />} />
                 <Route path="orders" element={<Orders activeOrders={activeOrders} completedOrders={completedOrders} />} />
             </Routes>
