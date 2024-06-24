@@ -9,18 +9,18 @@ class ItemService {
         return axios.get(ITEMS_API_BASE_URL + '/save' + product);
     }
 
-    updateItem(id: number) {
-        return axios.get(ITEMS_API_BASE_URL + '/update/' + id);
-    }
-
     removeItem(id: number) {
         return axios.get(ITEMS_API_BASE_URL + '/remove/' + id);
     }
 
     fetchAllItems(){
-        return axios.get(ITEMS_API_BASE_URL + '/fetch-all');
+        return axios.get(ITEMS_API_BASE_URL + '/all');
     }
 
+    fetchRandomProducts(limit: number){
+        return axios.get(ITEMS_API_BASE_URL + '/random-items/' + limit);
+    }
+    
     filterItems(filterOptions: FilterOptions){
         return axios.get(ITEMS_API_BASE_URL + '/filter-items-by?' 
         + 'brandIds=' + filterOptions.brandIds 
@@ -30,6 +30,14 @@ class ItemService {
         + '&productionYear=' + filterOptions.productionYear
         + '&sortBy=' + filterOptions.sortBy
         + '&sortOrder=' + filterOptions.sortOrder);
+    }
+
+    fetchOrderProducts(id: number){
+        return axios.get(ITEMS_API_BASE_URL + '/by-orderId/' + id);
+    }
+
+    fetchById(id: number){
+        return axios.get(ITEMS_API_BASE_URL + '/by-id/' + id);
     }
 
     findItemByItemId(ids: number[]){

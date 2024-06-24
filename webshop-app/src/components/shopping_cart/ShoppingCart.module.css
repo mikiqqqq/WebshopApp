@@ -199,6 +199,29 @@
     transition: transform .5s;
 }
 
+@keyframes flip {
+    0% {
+      transform: scaleX(1);
+    }
+    1% {
+      transform: scaleX(-1);
+    }
+    7% {
+      transform: scaleX(-1);
+    }
+    8% {
+      transform: scaleX(1);
+    }
+    100% {
+      transform: scaleX(1);
+    }
+  }
+  
+  .flip_animation {
+    animation: flip 30s linear infinite;
+    animation-delay: 30s;
+  }
+
 @media screen and (max-width: 1600px){
     .main_container{
         width: 75%;

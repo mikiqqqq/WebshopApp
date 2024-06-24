@@ -1,38 +1,50 @@
-import style from './ShoppingCartButton.module.css'
+import style from './ShoppingCartButton.module.css';
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import { OverlayTrigger, Popover } from 'react-bootstrap';
-import { Product } from '../../MainContainerData';
-import itemImg from '../../../images/item.jpg'
+import itemImg from '../../../images/item.jpg';
 import { Link } from 'react-router-dom';
+import OrderItemService from '../../../services/OrderItemService';
+import { Product } from '../../MainContainerData';
 
-
-interface Props {
-  orderItems: Product[];
-  activeOrder: number;
-}
-
-const ShoppingCartButton: React.FunctionComponent<Props> = props => {
+const ShoppingCartButton: React.FunctionComponent = () => {
   const [show, setShow] = useState<boolean>(false);
   const [scale, setScale] = useState<string>("24px");
+  const [orderItems, setOrderItems] = useState<Product[]>([]);
   const baseColor = window.getComputedStyle(document.documentElement).getPropertyValue('--base-color');
   const complColor = window.getComputedStyle(document.documentElement).getPropertyValue('--complementary-color');
+  const activeOrder = Number(localStorage.getItem('activeOrder'));
 
   const handleOnMouseEnter = () => {
     setShow(true);
-  }
+  };
 
   const handleOnMouseLeave = () => {
     setShow(false);
-  }
+  };
 
   function delay(time: number) {
     return new Promise(resolve => setTimeout(resolve, time));
   }
 
   useEffect(() => {
-    if (props.activeOrder) {
+    const fetchOrderItems = async () => {
+      if (activeOrder) {
+        try {
+          const response = await OrderItemService.fetchAllByOrderId(activeOrder);
+          setOrderItems(response.data);
+        } catch (error) {
+          console.error("Error fetching order items:", error);
+        }
+      } else {
+        setOrderItems([]);
+      }
+    };
+
+    fetchOrderItems();
+
+    if (activeOrder) {
       document.documentElement.style.setProperty('--color', complColor);
       setScale("30px");
       delay(1000).then(() => {
@@ -40,12 +52,12 @@ const ShoppingCartButton: React.FunctionComponent<Props> = props => {
         handleOnMouseEnter();
         delay(2000).then(() => {
           handleOnMouseLeave();
-        })
-      })
-    }else{
+        });
+      });
+    } else {
       document.documentElement.style.setProperty('--color', baseColor);
     }
-  }, [props.activeOrder])
+  }, [activeOrder, baseColor, complColor]);
 
   let totalPrice: number = 0;
 
@@ -60,41 +72,27 @@ const ShoppingCartButton: React.FunctionComponent<Props> = props => {
           <Popover id={style.popover} onMouseEnter={handleOnMouseEnter} onMouseLeave={handleOnMouseLeave}>
 
             <Popover.Header as="h3" id={style.popover_header}
-            style={{color: props.activeOrder ? 'lavender' : '#333'}}>
+              style={{ color: activeOrder ? 'lavender' : '#333' }}>
               Your Shopping Cart
-              <span style={{ display: props.activeOrder ? 'none' : 'block'}}>is Empty!</span>
+              <span style={{ display: activeOrder ? 'none' : 'block' }}>is Empty!</span>
             </Popover.Header>
 
             <Popover.Body id={style.popover_body}>
               <span style={{
-                display: props.activeOrder ? 'none' : 'block',
+                display: activeOrder ? 'none' : 'block',
                 padding: "10px 20px", textAlign: "center"
               }}>
                 Add some products!
               </span>
 
               <div className={style.cart_item_container}>
-                {props.orderItems?.map(item => {
-                  totalPrice += item.quantity * item.price;
-                  return (
-                    <div className={style.cart_item} key={item.id}>
-                      <h5>{item.title.length > 23 ? item.title.slice(0, 22).concat('...') : item.title}</h5>
-                      <div className={style.cart_item_body}>
-                        <img src={itemImg} alt={item.title} />
-                        <div>
-                          <p id={style.item_quantity}>{item.quantity}</p>
-                          <strong id={style.item_price}>${(item.quantity * item.price).toFixed(2)}</strong>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
+
               </div>
 
-              <div className={props.activeOrder ? style.button_container : style.display_none}>
+              <div className={activeOrder ? style.button_container : style.display_none}>
                 <h4>Total price: ${totalPrice.toFixed(2)}</h4>
 
-                <Link className={style.go_to_cart} to="/shopping_cart">
+                <Link className={style.go_to_cart} to="/cart">
                   Go to Cart
                 </Link>
 
@@ -111,7 +109,7 @@ const ShoppingCartButton: React.FunctionComponent<Props> = props => {
             className={style.icon}
             id="cart_button"
             style={{
-              color: props.activeOrder ? complColor : baseColor,
+              color: activeOrder ? complColor : baseColor,
               fontSize: scale
             }}
             icon={faCartShopping} />
@@ -120,4 +118,5 @@ const ShoppingCartButton: React.FunctionComponent<Props> = props => {
     </>
   );
 }
+
 export default ShoppingCartButton;

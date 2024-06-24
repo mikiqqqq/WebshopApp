@@ -3,24 +3,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.addEventListener('keydown', () => {
         isUsingKeyboard = true;
-        console.log(isUsingKeyboard);
     });
 
     document.addEventListener('mousedown', (event: MouseEvent) => {
         isUsingKeyboard = false;
-        console.log(isUsingKeyboard);
         (event.target as HTMLElement).classList.remove('user-is-tabbing');
     });
 
     document.addEventListener('focusin', (event: FocusEvent) => {
         if (isUsingKeyboard) {
-            console.log("added");
             (event.target as HTMLElement).classList.add('user-is-tabbing');
         }
     });
 
     document.addEventListener('focusout', (event: FocusEvent) => {
-        console.log("removed");
         (event.target as HTMLElement).classList.remove('user-is-tabbing');
     });
 });

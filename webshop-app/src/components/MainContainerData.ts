@@ -1,13 +1,31 @@
+export interface BrandType {
+    id: number;
+    title: string;
+}
+
+export interface ProductType {
+    id: number;
+    title: string;
+}
+
 export interface Product {
+    imageUrl: string | undefined;
     id: number;
     title: string;
     description: string;
     price: number;
     quantity: number;
-    brandId: number;
-    typeId: number;
+    brand: BrandType; // Included Brand object
+    productType: ProductType; // Included ProductType object
     productionYear: number;
     image: Blob | null; 
+}
+
+export interface OrderItemType {
+    id: number;
+    quantity: number;
+    orderId: number;
+    item: Product; // Included Product object
 }
 
 export interface AddProduct {
@@ -32,21 +50,21 @@ export interface UserLoginForm {
     password: string;
 }
 
-export interface DiscountCode{
+export interface DiscountCode {
     id: number;
     code: string;
     discountAmount: number;
     active: boolean;
 }
 
-export interface OrderCreate{
+export interface OrderCreate {
     id: number;
     date: Date;
 }
 
-export interface OrderUpdate{
-    id: number,
-    date: string,
+export interface OrderUpdate {
+    id: number;
+    date: string;
     priceWithNoPdvIncluded: number;
     total: number;
     discountCodeId?: number;
@@ -58,9 +76,9 @@ export interface OrderUpdate{
     note: string;
 }
 
-export interface Order{
-    id: number,
-    date: string,
+export interface OrderObject {
+    id: number;
+    date: string;
     priceWithNoPdvIncluded: number;
     total: number;
     discountCodeId?: number;
@@ -70,6 +88,7 @@ export interface Order{
     phoneNumber: number;
     deliveryAddress: string;
     note: string;
+    products: Product[];
 }
 
 export interface SearchOptions {
@@ -82,11 +101,6 @@ export interface PriceFilterOptions {
     lowerLimit: number;
 }
 
-export interface ProductType {
-    id: number;
-    name: string;
-}
-
 export interface FilterOptions {
     brandIds: number[];
     uprLmt: number;
@@ -95,11 +109,6 @@ export interface FilterOptions {
     productionYear: number;
     sortBy: string;
     sortOrder: string;
-}
-
-export interface BrandType {
-    id: number;
-    name: string;
 }
 
 export interface Countries {

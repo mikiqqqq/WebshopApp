@@ -1,98 +1,59 @@
-import React, { useEffect, useState } from "react";
-import { Product } from "../../MainContainerData";
+import React, { useState } from "react";
+import { OrderItemType } from "../../MainContainerData";
 import style from "./OrderItem.module.css";
 import itemImg from '../../../images/item.jpg';
-import BrandService from "../../../services/BrandService";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
 import { Alert, Button } from "react-bootstrap";
-
+import OrderItemService from "../../../services/OrderItemService";
+import QuantitySelector from "../../quantity_selector/QuantitySelector";
 
 interface Props {
-    orderItem: Product;
-
-
-    addOrRemoveOrderItem(orderItemId: number, decider: number): void;
-    removeOrderItemAll(orderItemId: number): void;
+  orderItem: OrderItemType;
+  onPriceChange: (id: number, totalPrice: number) => void;
+  onRemove: (id: number) => void;
 }
 
-const OrderItem: React.FunctionComponent<Props> = props => {
-    const [brandName, setBrandName] = useState<string>('');
-    const [quantity, setQuantity] = useState<number>(props.orderItem.quantity);
-    const [message, setMessage] = useState<string>('');
-    const [showAlert, setShowAlert] = useState(false);
+const OrderItem: React.FunctionComponent<Props> = ({ orderItem, onPriceChange, onRemove }) => {
+  const [showAlert, setShowAlert] = useState(false);
+  const product = orderItem.item;
 
-    useEffect(() => {
-        BrandService.findById(props.orderItem.brandId).then((response) => {
-            setBrandName(response.data.name);
-        });
-    }, [props.orderItem.brandId])
-
-    const removeOrderItemAll = (itemId: number) => {
-        setShowAlert(false);
-        props.removeOrderItemAll(itemId);
+  const removeOrderItem = async (id: number) => {
+    setShowAlert(false);
+    try {
+      await OrderItemService.deleteOrderItem(id);
+      onRemove(id);
+    } catch (error) {
+      console.error("Error removing order item:", error);
     }
+  };
 
-    const increment = () => {
-        if (quantity + 1 < props.orderItem.quantity) {
-            setQuantity(quantity + 1);
-            props.addOrRemoveOrderItem(props.orderItem.id, 1);
-        } else if (quantity + 1 === props.orderItem.quantity) {
-            setQuantity(quantity + 1);
-            setMessage(' - Maxed out');
-            props.addOrRemoveOrderItem(props.orderItem.id, 1);
-        }
-    }
+  return (
+    <div className={style.cart_item} key={orderItem.id}>
+      <img src={itemImg} alt={product.title} />
+      <div className={style.cart_item_body}>
+        <h5>{product.title}</h5>
+        <h3>{product.brand.title}</h3>
+        <QuantitySelector orderItem={orderItem} product={product} onPriceChange={onPriceChange} />
+        
+        <Alert show={showAlert} id={style.alert} variant="danger">
+          <Alert.Heading>{product.title}</Alert.Heading>
+          <p>Are you sure you want to remove this item?</p>
+          <hr />
+          <div className="d-flex justify-content-end">
+            <Button onClick={() => removeOrderItem(orderItem.id)} variant="outline-danger">Yes</Button>
+            <Button id={style.cancel_button} onClick={() => setShowAlert(false)} variant="outline-danger">Cancel</Button>
+          </div>
+        </Alert>
 
-    const decrement = () => {
-        if (quantity - 1 > 0) {
-            setQuantity(quantity - 1);
-            props.addOrRemoveOrderItem(props.orderItem.id, 0);
-        }
-        setMessage('');
-    }
+        <button className={style.remove_button} onClick={() => setShowAlert(true)}>
+          <FontAwesomeIcon icon={faClose} className={style.icon} /> Remove
+        </button>
 
-    return (
-        <div className={style.cart_item} key={props.orderItem.id}>
-            <img src={itemImg} alt={props.orderItem.title} />
-            <div className={style.cart_item_body}>
-                <h5>{props.orderItem.title}</h5>
-                <h3>{brandName}</h3>
-                <div className={style.quantity_counter}>
-                    <button className={`${style.quantity_button} ${style.quantity_button_decrement}`}
-                        onClick={decrement}>
-                        <p>-</p>
-                    </button>
-                    <p className={style.quantity_display}>{quantity}{message}</p>
-                    <button className={`${style.quantity_button} ${style.quantity_button_increment}`} onClick={increment}>
-                        <p>+</p>
-                    </button>
-                </div>
-
-                <Alert show={showAlert} id={style.alert} variant="danger">
-                    <Alert.Heading>{props.orderItem.title}</Alert.Heading>
-                    <p>
-                        Are you sure you want to remove this item?
-                    </p>
-                    <hr />
-                    <div className="d-flex justify-content-end">
-                        <Button onClick={() => removeOrderItemAll(props.orderItem.id)} variant="outline-danger">
-                            Yes
-                        </Button>
-                        <Button id={style.cancel_button} onClick={() => setShowAlert(false)} variant="outline-danger">
-                            Cancel
-                        </Button>
-                    </div>
-                </Alert>
-
-                <button className={style.remove_button} onClick={() => setShowAlert(true)}>
-                    <FontAwesomeIcon icon={faClose} className={style.icon} />&nbsp;&nbsp;&nbsp;Remove
-                </button>
-            
-                <strong id={style.item_price}>${(props.orderItem.quantity * props.orderItem.price).toFixed(2)}</strong>
-            </div>
-        </div>
-    );
-}
+        <strong id={style.item_price}>${(orderItem.quantity * product.price).toFixed(2)}</strong>
+      </div>
+    </div>
+  );
+};
 
 export default OrderItem;

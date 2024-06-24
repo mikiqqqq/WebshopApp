@@ -1,55 +1,57 @@
-import React, { useState, useEffect } from 'react';
-import OrderService from '../../../../services/OrderService';
+import React, { useState, useMemo } from 'react';
+import { OrderObject } from '../../../MainContainerData';
+import Order from './order/Order'; // Ensure this path is correct
 import style from './Orders.module.css';
-import { Order } from '../../../MainContainerData';
 
-const Orders: React.FC = () => {
+interface OrdersProps {
+    activeOrders: OrderObject[];
+    completedOrders: OrderObject[];
+}
+
+const Orders: React.FC<OrdersProps> = ({ activeOrders, completedOrders }) => {
     const [showInProgress, setShowInProgress] = useState(true);
-    const [orders, setOrders] = useState<Order[]>([]);
-    const [loading, setLoading] = useState<boolean>(true);
 
-    useEffect(() => {
-        fetchOrders();
-    }, [showInProgress]);
+    // Memoizing the orders lists to avoid unnecessary re-renders
+    const activeOrdersList = useMemo(() => (
+        activeOrders.map(order => (
+            <Order key={order.id} order={order} />
+        ))
+    ), [activeOrders]);
 
-    const fetchOrders = async () => {
-        setLoading(true);
-        try {
-            const fetchedOrders = showInProgress
-                ? await OrderService.fetchActiveOrders()
-                : await OrderService.fetchCompletedOrders();
-            setOrders(fetchedOrders);
-        } catch (error) {
-            console.error('Error fetching orders:', error);
-        } finally {
-            setLoading(false);
-        }
-    };
+    const completedOrdersList = useMemo(() => (
+        completedOrders.map(order => (
+            <Order key={order.id} order={order} />
+        ))
+    ), [completedOrders]);
 
     return (
         <div className={style.orders_container}>
             <div className={`${style.orders_heading} u-h1`}>Orders</div>
-            <div>
+            <div className={style.order_buttons}>
                 <button
-                    className={`${style.orders_button} u-pb1 ${showInProgress ? style.selected : ''}`}
+                    className={`${style.orders_button} u-pb1 ${showInProgress ? style.button_selected : ''}`}
                     onClick={() => setShowInProgress(true)}
                 >
                     Active orders
                 </button>
                 <button
-                    className={`${style.orders_button} u-pb1 ${!showInProgress ? style.selected : ''}`}
+                    className={`${style.orders_button} u-pb1 ${!showInProgress ? style.button_selected : ''}`}
                     onClick={() => setShowInProgress(false)}
                 >
                     Order history
                 </button>
             </div>
             <div>
-                {loading ? (
-                    <p>Loading orders...</p>
-                ) : orders.length > 0 ? (
-                    <p>Hello</p>
+                {showInProgress ? (
+                    activeOrders.length > 0 ? (
+                        <div>{activeOrdersList}</div>
+                    ) : (
+                        <p>No active orders found</p>
+                    )
+                ) : completedOrders.length > 0 ? (
+                    <div>{completedOrdersList}</div>
                 ) : (
-                    <p>No orders found</p>
+                    <p>No completed orders found</p>
                 )}
             </div>
         </div>

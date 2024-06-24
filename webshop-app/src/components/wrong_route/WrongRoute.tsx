@@ -26,7 +26,7 @@ const WrongRoute: React.FunctionComponent = () => {
                 <h2>Error 404</h2>
                 <p>Sorry, this page doesn't exist.</p>
             </div>
-            <Link to="/tech">
+            <Link to="/">
                 Go Home
             </Link>
             <FontAwesomeIcon icon={faFaceFrown} className={style.icon}

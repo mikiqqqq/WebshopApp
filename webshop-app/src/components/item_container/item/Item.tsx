@@ -1,99 +1,87 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import style from './Item.module.css';
-import itemImg from '../../../images/item.jpg'
-import { AddProduct, Product } from "../../MainContainerData";
+import itemImg from '../../../images/item.jpg';
+import { Product } from "../../MainContainerData";
 import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import BrandService from "../../../services/BrandService";
-import { Col, Overlay, Tooltip } from "react-bootstrap";
+import { Overlay, Tooltip } from "react-bootstrap";
+import OrderService from "../../../services/OrderService";
+import ItemQuantitySelector from "./quantity_selector/ItemQuantitySelector";
+import OrderItemService from "../../../services/OrderItemService";
+import useLocalStorage from "../../../useLocalStorage";
 
 interface Props {
-    addItemToCart: (item: AddProduct) => void;
-    item: Product;
+  item: Product;
 }
 
-const Item: React.FunctionComponent<Props> = props => {
 
-    const [brandName, setBrandName] = useState<string>('');
-    const [quantity, setQuantity] = useState<number>(1);
-    const [disableButton, setDisableButton] = useState<boolean>(false);
-    const [message, setMessage] = useState<string>('');
-    const [show, setShow] = useState(false);
-    const target = useRef(null);
+const Item: React.FC<Props> = ({ item }) => {
+  const navigate = useNavigate();
+  const [, setLocalStateActiveOrder] = useLocalStorage('activeOrder');
+  const [quantity, setQuantity] = useState<number>(1);
+  const [disableButton, setDisableButton] = useState<boolean>(false);
+  const [show, setShow] = useState(false);
+  const target = useRef(null);
+  const activeOrder = Number(localStorage.getItem('activeOrder'));
 
-    useEffect(() => {
-        if(show){
-            const timeoutId = setTimeout(() => {
-                setShow(!show);
-            }, 750);
-            return () => clearTimeout(timeoutId);
-        }
-    }, [show])
- 
-    const addToCart = () => {
-        props.addItemToCart({
-            productId: props.item.id,
-            amount: quantity,
-        });
-        setQuantity(1);
-    }
-
-    useEffect(() => {
-        BrandService.findById(props.item.brandId).then((response) => {
-            setBrandName(response.data.name);
-        });
-    }, [props.item.brandId])
-
-    const increment = () => {
-        if (quantity + 1 < props.item.quantity) {
-            setQuantity(quantity + 1);
-        } else if (quantity + 1 === props.item.quantity) {
-            setQuantity(quantity + 1);
-            setDisableButton(true);
-            setMessage(' - Max');
-        }
+  const addToCart = async (quantity: number, orderId: number, product: Product) => {
+      if (!activeOrder) {
+        const response = await OrderService.createOrder();
+        const activeOrderId = Number(response.data);
+        setLocalStateActiveOrder(activeOrderId);
+        await OrderItemService.addOrderItem(quantity, activeOrderId, item);
+      } else {
+        await OrderItemService.addOrderItem(quantity, orderId, item);
+      }
     };
 
-    const decrement = () => {
-        if (quantity - 1 > 0) setQuantity(quantity - 1);
-        setMessage('');
+  useEffect(() => {
+    if (show) {
+      const timeoutId = setTimeout(() => {
+        setShow(false);
+      }, 750);
+      return () => clearTimeout(timeoutId);
     }
+  }, [show]);
 
-    return (
-        <Col xxl={2} xl={4} lg={4} md={4} sm={4} className={style.col}>
-        <div className={style.item_box}>
-            <img className={style.image} src={itemImg} alt={props.item.title}></img>
-            <h3 className={style.item_name}>{props.item.title}</h3>
-            <p className={style.item_description}>{props.item.description}</p>
-            <p className={style.item_brand}>{brandName}</p>
-            <div className={style.hover_buttons}>
-                <div className={style.quantity_counter}>
-                    <button className={`${style.quantity_button} ${style.quantity_button_decrement}`}
-                        onClick={decrement}>
-                        <p>-</p>
-                    </button>
-                    <p className={style.quantity_display}>{quantity}{message}</p>
-                    <button className={`${style.quantity_button} ${style.quantity_button_increment}`} onClick={increment}>
-                        <p>+</p>
-                    </button>
-                </div>
-                <button
-                    className={style.cart_button}
-                    onClick={() => { setShow(!show); addToCart();}}
-                    ref={target}
-                    disabled={disableButton}>
-                    <FontAwesomeIcon className={style.icon} icon={faCartPlus} />
-                </button>
-                <Overlay target={target.current} show={show} placement="top">
-                    <Tooltip id="overlay-example"className={style.tooltip}>
-                        Added
-                    </Tooltip>
-                </Overlay>
-            </div>
-            <strong className={style.item_price}>${props.item.price.toFixed(2)}</strong>
+  const handleProductClick = () => {
+    const productSlug = item.title.toLowerCase().replace(/\s+/g, '-') + '-' + item.id;
+    navigate(`/products/${productSlug}`);
+  };
+
+  return (
+      <div className={style.item_box} onClick={handleProductClick}>
+        <img className={style.image} src={itemImg} alt={item.title}></img>
+        <h3 className={style.item_name}>{item.title}</h3>
+        <p className={style.item_description}>{item.description}</p>
+        <p className={style.item_brand}>{item.brand.title}</p>
+        <div className={style.hover_buttons}>
+          <ItemQuantitySelector
+            maxQuantity={item.quantity}
+            onQuantityChange={setQuantity}
+          />
+          <button
+            className={style.cart_button}
+            onClick={(e) => { e.stopPropagation(); setShow(true); addToCart(
+              quantity,
+              activeOrder,
+              item
+          ) }}
+            ref={target}
+            disabled={disableButton}
+          >
+            <FontAwesomeIcon className={style.icon} icon={faCartPlus} />
+          </button>
+          <Overlay target={target.current} show={show} placement="top">
+            <Tooltip id="overlay-example" className={style.tooltip}>
+              Added
+            </Tooltip>
+          </Overlay>
         </div>
-        </Col>
-    );
-}
+        <strong className={style.item_price}>${item.price.toFixed(2)}</strong>
+      </div>
+  );
+};
 
 export default Item;

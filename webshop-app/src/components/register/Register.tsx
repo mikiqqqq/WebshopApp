@@ -75,7 +75,7 @@ const Register: React.FC = () => {
                     onSubmit={handleSubmit}
                 >
                     {({ handleChange, values, touched, errors, isSubmitting }) => (
-                        <FormikForm className={`${style.register_form} form`}>
+                        <FormikForm className={`${style.register_form} form`} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
                             <div>
                                 <FloatingLabel label="Full name">
                                     <BootstrapForm.Control

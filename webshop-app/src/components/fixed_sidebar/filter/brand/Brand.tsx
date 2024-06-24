@@ -67,7 +67,7 @@ const Brand:React.FunctionComponent<Props> = props => {
             }}
             onClick={() => handleClick(brand.id)} 
             className={style.brand_button} 
-            key={brand.id}>{brand.name}
+            key={brand.id}>{brand.title}
             </button>
         );})}
         </>

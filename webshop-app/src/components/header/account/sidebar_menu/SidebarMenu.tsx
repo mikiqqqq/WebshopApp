@@ -34,9 +34,9 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({ user }) => {
                 <FontAwesomeIcon icon={faReceipt} />
                 <p className={style.menu_item_inner}>Orders</p>
             </NavLink>
-            {user.role === 'admin' && (
+            {user.role === 'ADMIN' && (
                 <NavLink
-                    to="/account/admin"
+                    to="/admin"
                     className={({ isActive }) => `${style.menu_item} u-pb1 ${isActive ? style.menu_item_selected : ''}`}
                 >
                     <FontAwesomeIcon icon={faLock} />

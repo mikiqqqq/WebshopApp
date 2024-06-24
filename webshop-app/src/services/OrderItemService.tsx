@@ -1,21 +1,20 @@
 import axios from 'axios';
+import { OrderItemType, Product } from '../components/MainContainerData';
 
 const ORDER_ITEM_API_BASE_URL = "http://localhost:8080/api/order-item";
 
 class OrderItemService {
 
-    createOrderItem(ordId: number, itId: number){
+    addOrderItem(quantity: number, ordId: number, product: Product){
         return axios.post(ORDER_ITEM_API_BASE_URL + '/add', {
+            quantity: quantity,
             orderId: ordId,
-            itemId: itId
+            item: product
         });
     }
 
-    createMultipleOrderItems(ordId: number, itId: number, quantity: number){
-        return axios.post(ORDER_ITEM_API_BASE_URL + '/add-multiple/' + quantity, {
-            orderId: ordId,
-            itemId: itId
-        });
+    updateOrderItem(orderItem: OrderItemType){
+        return axios.put(ORDER_ITEM_API_BASE_URL + '/update', orderItem);
     }
 
     fetchAllByOrderId(orderId: number){
@@ -30,8 +29,8 @@ class OrderItemService {
         return axios.delete(ORDER_ITEM_API_BASE_URL + '/delete-all-by-itemId/itemId=' + itemId + '&orderId=' + orderId);
     }
 
-    deleteOrderItem(ordId: number, itId: number){
-        return axios.delete(ORDER_ITEM_API_BASE_URL + '/delete/orderId=' + ordId + '&itemId=' + itId);
+    deleteOrderItem(id: Number){
+        return axios.delete(ORDER_ITEM_API_BASE_URL + '/delete/' + id);
     }
 
     deleteAllOrderItemsByOrderId(ordId: number){

@@ -56,7 +56,7 @@ const Type:React.FunctionComponent<Props> = props => {
             }}
             onClick={() => handleClick(type.id)} 
             className={style.choose_button} 
-            key={type.id}>{type.name}
+            key={type.id}>{type.title}
             </button>
         );})}
         
