@@ -39,6 +39,14 @@ public class OrderItemController {
         );
     }
 
+    @PutMapping(value="/update")
+    ResponseEntity<OrderItem> update(@Valid @RequestBody OrderItem orderItem) {
+        return new ResponseEntity<>(
+                orderItemService.update(orderItem),
+                HttpStatus.CREATED
+        );
+    }
+
     @PostMapping(value="/add-multiple/{quantity}")
     ResponseEntity<String> createMultiple(@Valid @RequestBody OrderItemForm orderItemForm,
                                           @PathVariable Integer quantity) {
@@ -75,9 +83,9 @@ public class OrderItemController {
                 .body("deleted");
     }
 
-    @DeleteMapping(value="/delete/orderId={orderId}&itemId={itemId}")
-    ResponseEntity<String> delete(@PathVariable Integer orderId, @PathVariable Integer itemId) {
-        orderItemService.delete(orderId, itemId);
+    @DeleteMapping(value="/delete/{id}")
+    ResponseEntity<String> delete(@PathVariable int id) {
+        orderItemService.delete(id);
 
         return ResponseEntity
                 .ok()

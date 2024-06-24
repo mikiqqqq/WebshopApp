@@ -1,6 +1,5 @@
 package com.spring_boot.webshop_app.service.impl;
 
-
 import com.spring_boot.webshop_app.dto.OrderItemAndAmountDto;
 import com.spring_boot.webshop_app.mapper.OrderItemAndAmountDtoMapper;
 import com.spring_boot.webshop_app.model.OrderItem;
@@ -13,12 +12,12 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class OrderItemServiceImpl implements OrderItemService {
     private final OrderItemRepo orderItemRepo;
-
     private final OrderItemAndAmountDtoMapper orderItemAndAmountDtoMapper;
 
     @Autowired
@@ -29,18 +28,32 @@ public class OrderItemServiceImpl implements OrderItemService {
 
     @Override
     @Transactional
-    public OrderItem save(OrderItem orderItem){
-        orderItemRepo.save(orderItem);
-        return orderItem;
+    public OrderItem save(OrderItem orderItem) {
+        Optional<OrderItem> existsInDatabase = orderItemRepo.findByOrderIdAndItemId(orderItem.getOrderId(), orderItem.getItem().getId());
+        if (existsInDatabase.isPresent()) {
+            System.out.println(existsInDatabase.get());
+            int updatedQuantity = orderItemRepo.getOrderItemQuantity(existsInDatabase.get().getId()) + orderItem.getQuantity();
+            orderItemRepo.updateOrderItemQuantity(existsInDatabase.get().getId(), updatedQuantity);
+            return orderItemRepo.findById(existsInDatabase.get().getId()).orElse(null);
+        } else {
+            return orderItemRepo.save(orderItem);
+        }
+    }
+
+    @Override
+    @Transactional
+    public OrderItem update(OrderItem orderItem) {
+        orderItemRepo.updateOrderItemQuantity(orderItem.getId(), orderItem.getQuantity());
+        return orderItemRepo.findById(orderItem.getId()).orElse(null);
     }
 
     @Override
     @Transactional
     public void saveMultiple(OrderItem orderItem, Integer quantity) {
         List<OrderItem> orderItemList = new ArrayList<>();
-        for(int i = 0; i < quantity; i++) {
+        for (int i = 0; i < quantity; i++) {
             orderItemList.add(OrderItem.builder()
-                    .itemId(orderItem.getItemId())
+                    .item(orderItem.getItem()) // Adjusted to set Item
                     .orderId(orderItem.getOrderId())
                     .build());
         }
@@ -48,11 +61,11 @@ public class OrderItemServiceImpl implements OrderItemService {
     }
 
     @Override
-    public List<OrderItemAndAmountDto> findItemsAndAmountInOrder(Integer orderId){
+    public List<OrderItemAndAmountDto> findItemsAndAmountInOrder(Integer orderId) {
         Map<Integer, Long> map = orderItemRepo.findAllByOrderId(orderId)
-                        .stream()
-                        .map(OrderItem::getItemId)
-                        .collect(Collectors.groupingBy(i -> i, Collectors.counting()));
+                .stream()
+                .map(orderItem -> orderItem.getItem().getId()) // Adjusted to get Item ID
+                .collect(Collectors.groupingBy(i -> i, Collectors.counting()));
 
         return map.entrySet()
                 .stream()
@@ -61,27 +74,25 @@ public class OrderItemServiceImpl implements OrderItemService {
     }
 
     @Override
-    public List<OrderItem> findAllByOrderId(Integer orderId){
+    public List<OrderItem> findAllByOrderId(Integer orderId) {
         return orderItemRepo.findAllByOrderId(orderId);
     }
 
     @Override
     @Transactional
-    public void deleteAllByItemIdAndOrderId(Integer orderItemId, Integer orderId){
-        orderItemRepo.deleteAllByItemIdAndOrderId(orderItemId, orderId);
+    public void deleteAllByItemIdAndOrderId(Integer itemId, Integer orderId) {
+        orderItemRepo.deleteAllByItemIdAndOrderId(itemId, orderId);
     }
 
     @Override
     @Transactional
-    public void delete(Integer orderId, Integer itemId) {
-        orderItemRepo.delete(
-                orderItemRepo.findTopByOrderIdAndItemId(
-                        orderId, itemId));
+    public void delete(int id) {
+        orderItemRepo.deleteById(id);
     }
 
     @Override
     @Transactional
-    public void deleteAllByOrderId(Integer orderId){
+    public void deleteAllByOrderId(Integer orderId) {
         orderItemRepo.deleteAllByOrderId(orderId);
     }
 }

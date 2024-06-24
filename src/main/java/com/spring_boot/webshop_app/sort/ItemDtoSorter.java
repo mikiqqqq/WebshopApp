@@ -22,9 +22,9 @@ public class ItemDtoSorter implements Comparator<ItemDto> {
         }
         if (sortBy.equalsIgnoreCase("NAME")){
             if(sortOrder.equalsIgnoreCase("ASC"))
-                return a.getName().compareTo(b.getName());
+                return a.getTitle().compareTo(b.getTitle());
             if(sortOrder.equalsIgnoreCase("DESC"))
-                return b.getName().compareTo(a.getName());
+                return b.getTitle().compareTo(a.getTitle());
         }
 
         return 0;

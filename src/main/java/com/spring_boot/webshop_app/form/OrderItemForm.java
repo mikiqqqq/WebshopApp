@@ -14,6 +14,9 @@ public class OrderItemForm {
 
     private Integer id;
 
+    @NotNull(message = "Order quantity is required.")
+    private Integer quantity;
+
     @NotNull(message = "Order Id is required.")
     private Integer orderId;
 

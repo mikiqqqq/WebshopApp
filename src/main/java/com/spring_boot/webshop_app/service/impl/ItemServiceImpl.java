@@ -3,7 +3,9 @@ package com.spring_boot.webshop_app.service.impl;
 import com.spring_boot.webshop_app.dto.ItemDto;
 import com.spring_boot.webshop_app.mapper.ItemDtoMapper;
 import com.spring_boot.webshop_app.model.Item;
+import com.spring_boot.webshop_app.model.OrderItem;
 import com.spring_boot.webshop_app.repository.ItemRepo;
+import com.spring_boot.webshop_app.repository.OrderItemRepo;
 import com.spring_boot.webshop_app.service.ItemService;
 import com.spring_boot.webshop_app.sort.ItemDtoSorter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +22,14 @@ public class ItemServiceImpl implements ItemService {
 
     private final ItemRepo itemRepo;
 
+    private final OrderItemRepo orderItemRepo;
+
     private final ItemDtoMapper itemDtoMapper;
 
     @Autowired
-    public ItemServiceImpl(ItemRepo itemRepo, ItemDtoMapper itemDtoMapper) {
+    public ItemServiceImpl(ItemRepo itemRepo, ItemDtoMapper itemDtoMapper, OrderItemRepo orderItemRepo) {
         this.itemRepo = itemRepo;
+        this.orderItemRepo = orderItemRepo;
         this.itemDtoMapper = itemDtoMapper;
     }
 
@@ -42,18 +47,6 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public ItemDto updateItem(int itemId) {
-        Optional<Item> optionalItem = itemRepo.findById(itemId);
-        if (optionalItem.isPresent()) {
-            Item item = optionalItem.get();
-            Item updatedItem = itemRepo.save(item);
-            return itemDtoMapper.map(updatedItem);
-        }
-
-        return null;
-    }
-
-    @Override
     public List<ItemDto> fetchAll(){
         return itemRepo.findAll()
                 .stream()
@@ -62,7 +55,20 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public List<ItemDto> findByItemIds(Integer[] ids) {
+    public ItemDto fetchById(int id) {
+        Optional<Item> item = itemRepo.findById(id);
+        return item.map(itemDtoMapper::map).orElse(null);
+    }
+
+    @Override
+    public List<ItemDto> fetchAllByOrderId(Integer orderId) {
+        List<OrderItem> orderItems = orderItemRepo.findAllByOrderId(orderId);
+        Integer[] itemIds = orderItems.stream().map(orderItem -> orderItem.getItem().getId()).toList().toArray(new Integer[0]);
+        return fetchByItemIds(itemIds);
+    }
+
+    @Override
+    public List<ItemDto> fetchByItemIds(Integer[] ids) {
         return Arrays.stream(ids)
                 .flatMap(id -> itemRepo.findByItemId(id).stream())
                 .map(itemDtoMapper::map)
@@ -70,7 +76,15 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public List<ItemDto> findByBrandIds(Integer[] ids){
+    public List<ItemDto> fetchRandomItems(int limit) {
+        return itemRepo.findRandomItems(limit)
+                .stream()
+                .map(itemDtoMapper::map)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ItemDto> fetchByBrandIds(Integer[] ids){
         return Arrays.stream(ids)
                 .flatMap(id -> itemRepo.findByBrandId(id).stream())
                 .map(itemDtoMapper::map)
@@ -90,7 +104,7 @@ public class ItemServiceImpl implements ItemService {
         //Filtering
         brandIds.ifPresent(integers -> filteredItems = Arrays.stream(integers)
                 .flatMap(id ->
-                        filteredItems.stream().filter(itemDto -> itemDto.getBrandId().equals(id)))
+                        filteredItems.stream().filter(itemDto -> itemDto.getBrand().getId().equals(id)))
                 .collect(Collectors.toList()));
         if(uprLmt.isPresent() && lwrLmt.isPresent()) {
             filteredItems = filteredItems.stream()
@@ -99,7 +113,7 @@ public class ItemServiceImpl implements ItemService {
         }
         if(productTypeId.isPresent() && productTypeId.get().compareTo(0) > 0){
             filteredItems = filteredItems.stream()
-                    .filter(itemDto -> itemDto.getProductTypeId().equals(productTypeId.get()))
+                    .filter(itemDto -> itemDto.getProductType().getId().equals(productTypeId.get()))
                     .collect(Collectors.toList());
         }
         if(productionYear.isPresent() && productionYear.get().compareTo(0) > 0){
@@ -141,7 +155,7 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public List<ItemDto> findAllInPriceRange(Long uprLmt, Long lwrLimit){
+    public List<ItemDto> fetchAllInPriceRange(Long uprLmt, Long lwrLimit){
         return itemRepo.findAllInPriceRange(uprLmt, lwrLimit)
                 .stream()
                 .map(itemDtoMapper::map)
@@ -149,8 +163,8 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public List<ItemDto> findAllByNameContainsIgnoreCase(String target){
-        return itemRepo.findAllByNameContainsIgnoreCase(target)
+    public List<ItemDto> fetchAllByTitleContainsIgnoreCase(String target){
+        return itemRepo.findAllByTitleContainsIgnoreCase(target)
                 .stream()
                 .map(itemDtoMapper::map)
                 .collect(Collectors.toList());

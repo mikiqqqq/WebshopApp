@@ -34,14 +34,6 @@ public class ItemController {
         );
     }
 
-    @PutMapping (value = "/update/{itemId}")
-    ResponseEntity<ItemDto> update(@PathVariable int itemId) {
-
-        return ResponseEntity
-                .ok()
-                .body(itemService.updateItem(itemId));
-    }
-
     @DeleteMapping (value = "/remove/{itemId}")
     ResponseEntity<Item> delete(@PathVariable int itemId) {
         itemService.deleteItem(itemId);
@@ -51,7 +43,15 @@ public class ItemController {
         );
     }
 
-    @GetMapping(value = "/fetch-all")
+    @GetMapping(value = "/by-id/{id}")
+    ResponseEntity<ItemDto> fetchById(@PathVariable int id) {
+
+        return ResponseEntity
+                .ok()
+                .body(itemService.fetchById(id));
+    }
+
+    @GetMapping(value = "/all")
     ResponseEntity<List<ItemDto>> fetchAll() {
 
         return ResponseEntity
@@ -59,20 +59,36 @@ public class ItemController {
                 .body(itemService.fetchAll());
     }
 
-    @GetMapping(value = "/by-itemIds/{ids}")
-    ResponseEntity<List<ItemDto>> findByItemIds(@PathVariable Integer[] ids) {
+    @GetMapping(value = "/by-orderId/{id}")
+    ResponseEntity<List<ItemDto>> fetchByItemIds(@PathVariable Integer id) {
 
         return ResponseEntity
                 .ok()
-                .body(itemService.findByItemIds(ids));
+                .body(itemService.fetchAllByOrderId(id));
+    }
+
+    @GetMapping(value = "/by-itemIds/{ids}")
+    ResponseEntity<List<ItemDto>> fetchByItemIds(@PathVariable Integer[] ids) {
+
+        return ResponseEntity
+                .ok()
+                .body(itemService.fetchByItemIds(ids));
     }
 
     @GetMapping(value = "/by-brandIds/{ids}")
-    ResponseEntity<List<ItemDto>> findByBrandIds(@PathVariable Integer[] ids) {
+    ResponseEntity<List<ItemDto>> fetchByBrandIds(@PathVariable Integer[] ids) {
 
         return ResponseEntity
                 .ok()
-                .body(itemService.findByBrandIds(ids));
+                .body(itemService.fetchByBrandIds(ids));
+    }
+
+    @GetMapping("/random-items/{limit}")
+    ResponseEntity<List<ItemDto>> getRandomItems(@PathVariable int limit) {
+
+        return ResponseEntity
+                .ok()
+                .body(itemService.fetchRandomItems(limit));
     }
 
     @GetMapping(value = "/filter-items-by")
@@ -91,18 +107,18 @@ public class ItemController {
     }
 
     @GetMapping(value = "/in-price-range/{uprLmt}-{lwrLmt}")
-    ResponseEntity<List<ItemDto>> findAllInPriceRange(@PathVariable Long uprLmt, @PathVariable Long lwrLmt){
+    ResponseEntity<List<ItemDto>> fetchAllInPriceRange(@PathVariable Long uprLmt, @PathVariable Long lwrLmt){
 
         return ResponseEntity
                 .ok()
-                .body(itemService.findAllInPriceRange(uprLmt, lwrLmt));
+                .body(itemService.fetchAllInPriceRange(uprLmt, lwrLmt));
     }
 
     @GetMapping(value = "contain/{target}")
-    ResponseEntity<List<ItemDto>> findAllByNameContainsIgnoreCase(@PathVariable String target) {
+    ResponseEntity<List<ItemDto>> fetchAllByNameContainsIgnoreCase(@PathVariable String target) {
 
         return ResponseEntity
                 .ok()
-                .body(itemService.findAllByNameContainsIgnoreCase(target));
+                .body(itemService.fetchAllByTitleContainsIgnoreCase(target));
     }
 }
