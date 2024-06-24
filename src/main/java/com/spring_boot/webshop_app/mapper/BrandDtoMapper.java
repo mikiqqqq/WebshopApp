@@ -15,7 +15,7 @@ public class BrandDtoMapper {
 
         return BrandDto.builder()
                 .id(brand.getId())
-                .name(brand.getTitle())
+                .title(brand.getTitle())
                 .build();
     }
 }
