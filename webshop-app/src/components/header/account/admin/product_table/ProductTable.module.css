@@ -1,0 +1,26 @@
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th {
+    color: var(--base-color);   
+    padding: 10px;
+    border-bottom: 3px solid var(--complementary-color); 
+    font-weight: normal;
+    pointer-events: none;
+    background-color: transparent;
+}
+
+.table td {
+    padding: 10px;
+    border-bottom: 1px solid var(--base-font-color);  
+}
+
+.table tr:focus,
+.table tr:hover,
+.table tr.selected {
+    cursor: pointer;
+    background-color: var(--base-hover);
+    color: var(--background);
+}

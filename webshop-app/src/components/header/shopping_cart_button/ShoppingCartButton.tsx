@@ -1,23 +1,35 @@
 import style from './ShoppingCartButton.module.css';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import { OverlayTrigger, Popover } from 'react-bootstrap';
 import itemImg from '../../../images/item.jpg';
 import { Link } from 'react-router-dom';
 import OrderItemService from '../../../services/OrderItemService';
-import { Product } from '../../MainContainerData';
+import { OrderItemType, Product } from '../../MainContainerData';
+import CartItem from './cart_item/CartItem';
 
+interface ExtendedOrderItemType extends OrderItemType {
+  totalPrice: number;
+}
 const ShoppingCartButton: React.FunctionComponent = () => {
   const [show, setShow] = useState<boolean>(false);
   const [scale, setScale] = useState<string>("24px");
-  const [orderItems, setOrderItems] = useState<Product[]>([]);
+  const [orderItems, setOrderItems] = useState<ExtendedOrderItemType[]>([]);
+  const [totalPrice, setTotalPrice] = useState<number>(0);
   const baseColor = window.getComputedStyle(document.documentElement).getPropertyValue('--base-color');
   const complColor = window.getComputedStyle(document.documentElement).getPropertyValue('--complementary-color');
   const activeOrder = Number(localStorage.getItem('activeOrder'));
 
-  const handleOnMouseEnter = () => {
+  useEffect(() => {
+    console.log("Rendered");
+  });
+
+  const handleOnMouseEnter = (e: React.MouseEvent<HTMLElement>) => {
     setShow(true);
+    if (e.currentTarget.tagName === "BUTTON") {
+      fetchOrderItems();
+    }
   };
 
   const handleOnMouseLeave = () => {
@@ -28,38 +40,43 @@ const ShoppingCartButton: React.FunctionComponent = () => {
     return new Promise(resolve => setTimeout(resolve, time));
   }
 
-  useEffect(() => {
-    const fetchOrderItems = async () => {
-      if (activeOrder) {
-        try {
-          const response = await OrderItemService.fetchAllByOrderId(activeOrder);
-          setOrderItems(response.data);
-        } catch (error) {
-          console.error("Error fetching order items:", error);
-        }
-      } else {
-        setOrderItems([]);
+  const fetchOrderItems = useCallback(async () => {
+    if (activeOrder) {
+      try {
+        const response = await OrderItemService.fetchAllByOrderId(activeOrder);
+        const fetchedOrderItems = response.data.map((item: OrderItemType) => ({
+          ...item,
+          totalPrice: item.quantity * item.item.price // Calculate total price using product price
+        }));
+        setOrderItems(fetchedOrderItems);
+        const newTotalPriceSum = fetchedOrderItems.reduce((acc: number, item: ExtendedOrderItemType) => acc + item.totalPrice, 0);
+        setTotalPrice(newTotalPriceSum);
+      } catch (error) {
+        console.error("Error fetching order items:", error);
       }
-    };
+    } else {
+      setOrderItems([]);
+      setTotalPrice(0);
+    }
+  }, [activeOrder]);
 
+  useEffect(() => {
     fetchOrderItems();
 
-    if (activeOrder) {
+    if (orderItems.length > 0) {
       document.documentElement.style.setProperty('--color', complColor);
       setScale("30px");
       delay(1000).then(() => {
         setScale("24px");
-        handleOnMouseEnter();
+        setShow(true);
         delay(2000).then(() => {
-          handleOnMouseLeave();
+          setShow(false);
         });
       });
     } else {
       document.documentElement.style.setProperty('--color', baseColor);
     }
-  }, [activeOrder, baseColor, complColor]);
-
-  let totalPrice: number = 0;
+  }, [activeOrder, baseColor, complColor ]);
 
   return (
     <>
@@ -86,7 +103,9 @@ const ShoppingCartButton: React.FunctionComponent = () => {
               </span>
 
               <div className={style.cart_item_container}>
-
+              {orderItems?.map(item => (
+                <CartItem key={item.id} orderItem={item} />
+              ))}
               </div>
 
               <div className={activeOrder ? style.button_container : style.display_none}>
@@ -109,7 +128,7 @@ const ShoppingCartButton: React.FunctionComponent = () => {
             className={style.icon}
             id="cart_button"
             style={{
-              color: activeOrder ? complColor : baseColor,
+              color: orderItems.length > 0 ? complColor : baseColor,
               fontSize: scale
             }}
             icon={faCartShopping} />
