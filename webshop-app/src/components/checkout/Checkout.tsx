@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { DiscountCode, Product, OrderUpdate } from "../MainContainerData";
+import { DiscountCode, Product, OrderUpdate, OrderItemType } from "../MainContainerData";
 import style from "./Checkout.module.css";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -10,14 +10,14 @@ import ShippingInfo from "./steps/ShippingInfo";
 import PaymentInfo from "./steps/PaymentInfo";
 import DiscountCodeService from "../../services/DiscountCodeService";
 import OrderService from "../../services/OrderService";
+import OrderItemService from "../../services/OrderItemService";
 
 interface Props {
-    orderItems: Product[];
-    activeOrder: number;
-
-    addOrRemoveOrderItem(orderItemId: number, decider: number): void;
-    removeOrderItemAll(orderItemId: number): void;
     orderCompleted(orderCompleted: boolean): void;
+}
+
+interface ExtendedOrderItemType extends OrderItemType {
+    totalPrice: number;
 }
 
 const Checkout: React.FunctionComponent<Props> = props => {
@@ -26,6 +26,9 @@ const Checkout: React.FunctionComponent<Props> = props => {
     let dayOfDeliveryStart = new Date(new Date().setDate(new Date().getDate() + 15));
     let dayOfDeliveryEnd = new Date(new Date().setDate(new Date().getDate() + 18));
     let navigate = useNavigate();
+    const activeOrder = Number(localStorage.getItem('activeOrder'));
+    const [orderItems, setOrderItems] = useState<ExtendedOrderItemType[]>([]);
+    const [totalPrice, setTotalPrice] = useState<number>(0);
 
     const [totalPriceState, setTotalPriceState] = useState(0);
     const [originalTotal, setOriginalTotal] = useState(0);
@@ -53,6 +56,28 @@ const Checkout: React.FunctionComponent<Props> = props => {
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setDiscountInputValue(event.target.value);
     }
+
+    useEffect(() => {
+        const fetchOrderItems = async () => {
+          if (activeOrder) {
+            try {
+              const response = await OrderItemService.fetchAllByOrderId(activeOrder);
+              const fetchedOrderItems = response.data.map((item: OrderItemType) => ({
+                ...item,
+                totalPrice: 0 // Initialize with zero, will be updated by OrderItem component
+              }));
+              setOrderItems(fetchedOrderItems);
+            } catch (error) {
+              console.error("Error fetching order items:", error);
+            }
+          } else {
+            setOrderItems([]);
+            setTotalPrice(0);
+          }
+        };
+    
+        fetchOrderItems();
+      }, [activeOrder]);
 
     const checkDiscountCode = async () => {
         setSuccessDiscountMsg('');
@@ -122,7 +147,7 @@ const Checkout: React.FunctionComponent<Props> = props => {
         if(allFormsValidated){
 
             const updatedOrder: OrderUpdate = {
-                id: props.activeOrder,
+                id: activeOrder,
                 date: new Date().toLocaleDateString('hr-HR'),
                 priceWithNoPdvIncluded: subtotal,
                 total: totalPriceState,

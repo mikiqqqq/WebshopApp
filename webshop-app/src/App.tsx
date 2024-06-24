@@ -17,12 +17,7 @@ import Login from './components/login/Login';
 import Register from './components/register/Register';
 import Account from './components/header/account/Account';
 import Admin from './components/header/account/admin/Admin';
-import ProductDetail from './components/product_detail/ProductDetail';
-
-interface OrderItemAndAmount {
-  id: number;
-  quantity: number;
-}
+import ProductDetail from './components/product_detail/ProductDetail';  
 
 function App() {
   const [localStateActiveOrder, setLocalStateActiveOrder] = useLocalStorage('activeOrder');
@@ -48,18 +43,6 @@ function App() {
     }
   }, [firstAdded, localStateActiveOrder, setLocalStateActiveOrder]);
 
-  const addOrRemoveOrderItem = useCallback(async (itemId: number, decider: number) => {
-    if (decider) await OrderItemService.addOrderItem(1, localStateActiveOrder, itemId);
-    else await OrderItemService.deleteOrderItem(localStateActiveOrder, itemId);
-  }, [localStateActiveOrder]);
-
-  const emptyShoppingCart = useCallback(async (empty: boolean) => {
-    if (empty) {
-      await OrderItemService.deleteAllOrderItemsByOrderId(localStateActiveOrder);
-    }
-  }, [localStateActiveOrder]);
-
-
   return (
     <BrowserRouter>
       <div className="page">
@@ -67,12 +50,8 @@ function App() {
         <Routes>
           <Route path="/" element={<MainContainer addItemToCart={addItemToTheCart} />} />
           <Route path="/products/*" element={<ProductDetail addItemToCart={addItemToTheCart} />} />
-          <Route path="/cart" element={<ShoppingCart
-            addOrRemoveOrderItem={addOrRemoveOrderItem}
-            emptyShoppingCart={emptyShoppingCart}
-          />} />
+          <Route path="/cart" element={<ShoppingCart/>} />
           <Route path="/checkout" element={<Checkout
-            addOrRemoveOrderItem={addOrRemoveOrderItem}
             orderCompleted={setOrderCompleted}
           />} />
           <Route path="/login" element={<Login />} />

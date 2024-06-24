@@ -11,6 +11,13 @@ export interface Product {
     image: Blob | null; 
 }
 
+export interface OrderItemType {
+    id: number,
+    quantity: number,
+    orderId: number;
+    productId: number;
+}
+
 export interface AddProduct {
     productId: number;
     amount: number;

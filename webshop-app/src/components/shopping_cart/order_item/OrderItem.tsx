@@ -1,68 +1,101 @@
 import React, { useEffect, useState } from "react";
-import { Product } from "../../MainContainerData";
+import { OrderItemType, Product } from "../../MainContainerData";
 import style from "./OrderItem.module.css";
 import itemImg from '../../../images/item.jpg';
 import BrandService from "../../../services/BrandService";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
 import { Alert, Button } from "react-bootstrap";
-
+import OrderItemService from "../../../services/OrderItemService";
+import ItemService from "../../../services/ItemService";
 
 interface Props {
-    orderItem: Product;
-
-
-    addOrRemoveOrderItem(orderItemId: number, decider: number): void;
-    removeOrderItemAll(orderItemId: number): void;
+    orderItem: OrderItemType;
+    onPriceChange: (id: number, totalPrice: number) => void;
 }
 
+
+
 const OrderItem: React.FunctionComponent<Props> = props => {
-    const [brandName, setBrandName] = useState<string>('');
+    const [brand, setBrand] = useState<string>('');
     const [quantity, setQuantity] = useState<number>(props.orderItem.quantity);
     const [message, setMessage] = useState<string>('');
     const [showAlert, setShowAlert] = useState(false);
+    const [product, setProduct] = useState<Product>();
 
     useEffect(() => {
-        BrandService.findById(props.orderItem.brandId).then((response) => {
-            setBrandName(response.data.name);
-        });
-    }, [props.orderItem.brandId])
+        const fetchProduct = async () => {
+            try {
+                const response = await ItemService.fetchById(props.orderItem.productId);
+                setProduct(response.data);
+                if (response.data) {
+                    props.onPriceChange(props.orderItem.id, response.data.price * props.orderItem.quantity);
+                }
+            } catch (error) {
+                console.error("Error fetching product:", error);
+            }
+        };
 
-    const addOrRemoveOrderItem = useCallback(async (itemId: number, decider: number) => {
-        if (decider) await OrderItemService.addOrderItem(1, localStateActiveOrder, itemId);
-        else await OrderItemService.deleteOrderItem(localStateActiveOrder, itemId);
-      }, [localStateActiveOrder]);
+        fetchProduct();
+    }, [props]);
 
-    const removeOrderItemAll = (itemId: number) => {
+    useEffect(() => {
+        const fetchBrand = async () => {
+            if (product) {
+                try {
+                    const response = await BrandService.findById(product.brandId);
+                    setBrand(response.data);
+                } catch (error) {
+                    console.error("Error fetching brand:", error);
+                }
+            }
+        };
+
+        fetchBrand();
+    }, [product]);
+
+    const removeOrderItem = (id: number) => {
         setShowAlert(false);
-        props.removeOrderItemAll(itemId);
+        OrderItemService.deleteOrderItem(id);
     }
 
     const increment = () => {
-        if (quantity + 1 < props.orderItem.quantity) {
-            setQuantity(quantity + 1);
-            props.addOrRemoveOrderItem(props.orderItem.id, 1);
-        } else if (quantity + 1 === props.orderItem.quantity) {
-            setQuantity(quantity + 1);
+        if (!product || quantity + 1 > product.quantity) return;
+        
+        const newQuantity = quantity + 1;
+        setQuantity(newQuantity);
+        props.orderItem.quantity = newQuantity;
+        OrderItemService.updateOrderItem(props.orderItem);
+        props.onPriceChange(props.orderItem.id, product.price * newQuantity);
+        
+        if (newQuantity >= product.quantity) {
             setMessage(' - Maxed out');
-            props.addOrRemoveOrderItem(props.orderItem.id, 1);
+        } else {
+            setMessage('');
         }
-    }
+    };
 
     const decrement = () => {
+        if (!product) return;
+        
         if (quantity - 1 > 0) {
-            setQuantity(quantity - 1);
-            props.addOrRemoveOrderItem(props.orderItem.id, 0);
+            const newQuantity = quantity - 1;
+            setQuantity(newQuantity);
+            props.orderItem.quantity = newQuantity;
+            OrderItemService.updateOrderItem(props.orderItem);
+            props.onPriceChange(props.orderItem.id, product.price * newQuantity);
+            setMessage('');
         }
-        setMessage('');
     }
+    
+    if (!product) return null;
 
     return (
         <div className={style.cart_item} key={props.orderItem.id}>
-            <img src={itemImg} alt={props.orderItem.title} />
+            <img src={itemImg} alt={product.title} />
             <div className={style.cart_item_body}>
-                <h5>{props.orderItem.title}</h5>
-                <h3>{brandName}</h3>
+                <h5>{product.title}</h5>
+                <h3>{brand}</h3>
                 <div className={style.quantity_counter}>
                     <button className={`${style.quantity_button} ${style.quantity_button_decrement}`}
                         onClick={decrement}>
@@ -75,13 +108,13 @@ const OrderItem: React.FunctionComponent<Props> = props => {
                 </div>
 
                 <Alert show={showAlert} id={style.alert} variant="danger">
-                    <Alert.Heading>{props.orderItem.title}</Alert.Heading>
+                    <Alert.Heading>{product.title}</Alert.Heading>
                     <p>
                         Are you sure you want to remove this item?
                     </p>
                     <hr />
                     <div className="d-flex justify-content-end">
-                        <Button onClick={() => removeOrderItemAll(props.orderItem.id)} variant="outline-danger">
+                        <Button onClick={() => removeOrderItem(props.orderItem.id)} variant="outline-danger">
                             Yes
                         </Button>
                         <Button id={style.cancel_button} onClick={() => setShowAlert(false)} variant="outline-danger">
@@ -94,7 +127,7 @@ const OrderItem: React.FunctionComponent<Props> = props => {
                     <FontAwesomeIcon icon={faClose} className={style.icon} />&nbsp;&nbsp;&nbsp;Remove
                 </button>
             
-                <strong id={style.item_price}>${(props.orderItem.quantity * props.orderItem.price).toFixed(2)}</strong>
+                <strong id={style.item_price}>${(quantity * product.price).toFixed(2)}</strong>
             </div>
         </div>
     );

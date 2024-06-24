@@ -1,53 +1,34 @@
 import React, { useEffect, useState } from "react";
-import { Product } from "../MainContainerData";
-import style from "./ShoppingCart.module.css"
-import OrderItem from "./order_item/OrderItem";
+import style from "./ShoppingCart.module.css";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import { Alert, Button } from "react-bootstrap";
 import OrderItemService from "../../services/OrderItemService";
+import OrderItem from "./order_item/OrderItem";
+import { OrderItemType } from "../MainContainerData";
 
-
-interface Props {
-    addOrRemoveOrderItem(orderItemId: number, decider: number): void;
-    emptyShoppingCart(empty: boolean): void;
+interface ExtendedOrderItemType extends OrderItemType {
+    totalPrice: number;
 }
 
-const ShoppingCart: React.FunctionComponent<Props> = props => {
-    let totalPrice: number = 0;
+const ShoppingCart: React.FunctionComponent = () => {
     const [showAlert, setShowAlert] = useState(false);
     const [rotate, setRotate] = useState(false);
-    const [orderItems, setOrderItems] = useState<Product[]>([]);
+    const [orderItems, setOrderItems] = useState<ExtendedOrderItemType[]>([]);
+    const [totalPrice, setTotalPrice] = useState<number>(0);
     const activeOrder = Number(localStorage.getItem('activeOrder'));
 
     function delay(time: number) {
         return new Promise(resolve => setTimeout(resolve, time));
-      }
+    }
 
     const emptyCart = () => {
         setShowAlert(false);   
         delay(500).then(() => {
-            props.emptyShoppingCart(true);
+            OrderItemService.deleteAllOrderItemsByOrderId(activeOrder);
         });
     }
-
-    useEffect(() => {
-        const fetchOrderItems = async () => {
-          if (activeOrder) {
-            try {
-              const response = await OrderItemService.fetchAllByOrderId(activeOrder);
-              setOrderItems(response.data);
-            } catch (error) {
-              console.error("Error fetching order items:", error);
-            }
-          } else {
-            setOrderItems([]);
-          }
-        };
-    
-        fetchOrderItems();
-      }, [activeOrder]);
 
     const rotateIcon = () => {
         setRotate(true);
@@ -60,6 +41,37 @@ const ShoppingCart: React.FunctionComponent<Props> = props => {
     useEffect(() => {
         setInterval(rotateIcon, 30000);
     }, [])
+
+    const handlePriceChange = (id: number, newTotalPrice: number) => {
+        const updatedOrderItems = orderItems.map(item =>
+            item.id === id ? { ...item, totalPrice: newTotalPrice } : item
+        );
+        setOrderItems(updatedOrderItems);
+        const newTotalPriceSum = updatedOrderItems.reduce((acc, item) => acc + item.totalPrice, 0);
+        setTotalPrice(newTotalPriceSum);
+    };
+
+    useEffect(() => {
+        const fetchOrderItems = async () => {
+          if (activeOrder) {
+            try {
+              const response = await OrderItemService.fetchAllByOrderId(activeOrder);
+              const fetchedOrderItems = response.data.map((item: OrderItemType) => ({
+                ...item,
+                totalPrice: 0 // Initialize with zero, will be updated by OrderItem component
+              }));
+              setOrderItems(fetchedOrderItems);
+            } catch (error) {
+              console.error("Error fetching order items:", error);
+            }
+          } else {
+            setOrderItems([]);
+            setTotalPrice(0);
+          }
+        };
+    
+        fetchOrderItems();
+      }, [activeOrder]);
 
     return (
         <main className={style.main}>
@@ -99,10 +111,14 @@ const ShoppingCart: React.FunctionComponent<Props> = props => {
                                 <h4>Shopping cart is empty.</h4>
                             </div>
                         }
-                        {orderItems?.map(item => {
-                            totalPrice += item.quantity * item.price;
-                            return <OrderItem key={item.id} orderItem={item}
-                                removeOrderItemAll={props.removeOrderItemAll} addOrRemoveOrderItem={props.addOrRemoveOrderItem} />;
+                        {orderItems.map(item => {
+                            return (
+                                <OrderItem 
+                                    key={item.id} 
+                                    orderItem={item} 
+                                    onPriceChange={handlePriceChange} 
+                                />
+                            );
                         })}
                     </div>
                 </div>
