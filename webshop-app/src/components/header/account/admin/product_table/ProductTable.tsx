@@ -5,19 +5,16 @@ import { Product } from '../../../../MainContainerData';
 
 interface ProductTableProps {
     handleEdit: (product: Product) => void;
-    reload: boolean; // Trigger to reload the table
+    reload: boolean;
 }
 
 const ProductTable: React.FC<ProductTableProps> = React.memo(({ handleEdit, reload }) => {
     const [products, setProducts] = useState<Product[]>([]);
     const [selectedProductId, setSelectedProductId] = useState<number | null>(null);
 
-    console.log("Rerendering table!");
-
     const fetchProducts = useCallback(async () => {
         const response = await ItemService.fetchAllItems();
         setProducts(response.data);
-        console.log("fetching products!");
 
         if (response.data.length > 0) {
             setSelectedProductId(response.data[0].id);
@@ -36,21 +33,22 @@ const ProductTable: React.FC<ProductTableProps> = React.memo(({ handleEdit, relo
 
     return (
         <div>
-            <table className={style.product_table}>
+            <table className={style.table}>
                 <thead>
-                    <tr>
+                    <tr className='u-pb1'>
                         <th>ID</th>
                         <th>Title</th>
                         <th>Price</th>
                         <th>Quantity</th>
                         <th>Brand</th>
                         <th>Type</th>
-                        <th>Production Year</th>
+                        <th>Year</th>
                     </tr>
                 </thead>
                 <tbody>
                     {products.map((product) => (
                         <tr
+                            tabIndex={0}
                             key={product.id}
                             onClick={() => handleRowClick(product)}
                             className={selectedProductId === product.id ? style.selected : ''}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Formik, Form as FormikForm } from 'formik';
 import * as Yup from 'yup';
 import { Product, BrandType, ProductType } from '../../../../MainContainerData';
@@ -6,36 +6,64 @@ import ItemService from '../../../../../services/ItemService';
 import style from './ProductForm.module.css';
 import { Button, FloatingLabel, Form as BootstrapForm } from 'react-bootstrap';
 import image_placeholder from '../../../../../images/image_placeholder.gif';
+import BrandService from '../../../../../services/BrandService';
+import ProductTypeService from '../../../../../services/ProductTypeService';
 
 interface ProductFormProps {
     form: Product;
-    brands: BrandType[];
-    productTypes: ProductType[];
     handleResetForm: () => void;
     fetchProducts: () => void; // Function to trigger re-fetching products
 }
 
-const ProductForm: React.FC<ProductFormProps> = ({ form, brands, productTypes, handleResetForm, fetchProducts }) => {
+const ProductForm: React.FC<ProductFormProps> = ({ form, handleResetForm, fetchProducts }) => {
     const initialValues = form;
     const [previewUrl, setPreviewUrl] = useState<string | null>(form.image ? URL.createObjectURL(form.image) : null);
+    const [brands, setBrands] = useState<Array<BrandType>>([]);
+    const [productTypes, setProductTypes] = useState<Array<ProductType>>([]);
 
     const validationSchema = Yup.object().shape({
         title: Yup.string().required('Title is required'),
         description: Yup.string().required('Description is required'),
-        price: Yup.number().required('Price is required').min(0, 'Price must be a positive number'),
-        quantity: Yup.number().required('Quantity is required').min(0, 'Quantity must be a positive number'),
+        price: Yup.number()
+            .required('Price is required')
+            .moreThan(0, 'Price must be greater than 0')
+            .typeError('Price must be a number'),
+        quantity: Yup.number()
+            .required('Quantity is required')
+            .min(0, 'Quantity must be a positive number')
+            .typeError('Quantity must be a number'),
         brand: Yup.object().shape({
             id: Yup.number().required('Brand is required'),
         }),
         productType: Yup.object().shape({
             id: Yup.number().required('Type is required'),
         }),
-        productionYear: Yup.number().required('Production year is required').min(1900, 'Year must be after 1900').max(new Date().getFullYear(), `Year must be before ${new Date().getFullYear() + 1}`),
+        productionYear: Yup.number()
+            .required('Production year is required')
+            .min(1900, 'Year must be after 2015')
+            .max(new Date().getFullYear(), `Year must be before ${new Date().getFullYear() + 1}`)
+            .typeError('Production year must be a number'),
         image: Yup.mixed().required('Image is required'),
     });
 
+    useEffect(() => {
+        fetchBrands();
+        fetchTypes();
+    }, []);
+
+    const fetchBrands = async () => {
+        const response = await BrandService.fetchAllBrands();
+        setBrands(response.data);
+    };
+
+    const fetchTypes = async () => {
+        const response = await ProductTypeService.fetchAllProductTypes();
+        setProductTypes(response.data);
+    };
+
     const handleSubmit = async (values: Product, { setSubmitting, resetForm }: any) => {
         try {
+            console.log(values)
             await ItemService.addItem(values);
             fetchProducts(); // Trigger re-fetching products in ProductTable
             resetForm(); // Reset Formik form
@@ -46,7 +74,6 @@ const ProductForm: React.FC<ProductFormProps> = ({ form, brands, productTypes, h
             setSubmitting(false);
         }
     };
-
     const handleDelete = async (id: number) => {
         try {
             await ItemService.removeItem(id);
@@ -60,8 +87,17 @@ const ProductForm: React.FC<ProductFormProps> = ({ form, brands, productTypes, h
     const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>, setFieldValue: any) => {
         const file = event.currentTarget.files?.[0];
         if (file) {
-            setFieldValue("image", file);
-            setPreviewUrl(URL.createObjectURL(file));
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                if (reader.result) {
+                    const arrayBuffer = reader.result as ArrayBuffer;
+                    const bytes = new Uint8Array(arrayBuffer);
+                    setFieldValue('image', bytes);  // Update the Formik state with the byte array
+                    console.log(bytes)
+                    setPreviewUrl(URL.createObjectURL(file));  // Update the preview URL for display
+                }
+            };
+            reader.readAsArrayBuffer(file);
         }
     };
 
@@ -71,14 +107,15 @@ const ProductForm: React.FC<ProductFormProps> = ({ form, brands, productTypes, h
                 <FormikForm className={`${style.product_form} form`} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
                     <div className="mb-3">
                         <img
+                            className={style.product_image}
                             src={previewUrl || image_placeholder}
                             alt="Product"
                             style={{ maxWidth: "100%", height: "auto" }}
                         />
                     </div>
                     <div>
-                        <BootstrapForm.Group controlId="formFile" className="mb-3">
-                            <BootstrapForm.Label>Product Image</BootstrapForm.Label>
+                        <BootstrapForm.Group controlId="formFile" className="file_input">
+                            <BootstrapForm.Label className="u-pb1" >Select Image</BootstrapForm.Label>
                             <BootstrapForm.Control
                                 type="file"
                                 onChange={(event) => handleImageChange(event as React.ChangeEvent<HTMLInputElement>, setFieldValue)}
@@ -125,7 +162,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ form, brands, productTypes, h
                     <div>
                         <FloatingLabel label="Price">
                             <BootstrapForm.Control
-                                type="number"
+                                type="text"
                                 name="price"
                                 placeholder="Price"
                                 onChange={handleChange}
@@ -141,7 +178,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ form, brands, productTypes, h
                     <div>
                         <FloatingLabel label="Quantity">
                             <BootstrapForm.Control
-                                type="number"
+                                type="text"
                                 name="quantity"
                                 placeholder="Quantity"
                                 onChange={handleChange}
@@ -163,7 +200,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ form, brands, productTypes, h
                                 isInvalid={touched.brand?.id && !!errors.brand?.id}
                                 isValid={touched.brand?.id && !errors.brand?.id}
                             >
-                                <option value="">Select a brand</option>
+                                <option value="" disabled>Select a brand</option>
                                 {brands.map((brand) => (
                                     <option key={brand.id} value={brand.id}>{brand.title}</option>
                                 ))}
@@ -182,7 +219,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ form, brands, productTypes, h
                                 isInvalid={touched.productType?.id && !!errors.productType?.id}
                                 isValid={touched.productType?.id && !errors.productType?.id}
                             >
-                                <option value="">Select a type</option>
+                                <option value="" disabled>Select a type</option>
                                 {productTypes.map((type) => (
                                     <option key={type.id} value={type.id}>{type.title}</option>
                                 ))}
@@ -195,7 +232,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ form, brands, productTypes, h
                     <div>
                         <FloatingLabel label="Production Year">
                             <BootstrapForm.Control
-                                type="number"
+                                type="text"
                                 name="productionYear"
                                 placeholder="Production Year"
                                 onChange={handleChange}
@@ -208,15 +245,17 @@ const ProductForm: React.FC<ProductFormProps> = ({ form, brands, productTypes, h
                             </BootstrapForm.Control.Feedback>
                         </FloatingLabel>
                     </div>
-                    <Button type="submit" className={style.product_button} disabled={isSubmitting}>
-                        {form.id ? 'Update Product' : 'Add Product'}
+                    <div className={style.button_container}>
+                    <Button type="submit" className={`${style.action_button} button_complementary u-pb1`} disabled={isSubmitting}>
+                        {form.id ? 'Save' : 'Add'}
                     </Button>
                     {form.id && (
                         <Button type="button" onClick={() => handleDelete(form.id)}
-                        disabled={isSubmitting} className={style.product_button}>
-                        Delete
-                    </Button>
-                )}
+                            disabled={isSubmitting} className={`${style.action_button} button_complementary u-pb1`}>
+                            Delete
+                        </Button>
+                    )}
+                    </div>
             </FormikForm>
         )}
     </Formik>

@@ -41,6 +41,7 @@ const ProductDetail: React.FC= () => {
                 ItemService.fetchById(Number(productId)).then((response) => {
                     setProduct(response.data);
                 });
+                console.log(product);
                 ItemService.fetchRandomProducts(8).then((response) => {
                     setRelatedProducts(response.data);
                 });

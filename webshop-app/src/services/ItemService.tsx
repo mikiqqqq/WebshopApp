@@ -4,13 +4,22 @@ import { FilterOptions, Product } from "../components/MainContainerData";
 const ITEMS_API_BASE_URL = "http://localhost:8080/api/items";
 
 class ItemService {
-
     addItem(product: Product) {
-        return axios.get(ITEMS_API_BASE_URL + '/save' + product);
+        const token = localStorage.getItem('token');
+        return axios.post(ITEMS_API_BASE_URL + '/admin/add', product, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
     }
 
     removeItem(id: number) {
-        return axios.get(ITEMS_API_BASE_URL + '/remove/' + id);
+        const token = localStorage.getItem('token');
+        return axios.delete(ITEMS_API_BASE_URL + 'admin/remove/' + id, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
     }
 
     fetchAllItems(){

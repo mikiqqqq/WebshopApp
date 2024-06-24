@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import BrandService from '../../../../services/BrandService';
-import ProductTypeService from '../../../../services/ProductTypeService';
-import { Product, BrandType, ProductType } from '../../../MainContainerData';
+import React, { useState, useCallback } from 'react';
+import { Product } from '../../../MainContainerData';
 import style from './Admin.module.css';
 import ProductForm from './product_form/ProductForm';
 import ProductTable from './product_table/ProductTable';
+import { Button } from 'react-bootstrap';
 
 const Admin: React.FC = () => {
     const [form, setForm] = useState<Product>({
@@ -13,39 +12,24 @@ const Admin: React.FC = () => {
         description: '',
         price: 0,
         quantity: 0,
-        brand: { id: 0, title: '' }, // Updated to include Brand object
-        productType: { id: 0, title: '' }, // Updated to include ProductType object
+        brand: { id: 0, title: '' },
+        productType: { id: 0, title: '' },
         image: null,
         productionYear: 0,
         imageUrl: undefined
     });
-    const [brands, setBrands] = useState<Array<BrandType>>([]);
-    const [productTypes, setProductTypes] = useState<Array<ProductType>>([]);
-    const [reload, setReload] = useState<boolean>(false); // State to trigger re-fetching products
+    const [reload, setReload] = useState<boolean>(false);
+    const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
-    console.log("Rerendering admin")
+    console.log('Rerendering admin');
 
-    useEffect(() => {
-        fetchBrands();
-        fetchTypes();
+    const fetchProducts = useCallback(() => {
+        setReload((prevState) => !prevState);
     }, []);
-
-    const fetchBrands = async () => {
-        const response = await BrandService.fetchAllBrands();
-        setBrands(response.data);
-    };
-
-    const fetchTypes = async () => {
-        const response = await ProductTypeService.fetchAllProductTypes();
-        setProductTypes(response.data);
-    };
-
-    const fetchProducts = () => {
-        setReload(prevState => !prevState); // Toggle the reload state to trigger fetching products in ProductTable
-    };
 
     const handleEdit = useCallback((product: Product) => {
         setForm(product);
+        setSelectedProduct(product);
     }, []);
 
     const handleResetForm = useCallback(() => {
@@ -55,28 +39,39 @@ const Admin: React.FC = () => {
             description: '',
             price: 0,
             quantity: 0,
-            brand: { id: 0, title: '' }, // Reset to default Brand object
-            productType: { id: 0, title: '' }, // Reset to default ProductType object
+            brand: { id: 0, title: '' },
+            productType: { id: 0, title: '' },
             image: null,
             productionYear: 0,
             imageUrl: undefined
         });
     }, []);
 
+    const handleEditClick = useCallback(() => {
+        if (selectedProduct) {
+            handleEdit(selectedProduct);
+        }
+    }, [selectedProduct, handleEdit]);
+
     return (
-        <div className={style.admin_panel}>
-            <h1>Admin Panel</h1>
-            <div className={style.buttons_container}>
-                <button onClick={handleResetForm} className={style.admin_button}>Add New</button>
-            </div>
+        <div className={style.panel}>
             <ProductForm
                 form={form}
-                brands={brands}
-                productTypes={productTypes}
                 handleResetForm={handleResetForm}
                 fetchProducts={fetchProducts}
             />
-            <ProductTable handleEdit={handleEdit} reload={reload} />
+            <div className={style.product_table}>
+                <div className={`${style.heading} u-l1`}>Admin Panel</div>
+                <div className={style.buttons_container}>
+                    <Button onClick={handleResetForm} className={`${style.action_button} button_complementary u-pb1`}>
+                        Add New
+                    </Button>
+                    <Button onClick={handleEditClick} className={`${style.action_button} button_complementary u-pb1`}>
+                        Edit Selected
+                    </Button>
+                </div>
+                <ProductTable handleEdit={handleEdit} reload={reload} />
+            </div>
         </div>
     );
 };

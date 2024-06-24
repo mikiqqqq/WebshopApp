@@ -77,11 +77,13 @@
   font-size: 1.1rem;
 }
 
+.u-pb1 th,
 .u-pb1 p,
 .u-pb1 {
   font-size: 1.1rem !important;
 }
 
+.u-pb1 th,
 .u-pb1 p,
 .u-pb1,
 .u-l1,
@@ -143,7 +145,7 @@ body:hover {
 
 .form .form-floating > input {
   padding-bottom: .75rem;
-  height: 48px;
+  height: 52px;
   font-size: 1rem;
   color: var(--base-font-color);
   background-color: transparent;
@@ -159,15 +161,35 @@ body:hover {
   min-height: 1.125rem;
 }
 
+.form input,
+.form .form-floating > select,
+.form .form-floating > textarea,
 .form .form-floating > input {
   padding-bottom: .75rem;
-  height: 48px;
+  height: 52px;
   font-size: 1rem;
   color: var(--base-font-color);
   background-color: transparent;
   box-shadow: none;
   outline: none;
   border-color: var(--base-color);
+}
+
+.form .form-floating > select {
+  padding: 1rem .75rem 0 .75rem;
+}
+
+.form .form-floating > select option {
+  background-color: var(--background); 
+  color: var(--base-color);
+}
+
+.form .form-floating > select option:disabled {
+  color: var(--complementary-color);
+}
+
+.form .form-floating > textarea {
+  height: 150px;
 }
 
 .form .form-floating > label {
@@ -185,6 +207,46 @@ body:hover {
   transform: scale(.7) translateY(-.5rem) translateX(.15rem);
 }
 
+.form .form-select {
+  background-image: url("data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27%3e%3cpath fill=%27none%27 stroke='%2300ced1' stroke-linecap=%27round%27 stroke-linejoin=%27round%27 stroke-width=%272%27 d=%27m2 5 6 6 6-6%27/%3e%3c/svg%3e");
+}
+
+.file_input {
+  position: relative;
+}
+
+.form input[type="file"] {
+  position: absolute;
+  padding: .75rem .6rem .76rem .6rem;
+  left: 0;
+  top: 0;
+  padding-left: 3.7rem;
+  background-color: transparent;
+  border: 1px solid var(--base-color);
+  color: var(--base-font-color);
+}
+
+.form .file_input label {
+  position: relative;
+  display: inline-block;
+  height: 52px;
+  padding: .7rem 1rem;
+  background: var(--base-hover);
+  border: 1px solid var(--base-color);
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 5px;
+  z-index: 2;
+  cursor: pointer;
+  color: var(--base-font-color);
+}
+
+.form .form-select.is-valid:not([multiple]):not([size]), 
+.form .form-select.is-valid:not([multiple])[size="1"], .was-validated 
+.form .form-select:valid:not([multiple]):not([size]), 
+.form .was-validated .form-select:valid:not([multiple])[size="1"] {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%2300ced1' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e"),url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%2300ced1' d='M2.3 6.73.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
+}
+
 .form .form-control.is-valid, 
 .form .was-validated .form-control:valid {
   border-color: var(--base-color) !important;
@@ -195,6 +257,9 @@ body:hover {
 ======== USER ACCESSABILITY ========
 */
 
+.form .file_input input:focus,
+.form .form-floating > textarea:focus,
+.form .form-floating > select:focus,
 .form .form-floating > input:focus {
   box-shadow: 0 0 0 0.25rem rgba(0, 206, 209, 0.25);
 }
@@ -215,6 +280,7 @@ button:focus {
   outline-offset: 0;
 }
 
+tr:focus,
 body:not(:has(.user-is-tabbing)) :focus {
   box-shadow: none !important;
   outline: none !important;
