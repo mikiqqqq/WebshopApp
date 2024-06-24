@@ -15,7 +15,7 @@ class ItemService {
 
     removeItem(id: number) {
         const token = localStorage.getItem('token');
-        return axios.delete(ITEMS_API_BASE_URL + 'admin/remove/' + id, {
+        return axios.delete(ITEMS_API_BASE_URL + '/admin/remove/' + id, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

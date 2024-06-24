@@ -162,6 +162,7 @@ body:hover {
 }
 
 .form input,
+.form .form-floating > select:focus,
 .form .form-floating > select,
 .form .form-floating > textarea,
 .form .form-floating > input {
@@ -175,6 +176,7 @@ body:hover {
   border-color: var(--base-color);
 }
 
+.form .form-floating > select:focus,
 .form .form-floating > select {
   padding: 1rem .75rem 0 .75rem;
 }
