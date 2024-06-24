@@ -14,13 +14,16 @@ import javax.persistence.*;
 @Table(name = "ORDER_ITEMS")
 public class OrderItem {
     @Id
-    @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @Column(name = "QUANTITY")
+    private Integer quantity;
 
     @Column(name = "ORDER_ID")
     private Integer orderId;
 
-    @Column(name = "ITEM_ID")
-    private Integer itemId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "ITEM_ID")
+    private Item item;
 }

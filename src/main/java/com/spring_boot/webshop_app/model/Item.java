@@ -24,7 +24,7 @@ public class Item {
     private byte[] image;
 
     @Column(name = "TITLE")
-    private String name;
+    private String title;
 
     @Column(name = "DESCRIPTION")
     private String description;
@@ -35,11 +35,13 @@ public class Item {
     @Column(name = "QUANTITY")
     private Integer quantity;
 
-    @Column(name = "BRAND_ID")
-    private Integer brandId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "BRAND_ID", insertable = false, updatable = false)
+    private Brand brand;
 
-    @Column(name = "TYPE_ID")
-    private Integer productTypeId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "TYPE_ID", insertable = false, updatable = false)
+    private ProductType productType;
 
     @Column(name = "PRODUCTION_YEAR")
     private Integer productionYear;

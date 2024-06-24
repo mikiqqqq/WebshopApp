@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 public class ItemDtoMapper {
 
     public ItemDto map(Item item) {
-
         if (item == null) {
             return null;
         }
@@ -16,12 +15,12 @@ public class ItemDtoMapper {
         return ItemDto.builder()
                 .id(item.getId())
                 .image(item.getImage())
-                .name(item.getName())
+                .title(item.getTitle())
                 .description(item.getDescription())
                 .price(item.getPrice())
-                .amount(item.getQuantity())
-                .brandId(item.getBrandId())
-                .productTypeId(item.getProductTypeId())
+                .quantity(item.getQuantity())
+                .brand(item.getBrand()) // Map Brand object
+                .productType(item.getProductType()) // Map ProductType object
                 .productionYear(item.getProductionYear())
                 .build();
     }
