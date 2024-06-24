@@ -13,8 +13,8 @@ const Admin: React.FC = () => {
         description: '',
         price: 0,
         quantity: 0,
-        brandId: 0,
-        typeId: 0,
+        brand: { id: 0, title: '' }, // Updated to include Brand object
+        productType: { id: 0, title: '' }, // Updated to include ProductType object
         image: null,
         productionYear: 0,
         imageUrl: undefined
@@ -55,8 +55,8 @@ const Admin: React.FC = () => {
             description: '',
             price: 0,
             quantity: 0,
-            brandId: 0,
-            typeId: 0,
+            brand: { id: 0, title: '' }, // Reset to default Brand object
+            productType: { id: 0, title: '' }, // Reset to default ProductType object
             image: null,
             productionYear: 0,
             imageUrl: undefined

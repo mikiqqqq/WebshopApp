@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { AddProduct, Product } from "./MainContainerData";
+import { Product } from "./MainContainerData";
 import style from "./MainContainer.module.css";
 import FixedSidebar from "./fixed_sidebar/FixedSidebar";
 import Items from "./item_container/Items";
@@ -9,11 +9,7 @@ import { useSearchParams } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFaceSadTear, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 
-interface Props {
-  addItemToCart: (item: AddProduct) => void;
-}
-
-const MainContainer: React.FC<Props> = ({ addItemToCart }) => {
+const MainContainer: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [items, setItems] = useState<Array<Product>>([]);
   const [filterOptions, setFilterOptions] = useState<FilterOptions>({
@@ -68,9 +64,6 @@ const MainContainer: React.FC<Props> = ({ addItemToCart }) => {
     });
   };
 
-
-  console.log(items)
-
   const handlePriceFilterOptions = (newFilterOptions: FilterOptions) => {
     setFilterOptions(newFilterOptions);
   };
@@ -116,7 +109,7 @@ const MainContainer: React.FC<Props> = ({ addItemToCart }) => {
         </div>
       )}
 
-      {!error && items.length > 0 && <Items addItemToCart={addItemToCart} data={items} />}
+      {!error && items.length > 0 && <Items data={items} />}
     </main>
   );
 };

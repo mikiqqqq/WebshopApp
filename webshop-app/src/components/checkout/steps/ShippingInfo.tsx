@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Row, Col, FloatingLabel, InputGroup, Button } from "react-bootstrap";
 import style from './ShippingInfo.module.css';
 import { Formik } from "formik";
@@ -12,7 +12,6 @@ interface Props {
 
 const ShippingInfo: React.FunctionComponent<Props> = props => {
     const [country, setCountry] = useState<number>(0);
-    const countryRef = useRef<HTMLSelectElement | null | undefined>();
     const [validated, setValidated] = useState(false);
 
     useEffect(() => {
@@ -64,7 +63,7 @@ const ShippingInfo: React.FunctionComponent<Props> = props => {
                 <Formik
                     validationSchema={validationSchema}
                     onSubmit={(values, { setSubmitting }) => {
-                        if(country == 0) {
+                        if(country === 0) {
                             setSubmitting(false);
                             return; 
                         }
@@ -224,7 +223,7 @@ const ShippingInfo: React.FunctionComponent<Props> = props => {
                                         return <option key={country.code} value={country.code}>{country.name}</option>
                                     })}
                                 </Form.Select>
-                                    <Form.Control.Feedback type="invalid" style={{ display: country == 0 && touched.city ? "block" : "none" }}>
+                                    <Form.Control.Feedback type="invalid" style={{ display: country === 0 && touched.city ? "block" : "none" }}>
                                         *Country is required
                                     </Form.Control.Feedback>
                                 </Form.Group>

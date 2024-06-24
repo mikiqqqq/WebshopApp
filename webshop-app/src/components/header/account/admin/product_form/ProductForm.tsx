@@ -5,7 +5,7 @@ import { Product, BrandType, ProductType } from '../../../../MainContainerData';
 import ItemService from '../../../../../services/ItemService';
 import style from './ProductForm.module.css';
 import { Button, FloatingLabel, Form as BootstrapForm } from 'react-bootstrap';
-import image_placeholder from '../../../../../images/image_placeholder.gif'
+import image_placeholder from '../../../../../images/image_placeholder.gif';
 
 interface ProductFormProps {
     form: Product;
@@ -24,10 +24,14 @@ const ProductForm: React.FC<ProductFormProps> = ({ form, brands, productTypes, h
         description: Yup.string().required('Description is required'),
         price: Yup.number().required('Price is required').min(0, 'Price must be a positive number'),
         quantity: Yup.number().required('Quantity is required').min(0, 'Quantity must be a positive number'),
-        brandId: Yup.number().required('Brand is required'),
-        typeId: Yup.number().required('Type is required'),
+        brand: Yup.object().shape({
+            id: Yup.number().required('Brand is required'),
+        }),
+        productType: Yup.object().shape({
+            id: Yup.number().required('Type is required'),
+        }),
         productionYear: Yup.number().required('Production year is required').min(1900, 'Year must be after 1900').max(new Date().getFullYear(), `Year must be before ${new Date().getFullYear() + 1}`),
-        image: Yup.mixed().required('Image is required')
+        image: Yup.mixed().required('Image is required'),
     });
 
     const handleSubmit = async (values: Product, { setSubmitting, resetForm }: any) => {
@@ -153,38 +157,38 @@ const ProductForm: React.FC<ProductFormProps> = ({ form, brands, productTypes, h
                     <div>
                         <FloatingLabel label="Brand">
                             <BootstrapForm.Select
-                                name="brandId"
-                                onChange={handleChange}
-                                value={values.brandId}
-                                isInvalid={touched.brandId && !!errors.brandId}
-                                isValid={touched.brandId && !errors.brandId}
+                                name="brand.id"
+                                onChange={(e) => setFieldValue('brand', brands.find(brand => brand.id === Number(e.target.value)))}
+                                value={values.brand.id}
+                                isInvalid={touched.brand?.id && !!errors.brand?.id}
+                                isValid={touched.brand?.id && !errors.brand?.id}
                             >
                                 <option value="">Select a brand</option>
                                 {brands.map((brand) => (
-                                    <option key={brand.id} value={brand.id}>{brand.name}</option>
+                                    <option key={brand.id} value={brand.id}>{brand.title}</option>
                                 ))}
                             </BootstrapForm.Select>
-                            <BootstrapForm.Control.Feedback type="invalid" style={{ visibility: !!errors.brandId && touched.brandId ? "visible" : "hidden" }}>
-                                {errors.brandId}
+                            <BootstrapForm.Control.Feedback type="invalid" style={{ visibility: !!errors.brand?.id && touched.brand?.id ? "visible" : "hidden" }}>
+                                {errors.brand?.id}
                             </BootstrapForm.Control.Feedback>
                         </FloatingLabel>
                     </div>
                     <div>
                         <FloatingLabel label="Type">
                             <BootstrapForm.Select
-                                name="typeId"
-                                onChange={handleChange}
-                                value={values.typeId}
-                                isInvalid={touched.typeId && !!errors.typeId}
-                                isValid={touched.typeId && !errors.typeId}
+                                name="productType.id"
+                                onChange={(e) => setFieldValue('productType', productTypes.find(type => type.id === Number(e.target.value)))}
+                                value={values.productType.id}
+                                isInvalid={touched.productType?.id && !!errors.productType?.id}
+                                isValid={touched.productType?.id && !errors.productType?.id}
                             >
                                 <option value="">Select a type</option>
                                 {productTypes.map((type) => (
-                                    <option key={type.id} value={type.id}>{type.name}</option>
+                                    <option key={type.id} value={type.id}>{type.title}</option>
                                 ))}
                             </BootstrapForm.Select>
-                            <BootstrapForm.Control.Feedback type="invalid" style={{ visibility: !!errors.typeId && touched.typeId ? "visible" : "hidden" }}>
-                                {errors.typeId}
+                            <BootstrapForm.Control.Feedback type="invalid" style={{ visibility: !!errors.productType?.id && touched.productType?.id ? "visible" : "hidden" }}>
+                                {errors.productType?.id}
                             </BootstrapForm.Control.Feedback>
                         </FloatingLabel>
                     </div>
@@ -208,14 +212,15 @@ const ProductForm: React.FC<ProductFormProps> = ({ form, brands, productTypes, h
                         {form.id ? 'Update Product' : 'Add Product'}
                     </Button>
                     {form.id && (
-                        <Button type="button" onClick={() => handleDelete(form.id)} disabled={isSubmitting} className={style.product_button}>
-                            Delete
-                        </Button>
-                    )}
-                </FormikForm>
-            )}
-        </Formik>
-    );
+                        <Button type="button" onClick={() => handleDelete(form.id)}
+                        disabled={isSubmitting} className={style.product_button}>
+                        Delete
+                    </Button>
+                )}
+            </FormikForm>
+        )}
+    </Formik>
+);
 };
 
 export default ProductForm;

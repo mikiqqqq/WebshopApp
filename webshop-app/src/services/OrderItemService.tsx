@@ -1,15 +1,15 @@
 import axios from 'axios';
-import { OrderItemType } from '../components/MainContainerData';
+import { OrderItemType, Product } from '../components/MainContainerData';
 
 const ORDER_ITEM_API_BASE_URL = "http://localhost:8080/api/order-item";
 
 class OrderItemService {
 
-    addOrderItem(quantity: number, ordId: number, itId: number){
+    addOrderItem(quantity: number, ordId: number, product: Product){
         return axios.post(ORDER_ITEM_API_BASE_URL + '/add', {
             quantity: quantity,
             orderId: ordId,
-            itemId: itId
+            item: product
         });
     }
 

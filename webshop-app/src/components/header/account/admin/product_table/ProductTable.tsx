@@ -11,11 +11,13 @@ interface ProductTableProps {
 const ProductTable: React.FC<ProductTableProps> = React.memo(({ handleEdit, reload }) => {
     const [products, setProducts] = useState<Product[]>([]);
     const [selectedProductId, setSelectedProductId] = useState<number | null>(null);
-console.log("Rerendering table!")
+
+    console.log("Rerendering table!");
+
     const fetchProducts = useCallback(async () => {
         const response = await ItemService.fetchAllItems();
         setProducts(response.data);
-        console.log("fetching products!")
+        console.log("fetching products!");
 
         if (response.data.length > 0) {
             setSelectedProductId(response.data[0].id);
@@ -55,10 +57,10 @@ console.log("Rerendering table!")
                         >
                             <td>{product.id}</td>
                             <td>{product.title}</td>
-                            <td>{product.price}</td>
+                            <td>${product.price}</td>
                             <td>{product.quantity}</td>
-                            <td>{product.brandId}</td>
-                            <td>{product.typeId}</td>
+                            <td>{product.brand.title}</td>
+                            <td>{product.productType.title}</td>
                             <td>{product.productionYear}</td>
                         </tr>
                     ))}

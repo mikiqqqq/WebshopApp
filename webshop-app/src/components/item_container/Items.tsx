@@ -5,14 +5,13 @@ import Item from './item/Item';
 
 interface Props {
   data: Product[];
-  addItemToCart: (item: AddProduct) => void;
 }
 
-const Items: React.FC<Props> = ({ data, addItemToCart }) => {
+const Items: React.FC<Props> = ({ data }) => {
   return (
     <div className={style.items_container}>
       {data.map(item => (
-        <Item key={item.id} item={item} addItemToCart={addItemToCart} />
+        <Item key={item.id} item={item} />
       ))}
     </div>
   );
