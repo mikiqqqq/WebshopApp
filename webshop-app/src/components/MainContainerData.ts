@@ -15,7 +15,7 @@ export interface OrderItemType {
     id: number,
     quantity: number,
     orderId: number;
-    productId: number;
+    itemId: number;
 }
 
 export interface AddProduct {

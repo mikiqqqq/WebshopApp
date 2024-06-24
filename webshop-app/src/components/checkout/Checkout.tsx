@@ -21,7 +21,6 @@ interface ExtendedOrderItemType extends OrderItemType {
 }
 
 const Checkout: React.FunctionComponent<Props> = props => {
-    let totalPrice: number = 0;
     let discountCode: DiscountCode;
     let dayOfDeliveryStart = new Date(new Date().setDate(new Date().getDate() + 15));
     let dayOfDeliveryEnd = new Date(new Date().setDate(new Date().getDate() + 18));
@@ -119,6 +118,15 @@ const Checkout: React.FunctionComponent<Props> = props => {
         }
     }
 
+    const handlePriceChange = (id: number, newTotalPrice: number) => {
+        const updatedOrderItems = orderItems.map(item =>
+            item.id === id ? { ...item, totalPrice: newTotalPrice } : item
+        );
+        setOrderItems(updatedOrderItems);
+        const newTotalPriceSum = updatedOrderItems.reduce((acc, item) => acc + item.totalPrice, 0);
+        setTotalPrice(newTotalPriceSum);
+    };
+
     useEffect(() => {
         if (appliedDiscountCode?.active) {
             setTotalPriceState(totalPriceState * (1 - appliedDiscountCode.discountAmount));
@@ -128,11 +136,6 @@ const Checkout: React.FunctionComponent<Props> = props => {
     }, [appliedDiscountCode])
 
     useEffect(() => {
-        totalPrice = 0;
-        props.orderItems?.map(item => {
-            totalPrice += item.quantity * item.price;
-        });
-
         if (appliedDiscountCode !== undefined) {
             setDiscountAmount((totalPrice * appliedDiscountCode.discountAmount).toFixed(2));
             setTotalPriceState(totalPrice * (1 - appliedDiscountCode.discountAmount));
@@ -141,7 +144,7 @@ const Checkout: React.FunctionComponent<Props> = props => {
         setOriginalTotal(totalPrice);
         setSubtotal(totalPrice * .95);
         setTotalPriceState(totalPrice);
-    }, [props.orderItems])
+    }, [orderItems])
 
     useEffect(() => {
         if(allFormsValidated){
@@ -209,14 +212,18 @@ const Checkout: React.FunctionComponent<Props> = props => {
                         <h3>Order Review</h3>
                     </div>
 
-                    {props.orderItems.length == 0 &&
+                    {orderItems.length == 0 &&
                         <div className={style.empty_order}>
                             <h4>No order items yet...</h4>
                         </div>
                     }
-                    {props.orderItems?.map(item => {
-                        return <OrderItem key={item.id} orderItem={item}
-                            removeOrderItemAll={props.removeOrderItemAll} addOrRemoveOrderItem={props.addOrRemoveOrderItem} />;
+                    {orderItems?.map(item => {
+                        return <OrderItem 
+                            key={item.id}
+                            orderItem={item}
+                            onPriceChange={handlePriceChange} onRemove={function (id: number): void {
+                                throw new Error("Function not implemented.");
+                            } }                    />;
                     })}
                 </div>
             </div>
@@ -254,7 +261,7 @@ const Checkout: React.FunctionComponent<Props> = props => {
 
                     <Alert show={showAlert} variant="info">
                         <Alert.Heading>Can't place order yet!</Alert.Heading>
-                        {props.orderItems.length > 0 ?
+                        {orderItems.length > 0 ?
                         <p>
                         Please fill out all the necessary information in Shipping Information and Payment Method forms.
                         </p>

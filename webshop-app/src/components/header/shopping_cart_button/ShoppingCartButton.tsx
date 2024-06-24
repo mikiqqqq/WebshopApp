@@ -86,21 +86,7 @@ const ShoppingCartButton: React.FunctionComponent = () => {
               </span>
 
               <div className={style.cart_item_container}>
-                {orderItems.map(item => {
-                  totalPrice += item.quantity * item.price;
-                  return (
-                    <div className={style.cart_item} key={item.id}>
-                      <h5>{item.title.length > 23 ? item.title.slice(0, 22).concat('...') : item.title}</h5>
-                      <div className={style.cart_item_body}>
-                        <img src={itemImg} alt={item.title} />
-                        <div>
-                          <p id={style.item_quantity}>{item.quantity}</p>
-                          <strong id={style.item_price}>${(item.quantity * item.price).toFixed(2)}</strong>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
+
               </div>
 
               <div className={activeOrder ? style.button_container : style.display_none}>
