@@ -25,7 +25,7 @@ public class ItemController {
         this.itemService = itemService;
     }
 
-    @PostMapping (value = "/add")
+    @PostMapping (value = "/admin/add")
     ResponseEntity<Item> save(@Valid @RequestBody Item item) {
         itemService.saveItem(item);
 
@@ -34,7 +34,7 @@ public class ItemController {
         );
     }
 
-    @DeleteMapping (value = "/remove/{itemId}")
+    @DeleteMapping (value = "/admin/remove/{itemId}")
     ResponseEntity<Item> delete(@PathVariable int itemId) {
         itemService.deleteItem(itemId);
 
