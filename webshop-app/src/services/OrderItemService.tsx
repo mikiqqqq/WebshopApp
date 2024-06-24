@@ -5,11 +5,11 @@ const ORDER_ITEM_API_BASE_URL = "http://localhost:8080/api/order-item";
 
 class OrderItemService {
 
-    addOrderItem(quantity: number, ordId: number, product: Product){
+    addOrderItem(quantity: number, ordId: number, itemId: number){
         return axios.post(ORDER_ITEM_API_BASE_URL + '/add', {
             quantity: quantity,
             orderId: ordId,
-            item: product
+            itemId: itemId
         });
     }
 

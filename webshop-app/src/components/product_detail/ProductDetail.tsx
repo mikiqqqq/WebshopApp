@@ -26,9 +26,9 @@ const ProductDetail: React.FC= () => {
           const response = await OrderService.createOrder();
           const activeOrderId = Number(response.data);
           setLocalStateActiveOrder(activeOrderId);
-          await OrderItemService.addOrderItem(quantity, activeOrderId, product);
+          await OrderItemService.addOrderItem(quantity, activeOrderId, product.id);
         } else {
-          await OrderItemService.addOrderItem(quantity, orderId, product);
+          await OrderItemService.addOrderItem(quantity, orderId, product.id);
         }
       };
 

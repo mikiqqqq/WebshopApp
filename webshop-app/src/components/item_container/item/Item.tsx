@@ -30,9 +30,9 @@ const Item: React.FC<Props> = ({ item }) => {
         const response = await OrderService.createOrder();
         const activeOrderId = Number(response.data);
         setLocalStateActiveOrder(activeOrderId);
-        await OrderItemService.addOrderItem(quantity, activeOrderId, item);
+        await OrderItemService.addOrderItem(quantity, activeOrderId, item.id);
       } else {
-        await OrderItemService.addOrderItem(quantity, orderId, item);
+        await OrderItemService.addOrderItem(quantity, orderId, item.id);
       }
     };
 
