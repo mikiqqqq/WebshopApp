@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import style from './Item.module.css';
 import itemImg from '../../../images/item.jpg';
 import { Product } from "../../MainContainerData";
@@ -24,6 +24,7 @@ const Item: React.FC<Props> = ({ item }) => {
   const [show, setShow] = useState(false);
   const target = useRef(null);
   const activeOrder = Number(localStorage.getItem('activeOrder'));
+  const productSlug = item.title.toLowerCase().replace(/\s+/g, '-') + '-' + item.id;
 
   const addToCart = async (quantity: number, orderId: number, product: Product) => {
       if (!activeOrder) {
@@ -45,16 +46,19 @@ const Item: React.FC<Props> = ({ item }) => {
     }
   }, [show]);
 
-  const handleProductClick = () => {
-    const productSlug = item.title.toLowerCase().replace(/\s+/g, '-') + '-' + item.id;
-    navigate(`/products/${productSlug}`);
-  };
+
+  const truncateDescription = (description: string, maxLength = 50) => {
+    if (description.length > maxLength) {
+        return description.substring(0, maxLength) + '...';
+    }
+    return description;
+};
 
   return (
-      <div className={style.item_box} onClick={handleProductClick}>
+      <Link to={`/products/${productSlug}`} className={style.item_box}>
         <img className={style.image} src={itemImg} alt={item.title}></img>
         <h3 className={style.item_name}>{item.title}</h3>
-        <p className={style.item_description}>{item.description}</p>
+        <p className={style.item_description}>{truncateDescription(item.description)}</p>
         <p className={style.item_brand}>{item.brand.title}</p>
         <div className={style.hover_buttons}>
           <ItemQuantitySelector
@@ -80,7 +84,7 @@ const Item: React.FC<Props> = ({ item }) => {
           </Overlay>
         </div>
         <strong className={style.item_price}>${item.price.toFixed(2)}</strong>
-      </div>
+      </Link>
   );
 };
 

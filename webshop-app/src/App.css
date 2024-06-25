@@ -173,6 +173,7 @@
 
 .form .form-floating > select:focus,
 .form .form-floating > select {
+  cursor: pointer;
   padding: 1rem .75rem 0 .75rem;
 }
 

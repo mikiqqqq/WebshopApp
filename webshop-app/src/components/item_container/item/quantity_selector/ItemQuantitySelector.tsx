@@ -14,7 +14,9 @@ const ItemQuantitySelector: React.FunctionComponent<ItemQuantitySelectorProps> =
     onQuantityChange(quantity);
   }, [quantity, onQuantityChange]);
 
-  const increment = () => {
+  const increment = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
     if (quantity + 1 > maxQuantity) return;
 
     const newQuantity = quantity + 1;
@@ -27,7 +29,9 @@ const ItemQuantitySelector: React.FunctionComponent<ItemQuantitySelectorProps> =
     }
   };
 
-  const decrement = () => {
+  const decrement = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
     if (quantity - 1 > 0) {
       const newQuantity = quantity - 1;
       setQuantity(newQuantity);
@@ -36,14 +40,22 @@ const ItemQuantitySelector: React.FunctionComponent<ItemQuantitySelectorProps> =
   };
 
   return (
-    <div className={style.quantity_counter}>
-      <button className={`${style.quantity_button} ${style.quantity_button_decrement}`} onClick={decrement}>
-        <p>-</p>
-      </button>
-      <p className={style.quantity_display}>{quantity}{message}</p>
-      <button className={`${style.quantity_button} ${style.quantity_button_increment}`} onClick={increment}>
-        <p>+</p>
-      </button>
+    <div className={style.container}>
+      <div className={style.quantity_counter}>
+        <button
+          className={`${style.quantity_button} ${style.quantity_button_decrement}`}
+          onClick={decrement}
+        >
+          <p>-</p>
+        </button>
+        <p className={style.quantity_display}>{quantity}{message}</p>
+        <button
+          className={`${style.quantity_button} ${style.quantity_button_increment}`}
+          onClick={increment}
+        >
+          <p>+</p>
+        </button>
+      </div>
     </div>
   );
 }

@@ -55,21 +55,23 @@ const ProductDetail: React.FC= () => {
     const productImageURL = product.image ? product.image : image_placeholder;
 
     return (
-        <div className={style.product_detail}>
-            <div className={style.product_info}>
-                <img src={productImageURL} alt={product.title} />
-                <h1>{product.title}</h1>
-                <p>{product.description}</p>
-                <p>Price: ${product.price}</p>
-                <ItemQuantitySelector
-          maxQuantity={product.quantity}
-          onQuantityChange={setQuantity}
-        />
-                <button onClick={() => addToCart(
-                    quantity,
-                    activeOrder,
-                    product
-                )}>Add to Cart</button>
+        <div className={style.module}>
+            <div className={style.container}>
+                <img className={style.image} src={productImageURL} alt={product.title} />
+                <div>
+                    <h1>{product.title}</h1>
+                    <p>{product.description}</p>
+                    <p>Price: ${product.price}</p>
+                    <ItemQuantitySelector
+                        maxQuantity={product.quantity}
+                        onQuantityChange={setQuantity}
+                    />
+                    <button onClick={() => addToCart(
+                        quantity,
+                        activeOrder,
+                        product
+                    )}>Add to Cart</button>
+                </div>
             </div>
             <div className={style.related_products}>
                 <h2>Related Products</h2>

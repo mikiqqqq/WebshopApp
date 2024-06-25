@@ -4,13 +4,16 @@
 
 .item_box{
     box-sizing: border-box;
-    color: white;
-    height: 400px;
-    padding: 15px;
-    background-color: #2b2f38;
+    color: var(--base-font-color);
+    min-height: 420px;
+    padding: 1rem;
+    background-color: var(--background);
     position: relative;
-    box-shadow: 0 0px 10px 0 rgba(0, 0, 0, .7);
-    margin: 15px 0 0 15px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    border-radius: 1rem;
+    transition: background-color 0.3s ease-in-out;
+    text-decoration: none;
 }
 
 .item_box > img{
@@ -18,10 +21,8 @@
 }
 
 .item_name{
-    text-align: center;
     margin-top: 5px;
     color: var(--base-color);
-    font-size: 1.3em;
 }
 
 .item_description{
@@ -31,14 +32,14 @@
 
 .item_brand{
     position: absolute;
-    bottom: 50px;
-    color:skyblue;
+    bottom: 4rem;
+    color: var(--base-color);
 }
 
 .item_price{
     position: absolute;
     bottom: 25px;
-    color: palevioletred;
+    color: var(--complementary-color);
     letter-spacing: 1px;
 }
 
@@ -88,8 +89,7 @@
 }
 
 .item_box:hover{
-    transition: all 0.3s;
-    background-color: #474d5c;
+    background-color: var(--background-hover);
     box-shadow: 0 0 5px 5px rgba(0, 206, 209, 0.3);
 }
 
@@ -100,66 +100,6 @@
 
 .item_box:hover > .item_price{
     display: none;
-}
-
-.quantity_counter{
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.quantity_button{
-    position: absolute;
-    background-color: var(--base-color);
-    color: var(--background);
-    font-size: 1.3em;
-    font-weight: bolder;
-    width: 42px;
-    height: 32px;
-    border: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 20px;
-}
-
-.quantity_button > p{
-    margin-bottom: 2px;
-}
-
-.quantity_button:hover{
-    background-color: var(--base-hover);
-}
-
-.quantity_button:active{
-    background-color: var(--base-hover);
-    transform: scale(0.9);
-}
-
-.quantity_display{
-    text-align: center;
-    margin: 0%;
-    min-width: 155px;
-    height: 25px;
-    background-color: #2b2f38;
-    border-radius: 25px;
-}
-
-.quantity_button_decrement{
-    left: -2px;
-}
-
-.quantity_button_increment{
-    right: -2px;
-}
-
-.tooltip > div:first-child{
-    display: none;
-}
-
-.tooltip > div:last-child{
-    background-color: var(--complementary-hover);
 }
 
 @media screen and (min-width: 1530px) and (max-width: 1830px){

@@ -15,7 +15,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({ user }) => {
 
     const handleLogout = () => {
         UserService.logout();
-        navigate('/tech');
+        navigate('/');
     };
 
     return (
