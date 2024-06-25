@@ -67,6 +67,16 @@ const OrderItem: React.FunctionComponent<Props> = ({ orderItem, onPriceChange, o
           <Button className={`${style.remove_button} button_complementary rte u-pb1`} onClick={(e) => {e.preventDefault(); setShowAlert(true);}}>
             <FontAwesomeIcon icon={faClose} className={style.icon} />
           </Button>
+
+           <Alert ref={alertRef} tabIndex={-1}  show={showAlert} id={style.alert} variant="danger" onClick={(e) => e.preventDefault()}>
+              <Alert.Heading className={`u-h3`}>{product.title}</Alert.Heading>
+              <p>Are you sure you want to remove this item?</p>
+              <hr />
+              <div className="d-flex justify-content-end">
+                <Button className={`u-pb1`} onClick={() => removeOrderItem(orderItem.id)} variant="outline-danger">Yes</Button>
+                <Button className={`u-pb1`} id={style.cancel_button} onClick={() => setShowAlert(false)} variant="outline-danger">Cancel</Button>
+              </div>
+          </Alert>
         </div>
 
         <div>
@@ -78,16 +88,6 @@ const OrderItem: React.FunctionComponent<Props> = ({ orderItem, onPriceChange, o
             <QuantitySelector orderItem={orderItem} product={product} onPriceChange={onPriceChange} />
 
             <strong className={`u-p1`} id={style.item_price}>${(orderItem.quantity * product.price).toFixed(2)}</strong>
-
-            <Alert ref={alertRef} tabIndex={-1}  show={showAlert} id={style.alert} variant="danger" onClick={(e) => e.preventDefault()}>
-              <Alert.Heading className={`u-h3`}>{product.title}</Alert.Heading>
-              <p>Are you sure you want to remove this item?</p>
-              <hr />
-              <div className="d-flex justify-content-end">
-                <Button className={`u-pb1`} onClick={() => removeOrderItem(orderItem.id)} variant="outline-danger">Yes</Button>
-                <Button className={`u-pb1`} id={style.cancel_button} onClick={() => setShowAlert(false)} variant="outline-danger">Cancel</Button>
-              </div>
-            </Alert>
           </div>
         </div>
       </div>

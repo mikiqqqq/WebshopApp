@@ -60,6 +60,7 @@ button.remove_button {
     border-color: var(--complementary-hover);
     color: var(--complementary-hover);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    border-width: 2px;
 }
 
 #alert p {
@@ -75,7 +76,7 @@ button.remove_button {
     border-color: var(--complementary-color);
     color: var(--base-font-color);
     background-color: var(--complementary-color);
-    padding: 3px 10px;
+    padding: .25rem 1rem;
 }
 
 #alert button:focus,

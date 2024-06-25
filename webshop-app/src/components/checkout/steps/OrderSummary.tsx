@@ -77,6 +77,13 @@ const OrderSummary: React.FC<Props> = ({
         if (showAlert) {
             document.addEventListener("mousedown", handleClickOutside);
             document.addEventListener("focusin", handleFocusOutside);
+            const timer = setTimeout(() => {
+                setShowAlert(false);
+            }, 5000); // Close the alert after 5 seconds
+
+            return () => {
+                clearTimeout(timer);
+            };
         } else {
             document.removeEventListener("mousedown", handleClickOutside);
             document.removeEventListener("focusin", handleFocusOutside);
@@ -176,7 +183,7 @@ const OrderSummary: React.FC<Props> = ({
             <Alert tabIndex={-1} id={style.alert} ref={alertRef} show={showAlert} variant="info" onClose={() => setShowAlert(false)}>
                 <Alert.Heading className={`u-h3`}>Can't place order yet!</Alert.Heading>
                 <p>
-                    Please fill out all the necessary information in Shipping Information and Payment Method forms.
+                    Please fill out all the necessary information in shipping information and payment method forms.
                 </p>
                 <hr />
                 <div className="d-flex justify-content-end">

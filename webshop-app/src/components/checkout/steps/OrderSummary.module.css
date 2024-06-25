@@ -65,11 +65,13 @@ hr {
     z-index: 50;
     bottom: 70px;
     width: calc(100% - 2rem);
-    background-color: var(--background-hover);
+    background-color: var(--background);
     border-color: var(--complementary-hover);
     color: var(--complementary-hover);
     padding: 1rem;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    border-width: 2px;
+    border-radius: 1rem;
 }
 
 #alert p {
@@ -81,7 +83,7 @@ hr {
     border-color: var(--complementary-color);
     color: var(--base-font-color);
     background-color: var(--complementary-color);
-    padding: 3px 10px;
+    padding: .25rem 1rem;
 }
 
 #alert button:focus,
@@ -101,7 +103,7 @@ hr {
 
 @media screen and (min-width: 1025px) {
     #alert{
-        top: 95%;
+        top: 105%;
         bottom: unset;
         width: 100%;
         left: 0;
