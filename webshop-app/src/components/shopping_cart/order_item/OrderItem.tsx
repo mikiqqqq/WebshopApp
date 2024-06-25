@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useCallback, useEffect } from "react";
 import { OrderItemType } from "../../MainContainerData";
 import style from "./OrderItem.module.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -17,6 +17,7 @@ interface Props {
 
 const OrderItem: React.FunctionComponent<Props> = ({ orderItem, onPriceChange, onRemove }) => {
   const [showAlert, setShowAlert] = useState(false);
+  const alertRef = useRef<HTMLDivElement>(null);
   const productSlug = orderItem.item.title.toLowerCase().replace(/\s+/g, '-') + '-' + orderItem.item.id;
   const product = orderItem.item;
 
@@ -29,6 +30,24 @@ const OrderItem: React.FunctionComponent<Props> = ({ orderItem, onPriceChange, o
       console.error("Error removing order item:", error);
     }
   };
+
+  const handleClickOutside = useCallback((event: MouseEvent) => {
+    if (alertRef.current && !alertRef.current.contains(event.target as Node)) {
+      setShowAlert(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (showAlert) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [showAlert, handleClickOutside]);
 
   return (
     <Link to={`/products/${productSlug}`} className={`${style.cart_item} cart-item`} key={orderItem.id}>
@@ -45,7 +64,7 @@ const OrderItem: React.FunctionComponent<Props> = ({ orderItem, onPriceChange, o
           <div className={`${style.actions} custom-display`}>
             <QuantitySelector orderItem={orderItem} product={product} onPriceChange={onPriceChange} />
             
-            <Alert show={showAlert} id={style.alert} variant="danger" onClick={(e) => e.preventDefault()}>
+            <Alert ref={alertRef} show={showAlert} id={style.alert} variant="danger" onClick={(e) => e.preventDefault()}>
               <Alert.Heading className={`u-h3`}>{product.title}</Alert.Heading>
               <p>Are you sure you want to remove this item?</p>
               <hr />

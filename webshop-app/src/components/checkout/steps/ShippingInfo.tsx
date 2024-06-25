@@ -56,8 +56,8 @@ const ShippingInfo: React.FunctionComponent<Props> = props => {
 
     return (
         <div className={style.shipping_info_container}>
-            <p className={style.step_lable}>Step 1 of 3</p>
-            <h3>Shipping Information</h3>
+            <p className={`${style.step_lable} u-p2`}>Step 1 of 3</p>
+            <div className={`${style.heading} u-h2`}>Shipping information</div>
             <div className={style.form_container}>
 
                 <Formik
@@ -99,9 +99,9 @@ const ShippingInfo: React.FunctionComponent<Props> = props => {
                         isSubmitting
                     }) => (
                         <Form noValidate onSubmit={(e) => { e.preventDefault(); handleSubmit(e)}} id={style.form}>
-                            <h5>Contact</h5>
-                            <Row className="mb-3" id={style.row}>
-                                <Form.Group as={Col} sm="6" controlId="validationCustom01" id={style.col}>
+                            <div className={`${style.subheading} u-p1`}>Contact</div>
+                            <Row  id={style.row}>
+                                <Form.Group as={Col}  controlId="validationCustom01" id={style.col}>
                                     <FloatingLabel label="First Name">
                                         <Form.Control
                                             type="text"
@@ -113,12 +113,12 @@ const ShippingInfo: React.FunctionComponent<Props> = props => {
                                             isValid={touched.firstName && !errors.firstName}
                                         />
                                     </FloatingLabel>
-                                    <Form.Control.Feedback type="invalid" style={{ display: !!errors.firstName && touched.firstName ? "block" : "none" }}>
+                                    <Form.Control.Feedback type="invalid" style={{ visibility: !!errors.firstName && touched.firstName ? "visible" : "hidden" }}>
                                         {errors.firstName}
                                     </Form.Control.Feedback>
                                 </Form.Group>
 
-                                <Form.Group as={Col} sm="6" controlId="validationCustom02">
+                                <Form.Group as={Col}  controlId="validationCustom02">
                                     <FloatingLabel label="Last Name">
                                         <Form.Control
                                             type="text"
@@ -130,14 +130,14 @@ const ShippingInfo: React.FunctionComponent<Props> = props => {
                                             isValid={touched.lastName && !errors.lastName}
                                         />
                                     </FloatingLabel>
-                                    <Form.Control.Feedback type="invalid" style={{ display: !!errors.lastName && touched.lastName ? "block" : "none" }}>
+                                    <Form.Control.Feedback type="invalid" style={{ visibility: !!errors.lastName && touched.lastName ? "visible" : "hidden" }}>
                                         {errors.lastName}
                                     </Form.Control.Feedback>
                                 </Form.Group>
                             </Row>
 
-                            <Row className="mb-3">
-                                <Form.Group as={Col} sm="9" controlId="validationCustom03">
+                            <Row >
+                                <Form.Group as={Col}  controlId="validationCustom03">
                                     <FloatingLabel label="E-mail">
                                         <Form.Control
                                             type="email"
@@ -149,16 +149,16 @@ const ShippingInfo: React.FunctionComponent<Props> = props => {
                                             isValid={touched.email && !errors.email}
                                         />
                                     </FloatingLabel>
-                                    <Form.Control.Feedback type="invalid" style={{ display: !!errors.email && touched.email ? "block" : "none" }}>
+                                    <Form.Control.Feedback type="invalid" style={{ visibility: !!errors.email && touched.email ? "visible" : "hidden" }}>
                                         {errors.email}
                                     </Form.Control.Feedback>
                                 </Form.Group>
                             </Row>
 
-                            <Row className="mb-3">
-                                <Form.Group as={Col} sm="9" controlId="validationCustom04">
+                            <Row >
+                                <Form.Group as={Col}  controlId="validationCustom04">
                                     <InputGroup hasValidation>
-                                        <InputGroup.Text id="inputGroupPrepend">+365</InputGroup.Text>
+                                        <InputGroup.Text className={`${style.mobile_input} u-pb1`} id="inputGroupPrepend">+365</InputGroup.Text>
                                         <FloatingLabel label="Mobile">
                                             <Form.Control
                                                 type="text"
@@ -171,16 +171,16 @@ const ShippingInfo: React.FunctionComponent<Props> = props => {
                                                 isValid={touched.mobile && !errors.mobile}
                                             />
                                         </FloatingLabel>
-                                        <Form.Control.Feedback type="invalid" style={{ display: !!errors.mobile && touched.mobile ? "block" : "none" }}>
+                                        <Form.Control.Feedback type="invalid" style={{ visibility: !!errors.mobile && touched.mobile ? "visible" : "hidden" }}>
                                             {errors.mobile}
                                         </Form.Control.Feedback>
                                     </InputGroup>
                                 </Form.Group>
                             </Row>
 
-                            <h5>Address</h5>
-                            <Row className="mb-3" id={style.row}>
-                                <Form.Group as={Col} sm="6" controlId="validationCustom05" id={style.col}>
+                            <div className={`${style.subheading} u-p1`}>Address</div>
+                            <Row  id={style.row}>
+                                <Form.Group as={Col}  controlId="validationCustom05" id={style.col}>
                                     <FloatingLabel label="Street">
                                         <Form.Control
                                             type="text"
@@ -192,12 +192,13 @@ const ShippingInfo: React.FunctionComponent<Props> = props => {
                                             isValid={touched.street && !errors.street}
                                         />
                                     </FloatingLabel>
-                                    <Form.Control.Feedback type="invalid" style={{ display: !!errors.street && touched.street ? "block" : "none" }}>
+                                    <Form.Control.Feedback type="invalid" style={{ visibility: !!errors.street && touched.street ? "visible" : "hidden" }}>
                                         {errors.street}
                                     </Form.Control.Feedback>
+
                                 </Form.Group>
 
-                                <Form.Group as={Col} sm="6" controlId="validationCustom06">
+                                <Form.Group as={Col}  controlId="validationCustom06">
                                     <FloatingLabel label="Apartment, Unit, etc">
                                         <Form.Control
                                             type="text"
@@ -209,14 +210,14 @@ const ShippingInfo: React.FunctionComponent<Props> = props => {
                                             isValid={touched.unit && !errors.unit}
                                         />
                                     </FloatingLabel>
-                                    <Form.Control.Feedback type="invalid" style={{ display: !!errors.unit && touched.unit ? "block" : "none" }}>
+                                    <Form.Control.Feedback type="invalid" style={{ visibility: !!errors.unit && touched.unit ? "visible" : "hidden" }}>
                                         {errors.unit}
                                     </Form.Control.Feedback>
                                 </Form.Group>
                             </Row>
 
-                            <Row className="mb-3">
-                                <Form.Group as={Col} sm="4" controlId="validationCustom07">
+                            <Row >
+                                <Form.Group as={Col}  controlId="validationCustom07" className="form-floating">
                                 <Form.Select aria-label="country" id={style.select} defaultValue={''} onChange={() => setCountry(country + 1)}>
                                     <option value='' disabled>Select Country</option>
                                     {countries.map(country => {
@@ -228,24 +229,24 @@ const ShippingInfo: React.FunctionComponent<Props> = props => {
                                     </Form.Control.Feedback>
                                 </Form.Group>
 
-                                <Form.Group as={Col} sm="4" controlId="validationCustom08">
-                                    <FloatingLabel label="State/Province/Region">
+                                <Form.Group as={Col}  controlId="validationCustom08">
+                                    <FloatingLabel label="Province/Region">
                                         <Form.Control
                                             type="text"
                                             name="region"
-                                            placeholder="State/Province/Region"
+                                            placeholder="Province/Region"
                                             onChange={handleChange}
                                             value={values.region}
                                             isInvalid={touched.region && !!errors.region}
                                             isValid={touched.region && !errors.region}
                                         />
                                     </FloatingLabel>
-                                    <Form.Control.Feedback type="invalid" style={{ display: !!errors.region && touched.region ? "block" : "none" }}>
+                                    <Form.Control.Feedback type="invalid" style={{ visibility: !!errors.region && touched.region ? "visible" : "hidden" }}>
                                         {errors.region}
                                     </Form.Control.Feedback>
                                 </Form.Group>
 
-                                <Form.Group as={Col} sm="4" controlId="validationCustom09">
+                                <Form.Group as={Col}  controlId="validationCustom09">
                                     <FloatingLabel label="City">
                                         <Form.Control
                                             type="text"
@@ -257,14 +258,14 @@ const ShippingInfo: React.FunctionComponent<Props> = props => {
                                             isValid={touched.city && !errors.city}
                                         />
                                     </FloatingLabel>
-                                    <Form.Control.Feedback type="invalid" style={{ display: !!errors.city && touched.city ? "block" : "none" }}>
+                                    <Form.Control.Feedback type="invalid" style={{ visibility: !!errors.city && touched.city ? "visible" : "hidden" }}>
                                         {errors.city}
-                                    </Form.Control.Feedback>
+                                    </Form.Control.Feedback>                                
                                 </Form.Group>
                             </Row>
 
-                            <Row className="mb-3">
-                                <Form.Group as={Col} sm="6" controlId="validationCustom10">
+                            <Row >
+                                <Form.Group as={Col}  controlId="validationCustom10">
                                     <FloatingLabel label="Postal Code">
                                         <Form.Control
                                             type="text"
@@ -276,7 +277,7 @@ const ShippingInfo: React.FunctionComponent<Props> = props => {
                                             isValid={touched.postalCode && !errors.postalCode}
                                         />
                                     </FloatingLabel>
-                                    <Form.Control.Feedback type="invalid" style={{ display: !!errors.postalCode && touched.postalCode ? "block" : "none" }}>
+                                    <Form.Control.Feedback type="invalid" style={{ visibility: !!errors.postalCode && touched.postalCode ? "visible" : "hidden" }}>
                                         {errors.postalCode}
                                     </Form.Control.Feedback>
                                 </Form.Group>
@@ -285,7 +286,9 @@ const ShippingInfo: React.FunctionComponent<Props> = props => {
                             <Form.Control.Feedback type="valid" style={{ display: validated && isValid ? "block" : "none" }}>
                                     Shipping information updated successfully.
                             </Form.Control.Feedback>
-                            <Button type="submit" id={style.submit_button} disabled={isSubmitting}>Confirm</Button>
+                            <Button type="submit" className={`${style.submit_button} button_complementary u-pb1`} disabled={isSubmitting}>
+                                Confirm
+                            </Button>
                         </Form>
                     )}
                 </Formik>

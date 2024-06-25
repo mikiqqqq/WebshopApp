@@ -12,8 +12,8 @@ const OrderReview: React.FC<Props> = ({ orderItems, handlePriceChange }) => {
     return (
         <div className={style.order_review_container}>
             <div className={style.order_review_container_header}>
-                <p className={style.step_label}>Step 3 of 3</p>
-                <h3>Order Review</h3>
+            <p className={`${style.step_lable} u-p2`}>Step 2 of 3</p>
+            <div className={`${style.heading} u-h2`}>Order review</div>
             </div>
 
             {orderItems.length === 0 ? (

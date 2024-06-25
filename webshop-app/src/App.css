@@ -143,6 +143,7 @@
 
 .cart-item:hover .quantity_display {
   background-color: var(--background);
+  transition: background-color .25s ease-in-out;
 }
 
 .custom-display .quantity_display {
@@ -176,6 +177,10 @@
   display: block;
   visibility: hidden;
   min-height: 1.125rem;
+}
+
+.form.checkout .invalid-feedback {
+  margin-bottom: .25rem;
 }
 
 .form input,
@@ -215,9 +220,8 @@
 
 .form .form-floating > label {
   font-size: 1rem;
-  top: 3px;
-  height: 45px;
-  padding: .5rem .75rem;
+  height: 52px;
+  padding: .75rem .75rem;
   color: var(--base-font-color);
 }
 
@@ -225,7 +229,7 @@
 .form .form-floating > .form-control:focus ~ label, 
 .form .form-floating > .form-control:not(:placeholder-shown) ~ label, 
 .form .form-floating > .form-select ~ label {
-  transform: scale(.7) translateY(-.5rem) translateX(.15rem);
+  transform: scale(.7) translateY(-.4rem) translateX(.15rem);
 }
 
 .form .form-select {
@@ -251,14 +255,14 @@
   position: relative;
   display: inline-block;
   height: 52px;
-  padding: .85rem 1rem;
+  padding: .75rem 1rem;
   background: var(--base-hover);
   border: 1px solid var(--base-color);
   border-bottom-left-radius: 5px;
   border-top-left-radius: 5px;
   z-index: 2;
   cursor: pointer;
-  color: var(--base-font-color);
+  color: var(--background);
 }
 
 .form .form-select.is-valid:not([multiple]):not([size]), 

@@ -1,0 +1,46 @@
+.order_review_container {
+    width: 100%;
+    background-color: #20232a;
+    box-shadow: 0 0 16px 0 #222;
+}
+
+.order_review_container_header {
+    padding: 1rem 1rem 0 1rem;
+}
+
+.order_review_container {
+    margin-top: 2rem;
+    padding: 0;
+    border-radius: 1rem;
+}
+
+.empty_order {
+    width: 100%;
+    height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.empty_order > h4 {
+    font-size: 2.1em;
+    color: gray;
+    font-family: 'Arial';
+}
+
+.step_lable{
+    color: gray;
+    font-style: italic;
+    margin: 0;
+}
+
+.heading {
+    color: var(--base-color);
+    margin-bottom: 1.25rem;
+}
+
+@media screen and (min-width: 1025px) {
+    .order_review_container_header {
+        padding: 2rem 2rem 0 2rem;
+    }
+}

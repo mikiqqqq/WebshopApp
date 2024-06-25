@@ -56,8 +56,8 @@ const PaymentInfo: React.FunctionComponent<Props> = props => {
 
     return (
         <div className={style.payment_info_container}>
-            <p className={style.step_label}>Step 2 of 3</p>
-            <h3>Payment Methods</h3>
+            <p className={`${style.step_lable} u-p2`}>Step 2 of 3</p>
+            <div className={`${style.heading} u-h2`}>Payment methods</div>
             <div className={style.button_container}>
                 <button onClick={() => handleSetPayment("Visa")}
                     style={{
@@ -112,8 +112,8 @@ const PaymentInfo: React.FunctionComponent<Props> = props => {
                 }) => (
                     <Form noValidate onSubmit={(e) => { e.preventDefault(); handleSubmit(e)}} id={style.form}>
 
-                        <Row className="mb-3">
-                            <Form.Group as={Col} sm="9" controlId="validationCustom01">
+                        <Row >
+                            <Form.Group as={Col}  controlId="validationCustom01">
                                 <FloatingLabel label="Cardholder Name">
                                     <Form.Control
                                         type="text"
@@ -125,14 +125,14 @@ const PaymentInfo: React.FunctionComponent<Props> = props => {
                                         isValid={touched.cardholderName && !errors.cardholderName}
                                     />
                                 </FloatingLabel>
-                                <Form.Control.Feedback type="invalid" style={{display: !!errors.cardholderName && touched.cardholderName ? "block" : "none"}}>
+                                <Form.Control.Feedback type="invalid" style={{ visibility: !!errors.cardholderName && touched.cardholderName ? "visible" : "hidden" }}>
                                     {errors.cardholderName}
                                 </Form.Control.Feedback>
                             </Form.Group>
                         </Row>
 
-                        <Row className="mb-3">
-                            <Form.Group as={Col} sm="9" controlId="validationCustom02">
+                        <Row >
+                            <Form.Group as={Col}  controlId="validationCustom02">
                                 <FloatingLabel label="Card Number">
                                     <Form.Control
                                         type="text"
@@ -145,14 +145,14 @@ const PaymentInfo: React.FunctionComponent<Props> = props => {
                                         isValid={touched.cardNumber && !errors.cardNumber}
                                     />
                                 </FloatingLabel>
-                                <Form.Control.Feedback type="invalid" style={{display: !!errors.cardNumber && touched.cardNumber ? "block" : "none"}}>
+                                <Form.Control.Feedback type="invalid" style={{ visibility: !!errors.cardNumber && touched.cardNumber ? "visible" : "hidden" }}>
                                     {errors.cardNumber}
                                 </Form.Control.Feedback>
                             </Form.Group>
                         </Row>
 
-                        <Row className="mb-3">
-                            <Form.Group as={Col} sm="3" controlId="validationCustom03">
+                        <Row >
+                            <Form.Group as={Col}  controlId="validationCustom03">
                                 <FloatingLabel label="Exp. day">
                                     <Form.Control
                                         type="text"
@@ -165,12 +165,12 @@ const PaymentInfo: React.FunctionComponent<Props> = props => {
                                         isValid={touched.expDay && !errors.expDay}
                                     />
                                 </FloatingLabel>
-                                <Form.Control.Feedback type="invalid" style={{display: !!errors.expDay && touched.expDay ? "block" : "none"}}>
+                                <Form.Control.Feedback type="invalid" style={{ visibility: !!errors.expDay && touched.expDay ? "visible" : "hidden" }}>
                                     {errors.expDay}
                                 </Form.Control.Feedback>
                             </Form.Group>
 
-                            <Form.Group as={Col} sm="3" controlId="validationCustom04">
+                            <Form.Group as={Col}  controlId="validationCustom04">
                                 <FloatingLabel label="Exp. month">
                                     <Form.Control
                                         type="text"
@@ -183,13 +183,14 @@ const PaymentInfo: React.FunctionComponent<Props> = props => {
                                         isValid={touched.expMonth && !errors.expMonth}
                                     />
                                 </FloatingLabel>
-                                <Form.Control.Feedback type="invalid" style={{display: !!errors.expMonth && touched.expMonth ? "block" : "none"}}>
+                                <Form.Control.Feedback type="invalid" style={{ visibility: !!errors.expMonth && touched.expMonth ? "visible" : "hidden" }}>
                                     {errors.expMonth}
                                 </Form.Control.Feedback>
                             </Form.Group>
 
-                            <Form.Group as={Col} sm="3" controlId="validationCustom05">
+                            <Form.Group as={Col}  controlId="validationCustom05">
                                 <InputGroup hasValidation>
+                                    
                                     <FloatingLabel label="CVC">
                                         <Form.Control
                                             type="text"
@@ -203,10 +204,10 @@ const PaymentInfo: React.FunctionComponent<Props> = props => {
                                             isValid={touched.cvc && !errors.cvc}
                                         />
                                     </FloatingLabel>
-                                    <InputGroup.Text id="inputGroupPrepend"><FontAwesomeIcon icon={faCreditCard} /></InputGroup.Text>
-                                    <Form.Control.Feedback type="invalid" style={{display: !!errors.cvc && touched.cvc ? "block" : "none"}}>
-                                    {errors.cvc}
-                                </Form.Control.Feedback>
+                                    <InputGroup.Text className={`${style.cvc_input} u-pb1`} id="inputGroupPrepend"><FontAwesomeIcon icon={faCreditCard} /></InputGroup.Text>
+                                    <Form.Control.Feedback type="invalid" style={{ visibility: !!errors.cvc && touched.cvc ? "visible" : "hidden" }}>
+                                        {errors.cvc}
+                                    </Form.Control.Feedback>
                                 </InputGroup>
                             </Form.Group>
                         </Row>
@@ -214,7 +215,9 @@ const PaymentInfo: React.FunctionComponent<Props> = props => {
                         <Form.Control.Feedback type="valid" style={{ display: validated && isValid  ? "block" : "none" }}>
                                 Payment method set successfully.
                         </Form.Control.Feedback>
-                        <Button type="submit" id={style.submit_button} disabled={isSubmitting}>Confirm</Button>
+                        <Button type="submit" className={`${style.submit_button} button_complementary u-pb1`} disabled={isSubmitting}>
+                            Confirm
+                        </Button>
                     </Form>
                 )}
             </Formik>

@@ -1,56 +1,26 @@
-
-.step_label{
+.step_lable{
     color: gray;
     font-style: italic;
     margin: 0;
 }
 
+.heading {
+    color: var(--base-color);
+    margin-bottom: 1.25rem;
+}
+
 .payment_info_container{
-    padding: 10px 20px 20px 20px;
+    padding: 1rem;
     width: 100%;
     background-color: var(--background);
     box-shadow: 0 0 16px 0 #222;
-    margin-top: 25px;
-}
-
-.payment_info_container h3{
-    color: var( --base-color);
-}
-
-#form{
-    margin-top: 15px;
-}
-
-#form div{
-    font-family: Arial, Helvetica, sans-serif;
-}
-
-#form input{ 
-    padding-bottom: 8px;
-    height: 48px;
-    font-size: 1.05rem;
-}
-
-#form label{
-    font-size: 1.05rem;
-    top: 3px;
-    height: 45px;
-    padding: .5rem .75rem;
-    color: #777;
-}
-
-.feedback{
-    display: block;
+    margin-top: 2rem;
+    border-radius: 1rem;
 }
 
 .button_container{
     display: flex;
     align-items: center;
-}
-
-.payment_info_container button{
-    background-color: transparent;
-    border: none;
 }
 
 .selected_card{
@@ -64,23 +34,18 @@
     width: 96px;
 }
 
-#submit_button{
-    background-color: var(--complementary-color);
-    color: lavender;
-    margin-top: 20px;
-    padding: 5px 25px;
-    font-weight: bold;
-    border: none;
-    outline: none;
-    box-shadow: none;
-    transition: background-color .5s;
+.submit_button {
+   width: 100%;
 }
 
-#submit_button:hover{
+span.cvc_input {
     background-color: var(--base-hover);
-    transition: background-color .5s;
+    border-color: var(--base-color);
+    color: var(--background);
 }
 
-#submit_button:active{
-    transform: scale(0.95);
+@media screen and (min-width: 768px) {
+    .payment_info_container {
+        padding: 2rem;
+    }
 }

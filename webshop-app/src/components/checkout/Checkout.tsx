@@ -133,7 +133,7 @@ const Checkout: React.FunctionComponent<Props> = ({ orderCompleted }) => {
     }, [orderUpdated]);
 
     return (
-        <main className={style.main}>
+        <main className={`${style.main} form checkout`}>
             {orderUpdated ? (
                 <>
                     <div className={style.order_successful}>
@@ -151,7 +151,7 @@ const Checkout: React.FunctionComponent<Props> = ({ orderCompleted }) => {
                 <div className={style.main_container}>
                     <div className={style.checkout_info}>
                         <div className={style.checkout_info_title}>
-                            <h2>Checkout&nbsp;&nbsp;<FontAwesomeIcon icon={faCreditCard} className={style.h2_icon} /></h2>
+                            <div className={`${style.heading} u-h1`}>Checkout <FontAwesomeIcon icon={faCreditCard} className={`${style.h2_icon}`} /></div>
                         </div>
                         <ShippingInfo validatedShippingInfo={setValidatedShippingInfo} shippingInfo={setShippingInfo} />
                         <PaymentInfo validatedPaymentInfo={setValidatedPaymentInfo} paymentInfo={setPaymentInfo} />
@@ -189,6 +189,8 @@ const Checkout: React.FunctionComponent<Props> = ({ orderCompleted }) => {
                                 <Button onClick={() => setShowAlert(false)} variant="outline-info">Close</Button>
                             </div>
                         </Alert>
+
+                        <FontAwesomeIcon className={`${style.icon} ${style.flip_animation}`} icon={faCreditCard} />
                     </div>
                 </div>
             )}

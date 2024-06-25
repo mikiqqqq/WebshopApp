@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import style from "./ShoppingCart.module.css";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -17,6 +17,7 @@ const ShoppingCart: React.FunctionComponent = () => {
   const [orderItems, setOrderItems] = useState<ExtendedOrderItemType[]>([]);
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const activeOrder = Number(localStorage.getItem('activeOrder'));
+  const alertRef = useRef<HTMLDivElement>(null);
 
   const fetchOrderItems = useCallback(async () => {
     if (activeOrder) {
@@ -67,6 +68,24 @@ const ShoppingCart: React.FunctionComponent = () => {
     fetchOrderItems();
   }, [fetchOrderItems]);
 
+  const handleClickOutside = useCallback((event: MouseEvent) => {
+    if (alertRef.current && !alertRef.current.contains(event.target as Node)) {
+      setShowAlert(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (showAlert) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [showAlert, handleClickOutside]);
+
   return (
     <main className={style.main}>
       <div className={style.main_container}>
@@ -78,7 +97,7 @@ const ShoppingCart: React.FunctionComponent = () => {
             <div className={`${style.heading} u-h1`}>Your Shopping Cart <FontAwesomeIcon icon={faCartShopping} className={`${style.h2_icon}`} /></div>
           </div>
           
-          <Alert id={style.alert} show={showAlert} variant="danger">
+          <Alert id={style.alert} ref={alertRef} show={showAlert} variant="danger">
             <Alert.Heading>Empty Shopping Cart</Alert.Heading>
             <p>Are you sure you want to empty the whole cart?</p>
             <hr />
@@ -89,7 +108,7 @@ const ShoppingCart: React.FunctionComponent = () => {
           </Alert>
           
           <div className={style.order_items_container}>
-            {orderItems.length === 0 && <div className={style.empty_cart}><h4>Shopping cart is empty.</h4></div>}
+            {orderItems.length === 0 && <div className={style.empty_cart}><div className={`${style.heading} u-p1`}>Shopping cart is empty.</div></div>}
             {orderItems.map(item => (
               <OrderItem key={item.id} orderItem={item} onPriceChange={handlePriceChange} onRemove={handleRemoveItem} />
             ))}
@@ -106,7 +125,13 @@ const ShoppingCart: React.FunctionComponent = () => {
               <p>Total price</p> <p>${totalPrice.toFixed(2)}</p>
             </div>
             <small className={`${style.label} u-p4`}>Coupons can be used in the next step.</small>
-            <Link className={`${style.checkout_button} button_complementary u-pb1 btn btn-primary`} to="/checkout">Checkout</Link>
+            <Link className={`${style.checkout_button} button_complementary u-pb1 btn btn-primary`} to="/checkout"
+                style={{
+                  opacity: orderItems.length === 0 ? 0.7 : 1,
+                  pointerEvents: orderItems.length === 0 ? 'none' : 'auto'
+                }}>
+              Checkout
+            </Link>
           </div>
           
           <FontAwesomeIcon className={`${style.icon} ${style.flip_animation}`} icon={faCartShopping} />
