@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { OrderItemType } from "../../MainContainerData";
 import style from "./OrderItem.module.css";
-import itemImg from '../../../images/item.jpg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
 import { Alert, Button } from "react-bootstrap";
 import OrderItemService from "../../../services/OrderItemService";
 import QuantitySelector from "../../quantity_selector/QuantitySelector";
+import { Link } from "react-router-dom";
+import image_placeholder from '../../../images/image_placeholder.gif'
 
 interface Props {
   orderItem: OrderItemType;
@@ -16,6 +17,7 @@ interface Props {
 
 const OrderItem: React.FunctionComponent<Props> = ({ orderItem, onPriceChange, onRemove }) => {
   const [showAlert, setShowAlert] = useState(false);
+  const productSlug = orderItem.item.title.toLowerCase().replace(/\s+/g, '-') + '-' + orderItem.item.id;
   const product = orderItem.item;
 
   const removeOrderItem = async (id: number) => {
@@ -29,30 +31,37 @@ const OrderItem: React.FunctionComponent<Props> = ({ orderItem, onPriceChange, o
   };
 
   return (
-    <div className={style.cart_item} key={orderItem.id}>
-      <img src={itemImg} alt={product.title} />
+    <Link to={`/products/${productSlug}`} className={`${style.cart_item} cart-item`} key={orderItem.id}>
+      <img src={product.image || image_placeholder} alt={product.title} />
       <div className={style.cart_item_body}>
-        <h5>{product.title}</h5>
-        <h3>{product.brand.title}</h3>
-        <QuantitySelector orderItem={orderItem} product={product} onPriceChange={onPriceChange} />
-        
-        <Alert show={showAlert} id={style.alert} variant="danger">
-          <Alert.Heading>{product.title}</Alert.Heading>
-          <p>Are you sure you want to remove this item?</p>
-          <hr />
-          <div className="d-flex justify-content-end">
-            <Button onClick={() => removeOrderItem(orderItem.id)} variant="outline-danger">Yes</Button>
-            <Button id={style.cancel_button} onClick={() => setShowAlert(false)} variant="outline-danger">Cancel</Button>
+        <div className={`${style.cart_item_title} u-h3`}>{product.title}</div>
+
+        <div>
+          <div className={style.flex_info}>
+            <div className={`u-p2`}>{product.brand.title}</div>
+            <strong className={`u-p2`} id={style.item_price}>${(orderItem.quantity * product.price).toFixed(2)}</strong>
           </div>
-        </Alert>
 
-        <button className={style.remove_button} onClick={() => setShowAlert(true)}>
-          <FontAwesomeIcon icon={faClose} className={style.icon} /> Remove
-        </button>
+          <div className={`${style.actions} custom-display`}>
+            <QuantitySelector orderItem={orderItem} product={product} onPriceChange={onPriceChange} />
+            
+            <Alert show={showAlert} id={style.alert} variant="danger" onClick={(e) => e.preventDefault()}>
+              <Alert.Heading className={`u-h3`}>{product.title}</Alert.Heading>
+              <p>Are you sure you want to remove this item?</p>
+              <hr />
+              <div className="d-flex justify-content-end">
+                <Button className={`u-pb1`} onClick={() => removeOrderItem(orderItem.id)} variant="outline-danger">Yes</Button>
+                <Button className={`u-pb1`} id={style.cancel_button} onClick={() => setShowAlert(false)} variant="outline-danger">Cancel</Button>
+              </div>
+            </Alert>
 
-        <strong id={style.item_price}>${(orderItem.quantity * product.price).toFixed(2)}</strong>
+            <Button className={`${style.remove_button} button_complementary rte u-pb1`} onClick={(e) => {e.preventDefault(); setShowAlert(true);}}>
+              <FontAwesomeIcon icon={faClose} className={style.icon} /><p>Remove</p>
+            </Button>
+          </div>
+        </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

@@ -134,6 +134,17 @@
   height: auto;
 }
 
+@media screen and (max-width: 500px) {
+  .cart-item .quantity_display,
+  .cart-item .quantity_container {
+    width: 100%;
+  }
+}
+
+.cart-item:hover .quantity_display {
+  background-color: var(--background);
+}
+
 .custom-display .quantity_display {
   background-color: var(--background-hover);
 }

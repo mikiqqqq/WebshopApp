@@ -98,15 +98,15 @@ const ShoppingCart: React.FunctionComponent = () => {
         
         <div className={style.checkout_section}>
           <div className={style.checkout}>
-            <h3>Total Price</h3>
-            <div className={style.p_container_shipping}>
+            <div className={`${style.total_price} u-h1`}>Calculated price</div>
+            <div className={`${style.p_container_shipping} rte u-p2`}>
               <p>Shipping fee</p> <p>Free</p>
             </div>
-            <div className={style.p_container}>
+            <div className={`${style.p_container} rte u-p2`}>
               <p>Total price</p> <p>${totalPrice.toFixed(2)}</p>
             </div>
-            <small>Coupons can be used in the next step.</small>
-            <Link className={style.checkout_button} to="/checkout">Checkout</Link>
+            <small className={`${style.label} u-p4`}>Coupons can be used in the next step.</small>
+            <Link className={`${style.checkout_button} button_complementary u-pb1 btn btn-primary`} to="/checkout">Checkout</Link>
           </div>
           
           <FontAwesomeIcon className={`${style.icon} ${style.flip_animation}`} icon={faCartShopping} />

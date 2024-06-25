@@ -1,0 +1,67 @@
+.quantity_counter{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.quantity_button{
+    position: absolute;
+    background-color: var(--base-color);
+    color: var(--background);
+    font-size: 1.3em;
+    font-weight: bolder;
+    width: 42px;
+    height: 32px;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    color: var(--base-font-color);
+}
+
+.quantity_button > p{
+    margin-bottom: 5px;
+}
+
+
+.quantity_button:focus,
+.quantity_button:hover{
+    background-color: var(--base-hover);
+}
+
+.quantity_button:active{
+    background-color: var(--base-hover);
+    transform: scale(0.9);
+}
+
+.quantity_display{
+    text-align: center;
+    margin: 0%;
+    min-width: 175px;
+    height: 25px;
+    background-color: var(--background);
+    border-radius: 25px;
+    color: var(--base-font-color);
+}
+
+.container {
+    width: fit-content;
+}
+
+.quantity_button_decrement{
+    left: -2px;
+}
+
+.quantity_button_increment{
+    right: -2px;
+}
+
+.tooltip > div:first-child{
+    display: none;
+}
+
+.tooltip > div:last-child{
+    background-color: var(--complementary-hover);
+}

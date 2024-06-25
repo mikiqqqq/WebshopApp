@@ -28,7 +28,7 @@ const QuantitySelector: React.FunctionComponent<QuantityCounterProps> = ({ order
     onPriceChange(orderItem.id, product.price * newQuantity);
 
     if (newQuantity >= product.quantity) {
-      setMessage(' - Maxed out');
+      setMessage(' - Max');
     } else {
       setMessage('');
     }
@@ -48,14 +48,16 @@ const QuantitySelector: React.FunctionComponent<QuantityCounterProps> = ({ order
   };
 
   return (
-    <div className={style.quantity_counter}>
-      <button className={`${style.quantity_button} ${style.quantity_button_decrement}`} onClick={decrement}>
-        <p>-</p>
-      </button>
-      <p className={style.quantity_display}>{quantity}{message}</p>
-      <button className={`${style.quantity_button} ${style.quantity_button_increment}`} onClick={increment}>
-        <p>+</p>
-      </button>
+    <div className={`${style.container} quantity_container`}  onClick={(e) => e.preventDefault()}>
+      <div className={style.quantity_counter}>
+        <button className={`${style.quantity_button} ${style.quantity_button_decrement}`} onClick={decrement}>
+          <p>-</p>
+        </button>
+        <p className={`${style.quantity_display} quantity_display`}>{quantity}{message}</p>
+        <button className={`${style.quantity_button} ${style.quantity_button_increment}`} onClick={increment}>
+          <p>+</p>
+        </button>
+      </div>
     </div>
   );
 }
