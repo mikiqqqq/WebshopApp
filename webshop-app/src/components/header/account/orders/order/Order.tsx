@@ -1,6 +1,7 @@
 import React from 'react';
 import style from './Order.module.css'; // Adjust the path as necessary
 import { OrderObject } from '../../../../MainContainerData';
+import image_placeholder from '../../../../../images/image-placeholder.gif';
 
 interface OrderProps {
     order: OrderObject;
@@ -20,25 +21,33 @@ const Order: React.FC<OrderProps> = ({ order }) => {
     const total = subtotal + shipping;
 
     return (
-        <div className={style.orderDetails}>
-            <h2>Order #{formatOrderId(order.id)}</h2>
-            <p>Placed on {new Date(order.date).toLocaleString()}</p>
-            <div className={style.orderItems}>
+        <div className={style.container}>
+            <div className={style.header}>
+                <div className={`u-h1`}>Order #{formatOrderId(order.id)}</div>
+                <div className={`u-p3`}>Placed on {new Date(order.date).toLocaleString()}</div>
+            </div>
+            <div className={style.item_container}>
                 {order.products.map(product => (
-                    <div key={product.id} className={style.orderItem}>
-                        <img src={product.imageUrl} alt={product.title} />
-                        <div>
-                            <p>{product.title}</p>
-                            <p>{product.price.toFixed(2)} €</p>
-                            <p>Quantity: {product.quantity}</p>
+                    <div key={product.id} className={style.order_item}>
+                        <img className={style.image} src={product.imageUrl || image_placeholder} alt={product.title} />
+                        <div className={style.info}>
+                            <p className='u-pb1'>{product.title}</p>
+                            <p className='u-p3'>{product.price.toFixed(2)} €</p>
+                            <p className='u-p3'>Quantity: {product.quantity}</p>
                         </div>
                     </div>
                 ))}
             </div>
-            <div className={style.orderSummary}>
-                <p>Subtotal: {subtotal.toFixed(2)} €</p>
-                <p>Shipping: {shipping.toFixed(2)} €</p>
-                <p>Total: {total.toFixed(2)} €</p>
+            <div className={style.order_sumary}>
+                <div className={`${style.price_item} u-p2`}>
+                    <p>Subtotal: </p><p>{subtotal.toFixed(2)} €</p>
+                </div>
+                <div className={`${style.price_item} u-p2`}>
+                    <p>Shipping: </p><p>{shipping.toFixed(2)} €</p>
+                </div>
+                <div className={`${style.total_price} u-pb1`}>
+                    <p>Total: </p><p>{total.toFixed(2)} €</p>
+                </div>
             </div>
         </div>
     );

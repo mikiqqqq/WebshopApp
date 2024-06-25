@@ -1,4 +1,4 @@
-.orders_container {
+.container {
     background-color: var(--background-hover);
     padding: 2rem;
     display: flex;
@@ -13,11 +13,11 @@
     color: var(--base-color);
 }
 
-.order_buttons {
+.button_container {
     display: flex;
 }
 
-.orders_button {
+.button {
     background: transparent;
     border: none;
     color: var(--base-font-color);
@@ -28,7 +28,7 @@
     border-top-right-radius: 5px;
 }
 
-.orders_button::after {
+.button::after {
     content: '';
     position: absolute;
     width: 100%;
@@ -40,11 +40,16 @@
     background-color: var(--base-color);
 }
 
+.list_container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
 
-.button_selected {
+.selected {
     background-color: var(--background);
 }
 
-.button_selected::after {
+.selected::after {
     opacity: 1;
 }

@@ -1,0 +1,58 @@
+.container,
+.item_container,
+.order_sumary,
+.info,
+.header {
+    display: flex;
+    flex-direction: column;
+    gap: .25rem;
+}
+
+.container {
+    gap: 1rem;
+}
+
+.info {
+    gap: .5rem;
+}
+
+.order_sumary {
+    gap: .75rem;
+}
+
+.item_container {
+    gap: 1rem;
+}
+
+.order_item {
+    display: flex;
+    gap: .5rem;
+}
+
+.image {
+    aspect-ratio: 1.25;
+    width: 100%;
+    max-width: 150px;
+    height: auto;
+    object-fit: cover;
+}
+
+.total_price,
+.price_item {
+    display: flex;
+    justify-content: space-between;
+}
+
+.total_price {
+    padding-top: .75rem;
+    border-top: 1px solid var(--base-font-color);
+}
+
+@media screen and (min-width: 1025px) {
+    .header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }     
+}

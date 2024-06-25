@@ -1,7 +1,7 @@
 import { BlobServiceClient } from '@azure/storage-blob';
 
-const sasToken = "your-sas-token"; // This should be securely managed
-const containerName = "product-imafes";
+const sasToken = ""; // This should be securely managed
+const containerName = "product-images";
 const storageAccountName = "techgiant";
 
 class AzureBlobService {

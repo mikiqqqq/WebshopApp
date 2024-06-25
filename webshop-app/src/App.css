@@ -13,6 +13,9 @@
   --footer-height: 309px;
   --bolded-font: 'BoldedFont';
   --paragraph-font: 'ParagraphFont';
+  --scrollbar-background: #2b2f38;
+  --scrollbar-color: #00bdbf;
+  --scrollbar-hover: #009a9c;
 }
 
 /* 
@@ -102,15 +105,6 @@
 ======== GENERAL ========
 */
 
-body {
-  scrollbar-width: thin;
-  scrollbar-color: #00bdbf #2b2f38;
-}
-
-body:hover {
-  scrollbar-color: #009a9c #2b2f38;
-}
-
 .App {
   text-align: center;
 }
@@ -166,7 +160,7 @@ body:hover {
 .form .form-floating > select,
 .form .form-floating > textarea,
 .form .form-floating > input {
-  padding-bottom: .75rem;
+  padding-bottom: 1rem;
   height: 52px;
   font-size: 1rem;
   color: var(--base-font-color);
@@ -174,6 +168,7 @@ body:hover {
   box-shadow: none;
   outline: none;
   border-color: var(--base-color);
+  resize: none; 
 }
 
 .form .form-floating > select:focus,
@@ -232,7 +227,7 @@ body:hover {
   position: relative;
   display: inline-block;
   height: 52px;
-  padding: .7rem 1rem;
+  padding: .85rem 1rem;
   background: var(--base-hover);
   border: 1px solid var(--base-color);
   border-bottom-left-radius: 5px;
@@ -338,23 +333,29 @@ button.button_transparent:hover {
 ======== SCROLLBAR ========
 */
 
+html::-webkit-scrollbar,
 body::-webkit-scrollbar {
-  width: 15px;
+  width: 1rem;
+}
+
+html,
+body {
+  scrollbar-color: var(--scrollbar-color) var(--scrollbar-background);
 }
 
 /* Track */
-body::-webkit-scrollbar-track {
-  background: #2b2f38;
+html::-webkit-scrollbar-track {
+  background: var(--scrollbar-background);
 }
 
 /* Handle */
-body::-webkit-scrollbar-thumb {
-  background: #00bdbf;
+html::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-color);
 }
 
 /* Handle on hover */
-body::-webkit-scrollbar-thumb:hover {
-  background: #009a9c;
+html::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-hover);
 }
 
 @media screen and (max-width: 767px) {

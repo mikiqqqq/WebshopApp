@@ -25,17 +25,17 @@ const Orders: React.FC<OrdersProps> = ({ activeOrders, completedOrders }) => {
     ), [completedOrders]);
 
     return (
-        <div className={style.orders_container}>
+        <div className={style.container}>
             <div className={`${style.orders_heading} u-h1`}>Orders</div>
-            <div className={style.order_buttons}>
+            <div className={style.button_container}>
                 <button
-                    className={`${style.orders_button} u-pb1 ${showInProgress ? style.button_selected : ''}`}
+                    className={`${style.button} u-pb1 ${showInProgress ? style.selected : ''}`}
                     onClick={() => setShowInProgress(true)}
                 >
                     Active orders
                 </button>
                 <button
-                    className={`${style.orders_button} u-pb1 ${!showInProgress ? style.button_selected : ''}`}
+                    className={`${style.button} u-pb1 ${!showInProgress ? style.selected : ''}`}
                     onClick={() => setShowInProgress(false)}
                 >
                     Order history
@@ -44,12 +44,12 @@ const Orders: React.FC<OrdersProps> = ({ activeOrders, completedOrders }) => {
             <div>
                 {showInProgress ? (
                     activeOrders.length > 0 ? (
-                        <div>{activeOrdersList}</div>
+                        <div className={style.list_container}>{activeOrdersList}</div>
                     ) : (
                         <p>No active orders found</p>
                     )
                 ) : completedOrders.length > 0 ? (
-                    <div>{completedOrdersList}</div>
+                    <div className={style.list_container}>{completedOrdersList}</div>
                 ) : (
                     <p>No completed orders found</p>
                 )}
