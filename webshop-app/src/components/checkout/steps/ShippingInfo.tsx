@@ -11,7 +11,6 @@ interface Props {
 }
 
 const ShippingInfo: React.FunctionComponent<Props> = props => {
-    const [country, setCountry] = useState<number>(0);
     const [validated, setValidated] = useState(false);
 
     useEffect(() => {
@@ -19,7 +18,7 @@ const ShippingInfo: React.FunctionComponent<Props> = props => {
             setValidated(false);
         }, 2000);
         return () => clearTimeout(timeoutID);
-    }, [validated])
+    }, [validated]);
 
     const phoneRegExp = /^(\+?\d{0,4})?\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{4}\)?)?$/;
 
@@ -52,23 +51,21 @@ const ShippingInfo: React.FunctionComponent<Props> = props => {
         postalCode: Yup.string()
             .min(2, "*Postal Code must have at least 2 characters")
             .required("*Postal Code is required"),
+        country: Yup.string()
+            .required("*Country is required"),
     });
 
     return (
         <div className={style.shipping_info_container}>
-            <p className={`${style.step_lable} u-p2`}>Step 1 of 3</p>
+            <p className={`${style.step_label} u-p2`}>Step 1 of 3</p>
             <div className={`${style.heading} u-h2`}>Shipping information</div>
             <div className={style.form_container}>
-
+    
                 <Formik
                     validationSchema={validationSchema}
                     onSubmit={(values, { setSubmitting }) => {
-                        if(country === 0) {
-                            setSubmitting(false);
-                            return; 
-                        }
                         setSubmitting(true);
-
+    
                         setTimeout(() => {
                             props.validatedShippingInfo(true);
                             props.shippingInfo(values);
@@ -83,7 +80,7 @@ const ShippingInfo: React.FunctionComponent<Props> = props => {
                         mobile: '',
                         street: '',
                         unit: '',
-                        country: '',
+                        country: 'HR', // Set Croatia as the default country
                         region: '',
                         city: '',
                         postalCode: ''
@@ -98,10 +95,10 @@ const ShippingInfo: React.FunctionComponent<Props> = props => {
                         isValid,
                         isSubmitting
                     }) => (
-                        <Form noValidate onSubmit={(e) => { e.preventDefault(); handleSubmit(e)}} id={style.form}>
+                        <Form noValidate onSubmit={(e) => { e.preventDefault(); handleSubmit(e) }} id={style.form}>
                             <div className={`${style.subheading} u-p1`}>Contact</div>
-                            <Row  id={style.row}>
-                                <Form.Group as={Col}  controlId="validationCustom01" id={style.col}>
+                            <Row id={style.row}>
+                                <Form.Group as={Col} controlId="validationCustom01" id={style.col}>
                                     <FloatingLabel label="First Name">
                                         <Form.Control
                                             type="text"
@@ -117,8 +114,8 @@ const ShippingInfo: React.FunctionComponent<Props> = props => {
                                         {errors.firstName}
                                     </Form.Control.Feedback>
                                 </Form.Group>
-
-                                <Form.Group as={Col}  controlId="validationCustom02">
+    
+                                <Form.Group as={Col} controlId="validationCustom02">
                                     <FloatingLabel label="Last Name">
                                         <Form.Control
                                             type="text"
@@ -135,9 +132,9 @@ const ShippingInfo: React.FunctionComponent<Props> = props => {
                                     </Form.Control.Feedback>
                                 </Form.Group>
                             </Row>
-
-                            <Row >
-                                <Form.Group as={Col}  controlId="validationCustom03">
+    
+                            <Row>
+                                <Form.Group as={Col} controlId="validationCustom03">
                                     <FloatingLabel label="E-mail">
                                         <Form.Control
                                             type="email"
@@ -154,11 +151,11 @@ const ShippingInfo: React.FunctionComponent<Props> = props => {
                                     </Form.Control.Feedback>
                                 </Form.Group>
                             </Row>
-
-                            <Row >
-                                <Form.Group as={Col}  controlId="validationCustom04">
+    
+                            <Row>
+                                <Form.Group as={Col} controlId="validationCustom04">
                                     <InputGroup hasValidation>
-                                        <InputGroup.Text className={`${style.mobile_input} u-pb1`} id="inputGroupPrepend">+365</InputGroup.Text>
+                                        <InputGroup.Text className={`${style.mobile_input} u-pb1`} id="inputGroupPrepend">+385</InputGroup.Text>
                                         <FloatingLabel label="Mobile">
                                             <Form.Control
                                                 type="text"
@@ -177,10 +174,10 @@ const ShippingInfo: React.FunctionComponent<Props> = props => {
                                     </InputGroup>
                                 </Form.Group>
                             </Row>
-
+    
                             <div className={`${style.subheading} u-p1`}>Address</div>
-                            <Row  id={style.row}>
-                                <Form.Group as={Col}  controlId="validationCustom05" id={style.col}>
+                            <Row id={style.row}>
+                                <Form.Group as={Col} controlId="validationCustom05" id={style.col}>
                                     <FloatingLabel label="Street">
                                         <Form.Control
                                             type="text"
@@ -195,10 +192,9 @@ const ShippingInfo: React.FunctionComponent<Props> = props => {
                                     <Form.Control.Feedback type="invalid" style={{ visibility: !!errors.street && touched.street ? "visible" : "hidden" }}>
                                         {errors.street}
                                     </Form.Control.Feedback>
-
                                 </Form.Group>
-
-                                <Form.Group as={Col}  controlId="validationCustom06">
+    
+                                <Form.Group as={Col} controlId="validationCustom06">
                                     <FloatingLabel label="Apartment, Unit, etc">
                                         <Form.Control
                                             type="text"
@@ -215,21 +211,30 @@ const ShippingInfo: React.FunctionComponent<Props> = props => {
                                     </Form.Control.Feedback>
                                 </Form.Group>
                             </Row>
-
-                            <Row >
-                                <Form.Group as={Col}  controlId="validationCustom07" className="form-floating">
-                                <Form.Select aria-label="country" id={style.select} defaultValue={''} onChange={() => setCountry(country + 1)}>
-                                    <option value='' disabled>Select Country</option>
-                                    {countries.map(country => {
-                                        return <option key={country.code} value={country.code}>{country.name}</option>
-                                    })}
-                                </Form.Select>
-                                    <Form.Control.Feedback type="invalid" style={{ display: country === 0 && touched.city ? "block" : "none" }}>
-                                        *Country is required
-                                    </Form.Control.Feedback>
+    
+                            <Row>
+                                <Form.Group as={Col} controlId="validationCustom07" className="form-floating">
+                                    <FloatingLabel aria-label="Country" label="Country">
+                                        <Form.Select
+                                            name="country"
+                                            id={style.select}
+                                            onChange={handleChange}
+                                            value={values.country}
+                                            isInvalid={touched.country && !!errors.country}
+                                            isValid={touched.country && !errors.country}
+                                        >
+                                            <option value='' disabled>Select Country</option>
+                                            {countries.map(country => {
+                                                return <option key={country.code} value={country.code}>{country.name}</option>
+                                            })}
+                                        </Form.Select>
+                                        <Form.Control.Feedback type="invalid" style={{ visibility: !!errors.country && touched.country ? "visible" : "hidden" }}>
+                                            {errors.country}
+                                        </Form.Control.Feedback>
+                                    </FloatingLabel>
                                 </Form.Group>
-
-                                <Form.Group as={Col}  controlId="validationCustom08">
+    
+                                <Form.Group as={Col} controlId="validationCustom08">
                                     <FloatingLabel label="Province/Region">
                                         <Form.Control
                                             type="text"
@@ -245,8 +250,8 @@ const ShippingInfo: React.FunctionComponent<Props> = props => {
                                         {errors.region}
                                     </Form.Control.Feedback>
                                 </Form.Group>
-
-                                <Form.Group as={Col}  controlId="validationCustom09">
+    
+                                <Form.Group as={Col} controlId="validationCustom09">
                                     <FloatingLabel label="City">
                                         <Form.Control
                                             type="text"
@@ -260,12 +265,12 @@ const ShippingInfo: React.FunctionComponent<Props> = props => {
                                     </FloatingLabel>
                                     <Form.Control.Feedback type="invalid" style={{ visibility: !!errors.city && touched.city ? "visible" : "hidden" }}>
                                         {errors.city}
-                                    </Form.Control.Feedback>                                
+                                    </Form.Control.Feedback>
                                 </Form.Group>
                             </Row>
-
-                            <Row >
-                                <Form.Group as={Col}  controlId="validationCustom10">
+    
+                            <Row>
+                                <Form.Group as={Col} controlId="validationCustom10">
                                     <FloatingLabel label="Postal Code">
                                         <Form.Control
                                             type="text"
@@ -282,9 +287,9 @@ const ShippingInfo: React.FunctionComponent<Props> = props => {
                                     </Form.Control.Feedback>
                                 </Form.Group>
                             </Row>
-
+    
                             <Form.Control.Feedback type="valid" style={{ display: validated && isValid ? "block" : "none" }}>
-                                    Shipping information updated successfully.
+                                Shipping information updated successfully.
                             </Form.Control.Feedback>
                             <Button type="submit" className={`${style.submit_button} button_complementary u-pb1`} disabled={isSubmitting}>
                                 Confirm
@@ -292,10 +297,10 @@ const ShippingInfo: React.FunctionComponent<Props> = props => {
                         </Form>
                     )}
                 </Formik>
-
+    
             </div>
         </div>
-    );
+    );    
 }
 
 export default ShippingInfo;

@@ -118,8 +118,11 @@ const OrderSummary: React.FC<Props> = ({
             <Formik
                 initialValues={{ discountCode: '' }}
                 validationSchema={validationSchema}
-                onSubmit={async (values, { setSubmitting, setErrors }) => {
+                validateOnBlur={false}
+                validateOnChange={false}
+                onSubmit={async (values, { setSubmitting, setErrors, setTouched }) => {
                     setSubmitting(true);
+                    setTouched({ discountCode: true }); // Manually set touched on submit
                     try {
                         await checkDiscountCode(values.discountCode);
                         setDiscountUsed(true);
@@ -130,22 +133,25 @@ const OrderSummary: React.FC<Props> = ({
                     }
                 }}
             >
-                {({ isSubmitting, errors, touched }) => (
+                {({ isSubmitting, errors, touched, handleSubmit }) => (
                     <FormikForm placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
                         <div className={`${style.discount_form}`}>
                             <Form.Group controlId="discountCode">
-                                <FloatingLabel label="Discount Code">
+                                <FloatingLabel label="Discount code">
                                     <Field
                                         type="text"
                                         name="discountCode"
                                         placeholder="Discount Code"
                                         className={`form-control ${touched.discountCode && errors.discountCode ? 'is-invalid' : ''}`}
                                     />
-                                    <ErrorMessage name="discountCode" component="div" className="invalid-feedback" />
+                                    <Form.Control.Feedback type="invalid" style={{ visibility: errors.discountCode && touched.discountCode ? "visible" : "hidden" }}>
+                                        {errors.discountCode}
+                                    </Form.Control.Feedback>
                                 </FloatingLabel>
                             </Form.Group>
-                            <Button className={`${style.check_discount_button} button_complementary u-pb1`} 
-                                type="submit"
+                            <Button 
+                                className={`${style.check_discount_button} button_complementary u-pb1`} 
+                                type="submit" 
                                 disabled={isSubmitting}
                             >
                                 Apply

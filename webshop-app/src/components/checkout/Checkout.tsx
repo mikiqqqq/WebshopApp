@@ -73,6 +73,13 @@ const Checkout: React.FunctionComponent<Props> = ({ orderCompleted }) => {
         setTotalPrice(newTotalPriceSum);
     };
 
+    const handleRemoveItem = (id: number) => {
+        const updatedOrderItems = orderItems.filter(item => item.id !== id);
+        setOrderItems(updatedOrderItems);
+        const newTotalPriceSum = updatedOrderItems.reduce((acc, item) => acc + item.totalPrice, 0);
+        setTotalPrice(newTotalPriceSum);
+    };
+
     useEffect(() => {
         if (appliedDiscountCode?.active) {
             setTotalPriceState(totalPriceState * (1 - appliedDiscountCode.discountAmount));
@@ -151,7 +158,7 @@ const Checkout: React.FunctionComponent<Props> = ({ orderCompleted }) => {
                         </div>
                         <ShippingInfo validatedShippingInfo={setValidatedShippingInfo} shippingInfo={setShippingInfo} />
                         <PaymentInfo validatedPaymentInfo={setValidatedPaymentInfo} paymentInfo={setPaymentInfo} />
-                        <OrderReview orderItems={orderItems} handlePriceChange={handlePriceChange} />
+                        <OrderReview orderItems={orderItems} handlePriceChange={handlePriceChange} onRemoveItem={handleRemoveItem} />
                     </div>
 
                     <div className={style.order_info}>

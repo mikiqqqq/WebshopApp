@@ -62,20 +62,22 @@ const OrderItem: React.FunctionComponent<Props> = ({ orderItem, onPriceChange, o
     <Link to={`/products/${productSlug}`} className={`${style.cart_item} cart-item`} key={orderItem.id}>
       <img src={product.image || image_placeholder} alt={product.title} />
       <div className={style.cart_item_body}>
-        <div className={`${style.cart_item_title} u-h3`}>{product.title}</div>
+        <div className={style.cart_item_header}>
+          <div className={`${style.cart_item_title} u-h3`}>{product.title}</div>
+          <Button className={`${style.remove_button} button_complementary rte u-pb1`} onClick={(e) => {e.preventDefault(); setShowAlert(true);}}>
+            <FontAwesomeIcon icon={faClose} className={style.icon} />
+          </Button>
+        </div>
 
         <div>
           <div className={style.flex_info}>
             <div className={`u-p2`}>{product.brand.title}</div>
-            <strong className={`u-p2`} id={style.item_price}>${(orderItem.quantity * product.price).toFixed(2)}</strong>
           </div>
 
           <div className={`${style.actions} custom-display`}>
             <QuantitySelector orderItem={orderItem} product={product} onPriceChange={onPriceChange} />
 
-            <Button className={`${style.remove_button} button_complementary rte u-pb1`} onClick={(e) => {e.preventDefault(); setShowAlert(true);}}>
-              <FontAwesomeIcon icon={faClose} className={style.icon} /><p>Remove</p>
-            </Button>
+            <strong className={`u-p1`} id={style.item_price}>${(orderItem.quantity * product.price).toFixed(2)}</strong>
 
             <Alert ref={alertRef} tabIndex={-1}  show={showAlert} id={style.alert} variant="danger" onClick={(e) => e.preventDefault()}>
               <Alert.Heading className={`u-h3`}>{product.title}</Alert.Heading>

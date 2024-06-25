@@ -6,14 +6,15 @@ import OrderItem from '../../shopping_cart/order_item/OrderItem';
 interface Props {
     orderItems: OrderItemType[];
     handlePriceChange: (id: number, newTotalPrice: number) => void;
+    onRemoveItem: (id: number) => void;
 }
 
-const OrderReview: React.FC<Props> = ({ orderItems, handlePriceChange }) => {
+const OrderReview: React.FC<Props> = ({ orderItems, handlePriceChange, onRemoveItem }) => {
     return (
         <div className={style.order_review_container}>
             <div className={style.order_review_container_header}>
-            <p className={`${style.step_lable} u-p2`}>Step 2 of 3</p>
-            <div className={`${style.heading} u-h2`}>Order review</div>
+                <p className={`${style.step_label} u-p2`}>Step 2 of 3</p>
+                <div className={`${style.heading} u-h2`}>Order review</div>
             </div>
 
             {orderItems.length === 0 ? (
@@ -26,7 +27,7 @@ const OrderReview: React.FC<Props> = ({ orderItems, handlePriceChange }) => {
                         key={item.id}
                         orderItem={item}
                         onPriceChange={handlePriceChange}
-                        onRemove={() => {}}
+                        onRemove={onRemoveItem}
                     />
                 ))
             )}

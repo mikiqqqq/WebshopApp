@@ -17,6 +17,7 @@
 
 .submit_button{
     width: 100%;
+    margin-top: 2rem;
 }
 
 .heading {
@@ -26,10 +27,6 @@
 .subheading {
     margin-top: 1.5rem;
     margin-bottom: 1.25rem;
-}
-
-#select {
-    padding: .75rem .75rem;
 }
 
 span.mobile_input {

@@ -42,6 +42,7 @@ button.remove_button {
 .actions {
     justify-content: space-between;
     margin-top: .5rem;
+    flex-wrap: wrap;
     gap: 1rem;
 }
 
@@ -117,17 +118,35 @@ a.cart_item{
     transition: background-color .25s ease-in-out;
 }
 
-@media screen and (max-width: 500px) {
-    button.remove_button {
-        width: 100%;
-    }
+.cart_item_header {
+    display: flex;
+    gap: 2.5rem;
+    justify-content: space-between;
+    align-items: flex-start;
+}
 
+button.remove_button {
+    padding: .25rem;
+    min-height: unset;
+    position: relative;
+}
+
+button.remove_button::after {
+    content: '';
+    position: absolute;
+    width: 3rem;
+    height: 3rem;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@media screen and (max-width: 500px) {
     .cart_item_body{
         gap: 0;
     }
 
     .actions {
-        flex-direction: column;
         margin-top: 1.25rem;
     }
 }

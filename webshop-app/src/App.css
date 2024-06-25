@@ -142,17 +142,11 @@
   cursor: default;
 }
 
-@media screen and (max-width: 500px) {
-  .cart-item .quantity_display,
-  .cart-item .quantity_container {
-    width: 100%;
-  }
-}
-
 .custom-display .quantity_display {
   background-color: var(--background-hover);
 }
 
+.cart-item:has(:focus) .quantity_display,
 .cart-item:focus .quantity_display,
 .cart-item:hover .quantity_display {
   background-color: var(--background);
@@ -232,6 +226,7 @@
   height: 52px;
   padding: .75rem .75rem;
   color: var(--base-font-color);
+  padding-right: calc(1.5em + .75rem);
 }
 
 .form .form-floating > .form-control-plaintext ~ label, 
