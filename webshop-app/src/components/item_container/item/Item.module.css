@@ -3,6 +3,7 @@
 }
 
 .item_box{
+    display: block;
     box-sizing: border-box;
     color: var(--base-font-color);
     min-height: 420px;
@@ -17,7 +18,11 @@
 }
 
 .item_box > img{
-    max-width: 100%;
+    aspect-ratio: 1.5;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 5px;
 }
 
 .item_name{

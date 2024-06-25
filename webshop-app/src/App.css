@@ -126,6 +126,10 @@
   justify-content: center;
 }
 
+.swiper {
+  padding: 1rem 0 !important;
+}
+
 /* 
 ======== FORMS AND INPUTS ========
 */
