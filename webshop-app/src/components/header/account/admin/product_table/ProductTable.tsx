@@ -26,20 +26,31 @@ const ProductTable: React.FC<ProductTableProps> = React.memo(({ handleEdit, relo
         fetchProducts();
     }, [fetchProducts, reload]); // Fetch products when reload changes
 
+    const scrollToFileInput = () => {
+        if (window.innerWidth < 1025) {
+            const fileInput = document.querySelector('.file_input');
+            if (fileInput) {
+                const fileInputPosition = fileInput.getBoundingClientRect().top + window.scrollY - 16;
+                window.scrollTo({ top: fileInputPosition, behavior: 'smooth' });
+            }
+        }
+    };
     const handleRowClick = (product: Product) => {
         setSelectedProductId(product.id);
         handleEdit(product);
+        scrollToFileInput();
     };
 
     const handleKeydown = (event: React.KeyboardEvent<HTMLTableRowElement>, product: Product) => {
         if (event.key === 'Enter') {
             setSelectedProductId(product.id);
             handleEdit(product);
+            scrollToFileInput();
         }
     };
 
     return (
-        <div>
+        <div className={style.table_container}>
             <table className={style.table}>
                 <thead>
                     <tr className='u-pb1'>

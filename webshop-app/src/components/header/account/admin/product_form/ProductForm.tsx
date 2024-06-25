@@ -17,7 +17,7 @@ interface ProductFormProps {
 
 const ProductForm: React.FC<ProductFormProps> = ({ form, handleResetForm, fetchProducts }) => {
     const initialValues = form;
-    const [previewUrl, setPreviewUrl] = useState<string | null>(form.image ? URL.createObjectURL(form.image) : null);
+    const [previewUrl, setPreviewUrl] = useState<string | null>(form.image ? form.image : null);
     const [brands, setBrands] = useState<Array<BrandType>>([]);
     const [productTypes, setProductTypes] = useState<Array<ProductType>>([]);
 

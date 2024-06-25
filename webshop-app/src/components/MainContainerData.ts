@@ -9,7 +9,6 @@ export interface ProductType {
 }
 
 export interface Product {
-    imageUrl: string | undefined;
     id: number;
     title: string;
     description: string;
@@ -18,7 +17,7 @@ export interface Product {
     brand: BrandType; // Included Brand object
     productType: ProductType; // Included ProductType object
     productionYear: number;
-    image: Blob | null; 
+    image: string; 
 }
 
 export interface OrderItemType {

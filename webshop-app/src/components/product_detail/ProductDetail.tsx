@@ -52,7 +52,7 @@ const ProductDetail: React.FC= () => {
         return <div>Loading...</div>;
     }
 
-    const productImageURL = product.image ? URL.createObjectURL(product.image) : image_placeholder;
+    const productImageURL = product.image ? product.image : image_placeholder;
 
     return (
         <div className={style.product_detail}>

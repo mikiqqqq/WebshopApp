@@ -69,11 +69,11 @@
 }
 
 .u-h1 {
-  font-size: 1.5rem;
+  font-size: 2rem;
 }
 
 .u-h2 {
-  font-size: 1.25rem;
+  font-size: 1.5rem;
 }
 
 .u-h3 {
@@ -388,10 +388,6 @@ html::-webkit-scrollbar-thumb:hover {
   
   .u-h1 {
     font-size: 2rem;
-  }
-
-  .u-h2 {
-    font-size: 1.5rem;
   }
 
   .u-h3 {

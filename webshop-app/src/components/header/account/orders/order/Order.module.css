@@ -1,7 +1,7 @@
 .container,
 .item_container,
 .order_sumary,
-.info,
+.item_info,
 .header {
     display: flex;
     flex-direction: column;
@@ -12,7 +12,7 @@
     gap: 1rem;
 }
 
-.info {
+.item_info {
     gap: .5rem;
 }
 
@@ -26,10 +26,10 @@
 
 .order_item {
     display: flex;
-    gap: .5rem;
+    gap: 1rem;
 }
 
-.image {
+.item_image {
     aspect-ratio: 1.25;
     width: 100%;
     max-width: 150px;
@@ -45,7 +45,19 @@
 
 .total_price {
     padding-top: .75rem;
-    border-top: 1px solid var(--base-font-color);
+    border-top: 1px solid var(--base-color);
+}
+
+.total_price > p {
+    font-size: 1.25rem !important;
+}
+
+.heading {
+    color: var(--complementary-color);
+}
+
+.item_heading {
+    color: var(--base-color);
 }
 
 @media screen and (min-width: 1025px) {

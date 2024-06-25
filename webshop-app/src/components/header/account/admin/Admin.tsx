@@ -14,14 +14,11 @@ const Admin: React.FC = () => {
         quantity: 0,
         brand: { id: 0, title: '' },
         productType: { id: 0, title: '' },
-        image: null,
-        productionYear: 0,
-        imageUrl: undefined
+        image: '',
+        productionYear: 0
     });
     const [reload, setReload] = useState<boolean>(false);
     const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-
-    console.log('Rerendering admin');
 
     const fetchProducts = useCallback(() => {
         setReload((prevState) => !prevState);
@@ -41,9 +38,8 @@ const Admin: React.FC = () => {
             quantity: 0,
             brand: { id: 0, title: '' },
             productType: { id: 0, title: '' },
-            image: null,
-            productionYear: 0,
-            imageUrl: undefined
+            image: '',
+            productionYear: 0
         });
     }, []);
 
@@ -62,11 +58,11 @@ const Admin: React.FC = () => {
             />
             <div className={style.product_table}>
                 <div className={`${style.heading} u-l1`}>Admin Panel</div>
-                <div className={style.buttons_container}>
-                    <Button onClick={handleResetForm} className={`${style.action_button} button_complementary u-pb1`}>
+                <div className={style.button_container}>
+                    <Button onClick={handleResetForm} className={`button_complementary u-pb1`}>
                         Add New
                     </Button>
-                    <Button onClick={handleEditClick} className={`${style.action_button} button_complementary u-pb1`}>
+                    <Button onClick={handleEditClick} className={`button_complementary u-pb1`}>
                         Edit Selected
                     </Button>
                 </div>

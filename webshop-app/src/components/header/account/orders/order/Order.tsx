@@ -1,7 +1,7 @@
 import React from 'react';
 import style from './Order.module.css'; // Adjust the path as necessary
 import { OrderObject } from '../../../../MainContainerData';
-import image_placeholder from '../../../../../images/image-placeholder.gif';
+import image_placeholder from '../../../../../images/image_placeholder.gif';
 
 interface OrderProps {
     order: OrderObject;
@@ -23,15 +23,15 @@ const Order: React.FC<OrderProps> = ({ order }) => {
     return (
         <div className={style.container}>
             <div className={style.header}>
-                <div className={`u-h1`}>Order #{formatOrderId(order.id)}</div>
+                <div className={`${style.heading} u-h2`}>Order #{formatOrderId(order.id)}</div>
                 <div className={`u-p3`}>Placed on {new Date(order.date).toLocaleString()}</div>
             </div>
             <div className={style.item_container}>
                 {order.products.map(product => (
                     <div key={product.id} className={style.order_item}>
-                        <img className={style.image} src={product.imageUrl || image_placeholder} alt={product.title} />
-                        <div className={style.info}>
-                            <p className='u-pb1'>{product.title}</p>
+                        <img className={style.item_image} src={product.image || image_placeholder} alt={product.title} />
+                        <div className={style.item_info}>
+                            <p className={`${style.item_heading} u-pb1`}>{product.title}</p>
                             <p className='u-p3'>{product.price.toFixed(2)} €</p>
                             <p className='u-p3'>Quantity: {product.quantity}</p>
                         </div>
