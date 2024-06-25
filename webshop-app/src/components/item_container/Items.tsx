@@ -1,5 +1,5 @@
 import React from 'react';
-import { AddProduct, Product } from '../MainContainerData';
+import { Product } from '../MainContainerData';
 import style from './Items.module.css';
 import Item from './item/Item';
 

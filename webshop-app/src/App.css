@@ -130,6 +130,14 @@
   padding: 1rem 0 !important;
 }
 
+.swiper .swiper-slide {
+  height: auto;
+}
+
+.custom-display .quantity_display {
+  background-color: var(--background-hover);
+}
+
 /* 
 ======== FORMS AND INPUTS ========
 */

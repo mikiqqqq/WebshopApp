@@ -23,7 +23,7 @@ const ItemQuantitySelector: React.FunctionComponent<ItemQuantitySelectorProps> =
     setQuantity(newQuantity);
 
     if (newQuantity >= maxQuantity) {
-      setMessage(' - Maxed out');
+      setMessage(' - Max');
     } else {
       setMessage('');
     }
@@ -40,7 +40,7 @@ const ItemQuantitySelector: React.FunctionComponent<ItemQuantitySelectorProps> =
   };
 
   return (
-    <div className={style.container}>
+    <div className={style.container} onClick={(e) => e.preventDefault()}>
       <div className={style.quantity_counter}>
         <button
           className={`${style.quantity_button} ${style.quantity_button_decrement}`}
@@ -48,7 +48,7 @@ const ItemQuantitySelector: React.FunctionComponent<ItemQuantitySelectorProps> =
         >
           <p>-</p>
         </button>
-        <p className={style.quantity_display}>{quantity}{message}</p>
+        <p className={`${style.quantity_display} quantity_display`}>{quantity}{message}</p>
         <button
           className={`${style.quantity_button} ${style.quantity_button_increment}`}
           onClick={increment}

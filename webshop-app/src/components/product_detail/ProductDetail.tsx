@@ -84,7 +84,7 @@ const ProductDetail: React.FC= () => {
                         </p>
                     </div>
                     </div>
-                    <div className={style.actions}>
+                    <div className={`${style.actions} custom-display`}>
                         <p className={`${style.price} u-pb1`}>${product.price}</p>
                         <ItemQuantitySelector
                             maxQuantity={product.quantity}
@@ -104,8 +104,9 @@ const ProductDetail: React.FC= () => {
                 </div>
                 <Swiper 
                 spaceBetween={16} 
-                slidesPerView={2}
+                slidesPerView={1}
                 breakpoints={{
+                    600: { slidesPerView: 2 },
                     1025: { slidesPerView: 3 },
                     1440: { slidesPerView: 4 }
                 }}>
@@ -122,8 +123,9 @@ const ProductDetail: React.FC= () => {
                 </div>
                 <Swiper 
                 spaceBetween={16} 
-                slidesPerView={2}
+                slidesPerView={1}
                 breakpoints={{
+                    600: { slidesPerView: 2 },
                     1025: { slidesPerView: 3 },
                     1440: { slidesPerView: 4 }
                 }}>

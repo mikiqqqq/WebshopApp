@@ -17,7 +17,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 20px;
+    border-radius: 5px;
     color: var(--base-font-color);
 }
 
@@ -25,6 +25,8 @@
     margin-bottom: 5px;
 }
 
+
+.quantity_button:focus,
 .quantity_button:hover{
     background-color: var(--base-hover);
 }
@@ -39,7 +41,7 @@
     margin: 0%;
     width: 155px;
     height: 25px;
-    background-color: #2b2f38;
+    background-color: var(--background);
     border-radius: 25px;
     color: var(--base-font-color);
 }

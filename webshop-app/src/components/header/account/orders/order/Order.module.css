@@ -53,7 +53,7 @@
 }
 
 .heading {
-    color: var(--complementary-color);
+    color: var(--complementary-hover);
 }
 
 .item_heading {

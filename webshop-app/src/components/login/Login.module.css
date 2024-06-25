@@ -1,5 +1,5 @@
 .login_container {
-    background-color: var(--background-hover);
+    background-color: var(--background);
     padding: 2rem 1rem;
     display: flex;
     flex-direction: column;
@@ -9,10 +9,11 @@
     align-items: center;
     margin: 2rem 1rem;
     border-radius: 1rem;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
 .login_heading {
-    color: var(--base-color);
+    color: var(--complementary-hover);
     margin-bottom: .5rem;
 }
 

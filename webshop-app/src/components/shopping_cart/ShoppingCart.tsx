@@ -71,12 +71,12 @@ const ShoppingCart: React.FunctionComponent = () => {
     <main className={style.main}>
       <div className={style.main_container}>
         <div className={style.order_items}>
-          <div className={style.order_items_title}>
-            <h2>Your Shopping Cart <FontAwesomeIcon icon={faCartShopping} className={`${style.h2_icon}`} /></h2>
-          </div>
-          <button className={style.empty_cart_button} onClick={() => setShowAlert(true)} disabled={orderItems.length === 0}>
+          <Button className={`${style.empty_cart_button} button_complementary u-pb1`} onClick={() => setShowAlert(true)} disabled={orderItems.length === 0}>
             Empty Cart
-          </button>
+          </Button>
+          <div className={style.order_items_title}>
+            <div className={`${style.heading} u-h1`}>Your Shopping Cart <FontAwesomeIcon icon={faCartShopping} className={`${style.h2_icon}`} /></div>
+          </div>
           
           <Alert id={style.alert} show={showAlert} variant="danger">
             <Alert.Heading>Empty Shopping Cart</Alert.Heading>

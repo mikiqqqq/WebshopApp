@@ -14,7 +14,7 @@ const MainContainer: React.FC = () => {
   const [items, setItems] = useState<Array<Product>>([]);
   const [filterOptions, setFilterOptions] = useState<FilterOptions>({
     brandIds: [],
-    uprLmt: 5000,
+    uprLmt: 15000,
     lwrLmt: 0,
     productTypeId: 0,
     productionYear: 0,

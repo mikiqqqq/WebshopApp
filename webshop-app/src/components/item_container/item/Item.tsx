@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import style from './Item.module.css';
-import itemImg from '../../../images/item.jpg';
 import { Product } from "../../MainContainerData";
 import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -56,32 +55,39 @@ const Item: React.FC<Props> = ({ item }) => {
   return (
       <Link to={`/products/${productSlug}`} className={style.item_box}>
         <img className={style.image} src={item.image || image_placeholder} alt={item.title}></img>
-        <h3 className={style.item_name}>{item.title}</h3>
-        <p className={style.item_description}>{truncateDescription(item.description)}</p>
-        <p className={style.item_brand}>{item.brand.title}</p>
-        <div className={style.hover_buttons}>
-          <ItemQuantitySelector
-            maxQuantity={item.quantity}
-            onQuantityChange={setQuantity}
-          />
-          <button
-            className={style.cart_button}
-            onClick={(e) => { e.stopPropagation(); setShow(true); addToCart(
-              quantity,
-              activeOrder,
-              item
-          ) }}
-            ref={target}
-          >
-            <FontAwesomeIcon className={style.icon} icon={faCartPlus} />
-          </button>
-          <Overlay target={target.current} show={show} placement="top">
-            <Tooltip id="overlay-example" className={style.tooltip}>
-              Added
-            </Tooltip>
-          </Overlay>
+        <div className={style.item_info}>
+          <div className={style.item_header}>
+            <div className={`${style.item_name} u-h3`}>{item.title}</div>
+            <p className={`${style.item_description} u-p2`}>{truncateDescription(item.description)}</p>
+          </div>
+
+          <div className={style.actions}>
+            <p className={`${style.item_brand} u-p2`}>{item.brand.title}</p>
+            <div className={style.hover_buttons}>
+              <ItemQuantitySelector
+                maxQuantity={item.quantity}
+                onQuantityChange={setQuantity}
+              />
+              <button
+                className={style.cart_button}
+                onClick={(e) => { e.preventDefault(); setShow(true); addToCart(
+                  quantity,
+                  activeOrder,
+                  item
+              ) }}
+                ref={target}
+              >
+                <FontAwesomeIcon className={style.icon} icon={faCartPlus} />
+              </button>
+              <Overlay target={target.current} show={show} placement="top">
+                <Tooltip id="overlay-example" className={style.tooltip}>
+                  Added
+                </Tooltip>
+              </Overlay>
+            </div>
+            <strong className={`${style.item_price} u-pb1`}>${item.price.toFixed(2)}</strong>
+          </div>
         </div>
-        <strong className={style.item_price}>${item.price.toFixed(2)}</strong>
       </Link>
   );
 };
