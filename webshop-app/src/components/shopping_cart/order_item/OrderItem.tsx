@@ -37,15 +37,24 @@ const OrderItem: React.FunctionComponent<Props> = ({ orderItem, onPriceChange, o
     }
   }, []);
 
+  const handleFocusOutside = useCallback((event: FocusEvent) => {
+    if (alertRef.current && !alertRef.current.contains(event.target as Node)) {
+      setShowAlert(false);
+    }
+  }, []);
+
   useEffect(() => {
     if (showAlert) {
       document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener("focusin", handleFocusOutside);
     } else {
       document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("focusin", handleFocusOutside);
     }
 
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("focusin", handleFocusOutside);
     };
   }, [showAlert, handleClickOutside]);
 
@@ -63,8 +72,12 @@ const OrderItem: React.FunctionComponent<Props> = ({ orderItem, onPriceChange, o
 
           <div className={`${style.actions} custom-display`}>
             <QuantitySelector orderItem={orderItem} product={product} onPriceChange={onPriceChange} />
-            
-            <Alert ref={alertRef} show={showAlert} id={style.alert} variant="danger" onClick={(e) => e.preventDefault()}>
+
+            <Button className={`${style.remove_button} button_complementary rte u-pb1`} onClick={(e) => {e.preventDefault(); setShowAlert(true);}}>
+              <FontAwesomeIcon icon={faClose} className={style.icon} /><p>Remove</p>
+            </Button>
+
+            <Alert ref={alertRef} tabIndex={-1}  show={showAlert} id={style.alert} variant="danger" onClick={(e) => e.preventDefault()}>
               <Alert.Heading className={`u-h3`}>{product.title}</Alert.Heading>
               <p>Are you sure you want to remove this item?</p>
               <hr />
@@ -73,10 +86,6 @@ const OrderItem: React.FunctionComponent<Props> = ({ orderItem, onPriceChange, o
                 <Button className={`u-pb1`} id={style.cancel_button} onClick={() => setShowAlert(false)} variant="outline-danger">Cancel</Button>
               </div>
             </Alert>
-
-            <Button className={`${style.remove_button} button_complementary rte u-pb1`} onClick={(e) => {e.preventDefault(); setShowAlert(true);}}>
-              <FontAwesomeIcon icon={faClose} className={style.icon} /><p>Remove</p>
-            </Button>
           </div>
         </div>
       </div>

@@ -8,7 +8,6 @@ import OrderItemService from "../../services/OrderItemService";
 import OrderService from "../../services/OrderService";
 import ShippingInfo from "./steps/ShippingInfo";
 import PaymentInfo from "./steps/PaymentInfo";
-import { Alert, Button } from "react-bootstrap";
 import OrderReview from "./steps/OrderReview";
 import OrderSummary from "./steps/OrderSummary";
 
@@ -48,9 +47,11 @@ const Checkout: React.FunctionComponent<Props> = ({ orderCompleted }) => {
                     const response = await OrderItemService.fetchAllByOrderId(activeOrder);
                     const fetchedOrderItems = response.data.map((item: OrderItemType) => ({
                         ...item,
-                        totalPrice: 0 // Initialize with zero, will be updated by OrderItem component
+                        totalPrice: item.quantity * item.item.price
                     }));
                     setOrderItems(fetchedOrderItems);
+                    const newTotalPriceSum = fetchedOrderItems.reduce((acc: any, item: { totalPrice: any; }) => acc + item.totalPrice, 0);
+                    setTotalPrice(newTotalPriceSum);
                 } catch (error) {
                     console.error("Error fetching order items:", error);
                 }
@@ -78,18 +79,13 @@ const Checkout: React.FunctionComponent<Props> = ({ orderCompleted }) => {
             setDiscountAmount((totalPriceState * appliedDiscountCode.discountAmount).toFixed(2));
             setDiscountUsed(true);
         }
-    }, [appliedDiscountCode])
+    }, [appliedDiscountCode]);
 
     useEffect(() => {
-        if (appliedDiscountCode !== undefined) {
-            setDiscountAmount((totalPrice * appliedDiscountCode.discountAmount).toFixed(2));
-            setTotalPriceState(totalPrice * (1 - appliedDiscountCode.discountAmount));
-        }
-
         setOriginalTotal(totalPrice);
-        setSubtotal(totalPrice * .95);
+        setSubtotal(totalPrice * 0.95);
         setTotalPriceState(totalPrice);
-    }, [orderItems]);
+    }, [totalPrice]);
 
     const checkFormValidation = () => {
         if (validatedShippingInfo && validatedPaymentInfo) {
@@ -98,7 +94,7 @@ const Checkout: React.FunctionComponent<Props> = ({ orderCompleted }) => {
             setAllFormsValidated(false);
             setShowAlert(true);
         }
-    }
+    };
 
     useEffect(() => {
         if (allFormsValidated) {
@@ -171,24 +167,9 @@ const Checkout: React.FunctionComponent<Props> = ({ orderCompleted }) => {
                             setDiscountAmount={setDiscountAmount}
                             discountUsed={discountUsed}
                             checkFormValidation={checkFormValidation}
+                            showAlert={showAlert}
+                            setShowAlert={setShowAlert}
                         />
-
-                        <Alert show={showAlert} variant="info">
-                            <Alert.Heading>Can't place order yet!</Alert.Heading>
-                            {orderItems.length > 0 ? (
-                                <p>
-                                    Please fill out all the necessary information in Shipping Information and Payment Method forms.
-                                </p>
-                            ) : (
-                                <p>
-                                    You haven't added any items to your shopping cart.
-                                </p>
-                            )}
-                            <hr />
-                            <div className="d-flex justify-content-end">
-                                <Button onClick={() => setShowAlert(false)} variant="outline-info">Close</Button>
-                            </div>
-                        </Alert>
 
                         <FontAwesomeIcon className={`${style.icon} ${style.flip_animation}`} icon={faCreditCard} />
                     </div>

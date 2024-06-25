@@ -74,15 +74,24 @@ const ShoppingCart: React.FunctionComponent = () => {
     }
   }, []);
 
+  const handleFocusOutside = useCallback((event: FocusEvent) => {
+    if (alertRef.current && !alertRef.current.contains(event.target as Node)) {
+      setShowAlert(false);
+    }
+  }, []);
+
   useEffect(() => {
     if (showAlert) {
       document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener("focusin", handleFocusOutside);
     } else {
       document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("focusin", handleFocusOutside);
     }
 
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("focusin", handleFocusOutside);
     };
   }, [showAlert, handleClickOutside]);
 
@@ -98,12 +107,12 @@ const ShoppingCart: React.FunctionComponent = () => {
           </div>
           
           <Alert id={style.alert} ref={alertRef} show={showAlert} variant="danger">
-            <Alert.Heading>Empty Shopping Cart</Alert.Heading>
+            <Alert.Heading className={`u-h3`}>Empty Shopping Cart</Alert.Heading>
             <p>Are you sure you want to empty the whole cart?</p>
             <hr />
             <div className="d-flex justify-content-end">
-              <Button onClick={emptyCart} variant="outline-danger">Yes</Button>
-              <Button id={style.cancel_button} onClick={() => setShowAlert(false)} variant="outline-danger">Cancel</Button>
+              <Button className={`u-pb1`} onClick={emptyCart} variant="outline-danger">Yes</Button>
+              <Button className={`u-pb1`} id={style.cancel_button} onClick={() => setShowAlert(false)} variant="outline-danger">Cancel</Button>
             </div>
           </Alert>
           

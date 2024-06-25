@@ -18,7 +18,7 @@ const OrderReview: React.FC<Props> = ({ orderItems, handlePriceChange }) => {
 
             {orderItems.length === 0 ? (
                 <div className={style.empty_order}>
-                    <h4>No order items yet...</h4>
+                    <div className={`u-p1`}>No order items yet...</div>
                 </div>
             ) : (
                 orderItems.map(item => (

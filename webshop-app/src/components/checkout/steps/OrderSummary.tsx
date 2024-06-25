@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
-import { Form, Button } from 'react-bootstrap';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
+import { Form, Button, FloatingLabel, Alert } from 'react-bootstrap';
 import { DiscountCode } from '../../MainContainerData';
 import style from './OrderSummary.module.css';
 import DiscountCodeService from '../../../services/DiscountCodeService';
+import { Formik, Field, Form as FormikForm, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 
 interface Props {
     subtotal: number;
@@ -16,6 +18,8 @@ interface Props {
     setDiscountAmount: React.Dispatch<React.SetStateAction<string>>;
     discountUsed: boolean;
     checkFormValidation: () => void;
+    showAlert: boolean;
+    setShowAlert: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const OrderSummary: React.FC<Props> = ({
@@ -29,74 +33,152 @@ const OrderSummary: React.FC<Props> = ({
     setAppliedDiscountCode,
     setDiscountAmount,
     discountUsed,
-    checkFormValidation
+    checkFormValidation,
+    showAlert,
+    setShowAlert
 }) => {
-    const [discountInputValue, setDiscountInputValue] = useState('');
-    const [errorDiscountMsg, setErrorDiscountMsg] = useState('');
     const [successDiscountMsg, setSuccessDiscountMsg] = useState('');
+    const alertRef = useRef<HTMLDivElement>(null);
 
-    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setDiscountInputValue(event.target.value);
-    }
+    const validationSchema = Yup.object().shape({
+        discountCode: Yup.string()
+            .min(10, 'Code must be longer than 10 characters')
+            .required('Code is required')
+    });
 
-    const checkDiscountCode = async () => {
+    const checkDiscountCode = async (discountCode: string) => {
         setSuccessDiscountMsg('');
+        const discountCodeData = (await DiscountCodeService.checkDiscountCode(discountCode)).data;
 
-        if (discountInputValue.length < 10) {
-            setErrorDiscountMsg('Discount Code must be longer than 10 characters!');
-            return;
+        if (!discountCodeData.code) {
+            throw new Error('Code you entered is invalid');
         }
-        if (!discountUsed) {
-            const discountCode = (await DiscountCodeService.checkDiscountCode(discountInputValue)).data;
+        if (!discountCodeData.active) {
+            throw new Error('Code you entered is not active anymore');
+        }
 
-            if (!discountCode.code) {
-                setErrorDiscountMsg('Discount Code you entered is invalid!');
-                return;
-            }
-            if (!discountCode.active) {
-                setErrorDiscountMsg('Discount Code you entered is not active anymore!');
-                return;
-            }
+        setAppliedDiscountCode(discountCodeData);
+        setSuccessDiscountMsg('You successfully applied your discount code!');
+    };
 
-            setAppliedDiscountCode(discountCode);
-            setErrorDiscountMsg('');
-            setSuccessDiscountMsg('You successfully applied your discount code!');
+    const handleClickOutside = useCallback((event: MouseEvent) => {
+        if (alertRef.current && !alertRef.current.contains(event.target as Node)) {
+          setShowAlert(false);
+        }
+    }, []);
+
+    const handleFocusOutside = useCallback((event: FocusEvent) => {
+        if (alertRef.current && !alertRef.current.contains(event.target as Node)) {
+            setShowAlert(false);
+        }
+    }, []);
+
+    useEffect(() => {
+        if (showAlert) {
+            document.addEventListener("mousedown", handleClickOutside);
+            document.addEventListener("focusin", handleFocusOutside);
         } else {
-            setErrorDiscountMsg('You cannot enter more than 2 discount codes.');
+            document.removeEventListener("mousedown", handleClickOutside);
+            document.removeEventListener("focusin", handleFocusOutside);
         }
-    }
+
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+            document.removeEventListener("focusin", handleFocusOutside);
+        };
+    }, [showAlert, handleClickOutside]);
+
+    useEffect(() => {
+        if (appliedDiscountCode) {
+            const discount = originalTotal * appliedDiscountCode.discountAmount;
+            setDiscountAmount(discount.toFixed(2));
+            setTotalPriceState(originalTotal - discount);
+        } else {
+            setTotalPriceState(originalTotal);
+        }
+    }, [appliedDiscountCode, originalTotal, setDiscountAmount, setTotalPriceState]);
 
     return (
         <div className={style.order_summary}>
-            <h3>Order Summary</h3>
-            <div className={style.p_container}>
-                <p>Subtotal</p> <p>${subtotal.toFixed(2)}</p>
+            <div className={`${style.heading} u-h1`}>Order Summary</div>
+            <div className={`${style.price_details} u-p2 rte`}>
+                <div className={style.p_container}>
+                    <p>Subtotal</p> <p>€ {subtotal.toFixed(2)}</p>
+                </div>
+                <div className={style.p_container_shipping}>
+                    <p>Shipping fee</p> <p>Free</p>
+                </div>
+                <div className={style.p_container}>
+                    <p>Est. taxes &amp; fees</p> <p>€ {(originalTotal - subtotal).toFixed(2)}</p>
+                </div>
+                <div className={style.p_container}>
+                    <p>Coupon discount</p> <p>{discountUsed ? "-€ " + discountAmount : "None"}</p>
+                </div>
             </div>
-            <div className={style.p_container_shipping}>
-                <p>Shipping fee</p> <p>Free</p>
-            </div>
-            <div className={style.p_container}>
-                <p>Est. taxes &amp; fees</p> <p>${(originalTotal - subtotal).toFixed(2)}</p>
-            </div>
-            <div className={style.p_container}>
-                <p>Coupon discount</p> <p>{discountUsed ? "-$" + discountAmount : "None"}</p>
-            </div>
-            <hr />
-            <div>
-                <input type="text" placeholder="Discount Code" onChange={handleInputChange} />
-                <button className={style.check_discount_button} onClick={checkDiscountCode}>Apply</button>
-                <Form.Control.Feedback type="invalid" style={{ display: errorDiscountMsg !== '' ? "block" : "none" }}>
-                    {errorDiscountMsg}
-                </Form.Control.Feedback>
-                <Form.Control.Feedback type="valid" style={{ display: successDiscountMsg !== '' ? "block" : "none" }}>
+            <Formik
+                initialValues={{ discountCode: '' }}
+                validationSchema={validationSchema}
+                onSubmit={async (values, { setSubmitting, setErrors }) => {
+                    setSubmitting(true);
+                    try {
+                        await checkDiscountCode(values.discountCode);
+                        setDiscountUsed(true);
+                    } catch (error) {
+                        setErrors({ discountCode: (error as Error).message });
+                    } finally {
+                        setSubmitting(false);
+                    }
+                }}
+            >
+                {({ isSubmitting, errors, touched }) => (
+                    <FormikForm placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+                        <div className={`${style.discount_form}`}>
+                            <Form.Group controlId="discountCode">
+                                <FloatingLabel label="Discount Code">
+                                    <Field
+                                        type="text"
+                                        name="discountCode"
+                                        placeholder="Discount Code"
+                                        className={`form-control ${touched.discountCode && errors.discountCode ? 'is-invalid' : ''}`}
+                                    />
+                                    <ErrorMessage name="discountCode" component="div" className="invalid-feedback" />
+                                </FloatingLabel>
+                            </Form.Group>
+                            <Button className={`${style.check_discount_button} button_complementary u-pb1`} 
+                                type="submit"
+                                disabled={isSubmitting}
+                            >
+                                Apply
+                            </Button>       
+                        </div>
+                    </FormikForm>
+                )}
+            </Formik>
+            {successDiscountMsg && (
+                <div className="valid-feedback" style={{ display: 'block' }}>
                     {successDiscountMsg}
-                </Form.Control.Feedback>
-            </div>
-            <hr />
+                </div>
+            )}
+
             <div className={style.p_container}>
-                <h4>TOTAL</h4> <h4><small id={style.small}>(USD) </small>${totalPriceState.toFixed(2)}</h4>
+                <span className={`${style.total_price} u-h2`}>TOTAL</span> <span className={`${style.total_price} u-h2`}><small id={style.small}>(EUR) </small>€ {totalPriceState.toFixed(2)}</span>
             </div>
-            <Button className={style.place_order_button} onClick={checkFormValidation}>Place Order</Button>
+            <Button className={`${style.place_order_button} button_complementary u-pb1`} onClick={checkFormValidation}>
+                Place Order
+            </Button>        
+
+            <Alert tabIndex={-1} id={style.alert} ref={alertRef} show={showAlert} variant="info" onClose={() => setShowAlert(false)}>
+                <Alert.Heading className={`u-h3`}>Can't place order yet!</Alert.Heading>
+                <p>
+                    Please fill out all the necessary information in Shipping Information and Payment Method forms.
+                </p>
+                <hr />
+                <div className="d-flex justify-content-end">
+                    <Button className={`u-pb1`} onClick={() => setShowAlert(false)} variant="outline-info">
+                        Close
+                    </Button>
+                </div>
+            </Alert>
         </div>
     );
 };

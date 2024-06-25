@@ -25,12 +25,11 @@
 .order_info {
     position: sticky;
     top: 25px;
-    width: 34%;
     height: fit-content;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 2rem;
 }
 
 .order_info > img {
@@ -100,7 +99,6 @@
     box-shadow: 0 0 12px 0 #222;
 }
 
-
 @media screen and (max-width: 768px) {
     .heading {
         font-size: 1.5rem;
@@ -108,12 +106,6 @@
 }
 
 @media screen and (min-width: 768px) {
-    #alert{
-        transform: translate(0, 0);
-        top: 55px;
-        right: 0;
-    }
-    
     .checkout_info_title{
         padding: 1rem 2rem .5rem 2rem;
         width: fit-content;
@@ -131,22 +123,21 @@
         border-top-right-radius: 1rem;
     }
 
-    .icon{
-        display: block;
-        color: var(--background);
-        width: 250px;
-        height: 250px;
-        transition: transform .5s;
-    }
-
     .checkout{
         padding: 2rem;
     }
 }
 
 @media screen and (min-width: 1025px) {
+    .order_info {
+        flex-direction: column;
+        width: 34%;
+        min-width: 350px;
+    }
+
     .checkout_info {
         width: 64%;
+        flex-direction: column;
     }
 
     .main_container{
@@ -168,12 +159,14 @@
         margin-top: 50px;
         width: 250px;
     }
-
+    
     .icon{
+        display: block;
         color: var(--background);
-        margin-top: 50px;
+        margin-top: calc(50px - 5%);
         width: 80%;
         height: 80%;
         transition: transform .5s;
+        margin-bottom: -5%;
     }
 }

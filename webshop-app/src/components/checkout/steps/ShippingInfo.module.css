@@ -20,7 +20,7 @@
 }
 
 .heading {
-    color: var(--base-color);
+    color: var(--complementary-hover);
 }
 
 .subheading {
