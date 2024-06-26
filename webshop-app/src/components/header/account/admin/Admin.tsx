@@ -4,6 +4,7 @@ import style from './Admin.module.css';
 import ProductForm from './product_form/ProductForm';
 import ProductTable from './product_table/ProductTable';
 import { Button } from 'react-bootstrap';
+import useElementaryAnimation from '../../../../hooks/useElementaryAnimation';
 
 const Admin: React.FC = () => {
     const [form, setForm] = useState<Product>({
@@ -19,6 +20,7 @@ const Admin: React.FC = () => {
     });
     const [reload, setReload] = useState<boolean>(false);
     const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+    useElementaryAnimation();
 
     const fetchProducts = useCallback(() => {
         setReload((prevState) => !prevState);
@@ -56,7 +58,7 @@ const Admin: React.FC = () => {
                 handleResetForm={handleResetForm}
                 fetchProducts={fetchProducts}
             />
-            <div className={style.product_table}>
+            <div className={`${style.product_table} animated_content`} data-animation="elementScaleIn">
                 <div className={`${style.heading} u-l1`}>Admin Panel</div>
                 <div className={style.button_container}>
                     <Button onClick={handleResetForm} className={`button_complementary u-pb1`}>

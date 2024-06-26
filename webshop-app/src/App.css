@@ -160,6 +160,16 @@
   transition: background-color .25s ease-in-out;
 }
 
+.animated_content {
+  opacity: 0;
+}
+
+.animationsDisabled .animated_content,
+.no-js .animated_content,
+.no-js .animated_content {
+  opacity: 1;
+}
+
 /* 
 ======== FORMS AND INPUTS ========
 */

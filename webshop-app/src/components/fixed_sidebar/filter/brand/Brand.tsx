@@ -1,22 +1,18 @@
 import React, { useEffect, useState } from "react";
 import BrandService from "../../../../services/BrandService";
-import style from '../FilterButtons.module.css'
+import style from '../FilterButtons.module.css';
 import { FilterOptions, BrandType } from "../../../MainContainerData";
 
-interface Props{
+interface Props {
     onFilterOptions: (filterOptions: FilterOptions) => void;
-
     filterOptions: FilterOptions;
     baseColor: string;
     backgroundColor: string;
 }
 
-let myMap = new Map();
-
-const Brand:React.FunctionComponent<Props> = props => {
-
+const Brand: React.FunctionComponent<Props> = props => {
     const [brands, setBrands] = useState<Array<BrandType>>([]);
-    const [filterOptions, setFilterOptions] = useState<FilterOptions>(props.filterOptions);
+    const [selectedBrands, setSelectedBrands] = useState<Set<number>>(new Set(props.filterOptions.brandIds));
 
     const fetchBrands = () => {
         BrandService.fetchAllBrands().then((response) => {
@@ -24,54 +20,44 @@ const Brand:React.FunctionComponent<Props> = props => {
         }).catch(() => {
             console.log("ERR_CONNECTION_REFUSED");
         });
-    }
+    };
 
-    const handleClick = (brandId: number) => {
-        myMap.set(brandId, !myMap.get(brandId));
-        if(myMap.get(brandId)){
-            setFilterOptions((filterOptions) => {
-                return {
-                    ...props.filterOptions,
-                    brandIds: [...filterOptions.brandIds, brandId]
-                };
-            })
-        }else{
-            setFilterOptions((filterOptions) => {
-                return {
-                    ...props.filterOptions,
-                    brandIds: filterOptions.brandIds.filter(id => id !== brandId)
-                }       
-            })
+    const handleClick = (brandId: number, event: React.MouseEvent<HTMLButtonElement>) => {
+        const newSelectedBrands = new Set(selectedBrands);
+        if (newSelectedBrands.has(brandId)) {
+            newSelectedBrands.delete(brandId);
+        } else {
+            newSelectedBrands.add(brandId);
         }
-    }
-
-    useEffect(() => {
-        props.onFilterOptions(filterOptions); 
-    }, [filterOptions])
+        setSelectedBrands(newSelectedBrands);
+        props.onFilterOptions({
+            ...props.filterOptions,
+            brandIds: Array.from(newSelectedBrands)
+        });
+        event.currentTarget.blur(); // Remove focus from the button after click
+    };
 
     useEffect(() => {
         fetchBrands();
-        brands.forEach(element => {
-            myMap.set(element.id, false)
-        });
-    }, [])
+    }, []);
 
-    return(
+    return (
         <>
-        {brands.map(
-            brand => { return(
-            <button 
-            style={{
-                backgroundColor: myMap.get(brand.id) ? props.baseColor : '#414554',
-                color: myMap.get(brand.id) ? props.backgroundColor : props.baseColor
-            }}
-            onClick={() => handleClick(brand.id)} 
-            className={style.brand_button} 
-            key={brand.id}>{brand.title}
-            </button>
-        );})}
+            {brands.map(brand => (
+                <button 
+                    style={{
+                        backgroundColor: selectedBrands.has(brand.id) ? props.baseColor : '#414554',
+                        color: selectedBrands.has(brand.id) ? props.backgroundColor : props.baseColor
+                    }}
+                    onClick={(e) => handleClick(brand.id, e)} 
+                    className={style.brand_button} 
+                    key={brand.id}
+                >
+                    {brand.title}
+                </button>
+            ))}
         </>
     );
-}
+};
 
 export default Brand;

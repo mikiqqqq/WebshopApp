@@ -1,0 +1,14 @@
+.discount_banner {
+    width: 100%;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 101;
+}
+
+.discount_code {
+    color: var(--background);
+    line-height: 175%;
+    margin-top: 2px;
+}

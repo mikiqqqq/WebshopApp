@@ -8,6 +8,7 @@ import { Button, FloatingLabel, Form as BootstrapForm } from 'react-bootstrap';
 import image_placeholder from '../../../../../images/image_placeholder.gif';
 import BrandService from '../../../../../services/BrandService';
 import ProductTypeService from '../../../../../services/ProductTypeService';
+import useElementaryAnimation from '../../../../../hooks/useElementaryAnimation';
 
 interface ProductFormProps {
     form: Product;
@@ -20,6 +21,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ form, handleResetForm, fetchP
     const [previewUrl, setPreviewUrl] = useState<string | null>(form.image ? form.image : null);
     const [brands, setBrands] = useState<Array<BrandType>>([]);
     const [productTypes, setProductTypes] = useState<Array<ProductType>>([]);
+    useElementaryAnimation();
 
     const validationSchema = Yup.object().shape({
         title: Yup.string().required('Title is required'),
@@ -63,7 +65,6 @@ const ProductForm: React.FC<ProductFormProps> = ({ form, handleResetForm, fetchP
 
     const handleSubmit = async (values: Product, { setSubmitting, resetForm }: any) => {
         try {
-            console.log(values)
             await ItemService.addItem(values);
             fetchProducts(); // Trigger re-fetching products in ProductTable
             resetForm(); // Reset Formik form
@@ -102,6 +103,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ form, handleResetForm, fetchP
     };
 
     return (
+        <div className={`animated_content`} data-animation="elementFromRight">
         <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit} enableReinitialize>
             {({ handleChange, setFieldValue, values, touched, errors, isSubmitting }) => (
                 <FormikForm className={`${style.product_form} form`} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
@@ -259,6 +261,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ form, handleResetForm, fetchP
             </FormikForm>
         )}
     </Formik>
+    </div>
 );
 };
 

@@ -7,6 +7,7 @@ import { Alert, Button } from "react-bootstrap";
 import OrderItemService from "../../services/OrderItemService";
 import OrderItem from "./order_item/OrderItem";
 import { OrderItemType } from "../MainContainerData";
+import useElementaryAnimation from "../../hooks/useElementaryAnimation";
 
 interface ExtendedOrderItemType extends OrderItemType {
   totalPrice: number;
@@ -18,6 +19,7 @@ const ShoppingCart: React.FunctionComponent = () => {
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const activeOrder = Number(localStorage.getItem('activeOrder'));
   const alertRef = useRef<HTMLDivElement>(null);
+  useElementaryAnimation();
 
   const fetchOrderItems = useCallback(async () => {
     if (activeOrder) {
@@ -98,7 +100,7 @@ const ShoppingCart: React.FunctionComponent = () => {
   return (
     <main className={style.main}>
       <div className={style.main_container}>
-        <div className={style.order_items}>
+        <div className={`${style.order_items} animated_content`} data-animation="elementScaleIn">
           <Button className={`${style.empty_cart_button} button_complementary u-pb1`} onClick={() => setShowAlert(true)} disabled={orderItems.length === 0}>
             Empty Cart
           </Button>
@@ -124,7 +126,7 @@ const ShoppingCart: React.FunctionComponent = () => {
           </div>
         </div>
         
-        <div className={style.checkout_section}>
+        <div className={`${style.checkout_section} animated_content`} data-animation="elementFromRight">
           <div className={style.checkout}>
             <div className={`${style.total_price} u-h1`}>Calculated price</div>
             <div className={`${style.p_container_shipping} rte u-p2`}>

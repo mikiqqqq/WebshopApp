@@ -5,6 +5,7 @@ import UserService from '../../../../services/UserService';
 import style from './SidebarMenu.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInfo, faReceipt, faRightFromBracket, faLock } from '@fortawesome/free-solid-svg-icons';
+import useElementaryAnimation from '../../../../hooks/useElementaryAnimation';
 
 interface SidebarMenuProps {
     user: User;
@@ -12,14 +13,15 @@ interface SidebarMenuProps {
 
 const SidebarMenu: React.FC<SidebarMenuProps> = ({ user }) => {
     const navigate = useNavigate();
-
+    useElementaryAnimation();
+    
     const handleLogout = () => {
         UserService.logout();
         navigate('/');
     };
 
     return (
-        <div className={style.sidebar_menu}>
+        <div className={`${style.sidebar_menu} animated_content`} data-animation="elementFromLeft">
             <NavLink
                 to="/account/information"
                 className={({ isActive }) => `${style.menu_item} u-pb1 ${isActive ? style.menu_item_selected : ''}`}

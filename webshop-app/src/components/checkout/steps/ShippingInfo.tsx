@@ -4,7 +4,6 @@ import style from './ShippingInfo.module.css';
 import { Formik } from "formik";
 import * as Yup from 'yup';
 import { countries } from "./CountryData";
-
 interface Props {
     validatedShippingInfo(validated: boolean): void;
     shippingInfo(shippingInfo: any): void;

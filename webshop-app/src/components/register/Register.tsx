@@ -6,9 +6,11 @@ import style from './Register.module.css';
 import { Button, FloatingLabel, Form as BootstrapForm } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { ErrorResponse400, UserRegisterForm } from '../MainContainerData';
+import useElementaryAnimation from '../../hooks/useElementaryAnimation';
 
 const Register: React.FC = () => {
     const navigate = useNavigate();
+    useElementaryAnimation();
 
     const initialValues = {
         name: '',
@@ -67,7 +69,7 @@ const Register: React.FC = () => {
 
     return (
         <div className="main">
-            <div className={style.register_container}>
+            <div className={`${style.register_container} animated_content`} data-animation="elementScaleIn">
                 <div className={`${style.register_heading} u-l1`}>Register</div>
                 <Formik
                     initialValues={initialValues}

@@ -6,14 +6,13 @@
   padding-bottom: 35px;
   box-shadow: 0 9px 20px 0 #222;
   font-family: Gotham,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Droid Sans,Helvetica Neue,sans-serif;
-  z-index: 0;
   transition: min-width .25s ease;
 }
 
 .fixed{
   position: sticky;
   width: 100%;
-  top: 60px;
+  top: calc(60px + var(--header-height));
 }
 
 .filter_title{
@@ -36,7 +35,7 @@
   border-bottom: 1px solid var(--base-color);
   background-color: #656a75 !important;
   margin-top: -1px;
-  font-size: 1.7em;
+  outline: none !important;
 }
 
 .accordion_header > button {
@@ -44,8 +43,7 @@
   color: var(--base-color) !important;
   box-shadow: none !important;
   height: 50px;
-  font-size: .65em;
-  font-weight: 500;
+  outline: none !important;
 }
 
 .accordion_header > button:after{

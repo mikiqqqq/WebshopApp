@@ -6,9 +6,11 @@ import style from './Login.module.css';
 import { Button, FloatingLabel, Form as BootstrapForm } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import {  ErrorResponse400 } from '../MainContainerData';
+import useElementaryAnimation from '../../hooks/useElementaryAnimation';
 
 const Login: React.FC = () => {
     const navigate = useNavigate();
+    useElementaryAnimation();
 
     const initialValues = {
         email: '',
@@ -61,7 +63,7 @@ const Login: React.FC = () => {
 
     return (
         <div className="main">
-            <div className={style.login_container}>
+            <div className={`${style.login_container} animated_content`} data-animation="elementScaleIn">
                 <div className={`${style.login_heading} u-l1`}>Login</div>
                 <Formik
                     initialValues={initialValues}

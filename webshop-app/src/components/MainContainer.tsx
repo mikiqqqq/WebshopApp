@@ -41,6 +41,7 @@ const MainContainer: React.FC = () => {
       ItemService.filterItems(filterOptions).then((response) => {
         setItems(response.data);
         setError(false);
+        console.log(response.data)
       }).catch(() => setError(true));
     } else {
       setError(false);
@@ -48,9 +49,11 @@ const MainContainer: React.FC = () => {
       fetchItemsContainingTarget(target);
     }
   }, [searchParams, filterOptions]);
+
   const fetchItemsContainingTarget = (searchOptions: string) => {
     ItemService.findAllThatContainTarget(searchOptions).then((response) => {
       setItems(response.data);
+      console.log(response.data)
     });
   };
 
@@ -106,7 +109,7 @@ const MainContainer: React.FC = () => {
           :
           <div>
             <div className={`${style.not_found} u-h1`}>Unfortunately, there are no products with such filters...</div>
-            <button className={`${style.clear_all} button_transparent u-h3`} onClick={() => setSearchParams()}>
+            <button className={`${style.clear_all} button_transparent u-h3`} onClick={() => setFilterOptions(defaultFilterOptions)}>
               Clear all
             </button>        
             <FontAwesomeIcon

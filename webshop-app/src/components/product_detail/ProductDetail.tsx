@@ -9,9 +9,10 @@ import image_placeholder from '../../images/image_placeholder.gif'
 import Item from "../item_container/item/Item";
 import OrderItemService from "../../services/OrderItemService";
 import OrderService from "../../services/OrderService";
-import useLocalStorage from "../../useLocalStorage";
+import useLocalStorage from "../../hooks/useLocalStorage";
 import ItemQuantitySelector from "../item_container/item/quantity_selector/ItemQuantitySelector";
 import { Button } from "react-bootstrap";
+import useElementaryAnimation from "../../hooks/useElementaryAnimation";
 
 
 const ProductDetail: React.FC= () => {
@@ -22,6 +23,7 @@ const ProductDetail: React.FC= () => {
     const [quantity, setQuantity] = useState<number>(1);
     const [, setLocalStateActiveOrder] = useLocalStorage('activeOrder');
     const activeOrder = Number(localStorage.getItem('activeOrder'));
+    useElementaryAnimation();
 
     const addToCart = async (quantity: number, orderId: number, product: Product) => {
         if (!activeOrder) {
@@ -61,7 +63,7 @@ const ProductDetail: React.FC= () => {
 
     return (
         <div className={style.module}>
-            <div className={style.container}>
+            <div className={`${style.container} animated_content`} data-animation="elementScaleOut">
                 <img className={style.image} src={productImageURL} alt={product.title} />
                 <div className={style.product_info}>
                     <div>
@@ -99,10 +101,12 @@ const ProductDetail: React.FC= () => {
                 </div>
             </div>
             <div className={style.related_products}>
-                <div className={style.heading}>
+                <div className={`${style.heading} animated_content`} data-animation="elementFromLeft">
                     <div className={`${style.heading_text} u-h1`}>Related products</div>
                 </div>
                 <Swiper 
+                className="animated_content"
+                data-animation="elementFromBottom"
                 spaceBetween={16} 
                 slidesPerView={1}
                 breakpoints={{
@@ -117,11 +121,13 @@ const ProductDetail: React.FC= () => {
                     ))}
                 </Swiper>
             </div>
-            <div className={style.recommended_products}>
-                <div className={style.heading}>
+            <div className={style.recommended_products} data-animation="elementFromBottom">
+                <div className={`${style.heading} animated_content`} data-animation="elementFromLeft">
                     <div className={`${style.heading_text} u-h1`}>You may like</div>
                 </div>
                 <Swiper 
+                className="animated_content"
+                data-animation="elementFromBottom"
                 spaceBetween={16} 
                 slidesPerView={1}
                 breakpoints={{

@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { OrderObject } from '../../../MainContainerData';
 import Order from './order/Order'; // Ensure this path is correct
 import style from './Orders.module.css';
+import useElementaryAnimation from '../../../../hooks/useElementaryAnimation';
 
 interface OrdersProps {
     activeOrders: OrderObject[];
@@ -10,6 +11,7 @@ interface OrdersProps {
 
 const Orders: React.FC<OrdersProps> = ({ activeOrders, completedOrders }) => {
     const [showInProgress, setShowInProgress] = useState(true);
+    useElementaryAnimation();
 
     // Memoizing the orders lists to avoid unnecessary re-renders
     const activeOrdersList = useMemo(() => (
@@ -25,7 +27,7 @@ const Orders: React.FC<OrdersProps> = ({ activeOrders, completedOrders }) => {
     ), [completedOrders]);
 
     return (
-        <div className={style.container}>
+        <div className={`${style.container} animated_content`} data-animation="elementScaleIn">
             <div className={`${style.orders_heading} u-h1`}>Orders</div>
             <div className={style.button_container}>
                 <button

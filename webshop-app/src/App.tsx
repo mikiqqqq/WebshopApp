@@ -8,13 +8,13 @@ import MainContainer from './components/MainContainer';
 import ShoppingCart from './components/shopping_cart/ShoppingCart';
 import Support from './components/support/Support';
 import WrongRoute from './components/wrong_route/WrongRoute';
-import useLocalStorage from './useLocalStorage';
 import PrivateRoute from './components/private_route/PrivateRoute';
 import Login from './components/login/Login';
 import Register from './components/register/Register';
 import Account from './components/header/account/Account';
 import Admin from './components/header/account/admin/Admin';
 import ProductDetail from './components/product_detail/ProductDetail';  
+import AnnouncementBar from './components/announcement_bar/AnnouncementBar';
 
 function App() {
   const [orderCompleted, setOrderCompleted] = useState(false);
@@ -27,6 +27,7 @@ function App() {
   return (
     <BrowserRouter>
       <div className="page">
+        <AnnouncementBar />
         <Header />
         <Routes>
           <Route path="/" element={<MainContainer />} />

@@ -10,6 +10,7 @@ import ShippingInfo from "./steps/ShippingInfo";
 import PaymentInfo from "./steps/PaymentInfo";
 import OrderReview from "./steps/OrderReview";
 import OrderSummary from "./steps/OrderSummary";
+import useElementaryAnimation from "../../hooks/useElementaryAnimation";
 
 interface Props {
     orderCompleted(orderCompleted: boolean): void;
@@ -21,6 +22,7 @@ interface ExtendedOrderItemType extends OrderItemType {
 
 const Checkout: React.FunctionComponent<Props> = ({ orderCompleted }) => {
     const navigate = useNavigate();
+    useElementaryAnimation();
     const activeOrder = Number(localStorage.getItem('activeOrder'));
     const [orderItems, setOrderItems] = useState<ExtendedOrderItemType[]>([]);
     const [totalPrice, setTotalPrice] = useState<number>(0);
@@ -152,7 +154,7 @@ const Checkout: React.FunctionComponent<Props> = ({ orderCompleted }) => {
                 </>
             ) : (
                 <div className={style.main_container}>
-                    <div className={style.checkout_info}>
+                    <div className={`${style.checkout_info} animated_content`} data-animation="elementScaleIn" >
                         <div className={style.checkout_info_title}>
                             <div className={`${style.heading} u-h1`}>Checkout <FontAwesomeIcon icon={faCreditCard} className={`${style.h2_icon}`} /></div>
                         </div>
@@ -161,7 +163,7 @@ const Checkout: React.FunctionComponent<Props> = ({ orderCompleted }) => {
                         <OrderReview orderItems={orderItems} handlePriceChange={handlePriceChange} onRemoveItem={handleRemoveItem} />
                     </div>
 
-                    <div className={style.order_info}>
+                    <div className={`${style.order_info} animated_content`} data-animation="elementFromRight">
                         <OrderSummary
                             subtotal={subtotal}
                             originalTotal={originalTotal}

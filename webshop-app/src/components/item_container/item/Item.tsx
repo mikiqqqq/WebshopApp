@@ -8,8 +8,9 @@ import { Overlay, Tooltip } from "react-bootstrap";
 import OrderService from "../../../services/OrderService";
 import ItemQuantitySelector from "./quantity_selector/ItemQuantitySelector";
 import OrderItemService from "../../../services/OrderItemService";
-import useLocalStorage from "../../../useLocalStorage";
+import useLocalStorage from "../../../hooks/useLocalStorage";
 import image_placeholder from '../../../images/image_placeholder.gif'
+import useElementaryAnimation from "../../../hooks/useElementaryAnimation";
 
 interface Props {
   item: Product;
@@ -23,6 +24,7 @@ const Item: React.FC<Props> = ({ item }) => {
   const target = useRef(null);
   const activeOrder = Number(localStorage.getItem('activeOrder'));
   const productSlug = item.title.toLowerCase().replace(/\s+/g, '-') + '-' + item.id;
+  useElementaryAnimation();
 
   const addToCart = async (quantity: number, orderId: number, product: Product) => {
       if (!activeOrder) {
@@ -53,7 +55,7 @@ const Item: React.FC<Props> = ({ item }) => {
 };
 
   return (
-      <Link to={`/products/${productSlug}`} className={style.item_box}>
+      <Link to={`/products/${productSlug}`} className={`${style.item_box} animated_content`}>
         <img className={style.image} src={item.image || image_placeholder} alt={item.title}></img>
         <div className={style.item_info}>
           <div className={style.item_header}>

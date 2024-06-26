@@ -2,7 +2,6 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { Route, Routes, useNavigate, Navigate } from 'react-router-dom';
 import UserService from '../../../services/UserService';
 import { User, OrderObject, Product } from '../../MainContainerData';
-import Admin from './admin/Admin';
 import Orders from './orders/Orders';
 import SidebarMenu from './sidebar_menu/SidebarMenu';
 import UserInformation from './user_information/UserInformation';

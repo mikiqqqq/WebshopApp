@@ -1,6 +1,7 @@
 import style from './Footer.module.css'
 
 export default function Footer() {
+
     return (
         <footer>
             <table className={`${style.footer_table} not_mobile`}>

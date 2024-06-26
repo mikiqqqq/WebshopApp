@@ -131,3 +131,9 @@ export type ErrorResponse400 = {
 export type ErrorResponse = {
     error: string;
 };
+
+export const theme = {
+    animationDuration: 500, // Default duration in ms
+    animationBetweenElements: 100, // Default delay in ms
+    enableAnimations: true // Default state of animations
+  };
