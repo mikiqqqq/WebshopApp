@@ -12,7 +12,7 @@ import useElementaryAnimation from '../../hooks/useElementaryAnimation';
 const Header: React.FC = () => {
   useElementaryAnimation();
 
-  const [scrollDirection, setScrollDirection] = useState<'up' | 'down'>('up');
+  const [scrollDirection, setScrollDirection] = useState<'up' | 'down'>('down');
   const [lastScrollY, setLastScrollY] = useState(0);
 
   const handleScroll = () => {
@@ -20,12 +20,16 @@ const Header: React.FC = () => {
 
     if (currentScrollY > lastScrollY && currentScrollY > 100) {
       setScrollDirection('down');
-    } else if (currentScrollY < lastScrollY) {
+    } else if (currentScrollY < lastScrollY || currentScrollY < 100) {
       setScrollDirection('up');
     }
 
     setLastScrollY(currentScrollY);
   };
+
+  useEffect(() => {
+    handleScroll();
+  }, []);
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);

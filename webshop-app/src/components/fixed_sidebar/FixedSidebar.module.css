@@ -1,18 +1,26 @@
 .sidebar{
   box-sizing: border-box;
-  width: 17%;
-  min-width: 260px;
+  width: 260px;
   background: var(--background);
-  padding-bottom: 35px;
   box-shadow: 0 9px 20px 0 #222;
   font-family: Gotham,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Droid Sans,Helvetica Neue,sans-serif;
   transition: min-width .25s ease;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  z-index: 20;
 }
 
 .fixed{
   position: sticky;
   width: 100%;
-  top: calc(60px + var(--header-height));
+  top: 0;
+  margin-top: calc(var(--ann-bar-height) + var(--header-height));
+  max-height: calc(100% - var(--header-height) - var(--ann-bar-height) - var(--footer-height));
+  overflow-y: auto;
+  padding-bottom: 35px;
+  margin-bottom: calc(var(--footer-height));
 }
 
 .filter_title{
@@ -112,12 +120,12 @@
 
 @media screen and (min-width: 768px) {
   .sidebar{
-    min-width: 300px;
+    width: 300px;
   }  
 }
 
 @media screen and (min-width: 1440px) {
   .sidebar{
-    min-width: 343px;
+    width: 343px;
   }  
 }

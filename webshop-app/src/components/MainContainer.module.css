@@ -1,19 +1,20 @@
 .main{
     box-sizing: border-box;
     display: flex;
-    width: 100%;
     flex: 1;
     background-color: #4e8f90;
+    width: calc(100% - 260px);
+    margin-left: auto;
 }
 
 .no_items{
-    width: 83%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 2rem;
     padding: 4rem;
+    width: 100%;
     color: var(--background-hover);
 }
 
@@ -116,4 +117,16 @@ button.search_button{
 .flip_animation {
     animation: flip 10s linear infinite;
     animation-delay: 10s;
+}
+
+@media screen and (min-width: 768px) {
+    .main{
+        width: calc(100% - 300px);
+    }
+}
+  
+@media screen and (min-width: 1440px) {
+    .main{
+        width: calc(100% - 343px);
+    }
 }
