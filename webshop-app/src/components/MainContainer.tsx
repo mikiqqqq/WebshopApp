@@ -12,7 +12,7 @@ import { faFaceSadTear, faMagnifyingGlass } from '@fortawesome/free-solid-svg-ic
 const MainContainer: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [items, setItems] = useState<Array<Product>>([]);
-  const [filterOptions, setFilterOptions] = useState<FilterOptions>({
+  const defaultFilterOptions: FilterOptions = {
     brandIds: [],
     uprLmt: 15000,
     lwrLmt: 0,
@@ -20,8 +20,8 @@ const MainContainer: React.FC = () => {
     productionYear: 0,
     sortBy: "NAME",
     sortOrder: "ASC"
-  });
-  const [rotate, setRotate] = useState(false);
+  }
+  const [filterOptions, setFilterOptions] = useState<FilterOptions>(defaultFilterOptions);
   const [inputValue, setInputValue] = useState('');
   const [error, setError] = useState(true);
 
@@ -35,16 +35,6 @@ const MainContainer: React.FC = () => {
       event.preventDefault();
     }
   };
-
-  const blink = () => {
-    setRotate(true);
-    setTimeout(() => setRotate(false), 2500);
-  };
-
-  useEffect(() => {
-    const intervalId = setInterval(blink, 10000);
-    return () => clearInterval(intervalId);
-  }, []);
 
   useEffect(() => {
     if (searchParams.get('search') === null) {
@@ -74,38 +64,57 @@ const MainContainer: React.FC = () => {
 
       {error && (
         <div className={style.no_items}>
-          <h2 id={style.network_error}>NETWORK ERROR</h2>
-          <h2>Something went wrong... Please try again later.</h2>
+          <div className={`u-h1`} id={style.network_error}>NETWORK ERROR</div>
+          <div className={`u-h3`}>Something went wrong... Please try again later.</div>
           <FontAwesomeIcon
             icon={faFaceSadTear}
-            style={{ transform: rotate ? 'scaleX(-1)' : 'scaleX(1)' }}
-            className={style.frown_face}
+            className={`${style.frown_face} ${style.flip_animation}`}
           />
         </div>
       )}
 
       {!error && items.length === 0 && (
         <div className={style.no_items}>
-          <h2>Unfortunately, your search for "{searchParams.get('search')}" returned no results...</h2>
-          <h2>Try again using a different term</h2>
-          <div className={style.search_container}>
-            <input
-              type="text"
-              placeholder="Search products"
-              className={style.search_bar}
-              value={inputValue}
-              onKeyDown={keyPressHandler}
-              onChange={handleInputChange}
-            />
-            <button className={style.search_button}>
-              <FontAwesomeIcon className={style.icon} icon={faMagnifyingGlass} />
-            </button>
+          {searchParams.get('search') !== null ?
+          <div>
+          <div className={`u-h1`}>Unfortunately, your search for <br></br>"{searchParams.get('search')}"<br></br> returned no results...</div>
+          <div>
+            <div className={`${style.retry} u-h3`}>Try again using a different term</div>
+            <div className={`${style.search_container}`}>
+              <input
+                type="text"
+                placeholder="Search products"
+                className={style.search_bar}
+                value={inputValue}
+                onKeyDown={keyPressHandler}
+                onChange={handleInputChange}
+              />  
+              <button className={style.search_button} onClick={() => setSearchParams({ search: inputValue })}>
+                <FontAwesomeIcon className={style.icon} icon={faMagnifyingGlass} />
+              </button>
+            </div>
+            <div className={`${style.or} u-h3`}>or</div>
+            <button className={`${style.clear_all} button_transparent u-h3`} onClick={() => setSearchParams()}>
+              Clear search
+            </button>  
           </div>
           <FontAwesomeIcon
             icon={faFaceSadTear}
-            style={{ transform: rotate ? 'scaleX(-1)' : 'scaleX(1)' }}
-            className={style.frown_face}
+            className={`${style.frown_face} ${style.flip_animation}`}
           />
+          </div>
+          :
+          <div>
+            <div className={`${style.not_found} u-h1`}>Unfortunately, there are no products with such filters...</div>
+            <button className={`${style.clear_all} button_transparent u-h3`} onClick={() => setSearchParams()}>
+              Clear all
+            </button>        
+            <FontAwesomeIcon
+              icon={faFaceSadTear}
+              className={`${style.frown_face} ${style.flip_animation}`}
+            />
+          </div>
+          }
         </div>
       )}
 

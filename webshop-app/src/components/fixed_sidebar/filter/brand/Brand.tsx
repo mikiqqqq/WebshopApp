@@ -63,7 +63,7 @@ const Brand:React.FunctionComponent<Props> = props => {
             <button 
             style={{
                 backgroundColor: myMap.get(brand.id) ? props.baseColor : '#414554',
-                color: myMap.get(brand.id) ? props.backgroundColor : props.baseColor,
+                color: myMap.get(brand.id) ? props.backgroundColor : props.baseColor
             }}
             onClick={() => handleClick(brand.id)} 
             className={style.brand_button} 

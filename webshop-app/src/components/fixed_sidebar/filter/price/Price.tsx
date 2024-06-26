@@ -15,12 +15,12 @@ const priceArray = [
     [100, 500],
     [500, 1000],
     [1000, 2000],
-    [2000, 5000],
+    [2000, 20000],
 ]
 const Price:React.FunctionComponent<Props> = props => {
 
     const [filterOptions, setFilterOptions] = useState<FilterOptions>(props.filterOptions);
-    const [isActive, setIsActive] = useState<Array<number>>([0, 5000]);
+    const [isActive, setIsActive] = useState<Array<number>>([0, 20000]);
 
     const handleClick = (price: Array<number>) => {
         setIsActive(price);
@@ -46,20 +46,23 @@ const Price:React.FunctionComponent<Props> = props => {
             style={{
                 backgroundColor: isActive[0] === priceOption[0] && isActive[1] === priceOption[1] ? props.baseColor : props.backgroundColor,
                 color: isActive[0] === priceOption[0] && isActive[1] === priceOption[1] ? props.backgroundColor : props.baseColor,
+                fontWeight: isActive[0] === priceOption[0] && isActive[1] === priceOption[1] ? "bold" : ""
             }}
             onClick={() => handleClick([priceOption[0], priceOption[1]])} 
-            className={style.choose_button} 
+            className={`${style.choose_button} ${isActive[0] === priceOption[0] && isActive[1] === priceOption[1] ? style.selected  : ""}`} 
             key={priceOption[0]}>{priceOption[0]}$ - {priceOption[1]}$
             </button>
         );})}
 
         <button 
             style={{
-                backgroundColor: isActive[0] === 0 && isActive[1] === 5000 ? props.baseColor : props.backgroundColor,
-                color: isActive[0] === 0 && isActive[1] === 5000  ? props.backgroundColor : props.baseColor,
+                backgroundColor: isActive[0] === 0 && isActive[1] === 20000 ? props.baseColor : props.backgroundColor,
+                color: isActive[0] === 0 && isActive[1] === 20000  ? props.backgroundColor : props.baseColor,
+                fontWeight: isActive[0] === 0 && isActive[1] === 20000  ?  "bold" : ""
             }}
-            onClick={() => handleClick([0, 5000])} 
-            className={style.choose_button} >No Filter
+            onClick={() => handleClick([0, 20000])} 
+            className={`${style.choose_button} ${isActive[0] === 0 && isActive[1] === 20000 ? style.selected  : ""}`} 
+            >No Filter
         </button>
         </>
     );

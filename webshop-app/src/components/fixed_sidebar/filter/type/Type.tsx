@@ -53,9 +53,10 @@ const Type:React.FunctionComponent<Props> = props => {
             style={{
                 backgroundColor: isActive === type.id ? props.baseColor : props.backgroundColor,
                 color: isActive === type.id ? props.backgroundColor : props.baseColor,
+                fontWeight: isActive === type.id ? "bold" : ""
             }}
             onClick={() => handleClick(type.id)} 
-            className={style.choose_button} 
+            className={`${style.choose_button} ${isActive === type.id ? style.selected  : ""}`} 
             key={type.id}>{type.title}
             </button>
         );})}
@@ -64,9 +65,11 @@ const Type:React.FunctionComponent<Props> = props => {
             style={{
                 backgroundColor: isActive === 0 ? props.baseColor : props.backgroundColor,
                 color: isActive === 0 ? props.backgroundColor : props.baseColor,
+                fontWeight: isActive === 0 ? "bold" : ""
             }}
             onClick={() => handleClick(0)} 
-            className={style.choose_button} >No Filter
+            className={`${style.choose_button} ${isActive === 0 ? style.selected  : ""}`} 
+            >No Filter
         </button>
         </>
     );

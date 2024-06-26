@@ -7,6 +7,7 @@
   box-shadow: 0 9px 20px 0 #222;
   font-family: Gotham,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Droid Sans,Helvetica Neue,sans-serif;
   z-index: 0;
+  transition: min-width .25s ease;
 }
 
 .fixed{
@@ -18,8 +19,8 @@
 .filter_title{
   margin-top: 60px;
   color: var(--base-color);
-  font-size: 1.6em;
-  margin-left: 5px;
+  margin-left: 1rem;
+  margin-bottom: .5rem;
 }
 
 .accordion_header > button:focus{
@@ -39,7 +40,7 @@
 }
 
 .accordion_header > button {
-  background: radial-gradient(circle, rgba(101,106,117,1) 0%, rgba(80,84,94,1) 100%);
+  background: var(--background-hover) !important;
   color: var(--base-color) !important;
   box-shadow: none !important;
   height: 50px;
@@ -48,12 +49,12 @@
 }
 
 .accordion_header > button:after{
-  background-image: url('../../images/angle-up-solid.svg');
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512' fill='%2300bdbf'%3E%3Cpath d='M201.4 374.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 306.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z'/%3E%3C/svg%3E");  
   background-size: 22px 22px;
 }
 
 .accordion_header > button:not(.collapsed)::after{
-  background-image: url('../../images/angle-down-solid.svg');
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512' fill='%2300bdbf'%3E%3Cpath d='M201.4 374.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 306.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z'/%3E%3C/svg%3E");
 }
 
 .accordion_body{
@@ -63,6 +64,8 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
+    gap: .5rem;
+    padding: 1rem;
 }
 
 .accordion_body_radio{
@@ -107,4 +110,16 @@
 .image{
   width: 55%;
   margin-right: 5px;
+}
+
+@media screen and (min-width: 768px) {
+  .sidebar{
+    min-width: 300px;
+  }  
+}
+
+@media screen and (min-width: 1440px) {
+  .sidebar{
+    min-width: 343px;
+  }  
 }

@@ -30,16 +30,15 @@
 }
 
 .item_description{
-    color: lavender;
-    font-weight: 500;
+    color: var(--base-font-color);
 }
 
 .item_brand{
-    color: var(--base-color);
+    color: var(--base-font-color);
 }
 
 .item_price{
-    color: var(--complementary-color);
+    color: var(--complementary-hover);
     letter-spacing: 1px;
     padding-bottom: .25rem;
 }
@@ -63,13 +62,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: 0.35s;
+    transition: background-color 0.25s ease-in-out;
 }
 
 .cart_button:has(:focus),
 .cart_button:focus,
 .cart_button:hover{
-    transition: 0.4s;
     background-color: var(--complementary-hover); 
 }
 

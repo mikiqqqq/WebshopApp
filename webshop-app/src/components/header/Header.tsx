@@ -47,8 +47,8 @@ const Header: React.FC = () => {
     <header>
       {!error && discountCode && (
         <div className={style.discount_banner} style={{ backgroundColor: headerColor }}>
-          <h2 className={`${style.discount_code} u-h2 not_mobile`}>SUMMER SALE: {discountCode} for 25% OFF</h2>
-          <h2 className={`${style.discount_code} u-h2 not_pocket not_desktop`}>{discountCode} for 25% OFF</h2>
+          <div className={`${style.discount_code} u-h3 not_mobile`}>SUMMER SALE: {discountCode} for 25% OFF</div>
+          <div className={`${style.discount_code} u-h3 not_pocket not_desktop`}>{discountCode} for 25% OFF</div>
         </div>
       )}
 

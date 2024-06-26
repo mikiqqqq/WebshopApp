@@ -18,3 +18,16 @@
         grid-template-columns: repeat(4, minmax(100px, 1fr)); ;
     }
 }
+
+@media screen and (min-width: 1920px) {
+    .items_container{
+        grid-template-columns: repeat(5, minmax(100px, 1fr)); ;
+    }
+}
+
+
+@media screen and (min-width: 2560px) {
+    .items_container{
+        grid-template-columns: repeat(6, minmax(100px, 1fr)); ;
+    }
+}

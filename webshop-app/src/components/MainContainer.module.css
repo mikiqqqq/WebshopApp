@@ -11,14 +11,32 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
+    padding: 4rem;
+    color: var(--background-hover);
 }
 
-.no_items > h2{
-    margin-top: 50px;
-    font-family:Arial, Helvetica, sans-serif;
-    font-size: 1.5em;
-    font-weight: 600;
+.no_items > div {    
+    display: flex;
+    flex-direction: column;
+    max-width: 603px;
+    align-items: center;
+    text-align: center;
+    gap: 2rem;
+}
+
+.retry {
+    margin-bottom: .5rem;
+}
+
+.or {
+    margin-top: .5rem;
+}
+
+button.clear_all:hover,
+button.clear_all:focus,
+button.clear_all {
+    width: fit-content;
+    color: var(--background-hover);
 }
 
 #network_error{
@@ -27,7 +45,6 @@
 }
 
 .frown_face{
-    margin-top: 70px;
     font-size: 200px;
     transition: transform .5s;
 }
@@ -35,7 +52,6 @@
 .search_container{
     min-width: 40%;
     height: 75px;
-    background-color: rgba(32, 35, 42, 0.8);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -44,33 +60,58 @@
 }
 
 .search_bar{
-    height: 30px;
+    height: 46px;
     width: 100%;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
-    border: none;
+    border: 2px solid var(--background-hover);
     padding-left: 7px;
-    color: var(--background);
-    background-color: lightgray;
+    font-size: 1rem;
+    background-color: transparent;
+    color: var(--background-hover);
 }
 
-.search_button{
-    height: 30px;
-    width: 35px;
+button.search_button{
+    height: 46px;
+    width: 46px;
     border: none;
+    border-radius: 0;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
-    background-color: gray;
+    background-color: var(--background-hover);
+}
+
+.search_button path {
+    fill: var(--base-color);
 }
 
 .search_bar:focus{
     outline: 1px solid var(--base-color);
 }
 
-.search_button:hover{
-    background-color: #696969;
-}
-
 .icon{
     color: var(--base-color);
+}
+
+@keyframes flip {
+    0% {
+      transform: scaleX(1);
+    }
+    2% {
+      transform: scaleX(-1);
+    }
+    15% {
+      transform: scaleX(-1);
+    }
+    17% {
+      transform: scaleX(1);
+    }
+    100% {
+      transform: scaleX(1);
+    }
+}
+
+.flip_animation {
+    animation: flip 10s linear infinite;
+    animation-delay: 10s;
 }

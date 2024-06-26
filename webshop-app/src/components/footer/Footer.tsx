@@ -5,7 +5,7 @@ export default function Footer() {
         <footer>
             <table className={`${style.footer_table} not_mobile`}>
                 <thead>
-                    <tr className={`${style.gray} u-p4`}>
+                    <tr className={`${style.first_row} u-s3`}>
                         <td>Author</td>
                         <td>Category</td>
                         <td>Made with</td>
@@ -26,16 +26,16 @@ export default function Footer() {
             </table>
             <div className={`${style.columns} p2 not_desktop not_pocket`}>
                 <div>
-                    <p className={`${style.gray} u-p4`}>Author</p>
+                    <p className={`${style.first_row} u-s3`}>Author</p>
                     <p>Filip Miloš</p>
                     <p>May 26, 2024</p>
                 </div>
                 <div>
-                    <p className={`${style.gray} u-p4`}>Category</p>
+                    <p className={`${style.first_row} u-s3`}>Category</p>
                     <p>Fullstack Development</p>
                 </div>
                 <div>
-                    <p className={`${style.gray} u-p4`}>Made with</p>
+                    <p className={`${style.first_row} u-s3`}>Made with</p>
                     <p>React Typescript</p>
                     <p>Java Spring Boot</p>
                 </div>

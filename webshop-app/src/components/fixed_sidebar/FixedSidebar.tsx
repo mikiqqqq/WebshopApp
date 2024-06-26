@@ -38,11 +38,11 @@ const FixedSidebar:React.FunctionComponent<Props> = props => {
     return (
         <div className={style.sidebar}>
             <div className={style.fixed}>
-                <h2 className={style.filter_title}>Sort products</h2>
+                <div className={`${style.filter_title} u-h2`}>Sorting</div>
                 <Accordion className={style.accordion} flush>
                     
                     <Accordion.Item className={style.accordion_item} eventKey="0">
-                        <Accordion.Header onClick={() => handleClick("PRICE")} className={style.accordion_header}>Price</Accordion.Header>
+                        <Accordion.Header onClick={() => handleClick("PRICE")} className={`${style.accordion_header} u-pb1`}>Price</Accordion.Header>
                         <Accordion.Body className={style.accordion_body_sort}>
                             <SortPrice onFilterOptions={props.onFilterOptions} filterOptions={filterOptions}
                                     baseColor={baseColor} backgroundColor={backgroundColor}/>
@@ -50,7 +50,7 @@ const FixedSidebar:React.FunctionComponent<Props> = props => {
                     </Accordion.Item>
 
                     <Accordion.Item className={style.accordion_item} eventKey="1">
-                        <Accordion.Header onClick={() => handleClick("NAME")} className={style.accordion_header}>Alphabetically</Accordion.Header>
+                        <Accordion.Header onClick={() => handleClick("NAME")} className={`${style.accordion_header} u-pb1`}>Alphabetically</Accordion.Header>
                         <Accordion.Body className={style.accordion_body_sort}>
                             <SortName onFilterOptions={props.onFilterOptions} filterOptions={filterOptions}
                                     baseColor={baseColor} backgroundColor={backgroundColor}/>
@@ -58,11 +58,11 @@ const FixedSidebar:React.FunctionComponent<Props> = props => {
                     </Accordion.Item>
                 </Accordion>
 
-                <h2 className={style.filter_title}>Filter products</h2>
+                <div className={`${style.filter_title} u-h2`}>Filtering</div>
                 <Accordion className={style.accordion} flush>
                     
                     <Accordion.Item className={style.accordion_item} eventKey="0">
-                        <Accordion.Header className={style.accordion_header}>Type</Accordion.Header>
+                        <Accordion.Header className={`${style.accordion_header} u-pb1`}>Type</Accordion.Header>
                         <Accordion.Body className={style.accordion_body_radio}>
                             <Type onFilterOptions={props.onFilterOptions} filterOptions={props.filterOptions}
                                     baseColor={baseColor} backgroundColor={backgroundColor}/>
@@ -70,7 +70,7 @@ const FixedSidebar:React.FunctionComponent<Props> = props => {
                     </Accordion.Item>
 
                     <Accordion.Item className={style.accordion_item} eventKey="1">
-                        <Accordion.Header className={style.accordion_header}>Brand</Accordion.Header>
+                        <Accordion.Header className={`${style.accordion_header} u-pb1`}>Brand</Accordion.Header>
                         <Accordion.Body className={style.accordion_body}>
                             <Brand onFilterOptions={props.onFilterOptions} filterOptions={props.filterOptions}
                                     baseColor={baseColor} backgroundColor={backgroundColor}/>
@@ -78,7 +78,7 @@ const FixedSidebar:React.FunctionComponent<Props> = props => {
                     </Accordion.Item>
 
                     <Accordion.Item className={style.accordion_item} eventKey="2">
-                        <Accordion.Header className={style.accordion_header}>Price</Accordion.Header>
+                        <Accordion.Header className={`${style.accordion_header} u-pb1`}>Price</Accordion.Header>
                         <Accordion.Body className={style.accordion_body_radio}>
                             <Price onFilterOptions={props.onFilterOptions} filterOptions={props.filterOptions}
                                     baseColor={baseColor} backgroundColor={backgroundColor}/>
@@ -86,7 +86,7 @@ const FixedSidebar:React.FunctionComponent<Props> = props => {
                     </Accordion.Item>
 
                     <Accordion.Item className={style.accordion_item} eventKey="4">
-                        <Accordion.Header className={style.accordion_header}>Year</Accordion.Header>
+                        <Accordion.Header className={`${style.accordion_header} u-pb1`}>Year</Accordion.Header>
                         <Accordion.Body className={style.accordion_body_radio}>
                             <ProductionYear onFilterOptions={props.onFilterOptions} filterOptions={props.filterOptions}
                                     baseColor={baseColor} backgroundColor={backgroundColor}/>

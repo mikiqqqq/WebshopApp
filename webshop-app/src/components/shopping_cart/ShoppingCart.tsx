@@ -93,7 +93,7 @@ const ShoppingCart: React.FunctionComponent = () => {
       document.removeEventListener("mousedown", handleClickOutside);
       document.removeEventListener("focusin", handleFocusOutside);
     };
-  }, [showAlert, handleClickOutside]);
+  }, [showAlert, handleClickOutside, handleFocusOutside]);
 
   return (
     <main className={style.main}>

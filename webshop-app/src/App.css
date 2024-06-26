@@ -9,8 +9,8 @@
   --page-background: #4e8f90;
   --brand-color: skyblue;
   --header-height: 60px;
-  --ann-bar-height: 40px;
-  --footer-height: 309px;
+  --ann-bar-height: 32.8px;
+  --footer-height: 349px;
   --bolded-font: 'BoldedFont';
   --paragraph-font: 'ParagraphFont';
   --scrollbar-background: #2b2f38;
@@ -46,6 +46,7 @@
 
 .u-p1.rte *,
 .u-s1,
+.u-s1,
 .u-p1 {
   font-size: 1.25rem;
 }
@@ -56,6 +57,7 @@
   font-size: 1rem;
 }
 
+.u-s3 td,
 .u-p3.rte *,
 .u-s3,
 .u-p3 {
@@ -64,6 +66,7 @@
 
 .u-p4.rte *,
 .u-s4,
+.u-s4 td,
 .u-p4 {
   font-size: 0.75rem;
 }
@@ -84,12 +87,14 @@
   font-size: 1.1rem;
 }
 
+.u-pb1 button,
 .u-pb1 th,
 .u-pb1 p,
 .u-pb1 {
   font-size: 1.1rem !important;
 }
 
+.u-pb1 button,
 .u-pb1 th,
 .u-pb1 p,
 .u-pb1,
@@ -98,6 +103,8 @@
 .u-s2,
 .u-s3,
 .u-s4,
+.u-s3 td,
+.u-s4 td,
 .u-h1,
 .u-h2,
 .u-h3 {
@@ -412,13 +419,13 @@ html::-webkit-scrollbar-thumb:hover {
 @media screen and (min-width: 768px) {
   :root {
     --header-height: 75px;
-    --footer-height: 173px;
+    --footer-height: 199px;
   }
 }
 
 @media screen and (min-width: 1025px) {
   :root {
-    --ann-bar-height: 44.8px;
+    --ann-bar-height: 39.8px;
   }
   
   .not_desktop {
