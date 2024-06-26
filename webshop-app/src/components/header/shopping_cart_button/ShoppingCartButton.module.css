@@ -16,8 +16,10 @@
     transition: 0.2s;
 }
 
+.cart_button:focus,
 .cart_button:hover {
     background-color: rgba(160, 160, 160, 0.2);
+    outline: none;
 }
 
 #popover {

@@ -26,11 +26,15 @@
     height: 100%;
     box-sizing: border-box;
     border-radius: 5px;
-    color: black;
+    background-color: transparent;
+    border: none;
   }
   
+  .search_button:focus,
+  .search_bar:has(:focus) > .search_button,
   .search_bar:hover > .search_button {
     background-color: rgba(160, 160, 160, 0.2);
+    outline: none;
   }
   
   .search_txt {
@@ -50,6 +54,9 @@
     transition: 0.4s width, 0.4s padding;
   }
   
+  .search_bar:has(:hover) .search_txt,
+  .search_bar:has(:focus) .search_txt,
+  .search_button:focus + .search_txt,
   .search_bar:hover > .search_txt{
     width: 240px;
     padding: 0 0.75rem;

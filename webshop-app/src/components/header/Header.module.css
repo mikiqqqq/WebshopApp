@@ -72,15 +72,17 @@ header {
     transition: 0.2s;
 }
 
+.account_button:focus,
 .account_button:hover {
     background-color: rgba(160, 160, 160, 0.2);
+    outline: none;
 }
 
 .navigation {
     margin-right: 24px;
     margin-left: auto;
     display: flex;
-    gap: 8px;
+    gap: 1rem;
     align-items: center;
 }
 

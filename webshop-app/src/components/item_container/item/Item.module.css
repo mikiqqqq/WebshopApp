@@ -93,6 +93,7 @@
 .item_box:has(:focus),
 .item_box:focus,
 .item_box:hover{
+    border-radius: 1rem;
     background-color: var(--background-hover);
 }
 

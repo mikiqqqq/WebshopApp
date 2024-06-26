@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -11,7 +11,7 @@ import OrderItemService from "../../services/OrderItemService";
 import OrderService from "../../services/OrderService";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import ItemQuantitySelector from "../item_container/item/quantity_selector/ItemQuantitySelector";
-import { Button } from "react-bootstrap";
+import { Button, Overlay, Tooltip } from "react-bootstrap";
 import useElementaryAnimation from "../../hooks/useElementaryAnimation";
 
 
@@ -25,6 +25,8 @@ const ProductDetail: React.FC= () => {
     const activeOrder = Number(localStorage.getItem('activeOrder'));
     const [animationKey, setAnimationKey] = useState<number>(0);
     useElementaryAnimation();
+    const [showTooltip, setShowTooltip] = useState(false);
+    const tooltipTarget = useRef(null);
 
     const addToCart = async (quantity: number, orderId: number, product: Product) => {
         if (!activeOrder) {
@@ -35,6 +37,9 @@ const ProductDetail: React.FC= () => {
         } else {
           await OrderItemService.addOrderItem(quantity, orderId, product.id);
         }
+
+        setShowTooltip(true);
+        setTimeout(() => setShowTooltip(false), 2000);
       };
 
     useEffect(() => {
@@ -45,6 +50,7 @@ const ProductDetail: React.FC= () => {
             if (productId) {
                 ItemService.fetchById(Number(productId)).then((response) => {
                     setProduct(response.data);
+                    window.scrollTo(0, 0);
                 });
                 ItemService.fetchRandomProducts(8).then((response) => {
                     setRelatedProducts(response.data);
@@ -95,11 +101,18 @@ const ProductDetail: React.FC= () => {
                             maxQuantity={product.quantity}
                             onQuantityChange={setQuantity}
                         />
-                        <Button onClick={() => addToCart(quantity, activeOrder,product)} 
+                        <Button
+                            ref={tooltipTarget}
+                            onClick={() => addToCart(quantity, activeOrder, product)}
                             className={`${style.add_to_cart} button_complementary u-pb1`}
                         >
                             Add to Cart
                         </Button>
+                        <Overlay target={tooltipTarget.current} show={showTooltip} placement="top">
+                            <Tooltip id="overlay-example" className={style.tooltip}>
+                                Product added to cart
+                            </Tooltip>
+                        </Overlay>
                     </div>
                 </div>
             </div>

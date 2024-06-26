@@ -72,6 +72,18 @@
     margin-top: 1.5rem;
 }
 
+.tooltip > div:first-child{
+    display: none;
+}
+
+.tooltip > div:last-child{
+    background-color: var(--complementary-hover);
+}
+
+.tooltip > div:last-child {
+    margin-bottom: .5rem;
+}
+
 @media screen and (min-width: 1025px) {
     .module {
         padding: 3rem 3rem 2rem 3rem;

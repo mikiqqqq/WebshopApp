@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import { OverlayTrigger, Popover } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import OrderItemService from '../../../services/OrderItemService';
 import { OrderItemType, Product } from '../../MainContainerData';
 import CartItem from './cart_item/CartItem';
@@ -12,6 +12,7 @@ import { disableScrollLock, enableScrollLock } from '../../../scripts/Global';
 interface ExtendedOrderItemType extends OrderItemType {
   totalPrice: number;
 }
+
 const ShoppingCartButton: React.FunctionComponent = () => {
   const [show, setShow] = useState<boolean>(false);
   const [scale, setScale] = useState<string>("24px");
@@ -20,10 +21,7 @@ const ShoppingCartButton: React.FunctionComponent = () => {
   const baseColor = window.getComputedStyle(document.documentElement).getPropertyValue('--base-color');
   const complColor = window.getComputedStyle(document.documentElement).getPropertyValue('--complementary-color');
   const activeOrder = Number(localStorage.getItem('activeOrder'));
-
-  useEffect(() => {
-    console.log("Rendered");
-  });
+  const navigate = useNavigate();
 
   const handleOnMouseEnter = (e: React.MouseEvent<HTMLElement>) => {
     enableScrollLock();
@@ -36,6 +34,21 @@ const ShoppingCartButton: React.FunctionComponent = () => {
   const handleOnMouseLeave = () => {
     disableScrollLock();
     setShow(false);
+  };
+
+  const handleOnFocus = () => {
+    enableScrollLock();
+    setShow(true);
+  };
+
+  const handleOnBlur = () => {
+    disableScrollLock();
+    setShow(false);
+  };
+
+  const handleOnClick = () => {
+    navigate("/cart");
+    setShow(false)
   };
 
   function delay(time: number) {
@@ -78,7 +91,7 @@ const ShoppingCartButton: React.FunctionComponent = () => {
     } else {
       document.documentElement.style.setProperty('--color', baseColor);
     }
-  }, [activeOrder, baseColor, complColor ]);
+  }, [activeOrder, baseColor, complColor, fetchOrderItems]);
 
   return (
     <div>
@@ -127,7 +140,14 @@ const ShoppingCartButton: React.FunctionComponent = () => {
           </Popover>
         }
       >
-        <button className={style.cart_button} onMouseEnter={handleOnMouseEnter} onMouseLeave={handleOnMouseLeave}>
+        <button 
+          className={style.cart_button} 
+          onMouseEnter={handleOnMouseEnter} 
+          onMouseLeave={handleOnMouseLeave}
+          onFocus={handleOnFocus}
+          onBlur={handleOnBlur}
+          onClick={handleOnClick}
+        >
           <FontAwesomeIcon
             className={style.icon}
             id="cart_button"
