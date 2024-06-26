@@ -12,15 +12,11 @@ import OrderReview from "./steps/OrderReview";
 import OrderSummary from "./steps/OrderSummary";
 import useElementaryAnimation from "../../hooks/useElementaryAnimation";
 
-interface Props {
-    orderCompleted(orderCompleted: boolean): void;
-}
-
 interface ExtendedOrderItemType extends OrderItemType {
     totalPrice: number;
 }
 
-const Checkout: React.FunctionComponent<Props> = ({ orderCompleted }) => {
+const Checkout: React.FunctionComponent = () => {
     const navigate = useNavigate();
     useElementaryAnimation();
     const activeOrder = Number(localStorage.getItem('activeOrder'));
@@ -122,7 +118,6 @@ const Checkout: React.FunctionComponent<Props> = ({ orderCompleted }) => {
             };
             OrderService.updateOrder(updatedOrder).then(() => {
                 setOrderUpdated(true);
-                orderCompleted(true);
             });
         }
     }, [allFormsValidated]);

@@ -68,7 +68,7 @@ const Register: React.FC = () => {
     };
 
     return (
-        <div className="main">
+        <main className="main">
             <div className={`${style.register_container} animated_content`} data-animation="elementScaleIn">
                 <div className={`${style.register_heading} u-l1`}>Register</div>
                 <Formik
@@ -153,7 +153,7 @@ const Register: React.FC = () => {
                     <Link to="/login" className={`${style.login_button} button_transparent u-p2`}>Log in</Link>
                 </div>
             </div>
-        </div>
+        </main>
     );
 };
 

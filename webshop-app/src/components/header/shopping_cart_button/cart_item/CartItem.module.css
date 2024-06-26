@@ -1,77 +1,55 @@
-.cart_item_container {
-    width: 100%;
-    max-height: 350px;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    padding: 0;
-}
-
-.cart_item_container>div:last-child {
-    border-bottom: none;
-    margin-bottom: 0;
-}
-
 .cart_item {
     box-sizing: border-box;
-    width: 90%;
-    margin: 12px;
-    padding-bottom: 15px;
-    border-bottom: 1px solid lavender;
+    position: relative;
 }
 
-.cart_item>h5 {
-    font-size: 1.1em;
+.cart_item::after {
+    content: '';
+    position: absolute;
+    bottom: -1rem;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: var(--base-font-color);
 }
 
 .cart_item_body {
     display: flex;
+    gap: 1rem;
+}
+
+.info_wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.cart_iten_title {
+    color: var(--base-color);
 }
 
 .cart_item_body>img {
-    width: 40%;
-}
-
-.cart_item_body>div {
-    width: 60%;
-    position: relative;
+    aspect-ratio: 1.25;
+    width: 150px;
+    height: auto;
+    object-fit: cover;
+    align-self: flex-start;
+    border-radius: 5px;
 }
 
 #item_quantity {
     text-align: center;
-    position: absolute;
-    top: 0;
-    right: 0;
     display: block;
-    margin: 0;
     width: 25px;
-    background-color: #2b2f38;
-    border-radius: 4px;
+    background-color: var(--background);
+    border-radius: 5px;
+    color: var(--base-font-color);
+    margin: 0;
 }
 
 #item_price {
-    color: var(--base-color);
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    letter-spacing: .8px;
-}
-
-.cart_item_container::-webkit-scrollbar {
-    width: 15px;
-}
-
-/* Track */
-.cart_item_container::-webkit-scrollbar-track {
-    background: #2b2f38;
-    border-bottom: 1px solid #474d5c;
-}
-
-/* Handle */
-.cart_item_container::-webkit-scrollbar-thumb {
-    background: #00bdbf;
-}
-
-/* Handle on hover */
-.cart_item_container::-webkit-scrollbar-thumb:hover {
-    background: #009a9c;
+    margin-top: .5rem;
+    color: var(--base-font-color);
+    display: block;
 }

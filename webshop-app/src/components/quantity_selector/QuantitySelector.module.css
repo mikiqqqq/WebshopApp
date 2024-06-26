@@ -57,11 +57,3 @@
 .quantity_button_increment{
     right: -2px;
 }
-
-.tooltip > div:first-child{
-    display: none;
-}
-
-.tooltip > div:last-child{
-    background-color: var(--complementary-hover);
-}

@@ -23,6 +23,7 @@ const ProductDetail: React.FC= () => {
     const [quantity, setQuantity] = useState<number>(1);
     const [, setLocalStateActiveOrder] = useLocalStorage('activeOrder');
     const activeOrder = Number(localStorage.getItem('activeOrder'));
+    const [animationKey, setAnimationKey] = useState<number>(0);
     useElementaryAnimation();
 
     const addToCart = async (quantity: number, orderId: number, product: Product) => {
@@ -51,18 +52,20 @@ const ProductDetail: React.FC= () => {
                 ItemService.fetchRandomProducts(8).then((response) => {
                     setRecommendedProducts(response.data);
                 });
+                // Update the animation key to re-trigger animations
+                setAnimationKey(prevKey => prevKey + 1);
             }
         }
     }, [location.pathname]);
 
     if (!product) {
-        return <div>Loading...</div>;
+        return null;
     }
 
     const productImageURL = product.image ? product.image : image_placeholder;
 
     return (
-        <div className={style.module}>
+        <main className={style.module} key={animationKey}>
             <div className={`${style.container} animated_content`} data-animation="elementScaleOut">
                 <img className={style.image} src={productImageURL} alt={product.title} />
                 <div className={style.product_info}>
@@ -101,7 +104,7 @@ const ProductDetail: React.FC= () => {
                 </div>
             </div>
             <div className={style.related_products}>
-                <div className={`${style.heading} animated_content`} data-animation="elementFromLeft">
+                <div className={`${style.heading} animated_content`} data-animation="elementFromBottom">
                     <div className={`${style.heading_text} u-h1`}>Related products</div>
                 </div>
                 <Swiper 
@@ -121,8 +124,8 @@ const ProductDetail: React.FC= () => {
                     ))}
                 </Swiper>
             </div>
-            <div className={style.recommended_products} data-animation="elementFromBottom">
-                <div className={`${style.heading} animated_content`} data-animation="elementFromLeft">
+            <div className={style.recommended_products}>
+                <div className={`${style.heading} animated_content`} data-animation="elementFromBottom">
                     <div className={`${style.heading_text} u-h1`}>You may like</div>
                 </div>
                 <Swiper 
@@ -142,7 +145,7 @@ const ProductDetail: React.FC= () => {
                     ))}
                 </Swiper>
             </div>
-        </div>
+        </main>
     );
 };
 

@@ -52,7 +52,7 @@ const Admin: React.FC = () => {
     }, [selectedProduct, handleEdit]);
 
     return (
-        <div className={style.panel}>
+        <main className={style.panel}>
             <ProductForm
                 form={form}
                 handleResetForm={handleResetForm}
@@ -70,7 +70,7 @@ const Admin: React.FC = () => {
                 </div>
                 <ProductTable handleEdit={handleEdit} reload={reload} />
             </div>
-        </div>
+        </main>
     );
 };
 

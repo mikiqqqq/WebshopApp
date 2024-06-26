@@ -62,7 +62,7 @@ const Login: React.FC = () => {
     };
 
     return (
-        <div className="main">
+        <main className="main">
             <div className={`${style.login_container} animated_content`} data-animation="elementScaleIn">
                 <div className={`${style.login_heading} u-l1`}>Login</div>
                 <Formik
@@ -115,7 +115,7 @@ const Login: React.FC = () => {
                     <Link to="/register" className={`${style.register_button} button_transparent u-p2`}>Sign up</Link>
                 </div>
             </div>
-        </div>
+        </main>
     );
 };
 

@@ -14,12 +14,12 @@ import useElementaryAnimation from '../../hooks/useElementaryAnimation';
 interface Props {
   onFilterOptions: (filterOptions: FilterOptions) => void;
   filterOptions: FilterOptions;
-  onClearAll: () => void; // Added prop for clear all handler
   reset: boolean; // Add reset prop
 }
 
 const FixedSidebar: React.FunctionComponent<Props> = props => {
-  const [filterOptions, setFilterOptions] = useState<FilterOptions>(props.filterOptions);
+  const { filterOptions, onFilterOptions, reset } = props;
+  const [localFilterOptions, setLocalFilterOptions] = useState<FilterOptions>(filterOptions);
   const [sortOrderPrice, setSortOrderPrice] = useState<string>('ASC');
   const [sortOrderName, setSortOrderName] = useState<string>('ASC');
   const baseColor = window.getComputedStyle(document.documentElement).getPropertyValue('--base-color');
@@ -27,7 +27,7 @@ const FixedSidebar: React.FunctionComponent<Props> = props => {
   useElementaryAnimation();
 
   const handleClick = (sortBy: string, sortOrder: string) => {
-    setFilterOptions(prevFilterOptions => ({
+    setLocalFilterOptions(prevFilterOptions => ({
       ...prevFilterOptions,
       sortBy: sortBy,
       sortOrder: sortOrder
@@ -35,8 +35,8 @@ const FixedSidebar: React.FunctionComponent<Props> = props => {
   };
 
   useEffect(() => {
-    props.onFilterOptions(filterOptions);
-  }, [filterOptions]);
+    onFilterOptions(localFilterOptions);
+  }, [localFilterOptions]);
 
   const handleSortOrderChange = (sortBy: string, sortOrder: string) => {
     if (sortBy === "PRICE") {
@@ -44,7 +44,7 @@ const FixedSidebar: React.FunctionComponent<Props> = props => {
     } else if (sortBy === "NAME") {
       setSortOrderName(sortOrder);
     }
-    setFilterOptions(prevFilterOptions => ({
+    setLocalFilterOptions(prevFilterOptions => ({
       ...prevFilterOptions,
       sortBy: sortBy,
       sortOrder: sortOrder
@@ -52,16 +52,12 @@ const FixedSidebar: React.FunctionComponent<Props> = props => {
   };
 
   useEffect(() => {
-    setFilterOptions(props.filterOptions);
-  }, [props.filterOptions]);
-
-  useEffect(() => {
-    if (props.reset) {
+    if (reset) {
       setSortOrderPrice('ASC');
       setSortOrderName('ASC');
-      setFilterOptions(props.filterOptions); // Reset filter options
+      setLocalFilterOptions(filterOptions);
     }
-  }, [props.reset, props.filterOptions]);
+  }, [reset, filterOptions]);
 
   return (
     <div className={`${style.sidebar} animated_content`} data-animation="elementFromLeft">
@@ -77,8 +73,8 @@ const FixedSidebar: React.FunctionComponent<Props> = props => {
             </Accordion.Header>
             <Accordion.Body className={style.accordion_body_sort}>
               <SortPrice
-                onFilterOptions={props.onFilterOptions}
-                filterOptions={filterOptions}
+                onFilterOptions={onFilterOptions}
+                filterOptions={localFilterOptions}
                 baseColor={baseColor}
                 backgroundColor={backgroundColor}
                 onSortOrderChange={(sortOrder) => handleSortOrderChange("PRICE", sortOrder)}
@@ -95,8 +91,8 @@ const FixedSidebar: React.FunctionComponent<Props> = props => {
             </Accordion.Header>
             <Accordion.Body className={style.accordion_body_sort}>
               <SortName
-                onFilterOptions={props.onFilterOptions}
-                filterOptions={filterOptions}
+                onFilterOptions={onFilterOptions}
+                filterOptions={localFilterOptions}
                 baseColor={baseColor}
                 backgroundColor={backgroundColor}
                 onSortOrderChange={(sortOrder) => handleSortOrderChange("NAME", sortOrder)}
@@ -113,11 +109,11 @@ const FixedSidebar: React.FunctionComponent<Props> = props => {
             </Accordion.Header>
             <Accordion.Body className={style.accordion_body_radio}>
               <Type
-                onFilterOptions={(newFilterOptions) => setFilterOptions(newFilterOptions)}
-                filterOptions={filterOptions}
+                onFilterOptions={(newFilterOptions) => setLocalFilterOptions(newFilterOptions)}
+                filterOptions={localFilterOptions}
                 baseColor={baseColor}
                 backgroundColor={backgroundColor}
-                reset={props.reset} // Pass reset prop to Type component
+                reset={reset}
               />
             </Accordion.Body>
           </Accordion.Item>
@@ -128,11 +124,11 @@ const FixedSidebar: React.FunctionComponent<Props> = props => {
             </Accordion.Header>
             <Accordion.Body className={style.accordion_body}>
               <Brand
-                onFilterOptions={(newFilterOptions) => setFilterOptions(newFilterOptions)}
-                filterOptions={filterOptions}
+                onFilterOptions={(newFilterOptions) => setLocalFilterOptions(newFilterOptions)}
+                filterOptions={localFilterOptions}
                 baseColor={baseColor}
                 backgroundColor={backgroundColor}
-                reset={props.reset} // Pass reset prop to Brand component
+                reset={reset}
               />
             </Accordion.Body>
           </Accordion.Item>
@@ -143,11 +139,11 @@ const FixedSidebar: React.FunctionComponent<Props> = props => {
             </Accordion.Header>
             <Accordion.Body className={style.accordion_body_radio}>
               <Price
-                onFilterOptions={(newFilterOptions) => setFilterOptions(newFilterOptions)}
-                filterOptions={filterOptions}
+                onFilterOptions={(newFilterOptions) => setLocalFilterOptions(newFilterOptions)}
+                filterOptions={localFilterOptions}
                 baseColor={baseColor}
                 backgroundColor={backgroundColor}
-                reset={props.reset} // Pass reset prop to Price component
+                reset={reset}
               />
             </Accordion.Body>
           </Accordion.Item>
@@ -158,11 +154,11 @@ const FixedSidebar: React.FunctionComponent<Props> = props => {
             </Accordion.Header>
             <Accordion.Body className={style.accordion_body_radio}>
               <ProductionYear
-                onFilterOptions={(newFilterOptions) => setFilterOptions(newFilterOptions)}
-                filterOptions={filterOptions}
+                onFilterOptions={(newFilterOptions) => setLocalFilterOptions(newFilterOptions)}
+                filterOptions={localFilterOptions}
                 baseColor={baseColor}
                 backgroundColor={backgroundColor}
-                reset={props.reset} // Pass reset prop to ProductionYear component
+                reset={reset}
               />
             </Accordion.Body>
           </Accordion.Item>
@@ -170,12 +166,6 @@ const FixedSidebar: React.FunctionComponent<Props> = props => {
 
         <div className={style.image_container}>
           <img src={image} className={style.image} alt="Tech" />
-        </div>
-
-        <div className={style.clear_all_container}>
-          <button className={`${style.clear_all_button} button_transparent u-h3`} onClick={props.onClearAll}>
-            Clear All Filters
-          </button>
         </div>
       </div>
     </div>

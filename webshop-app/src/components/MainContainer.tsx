@@ -6,12 +6,13 @@ import { useSearchParams } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFaceSadTear, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 
-interface Props {
+interface MainContainerProps {
   items: Product[];
   error: boolean;
+  onClearAll: () => void;
 }
 
-const MainContainer: React.FC<Props> = ({ items, error }) => {
+const MainContainer: React.FC<MainContainerProps> = ({ items, error, onClearAll }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [inputValue, setInputValue] = useState('');
 
@@ -39,7 +40,7 @@ const MainContainer: React.FC<Props> = ({ items, error }) => {
         </div>
       )}
 
-{!error && items.length === 0 && (
+      {!error && items.length === 0 && (
         <div className={style.no_items}>
           {searchParams.get('search') !== null ? (
             <div>
@@ -60,7 +61,7 @@ const MainContainer: React.FC<Props> = ({ items, error }) => {
                   </button>
                 </div>
                 <div className={`${style.or} u-h3`}>or</div>
-                <button className={`${style.clear_all} button_transparent u-h3`} onClick={() => setSearchParams({})}>
+                <button className={`${style.clear_all} button_transparent u-h3`} onClick={onClearAll}>
                   Clear search
                 </button>
               </div>
@@ -72,7 +73,7 @@ const MainContainer: React.FC<Props> = ({ items, error }) => {
           ) : (
             <div>
               <div className={`${style.not_found} u-h1`}>Unfortunately, there are no products with such filters...</div>
-              <button className={`${style.clear_all} button_transparent u-h3`} onClick={() => setSearchParams({})}>
+              <button className={`${style.clear_all} button_transparent u-h3`} onClick={onClearAll}>
                 Clear all
               </button>
               <FontAwesomeIcon
@@ -89,4 +90,4 @@ const MainContainer: React.FC<Props> = ({ items, error }) => {
   );
 };
 
-export default MainContainer;       
+export default MainContainer;

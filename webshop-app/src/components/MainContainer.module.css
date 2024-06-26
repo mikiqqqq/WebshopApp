@@ -54,12 +54,10 @@ button.clear_all {
 
 .search_container{
     min-width: 40%;
-    height: 75px;
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 5px;
-    padding: 25px;
 }
 
 .search_bar{
@@ -68,10 +66,11 @@ button.clear_all {
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
     border: 2px solid var(--background-hover);
-    padding-left: 7px;
+    padding: .25rem 1rem;
     font-size: 1rem;
     background-color: transparent;
     color: var(--background-hover);
+    font-family: var(--bolded-font);
 }
 
 button.search_button{

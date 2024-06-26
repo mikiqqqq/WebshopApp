@@ -3,11 +3,11 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import { OverlayTrigger, Popover } from 'react-bootstrap';
-import itemImg from '../../../images/item.jpg';
 import { Link } from 'react-router-dom';
 import OrderItemService from '../../../services/OrderItemService';
 import { OrderItemType, Product } from '../../MainContainerData';
 import CartItem from './cart_item/CartItem';
+import { disableScrollLock, enableScrollLock } from '../../../scripts/Global';
 
 interface ExtendedOrderItemType extends OrderItemType {
   totalPrice: number;
@@ -26,6 +26,7 @@ const ShoppingCartButton: React.FunctionComponent = () => {
   });
 
   const handleOnMouseEnter = (e: React.MouseEvent<HTMLElement>) => {
+    enableScrollLock();
     setShow(true);
     if (e.currentTarget.tagName === "BUTTON") {
       fetchOrderItems();
@@ -33,6 +34,7 @@ const ShoppingCartButton: React.FunctionComponent = () => {
   };
 
   const handleOnMouseLeave = () => {
+    disableScrollLock();
     setShow(false);
   };
 
@@ -79,27 +81,24 @@ const ShoppingCartButton: React.FunctionComponent = () => {
   }, [activeOrder, baseColor, complColor ]);
 
   return (
-    <>
+    <div>
       <OverlayTrigger
         show={show}
         placement='bottom'
         key='bottom'
         delay={{ show: 300, hide: 500 }}
         overlay={
-          <Popover id={style.popover} onMouseEnter={handleOnMouseEnter} onMouseLeave={handleOnMouseLeave}>
+          <Popover id={style.popover} className={activeOrder !== 0 ? style.active : ''} onMouseEnter={handleOnMouseEnter} onMouseLeave={handleOnMouseLeave}>
 
-            <Popover.Header as="h3" id={style.popover_header}
-              style={{ color: activeOrder ? 'lavender' : '#333' }}>
-              Your Shopping Cart
-              <span style={{ display: activeOrder ? 'none' : 'block' }}>is Empty!</span>
+            <Popover.Header className="u-h2" id={style.popover_header}>
+              Shopping cart{ activeOrder !== 0 ? '' : ' is empty!' }
             </Popover.Header>
 
             <Popover.Body id={style.popover_body}>
-              <span style={{
-                display: activeOrder ? 'none' : 'block',
-                padding: "10px 20px", textAlign: "center"
+              <span className={`${style.add} u-p2`} style={{
+                display: activeOrder !== 0 ? 'none' : 'block'              
               }}>
-                Add some products!
+                Feel free to add some products.
               </span>
 
               <div className={style.cart_item_container}>
@@ -108,17 +107,22 @@ const ShoppingCartButton: React.FunctionComponent = () => {
               ))}
               </div>
 
-              <div className={activeOrder ? style.button_container : style.display_none}>
-                <h4>Total price: ${totalPrice.toFixed(2)}</h4>
+              {activeOrder !== 0 &&
+              <div className={style.button_container}>
+                <div className={`${style.total_price}`}>
+                  <p className='u-h2'>Total price: </p>
+                  <p className='u-h2'>${totalPrice.toFixed(2)}</p>
+                </div>
 
-                <Link className={style.go_to_cart} to="/cart">
+                <Link className={`${style.go_to_cart} button_complementary btn-primary u-pb1`} to="/cart" onClick={() => setShow(false)}>
                   Go to Cart
                 </Link>
 
-                <Link className={style.checkout} to="/checkout">
+                <Link className={`${style.checkout} button_complementary btn-primary u-pb1`} to="/checkout" onClick={() => setShow(false)}>
                   Checkout
                 </Link>
               </div>
+              }
             </Popover.Body>
           </Popover>
         }
@@ -134,7 +138,7 @@ const ShoppingCartButton: React.FunctionComponent = () => {
             icon={faCartShopping} />
         </button>
       </OverlayTrigger>
-    </>
+    </div>
   );
 }
 

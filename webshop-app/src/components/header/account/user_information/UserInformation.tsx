@@ -26,7 +26,7 @@ const UserInformation: React.FC = () => {
   }, [user]);
 
   if (!user) {
-    return <div>Loading...</div>;
+    return null;
   }
 
   const [firstName, lastName] = splitName(user.name);

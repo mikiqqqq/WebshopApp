@@ -64,18 +64,18 @@ const Account: React.FC = () => {
     }, [navigate, fetchOrdersAndProducts]);
 
     if (!user) {
-        return <div>Loading...</div>;
+        return null;
     }
 
     return (
-        <div className={style.account_main}>
+        <main className={style.account_main}>
             <SidebarMenu user={user} />
             <Routes>
                 <Route path="/" element={<Navigate to="information" replace/>} />
                 <Route path="information" element={<UserInformation />} />
                 <Route path="orders" element={<Orders activeOrders={activeOrders} completedOrders={completedOrders} />} />
             </Routes>
-        </div>
+        </main>
     );
 };
 
