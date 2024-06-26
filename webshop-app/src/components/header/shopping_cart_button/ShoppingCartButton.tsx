@@ -24,31 +24,39 @@ const ShoppingCartButton: React.FunctionComponent = () => {
   const navigate = useNavigate();
 
   const handleOnMouseEnter = (e: React.MouseEvent<HTMLElement>) => {
-    enableScrollLock();
-    setShow(true);
+    showPopup();
     if (e.currentTarget.tagName === "BUTTON") {
       fetchOrderItems();
     }
   };
 
   const handleOnMouseLeave = () => {
-    disableScrollLock();
-    setShow(false);
+    hidePopup();
   };
 
   const handleOnFocus = () => {
-    enableScrollLock();
-    setShow(true);
+    showPopup();
   };
 
   const handleOnBlur = () => {
-    disableScrollLock();
-    setShow(false);
+    hidePopup();
   };
 
+  const showPopup = () => {
+    enableScrollLock();
+    setShow(true);
+  }
+
+  const hidePopup = () => {
+    setShow(false);
+    setTimeout(() => {
+      disableScrollLock();
+    }, 300);
+  }
+
   const handleOnClick = () => {
+    hidePopup();
     navigate("/cart");
-    setShow(false)
   };
 
   function delay(time: number) {
@@ -83,9 +91,9 @@ const ShoppingCartButton: React.FunctionComponent = () => {
       setScale("30px");
       delay(1000).then(() => {
         setScale("24px");
-        setShow(true);
+        showPopup();
         delay(2000).then(() => {
-          setShow(false);
+          hidePopup();
         });
       });
     } else {
@@ -127,11 +135,11 @@ const ShoppingCartButton: React.FunctionComponent = () => {
                   <p className='u-h2'>${totalPrice.toFixed(2)}</p>
                 </div>
 
-                <Link className={`${style.go_to_cart} button_complementary btn-primary u-pb1`} to="/cart" onClick={() => setShow(false)}>
+                <Link className={`${style.go_to_cart} button_complementary btn-primary u-pb1`} to="/cart" onClick={hidePopup}>
                   Go to Cart
                 </Link>
 
-                <Link className={`${style.checkout} button_complementary btn-primary u-pb1`} to="/checkout" onClick={() => setShow(false)}>
+                <Link className={`${style.checkout} button_complementary btn-primary u-pb1`} to="/checkout" onClick={hidePopup}>
                   Checkout
                 </Link>
               </div>
