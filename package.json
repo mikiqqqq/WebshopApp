@@ -1,7 +1,0 @@
-{
-  "dependencies": {
-    "@azure/storage-blob": "^12.23.0",
-    "jwt-decode": "^4.0.0",
-    "swiper": "^11.1.4"
-  }
-}
