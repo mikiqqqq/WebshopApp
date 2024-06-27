@@ -73,6 +73,7 @@ export interface OrderUpdate {
     phoneNumber: number;
     deliveryAddress: string;
     note: string;
+    status: string;
 }
 
 export interface OrderObject {

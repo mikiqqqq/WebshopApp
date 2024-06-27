@@ -1,11 +1,11 @@
 import style from './ShoppingCartButton.module.css';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import { OverlayTrigger, Popover } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import OrderItemService from '../../../services/OrderItemService';
-import { OrderItemType, Product } from '../../MainContainerData';
+import { OrderItemType } from '../../MainContainerData';
 import CartItem from './cart_item/CartItem';
 import { disableScrollLock, enableScrollLock } from '../../../scripts/Global';
 
@@ -22,6 +22,7 @@ const ShoppingCartButton: React.FunctionComponent = () => {
   const complColor = window.getComputedStyle(document.documentElement).getPropertyValue('--complementary-color');
   const activeOrder = Number(localStorage.getItem('activeOrder'));
   const navigate = useNavigate();
+  const disableScrollLockTimeout = useRef<NodeJS.Timeout | null>(null);
 
   const handleOnMouseEnter = (e: React.MouseEvent<HTMLElement>) => {
     showPopup();
@@ -45,11 +46,15 @@ const ShoppingCartButton: React.FunctionComponent = () => {
   const showPopup = () => {
     enableScrollLock();
     setShow(true);
+    if (disableScrollLockTimeout.current) {
+      clearTimeout(disableScrollLockTimeout.current);
+      disableScrollLockTimeout.current = null;
+    }
   }
 
   const hidePopup = () => {
     setShow(false);
-    setTimeout(() => {
+    disableScrollLockTimeout.current = setTimeout(() => {
       disableScrollLock();
     }, 300);
   }
@@ -122,11 +127,14 @@ const ShoppingCartButton: React.FunctionComponent = () => {
                 Feel free to add some products.
               </span>
 
+
+              { activeOrder !== 0 &&
               <div className={style.cart_item_container}>
               {orderItems?.map(item => (
                 <CartItem key={item.id} orderItem={item} />
               ))}
               </div>
+              }
 
               {activeOrder !== 0 &&
               <div className={style.button_container}>

@@ -53,7 +53,7 @@ const getScrollbarWidth = (): number => {
 
 // Function to enable scroll lock
 export const enableScrollLock = (): void => {
-    if (document.body.offsetHeight > window.innerHeight) {
+    if (document.body.offsetHeight > window.innerHeight + 1) {
         document.body.style.paddingRight = `${getScrollbarWidth()}px`;
         document.body.classList.remove('no_scroll_lock');
 
@@ -61,6 +61,7 @@ export const enableScrollLock = (): void => {
         if(scrollBarPlaceholder) {
             (scrollBarPlaceholder as HTMLElement).style.width = getScrollbarWidth() + "px";
         }          
+        console.log(document.body.offsetHeight, window.innerHeight)
     } else {
         document.body.style.paddingRight = "0";
         document.body.classList.remove('no_scroll_lock');
@@ -68,7 +69,7 @@ export const enableScrollLock = (): void => {
         const scrollBarPlaceholder = document.querySelector('.scrollbar_placeholder');
         if(scrollBarPlaceholder) {
             (scrollBarPlaceholder as HTMLElement).style.width = "0";
-        }          
+        }    
     }
 };
 

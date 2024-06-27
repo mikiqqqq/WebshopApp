@@ -14,10 +14,11 @@ const Account: React.FC = () => {
     const [activeOrders, setActiveOrders] = useState<OrderObject[]>([]);
     const [completedOrders, setCompletedOrders] = useState<OrderObject[]>([]);
     const navigate = useNavigate();
-    
-    const fetchOrdersAndProducts = useCallback(async () => {
+
+    const fetchOrdersAndProducts = useCallback(async (user: User) => {
+        if(!user) return;
         try {
-            const activeResponse = await OrderService.fetchActiveOrders();
+            const activeResponse = await OrderService.fetchActiveOrders(user.email);
             const activeOrdersWithProducts = await Promise.all(
                 activeResponse.data.map(async (order: OrderObject) => {
                     const productsResponse = await ItemService.fetchOrderProducts(order.id);
@@ -31,7 +32,7 @@ const Account: React.FC = () => {
             );
             setActiveOrders(activeOrdersWithProducts);
 
-            const completedResponse = await OrderService.fetchCompletedOrders();
+            const completedResponse = await OrderService.fetchCompletedOrders(user.email);
             const completedOrdersWithProducts = await Promise.all(
                 completedResponse.data.map(async (order: OrderObject) => {
                     const productsResponse = await ItemService.fetchOrderProducts(order.id);
@@ -54,7 +55,7 @@ const Account: React.FC = () => {
             const userInfo = await UserService.getUserInfo();
             if (userInfo) {
                 setUser(userInfo);
-                await fetchOrdersAndProducts();
+                await fetchOrdersAndProducts(userInfo);
             } else {
                 navigate('/login');
             }

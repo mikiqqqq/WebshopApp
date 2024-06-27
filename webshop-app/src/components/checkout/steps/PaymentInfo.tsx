@@ -17,6 +17,10 @@ const PaymentInfo: React.FunctionComponent<Props> = props => {
 
     const handleSetPayment = (method: string) => {
         setPaymentMethod(method);
+        if (method === 'Cash') {
+            props.validatedPaymentInfo(true);
+            props.paymentInfo({ method: 'Cash' });
+        }
     }
 
     useEffect(() => {
@@ -24,7 +28,7 @@ const PaymentInfo: React.FunctionComponent<Props> = props => {
             setValidated(false);
         }, 2000);
         return () => clearTimeout(timeoutID);
-    }, [validated])
+    }, [validated]);
 
     const re = /^[0-9\b]+$/;
 
@@ -40,12 +44,12 @@ const PaymentInfo: React.FunctionComponent<Props> = props => {
             .required("*Card Number is required"),
         expDay: Yup.string()
             .matches(re, "*Exp. day must be a number")
-            .min(2, "*Exp. day must 2 digits")
-            .required("*Expiration day is required"),
+            .min(2, "*Exp. day must have 2 digits")
+            .required("*Exp. day is required"),
         expMonth: Yup.string()
             .matches(re, "*Exp. month must be a number")
-            .min(2, "*Exp. month must 2 digits")
-            .required("*Expiration month is required"),
+            .min(2, "*Exp. month must have 2 digits")
+            .required("*Exp. month is required"),
         cvc: Yup.string()
             .matches(re, "*CVC must be a number")
             .min(3, "*CVC must have 3 digits")
@@ -77,11 +81,11 @@ const PaymentInfo: React.FunctionComponent<Props> = props => {
             {paymentMethod === 'Card' ? (
                 <Formik
                     validationSchema={validationSchema}
-                    onSubmit={(values, {setSubmitting}) => {
+                    onSubmit={(values, { setSubmitting }) => {
                         setSubmitting(true);
                         setTimeout(() => {    
                             props.validatedPaymentInfo(true);
-                            props.paymentInfo(values);
+                            props.paymentInfo({ ...values, method: 'Card' });
                             setSubmitting(false);
                             setValidated(true);
                         }, 1000);
@@ -103,8 +107,8 @@ const PaymentInfo: React.FunctionComponent<Props> = props => {
                         isValid,
                         isSubmitting
                     }) => (
-                        <Form noValidate onSubmit={(e) => { e.preventDefault(); handleSubmit(e)}} id={style.form}>
-                            <Row >
+                        <Form noValidate onSubmit={(e) => { e.preventDefault(); handleSubmit(e) }} id={style.form}>
+                            <Row>
                                 <Form.Group as={Col} controlId="validationCustom01">
                                     <FloatingLabel label="Cardholder Name">
                                         <Form.Control
@@ -123,7 +127,7 @@ const PaymentInfo: React.FunctionComponent<Props> = props => {
                                 </Form.Group>
                             </Row>
 
-                            <Row >
+                            <Row>
                                 <Form.Group as={Col} controlId="validationCustom02">
                                     <FloatingLabel label="Card Number">
                                         <Form.Control
@@ -143,7 +147,7 @@ const PaymentInfo: React.FunctionComponent<Props> = props => {
                                 </Form.Group>
                             </Row>
 
-                            <Row >
+                            <Row>
                                 <Form.Group as={Col} controlId="validationCustom03">
                                     <FloatingLabel label="Exp. day">
                                         <Form.Control
@@ -205,7 +209,7 @@ const PaymentInfo: React.FunctionComponent<Props> = props => {
                                 </Form.Group>
                             </Row>
 
-                            <Form.Control.Feedback type="valid" style={{ display: validated && isValid ? "block" : "none" }}>
+                            <Form.Control.Feedback type="valid" style={{ visibility: validated && isValid ? "visible" : "hidden" }}>
                                 Payment method set successfully.
                             </Form.Control.Feedback>
                             <Button type="submit" className={`${style.submit_button} button_complementary u-pb1`} disabled={isSubmitting}>

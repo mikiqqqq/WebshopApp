@@ -103,7 +103,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ form, handleResetForm, fetchP
     };
 
     return (
-        <div className={`animated_content`} data-animation="elementFromRight">
+        <div className={`${style.product_form_wrapper} animated_content`} data-animation="elementFromRight">
         <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit} enableReinitialize>
             {({ handleChange, setFieldValue, values, touched, errors, isSubmitting }) => (
                 <FormikForm className={`${style.product_form} form`} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>

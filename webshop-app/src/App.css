@@ -227,6 +227,21 @@ footer {
   }
 }
 
+.valid-feedback {
+  display: block !important;
+  color: #0BDA51 !important;
+  font-size: .75rem !important;
+}
+
+.discount_code {
+  position: relative;
+}
+
+.discount_code .valid-feedback {
+  position: absolute;
+  bottom: .5rem;
+}
+
 .form .invalid-feedback {
   font-size: .75rem;
   display: block;
@@ -247,7 +262,7 @@ footer {
 }
 
 .form.checkout .invalid-feedback {
-  margin-bottom: .25rem;
+  margin-bottom: .5rem;
 }
 
 .form input,

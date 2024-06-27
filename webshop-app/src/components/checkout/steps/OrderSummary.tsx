@@ -3,7 +3,7 @@ import { Form, Button, FloatingLabel, Alert } from 'react-bootstrap';
 import { DiscountCode } from '../../MainContainerData';
 import style from './OrderSummary.module.css';
 import DiscountCodeService from '../../../services/DiscountCodeService';
-import { Formik, Field, Form as FormikForm, ErrorMessage } from 'formik';
+import { Formik, Field, Form as FormikForm } from 'formik';
 import * as Yup from 'yup';
 
 interface Props {
@@ -38,6 +38,7 @@ const OrderSummary: React.FC<Props> = ({
     setShowAlert
 }) => {
     const [successDiscountMsg, setSuccessDiscountMsg] = useState('');
+    const [isDiscountApplied, setIsDiscountApplied] = useState(false); // Flag for discount application
     const alertRef = useRef<HTMLDivElement>(null);
 
     const validationSchema = Yup.object().shape({
@@ -58,20 +59,21 @@ const OrderSummary: React.FC<Props> = ({
         }
 
         setAppliedDiscountCode(discountCodeData);
-        setSuccessDiscountMsg('You successfully applied your discount code!');
+        setSuccessDiscountMsg('You successfully applied your discount!');
+        setIsDiscountApplied(true); // Set the flag to true
     };
 
     const handleClickOutside = useCallback((event: MouseEvent) => {
         if (alertRef.current && !alertRef.current.contains(event.target as Node)) {
-          setShowAlert(false);
+            setShowAlert(false);
         }
-    }, []);
+    }, [setShowAlert]);
 
     const handleFocusOutside = useCallback((event: FocusEvent) => {
         if (alertRef.current && !alertRef.current.contains(event.target as Node)) {
             setShowAlert(false);
         }
-    }, []);
+    }, [setShowAlert]);
 
     useEffect(() => {
         if (showAlert) {
@@ -93,7 +95,7 @@ const OrderSummary: React.FC<Props> = ({
             document.removeEventListener("mousedown", handleClickOutside);
             document.removeEventListener("focusin", handleFocusOutside);
         };
-    }, [showAlert, handleClickOutside]);
+    }, [showAlert, handleClickOutside, handleFocusOutside]);
 
     useEffect(() => {
         if (appliedDiscountCode) {
@@ -128,21 +130,23 @@ const OrderSummary: React.FC<Props> = ({
                 validateOnBlur={false}
                 validateOnChange={false}
                 onSubmit={async (values, { setSubmitting, setErrors, setTouched }) => {
-                    setSubmitting(true);
-                    setTouched({ discountCode: true }); // Manually set touched on submit
-                    try {
-                        await checkDiscountCode(values.discountCode);
-                        setDiscountUsed(true);
-                    } catch (error) {
-                        setErrors({ discountCode: (error as Error).message });
-                    } finally {
-                        setSubmitting(false);
+                    if (!isDiscountApplied) { // Prevent further validation if discount is applied
+                        setSubmitting(true);
+                        setTouched({ discountCode: true }); // Manually set touched on submit
+                        try {
+                            await checkDiscountCode(values.discountCode);
+                            setDiscountUsed(true);
+                        } catch (error) {
+                            setErrors({ discountCode: (error as Error).message });
+                        } finally {
+                            setSubmitting(false);
+                        }
                     }
                 }}
             >
                 {({ isSubmitting, errors, touched, handleSubmit }) => (
                     <FormikForm placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
-                        <div className={`${style.discount_form}`}>
+                        <div className={`${style.discount_form} discount_code`}>
                             <Form.Group controlId="discountCode">
                                 <FloatingLabel label="Discount code">
                                     <Field
@@ -150,16 +154,22 @@ const OrderSummary: React.FC<Props> = ({
                                         name="discountCode"
                                         placeholder="Discount Code"
                                         className={`form-control ${touched.discountCode && errors.discountCode ? 'is-invalid' : ''}`}
+                                        disabled={isDiscountApplied} // Disable field if discount is applied
                                     />
                                     <Form.Control.Feedback type="invalid" style={{ visibility: errors.discountCode && touched.discountCode ? "visible" : "hidden" }}>
                                         {errors.discountCode}
                                     </Form.Control.Feedback>
                                 </FloatingLabel>
                             </Form.Group>
+                            {successDiscountMsg && (
+                                <div className="valid-feedback" style={{ display: 'block' }}>
+                                    {successDiscountMsg}
+                                </div>
+                            )}
                             <Button 
                                 className={`${style.check_discount_button} button_complementary u-pb1`} 
                                 type="submit" 
-                                disabled={isSubmitting}
+                                disabled={isSubmitting || isDiscountApplied} // Disable button if discount is applied
                             >
                                 Apply
                             </Button>       
@@ -167,11 +177,6 @@ const OrderSummary: React.FC<Props> = ({
                     </FormikForm>
                 )}
             </Formik>
-            {successDiscountMsg && (
-                <div className="valid-feedback" style={{ display: 'block' }}>
-                    {successDiscountMsg}
-                </div>
-            )}
 
             <div className={style.p_container}>
                 <span className={`${style.total_price} u-h2`}>TOTAL</span> <span className={`${style.total_price} u-h2`}><small id={style.small}>(EUR) </small>€ {totalPriceState.toFixed(2)}</span>

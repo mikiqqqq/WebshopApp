@@ -13,12 +13,12 @@ class OrderService {
         return axios.post(ORDER_API_BASE_URL + '/create', {});
     }
 
-    fetchActiveOrders() {
-        return axios.get(ORDER_API_BASE_URL + '/active');
+    fetchActiveOrders(email: string) {
+        return axios.get(ORDER_API_BASE_URL + '/active/' + email);
     }
 
-    fetchCompletedOrders() {
-        return axios.get(ORDER_API_BASE_URL + '/completed');
+    fetchCompletedOrders(email: string) {
+        return axios.get(ORDER_API_BASE_URL + '/completed/' + email);
     }
 
     updateOrder(updatedOrder: OrderUpdate){
@@ -29,6 +29,7 @@ class OrderService {
             total: updatedOrder.total,
             discountCodeId: updatedOrder.discountCodeId,
             paymentMethod: updatedOrder.paymentMethod,
+            status: updatedOrder.status,
             creditCardNumber: updatedOrder?.creditCardNumber,
             email: updatedOrder.email,
             phoneNumber: updatedOrder.phoneNumber,

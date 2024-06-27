@@ -105,28 +105,34 @@ const Checkout: React.FunctionComponent = () => {
         if (allFormsValidated) {
             const updatedOrder: OrderUpdate = {
                 id: activeOrder,
-                date: new Date().toLocaleDateString('hr-HR'),
+                date: new Date().toLocaleString('hr-HR'),
                 priceWithNoPdvIncluded: subtotal,
                 total: totalPriceState,
                 discountCodeId: appliedDiscountCode?.id,
-                paymentMethod: 1,
+                paymentMethod: paymentInfo.method === 'Card' ? 1 : 2,
                 creditCardNumber: paymentInfo.cardNumber,
                 email: shippingInfo.email,
                 phoneNumber: shippingInfo.mobile,
+                status: getRandomStatus(),
                 deliveryAddress: `${shippingInfo.street} ${shippingInfo.unit} ${shippingInfo.country}, ${shippingInfo.region}, ${shippingInfo.city} ${shippingInfo.postalCode}`,
-                note: 'fwefwefewf',
+                note: '',
             };
             OrderService.updateOrder(updatedOrder).then(() => {
                 setOrderUpdated(true);
+                localStorage.setItem('activeOrder', '0');
             });
         }
     }, [allFormsValidated]);
+
+    const getRandomStatus = () => {
+        return Math.random() > 0.5 ? 'IN_PROGRESS' : 'COMPLETED';
+      };      
 
     useEffect(() => {
         if (orderUpdated) {
             const timeoutId = setTimeout(() => {
                 setOrderUpdated(false);
-                navigate('/tech');
+                navigate('/');
             }, 15000);
             return () => clearTimeout(timeoutId);
         }
@@ -137,15 +143,17 @@ const Checkout: React.FunctionComponent = () => {
             {orderUpdated ? (
                 <>
                     <div className={style.order_successful}>
-                        <h2>Thank you for ordering!</h2>
-                        <p>Estimated delivery time to your address is between &nbsp;
-                            {new Date(new Date().setDate(new Date().getDate() + 15)).toLocaleDateString('hr-HR')}
-                            &nbsp; and &nbsp;
-                            {new Date(new Date().setDate(new Date().getDate() + 18)).toLocaleDateString('hr-HR')}
-                        </p>
+                        <div className={`${style.order_estimate} animated_content`} data-animation="elementFromBottom">
+                            <div className="u-h1">Thank you for ordering!</div>
+                            <p className="u-p2">Estimated delivery time to your address is between &nbsp;
+                                {new Date(new Date().setDate(new Date().getDate() + 15)).toLocaleDateString('hr-HR')}
+                                &nbsp; and &nbsp;
+                                {new Date(new Date().setDate(new Date().getDate() + 18)).toLocaleDateString('hr-HR')}
+                            </p>
+                        </div>
+                        <p className={`${style.redirect} u-s1 animated_content`} data-animation="elementFromBottom">You will be redirected to the main page shortly.</p>
+                        <FontAwesomeIcon className={`${style.icon_truck} animated_content`} icon={faTruckFast} data-animation="elementScaleIn"/>
                     </div>
-                    <p className={style.redirect}>You will be redirected to the main page shortly.</p>
-                    <FontAwesomeIcon className={style.icon_truck} icon={faTruckFast} />
                 </>
             ) : (
                 <div className={style.main_container}>

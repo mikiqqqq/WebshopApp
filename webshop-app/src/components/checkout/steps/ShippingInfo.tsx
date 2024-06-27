@@ -15,7 +15,7 @@ const ShippingInfo: React.FunctionComponent<Props> = props => {
     useEffect(() => {
         const timeoutID = setTimeout(() => {
             setValidated(false);
-        }, 2000);
+        }, 5000);
         return () => clearTimeout(timeoutID);
     }, [validated]);
 
@@ -287,7 +287,7 @@ const ShippingInfo: React.FunctionComponent<Props> = props => {
                                 </Form.Group>
                             </Row>
     
-                            <Form.Control.Feedback type="valid" style={{ display: validated && isValid ? "block" : "none" }}>
+                            <Form.Control.Feedback type="valid" style={{ visibility: validated && isValid ? "visible" : "hidden" }}>
                                 Shipping information updated successfully.
                             </Form.Control.Feedback>
                             <Button type="submit" className={`${style.submit_button} button_complementary u-pb1`} disabled={isSubmitting}>
