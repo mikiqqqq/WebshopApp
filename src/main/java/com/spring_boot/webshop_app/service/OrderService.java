@@ -7,8 +7,8 @@ import java.util.List;
 public interface OrderService {
     Order fetchOrderById (Integer id);
     Integer save (Order order);
-    List<Order> fetchActiveOrders ();
-    List<Order> fetchCompletedOrders ();
+    List<Order> fetchActiveOrders (String email);
+    List<Order> fetchCompletedOrders (String email);
     void update (Integer id, Order updatedOrder);
     void delete (Integer id);
 }

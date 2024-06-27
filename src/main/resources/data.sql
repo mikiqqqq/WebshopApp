@@ -13,7 +13,7 @@ CREATE TABLE PRODUCT_TYPE
 CREATE TABLE PRODUCT
 (
     ID              NUMBER(11) PRIMARY KEY AUTO_INCREMENT,
-    IMAGE           BLOB,
+    IMAGE           VARCHAR(255),
     TITLE           VARCHAR(41),
     DESCRIPTION     VARCHAR(255),
     PRICE           DECIMAL(11, 2),
@@ -59,7 +59,7 @@ CREATE TABLE ORDERS
 (
     ID                    NUMBER(11) PRIMARY KEY AUTO_INCREMENT,
     STATUS                VARCHAR(40),
-    DATE                  DATETIME,
+    DATE                  TIMESTAMP,
     TOTAL_PRICE_EXCL_VAT  DECIMAL(11, 2),
     TOTAL_PRICE           DECIMAL(11, 2),
     DISCOUNT_CODE_ID      NUMBER,
@@ -87,25 +87,25 @@ INSERT INTO BRAND (TITLE) VALUES ('Asus'), ('Razer'), ('Samsung'), ('Apple'), ('
 
 INSERT INTO PRODUCT_TYPE (TITLE) VALUES ('Desktop'), ('Laptop'), ('Peripherals');
 
-INSERT INTO PRODUCT (TITLE, DESCRIPTION, BRAND_ID, PRICE, QUANTITY)
+INSERT INTO PRODUCT (TITLE, DESCRIPTION, BRAND_ID, PRICE, QUANTITY, TYPE_ID, PRODUCTION_YEAR)
 VALUES
-    ('Speedlink Mouse S50', 'Specifications for Speedlink Mouse S50', 7, 250.00, 10),
-    ('Razer Mouse T350', 'Specifications for Razer Mouse T350', 2, 360.00, 10),
-    ('PC Fenix Ultima R9-5950X', 'Specifications for PC Fenix Ultima R9-5950X, 64GB, 2TB M.2, RTX2060 8GB, PWS 1000W', 10, 23560.99, 10),
-    ('Lenovo ThinkStation Xeon W-2133', 'Specifications for Lenovo ThinkStation Xeon W-2133/64GB/512GB/Quadro P4000/W10P', 11, 2350.96, 10),
-    ('Lenovo V50t Gen2','Specifications for Lenovo V50t Gen2 i3/8GB/256GB/IntHD/W10P/5 years', 11, 5665.29, 10),
-    ('Lenovo M70s SFF G6400','Specifications for Lenovo M70s SFF G6400/4GB/256GB/IntHD/W10P', 11, 4758.84, 10),
-    ('iPhone SE', 'Specifications for iPhone SE', 4, 8459.29, 10),
-    ('MacBook Air', 'Specifications for MacBook Air', 4, 11239.59, 10),
-    ('iPad Pro','Specifications for iPad Pro', 4, 3480, 10),
-    ('Vivax LED TV-49S60T2S2SM', 'New Smart TV with Android 7.1 allows internet connectivity or social media, all on a large screen.', 12, 2359.29, 10),
-    ('Vivax IMAGO LED TV-32LE95T2', 'Ergonomically designed TV with legs instead of a classic stand, adding to its overall elegance.', 12, 3380.79, 10),
-    ('Xiaomi 11 Lite 5G NE', 'Specifications for Xiaomi 11 Lite 5G NE', 5, 6679.59, 10),
-    ('Noa Element Mobile', 'Specifications for Noa Element Mobile', 8, 899.49, 10),
-    ('LOGITECH H820E HEADSET', 'Wireless headset for business calls', 9, 349.89, 10),
-    ('Galaxy Z Fold3 5G', 'Specifications for Galaxy Z Fold3 5G', 3, 8129.00, 10),
-    ('LG 75" (189 cm) 4K HDR Smart Nano Cell TV', 'Pure Colors in Real 4K resolution, NanoCell technology, 4K processor LG α5 Gen5 AI', 6, 5579.29, 10),
-    ('16" ProArt Studiobook Pro 16 OLED', 'Windows 11 Pro, Intel® Core™ i9-12900H processor, NVIDIA RTX™ A3000 12GB graphics', 1, 8888.88, 10);
+    ('Speedlink Mouse S50', 'Specifications for Speedlink Mouse S50', 7, 250.00, 101, 1, 2023),
+    ('Razer Mouse T350', 'Specifications for Razer Mouse T350', 2, 360.00, 10, 1, 2023),
+    ('PC Fenix Ultima R9-5950X', 'Specifications for PC Fenix Ultima R9-5950X, 64GB, 2TB M.2, RTX2060 8GB, PWS 1000W', 10, 23560.99, 10, 1, 2023),
+    ('Lenovo ThinkStation Xeon W-2133', 'Specifications for Lenovo ThinkStation Xeon W-2133/64GB/512GB/Quadro P4000/W10P', 11, 2350.96, 10, 1, 2023),
+    ('Lenovo V50t Gen2','Specifications for Lenovo V50t Gen2 i3/8GB/256GB/IntHD/W10P/5 years', 11, 5665.29, 10, 1, 2023),
+    ('Lenovo M70s SFF G6400','Specifications for Lenovo M70s SFF G6400/4GB/256GB/IntHD/W10P', 11, 4758.84, 10, 1, 2023),
+    ('iPhone SE', 'Specifications for iPhone SE', 4, 8459.29, 10, 1, 2023),
+    ('MacBook Air', 'Specifications for MacBook Air', 4, 11239.59, 10, 1, 2023),
+    ('iPad Pro','Specifications for iPad Pro', 4, 3480, 10, 1, 2023),
+    ('Vivax LED TV-49S60T2S2SM', 'New Smart TV with Android 7.1 allows internet connectivity or social media, all on a large screen.', 12, 2359.29, 10, 1, 2023),
+    ('Vivax IMAGO LED TV-32LE95T2', 'Ergonomically designed TV with legs instead of a classic stand, adding to its overall elegance.', 12, 3380.79, 10, 1, 2023),
+    ('Xiaomi 11 Lite 5G NE', 'Specifications for Xiaomi 11 Lite 5G NE', 5, 6679.59, 10, 1, 2023),
+    ('Noa Element Mobile', 'Specifications for Noa Element Mobile', 8, 899.49, 10, 1, 2023),
+    ('LOGITECH H820E HEADSET', 'Wireless headset for business calls', 9, 349.89, 10, 1, 2023),
+    ('Galaxy Z Fold3 5G', 'Specifications for Galaxy Z Fold3 5G', 3, 8129.00, 10, 1, 2023),
+    ('LG 75" (189 cm) 4K HDR Smart Nano Cell TV', 'Pure Colors in Real 4K resolution, NanoCell technology, 4K processor LG α5 Gen5 AI', 6, 5579.29, 10, 1, 2023),
+    ('16" ProArt Studiobook Pro 16 OLED', 'Windows 11 Pro, Intel® Core™ i9-12900H processor, NVIDIA RTX™ A3000 12GB graphics', 1, 8888.88, 10, 1, 2023);
 
 INSERT INTO PAYMENT_METHOD (TITLE) VALUES ('CARD'), ('CASH');
 

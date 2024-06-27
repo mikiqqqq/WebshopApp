@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 @Builder
 public class ItemDto {
     private Integer id;
-    private byte[] image;
+    private String image;
     private String title;
     private String description;
     private BigDecimal price;
