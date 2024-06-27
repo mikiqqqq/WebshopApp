@@ -2,7 +2,7 @@ import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
 import { ErrorResponse, ErrorResponse400, JwtPayload, UserRegisterForm, UserLoginForm } from '../components/MainContainerData';
 
-const USERS_API_BASE_URL = "http://localhost:8080/api/user";
+const USERS_API_BASE_URL = "https://tech-giant-rest.azurewebsites.net/api/user";
 
 class UserService {
     async login(userForm: UserLoginForm) {

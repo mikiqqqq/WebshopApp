@@ -38,10 +38,19 @@ const AnnouncementBar: React.FC = () => {
     return () => clearInterval(intervalID);
   }, []);
 
-  if (error || !discountCode) return null;
+  if (error || !discountCode) {
+    document.documentElement.style.setProperty('--ann-bar-height', '0px');
+    return null;
+  } else {
+    if(window.innerWidth >= 1025) {
+        document.documentElement.style.setProperty('--ann-bar-height', '39.8px');
+    } else {
+        document.documentElement.style.setProperty('--ann-bar-height', '32.8px');
+    }
+  }
 
   return (
-    <div className={style.discount_banner} style={{ backgroundColor: headerColor }}>
+    <div className={`${style.discount_banner} announcement_bar`} style={{ backgroundColor: headerColor }}>
       <div className={`${style.discount_code} u-h3 not_mobile`}>SUMMER SALE: {discountCode} for 25% OFF</div>
       <div className={`${style.discount_code} u-h3 not_pocket not_desktop`}>{discountCode} for 25% OFF</div>
     </div>

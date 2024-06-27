@@ -61,7 +61,6 @@ export const enableScrollLock = (): void => {
         if(scrollBarPlaceholder) {
             (scrollBarPlaceholder as HTMLElement).style.width = getScrollbarWidth() + "px";
         }          
-        console.log(document.body.offsetHeight, window.innerHeight)
     } else {
         document.body.style.paddingRight = "0";
         document.body.classList.remove('no_scroll_lock');

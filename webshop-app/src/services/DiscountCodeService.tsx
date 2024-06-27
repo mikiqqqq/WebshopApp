@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const DISCOUNT_CODE_API_BASE_URL = "http://localhost:8080/api/discount-code";
+const DISCOUNT_CODE_API_BASE_URL = "https://tech-giant-rest.azurewebsites.net/api/discount-code";
 
 class DiscountCodeService {
 

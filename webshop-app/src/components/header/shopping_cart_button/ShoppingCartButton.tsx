@@ -114,21 +114,21 @@ const ShoppingCartButton: React.FunctionComponent = () => {
         key='bottom'
         delay={{ show: 300, hide: 500 }}
         overlay={
-          <Popover id={style.popover} className={activeOrder !== 0 ? style.active : ''} onMouseEnter={handleOnMouseEnter} onMouseLeave={handleOnMouseLeave}>
+          <Popover id={style.popover} className={activeOrder !== 0 && orderItems.length > 0 ? style.active : ''} onMouseEnter={handleOnMouseEnter} onMouseLeave={handleOnMouseLeave}>
 
             <Popover.Header className="u-h2" id={style.popover_header}>
-              Shopping cart{ activeOrder !== 0 ? '' : ' is empty!' }
+              Shopping cart{ activeOrder !== 0 && orderItems.length > 0 ? '' : ' is empty!' }
             </Popover.Header>
 
             <Popover.Body id={style.popover_body}>
               <span className={`${style.add} u-p2`} style={{
-                display: activeOrder !== 0 ? 'none' : 'block'              
+                display: activeOrder !== 0 && orderItems.length > 0 ? 'none' : 'block'              
               }}>
                 Feel free to add some products.
               </span>
 
 
-              { activeOrder !== 0 &&
+              { activeOrder !== 0 && orderItems.length > 0 &&
               <div className={style.cart_item_container}>
               {orderItems?.map(item => (
                 <CartItem key={item.id} orderItem={item} />
@@ -136,7 +136,7 @@ const ShoppingCartButton: React.FunctionComponent = () => {
               </div>
               }
 
-              {activeOrder !== 0 &&
+              { activeOrder !== 0 && orderItems.length > 0 &&
               <div className={style.button_container}>
                 <div className={`${style.total_price}`}>
                   <p className='u-h2'>Total price: </p>

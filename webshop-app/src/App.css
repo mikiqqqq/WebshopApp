@@ -120,7 +120,20 @@ main {
   min-height: calc(100vh - var(--ann-bar-height) - var(--header-height) - var(--footer-height));
 }
 
+.announcement_bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 101;
+}
+
 header {
+  margin-top: var(--ann-bar-height);
   width: 100%;
   min-height: 45px;
   position: sticky;

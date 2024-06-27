@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { OrderUpdate } from '../components/MainContainerData';
 
-const ORDER_API_BASE_URL = "http://localhost:8080/api/order";
+const ORDER_API_BASE_URL = "https://tech-giant-rest.azurewebsites.net/api/order";
 
 class OrderService {
 

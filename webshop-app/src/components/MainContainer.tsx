@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Product } from "./MainContainerData";
 import style from "./MainContainer.module.css";
 import Items from "./item_container/Items";
@@ -15,14 +15,31 @@ interface MainContainerProps {
 const MainContainer: React.FC<MainContainerProps> = ({ items, error, onClearAll }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [inputValue, setInputValue] = useState('');
+  const [filteredItems, setFilteredItems] = useState<Product[]>(items);
+
+  useEffect(() => {
+    const searchQuery = searchParams.get('search');
+    if (searchQuery) {
+      const filtered = items.filter(item => 
+        item.title.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setFilteredItems(filtered);
+    } else {
+      setFilteredItems(items);
+    }
+  }, [searchParams, items]);
 
   const handleInputChange = (e: React.FormEvent<HTMLInputElement>) => {
     setInputValue((e.target as HTMLInputElement).value);
   };
 
+  const handleSearch = () => {
+    setSearchParams({ search: inputValue });
+  };
+
   const keyPressHandler = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.code === "Enter") {
-      setSearchParams({ search: inputValue });
+      handleSearch();
       event.preventDefault();
     }
   };
@@ -40,7 +57,7 @@ const MainContainer: React.FC<MainContainerProps> = ({ items, error, onClearAll 
         </div>
       )}
 
-      {!error && items.length === 0 && (
+      {!error && filteredItems.length === 0 && (
         <div className={style.no_items}>
           {searchParams.get('search') !== null ? (
             <div>
@@ -56,7 +73,7 @@ const MainContainer: React.FC<MainContainerProps> = ({ items, error, onClearAll 
                     onKeyDown={keyPressHandler}
                     onChange={handleInputChange}
                   />
-                  <button className={style.search_button} onClick={() => setSearchParams({ search: inputValue })}>
+                  <button className={style.search_button} onClick={handleSearch}>
                     <FontAwesomeIcon className={style.icon} icon={faMagnifyingGlass} />
                   </button>
                 </div>
@@ -85,7 +102,7 @@ const MainContainer: React.FC<MainContainerProps> = ({ items, error, onClearAll 
         </div>
       )}
 
-      {!error && items.length > 0 && <Items data={items} />}
+      {!error && filteredItems.length > 0 && <Items data={filteredItems} />}
     </main>
   );
 };

@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { OrderItemType, Product } from '../components/MainContainerData';
+import { OrderItemType } from '../components/MainContainerData';
 
-const ORDER_ITEM_API_BASE_URL = "http://localhost:8080/api/order-item";
+const ORDER_ITEM_API_BASE_URL = "https://tech-giant-rest.azurewebsites.net/api/order-item";
 
 class OrderItemService {
 

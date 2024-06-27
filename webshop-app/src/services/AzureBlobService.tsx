@@ -1,6 +1,6 @@
 import { BlobServiceClient } from '@azure/storage-blob';
+import { DefaultAzureCredential } from '@azure/identity';
 
-const sasToken = ""; // This should be securely managed
 const containerName = "product-images";
 const storageAccountName = "techgiant";
 
@@ -9,8 +9,10 @@ class AzureBlobService {
     private containerClient: ReturnType<BlobServiceClient['getContainerClient']>;
 
     constructor() {
+        const credential = new DefaultAzureCredential();
         this.blobServiceClient = new BlobServiceClient(
-            `https://${storageAccountName}.blob.core.windows.net?${sasToken}`
+            `https://${storageAccountName}.blob.core.windows.net`,
+            credential
         );
         this.containerClient = this.blobServiceClient.getContainerClient(containerName);
     }

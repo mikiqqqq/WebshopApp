@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { FilterOptions, Product } from "../components/MainContainerData";
 
-const ITEMS_API_BASE_URL = "http://localhost:8080/api/items";
+const ITEMS_API_BASE_URL = "https://tech-giant-rest.azurewebsites.net/api/items";
 
 class ItemService {
     addItem(product: Product) {
