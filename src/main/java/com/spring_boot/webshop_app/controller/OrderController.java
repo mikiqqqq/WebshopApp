@@ -29,20 +29,20 @@ public class OrderController {
         this.orderFormMapper = orderFormMapper;
     }
 
-    @GetMapping(value = "/active")
-    ResponseEntity<List<Order>> fetchActiveOrders() {
+    @GetMapping(value = "/active/{email}")
+    ResponseEntity<List<Order>> fetchActiveOrders(@PathVariable String email) {
 
         return ResponseEntity
                 .ok()
-                .body(orderService.fetchActiveOrders());
+                .body(orderService.fetchActiveOrders(email));
     }
 
-    @GetMapping(value = "/completed")
-    ResponseEntity<List<Order>> fetchCompletedOrders() {
+    @GetMapping(value = "/completed/{email}")
+    ResponseEntity<List<Order>> fetchCompletedOrders(@PathVariable String email) {
 
         return ResponseEntity
                 .ok()
-                .body(orderService.fetchCompletedOrders());
+                .body(orderService.fetchCompletedOrders(email));
     }
 
     @GetMapping(value = "/fetch-order/{id}")

@@ -21,7 +21,7 @@ public class Item {
     private Integer id;
 
     @Column(name = "IMAGE")
-    private byte[] image;
+    private String image;
 
     @Column(name = "TITLE")
     private String title;

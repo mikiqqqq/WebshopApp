@@ -4,7 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.sql.Timestamp;
 
 @Getter
 @Setter
@@ -22,7 +22,7 @@ public class Order {
     private Integer id;
 
     @Column(name = "DATE")
-    private LocalDate date;
+    private Timestamp date;
 
     @Column(name = "TOTAL_PRICE_EXCL_VAT")
     private BigDecimal priceWithNoPdvIncluded;

@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.sql.Timestamp;
 
 @Getter
 @Setter
@@ -16,7 +16,7 @@ public class OrderForm {
     private Integer id;
 
     @JsonFormat(pattern = "dd. MM. yyyy.")
-    private LocalDate date;
+    private Timestamp date;
 
     private BigDecimal priceWithNoPdvIncluded;
     private BigDecimal total;

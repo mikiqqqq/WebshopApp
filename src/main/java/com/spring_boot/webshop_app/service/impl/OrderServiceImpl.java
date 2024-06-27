@@ -27,13 +27,13 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> fetchActiveOrders (){
-        return orderRepo.findOrderByStatus(OrderStatus.IN_PROGRESS.toString());
+    public List<Order> fetchActiveOrders (String email){
+        return orderRepo.findOrderByStatusAndEmail(OrderStatus.IN_PROGRESS.toString(), email);
     }
 
     @Override
-    public List<Order> fetchCompletedOrders (){
-        return orderRepo.findOrderByStatus(OrderStatus.COMPLETED.toString());
+    public List<Order> fetchCompletedOrders (String email){
+        return orderRepo.findOrderByStatusAndEmail(OrderStatus.COMPLETED.toString(), email);
     }
 
     @Override
